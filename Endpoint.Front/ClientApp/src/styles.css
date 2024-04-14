@@ -1,0 +1,92 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Provide sufficient contrast against white background */
+/*color set: https://colors.muz.li/palette/272643/ffffff/e3f6f5/bae8e8/2c698d*/
+@font-face {
+  font-family: "iran-sans";
+  font-weight: normal;
+  font-style: normal;
+  src: url("assets/IRANSansWeb.woff") format("woff");
+}
+
+@font-face {
+  font-family: "iran-sans";
+  font-weight: bold;
+  font-style: normal;
+  src: url("assets/IRANSansWeb_Bold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "iran-sans";
+  font-weight: 300;
+  font-style: normal;
+  src: url("assets/IRANSansWeb_light.woff") format("woff");
+}
+
+@font-face {
+  font-family: "iran-sans";
+  font-weight: 500;
+  font-style: normal;
+  src: url("assets/IRANSansWeb_Medium.woff") format("woff");
+}
+
+@font-face {
+  font-family: "iran-sans";
+  font-weight: 900;
+  font-style: normal;
+  src: url("assets/IRANSansWeb_Black.woff") format("woff");
+}
+
+@font-face {
+  font-family: "iran-sans";
+  font-weight: 100;
+  font-style: normal;
+  src: url("assets/IRANSansWeb_UltraLight.woff") format("woff");
+}
+
+.rtl {
+  direction: rtl
+}
+
+a {
+  color: #0366d6;
+}
+
+body {
+  font-family: 'iran-sans';
+}
+
+
+.colorDarkest {
+  background-color: #2c698d;
+  color:white;
+}
+.colorDark {
+  background-color: #272643;
+  color: white;
+}
+.colorMedium {
+  background-color: #bae8e8;
+  color: #272643;
+}
+.colorLight {
+  background-color: #e3f6f5;
+  color: #272643;
+}
+a {
+  color: #0366d6;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+code {
+  color: #e01a76;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}

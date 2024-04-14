@@ -10,9 +10,9 @@ namespace Domain.Entities;
 public class AdminSectionAccess:BaseEntity<long>
 {
 	#region navigations
-	public int AdminSectionId { get; set; }
+	public long AdminSectionId { get; set; }
 	public AdminSection? AdminSection { get; set; }
-	public int UserId { get; set; }
+	public long UserId { get; set; }
 	public User? User { get; set; }
 	#endregion
 }

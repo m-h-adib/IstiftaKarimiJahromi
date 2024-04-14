@@ -1,0 +1,119 @@
+<!--<header>
+  <nav
+    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
+  >
+    <div class="container-fluid">
+      <a class="navbar-brand" [routerLink]="['/']">سامانه استفتائات</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target=".navbar-collapse"
+        aria-label="Toggle navigation"
+        [attr.aria-expanded]="isExpanded"
+        (click)="toggle()"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
+        [ngClass]="{ show: isExpanded }"
+      >
+        <ul class="navbar-nav flex-grow">
+          <li
+            class="nav-item"
+            [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+          </li>-->
+<!--<li class="nav-item" [routerLinkActive]="['link-active']">
+  <a class="nav-link text-dark" [routerLink]="['/counter']"
+    >Counter</a
+  >
+</li>-->
+<!--<li class="nav-item" [routerLinkActive]="['link-active']">
+  <a class="nav-link text-dark" [routerLink]="['/fetch-data']"
+    >Fetch data</a
+  >
+</li>-->
+<!--</ul>
+      </div>
+    </div>
+  </nav>
+</header>-->
+
+
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light colorDark border-bottom box-shadow mb-3" style="color:white">
+    <div class="container-fluid">
+      <img width="32" src="../../assets/agha.jpg" />
+      <a class="navbar-brand text-white" [routerLink]="['/']">سامانه استفتائات</a>
+      <span class="text-danger"> | </span>
+      <button class="navbar-toggler  bg-white"
+              type="button"
+              #toggleButton1
+              data-toggle="collapse"
+              data-target=".navbar-collapse"
+              aria-label="Toggle navigation"
+              [attr.aria-expanded]="isExpanded"
+              (click)="toggle()">
+        <span #toggleButton2 class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-start text-white"
+           [ngClass]="{ show: isExpanded }">
+        <ul class="navbar-nav flex-grow">
+          <!--<ng-container *ngFor="let a of Menus">
+            <li class="nav-item"
+                *ngIf="a.childs?.length==0"
+                [routerLinkActive]="['link-active']"
+                [routerLinkActiveOptions]="{ exact: true }">
+              <a class="nav-link text-white" [routerLink]="[a.link]" [queryParams]="a.queryParams!=null ? getrouterparams(a.queryParams.split(':')[0],a.queryParams.split(':')[1]) : undefined" (click)="collapse()">{{a.title}}</a>
+            </li>
+            <li class="nav-item dropdown" *ngIf="a.childs?.length!=0">
+              <a #toggleButton class="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false" (click)="toggle()">
+                {{a.title}}
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark border-black" [class.show]="isExpanded==true" #menu>
+                <li *ngFor="let b of a.childs" [routerLinkActive]="['link-active']">
+                  <a *ngIf="b.title!='-'" class="dropdown-item text-white hover-warning" [routerLink]="[b.link]"
+                     [queryParams]="b.queryParams!=null ? getrouterparams(b.queryParams.split(':')[0],b.queryParams.split(':')[1]) : undefined"
+                     (click)="toggle()">
+                    {{b.title}}
+                  </a>
+                  <hr *ngIf="b.title=='-'" class="dropdown-divider text-white bg-white">
+                </li>
+
+              </ul>
+            </li>
+
+          </ng-container>-->
+        </ul>
+
+      </div>
+      <button class="btn btn-danger float-end" (click)="showLogoutDialog()">خروج</button>
+    </div>
+  </nav>
+</header>
+
+
+<div class="modal fade {{showCloseDialog}}" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="showCloseDialog!='' ? 'block' : null" style="padding-left: 0px;">
+  <div class="modal-dialog model-sm">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h1 class="modal-title fs-5" id="exampleModalLiveLabel">پیام سیستم!</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="showLogoutDialog()"></button>
+      </div>
+      <div class="modal-body">
+        <p>خارج می شودید؟</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="showLogoutDialog()">انصراف</button>
+        <button type="button" class="btn btn-danger" (click)="logout()">بله</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="showCloseDialog!=''" class="modal-backdrop fade show"></div>
