@@ -22,11 +22,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\loginService.ts" />
     <None Remove="ClientApp\src\app\login\login.component.ts" />
+    <None Remove="ClientApp\src\app\_models\loginRequestModel.ts" />
+    <None Remove="ClientApp\src\app\_models\loginResponseModel.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\_services\identity\loginService.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\login\login.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_models\login\loginRequestModel.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_models\login\loginResponseModel.ts" />
   </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

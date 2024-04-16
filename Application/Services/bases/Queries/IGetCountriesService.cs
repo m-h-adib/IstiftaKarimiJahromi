@@ -28,7 +28,6 @@ public class GetCountriesService: IGetCountriesService
     public async Task<ResultDto<List<GetCountryDto>>> ExecuteAsync()
 	{
 
-
 		var items = await _context.Countries.Where(p => p.IsActive && !p.IsRemoved).Select(p => new GetCountryDto
 		{
 			Id=p.Id,

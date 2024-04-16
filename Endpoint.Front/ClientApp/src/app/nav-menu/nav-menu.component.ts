@@ -1,6 +1,9 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { StoreService } from '../StoreService';
 import { Router } from '@angular/router';
+import { GetAccessService } from '../_services/identity/getAccessService';
+import { GetMenuAccessService } from '../_services/identity/getMenuAccessService';
+import { GetMenuAccessDto } from '../_models/login/GetMenuAccessDto';
 
 @Component({
   selector: 'app-nav-menu',
@@ -9,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class NavMenuComponent implements OnInit {
   isExpanded: boolean = false;
-  //Menus: GetMenuAccessDto[] = [];
+  Menus: GetMenuAccessDto[] = [];
   showCloseDialog: string = "";
   @ViewChild('toggleButton') toggleButton: ElementRef | undefined;
   @ViewChild('toggleButton1') toggleButton1: ElementRef | undefined;
@@ -18,6 +21,8 @@ export class NavMenuComponent implements OnInit {
 
   constructor(private renderer: Renderer2,
     private _store: StoreService,
+    private _getAccessService: GetAccessService,
+    private _getMenuAccessService: GetMenuAccessService,
     private router: Router) {
     this.renderer.listen('window', 'click', (e: Event) => {
       /**
@@ -35,13 +40,13 @@ export class NavMenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this._getMenuAccessService.GetMenuAccess().subscribe(p => {
-    //  this.Menus = p.data;
-    //})
+    this._getMenuAccessService.GetMenuAccess().subscribe(p => {
+      this.Menus = p.data;
+    })
 
-    //this._getAccessService.GetMenuAccess().subscribe(p => {
-    //  localStorage.setItem('access', JSON.stringify(p.data));
-    //})
+    this._getAccessService.GetMenuAccess().subscribe(p => {
+      localStorage.setItem('access', JSON.stringify(p.data));
+    })
   }
 
   collapse() {

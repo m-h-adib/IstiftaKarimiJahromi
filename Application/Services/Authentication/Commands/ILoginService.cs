@@ -37,11 +37,15 @@ public class LoginService : ILoginService
     {
         var item = await _context.Users.FirstOrDefaultAsync(p => p.Username == loginDto.username);
 
+        if (item == null)
+        {
+            return ResultDto<LoginResponseDto>.Failed("نام کاربری وجود ندارد", 404);
+        }
 
         PasswordHasher hasher = new PasswordHasher();
         if(hasher.VerifyHashedPassword(item.Password, loginDto.password) == Microsoft.AspNet.Identity.PasswordVerificationResult.Failed)
         {
-            return ResultDto<LoginResponseDto>.Failed("رمز عبور اشتباه می باشد", 403);
+            return ResultDto<LoginResponseDto>.Failed("رمز عبور اشتباه می باشد", 404);
         }
 
         #region claims

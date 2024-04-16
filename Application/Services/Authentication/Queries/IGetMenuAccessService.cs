@@ -14,7 +14,7 @@ namespace Application.Services.Authentication.Queries;
 
 public interface IGetMenuAccessService
 {
-	Task<ResultDto<List<GetMenuAccessDto>>> ExecuteAsync(int role);
+	Task<ResultDto<List<GetMenuAccessDto>>> ExecuteAsync();
 }
 
 public class GetMenuAccessService : IGetMenuAccessService
@@ -35,13 +35,13 @@ public class GetMenuAccessService : IGetMenuAccessService
 	}
 	#endregion
 
-	public async Task<ResultDto<List<GetMenuAccessDto>>> ExecuteAsync(int role)
+	public async Task<ResultDto<List<GetMenuAccessDto>>> ExecuteAsync()
 	{
 		var userid = _tokenContents.GetUserId(_httpContextAccessor.HttpContext!.User);
 
-		var access = await _context.AdminSectionAccesses.Where(p => p.UserId == userid && !p.IsRemoved && p.IsActive && p.AdminSection!.Role == (RoleType)role).Select(p => p.AdminSectionId).ToListAsync();
+		var access = await _context.AdminSectionAccesses.Where(p => p.UserId == userid && !p.IsRemoved && p.IsActive).Select(p => p.AdminSectionId).ToListAsync();
 
-		var res = await _context.AdminSections.Where(p => p.ParentId == null && (access.Contains(p.Id) && p.ShowInMenu==true || (p.IsPublic == true && p.ShowInMenu==true)) && p.Role==(RoleType)role).OrderBy(p => p.Order)
+		var res = await _context.AdminSections.Where(p => p.ParentId == null && (access.Contains(p.Id) && p.ShowInMenu==true || (p.IsPublic == true && p.ShowInMenu==true))).OrderBy(p => p.Order)
 			.Select(p => new GetMenuAccessDto
 			{
 				Id = p.Id,

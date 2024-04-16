@@ -15,7 +15,7 @@ namespace Application.Services.Authentication.Queries;
 
 public interface IGetAccessService
 {
-	Task<ResultDto<List<long>>> ExecuteAsync(int role);
+	Task<ResultDto<List<long>>> ExecuteAsync();
 }
 
 public class GetAccessService: IGetAccessService
@@ -36,11 +36,11 @@ public class GetAccessService: IGetAccessService
 	}
 	#endregion
 
-	public async Task<ResultDto<List<long>>> ExecuteAsync(int role)
+	public async Task<ResultDto<List<long>>> ExecuteAsync()
 	{
 		var userid = _tokenContents.GetUserId(_httpContextAccessor.HttpContext!.User);
 
-		var access = await _context.AdminSectionAccesses.Where(p => p.UserId == userid && p.AdminSection!.Role==(RoleType)role && !p.IsRemoved && p.IsActive).Select(p => p.AdminSectionId).ToListAsync();
+		var access = await _context.AdminSectionAccesses.Where(p => p.UserId == userid && !p.IsRemoved && p.IsActive).Select(p => p.AdminSectionId).ToListAsync();
 
 		return ResultDto<List<long>>.Succeeded("ok", access);
 	}

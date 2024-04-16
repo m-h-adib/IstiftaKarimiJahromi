@@ -2,6 +2,7 @@
 using Domain.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,9 +19,11 @@ public class QuestionCycle:BaseEntity<long>
 
     #region navigations
     public long? FromUserId { get; set; }
-    public User? FromUser { get; set; }
-    public long? ToUserId { get; set; }
-    public User? ToUser { get; set; }
+	[NotMapped]
+	public User? FromUser { get; set; }
+	public long? ToUserId { get; set; }
+	[NotMapped]
+	public User? ToUser { get; set; }
     public ICollection<Proccess>? Proccesses { get; set; }
     public ICollection<Research>? Researches { get; set; }
     public ICollection<Editor>? Editors { get; set; }
