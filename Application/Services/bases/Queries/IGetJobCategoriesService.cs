@@ -29,7 +29,7 @@ public class GetJobCategoriesService : IGetJobCategoriesService
 	{
 
 
-		var items = await _context.JobCategories.Where(p => p.IsActive && !p.IsRemoved).Select(p => new GetJobCategoryDto
+		var items = await _context.JobCategories.Where(p => p.IsActive && !p.IsRemoved).OrderBy(p=>p.Order).Select(p => new GetJobCategoryDto
 		{
 			Id=p.Id,
 			Name=p.Title,

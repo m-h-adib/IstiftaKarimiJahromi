@@ -13,47 +13,51 @@ using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Application.Services.Person.Commands;
+using Application.Services.User.Commands;
+using Application.AdminServices.User.Queries;
+using Application.Services.bases.Commands;
 
 namespace EndPoint.Api.Configurations
 {
-    public static class ServicesConfiguration
-    {
-        public static void Config(this IServiceCollection services, IConfiguration configuration)
-        {
-            #region database
+	public static class ServicesConfiguration
+	{
+		public static void Config(this IServiceCollection services, IConfiguration configuration)
+		{
+			#region database
 
-            services.AddDbContext<DatabaseContext>
-                (options => options.UseSqlServer(configuration.GetConnectionString("sql")), ServiceLifetime.Scoped);
+			services.AddDbContext<DatabaseContext>
+				(options => options.UseSqlServer(configuration.GetConnectionString("sql")), ServiceLifetime.Scoped);
 
-            #endregion database
+			#endregion database
 
-            #region Authentication
+			#region Authentication
 
-            services.AddAuthentication(Options =>
-            {
-                Options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
-                Options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                Options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(configureOptions =>
-            {
-                configureOptions.TokenValidationParameters = new TokenValidationParameters()
-                {
-                    ValidIssuer = configuration["jwtConfig:issuer"],
-                    ValidAudience = configuration["jwtConfig:audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["jwtConfig:Key"])),
-                    ValidateIssuerSigningKey = true,
-                    ValidateLifetime = true,
-                };
-                configureOptions.SaveToken = true;
-                configureOptions.Events = new JwtBearerEvents
-                {
-                    //OnTokenValidated = context =>
-                    //{
-                    //    var tokenValidatorService = context.HttpContext.RequestServices.GetRequiredService<ITokenValidator>();
-                    //    return tokenValidatorService.ExecuteAsync(context);
-                    //}
-                };
-            });
+			services.AddAuthentication(Options =>
+			{
+				Options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+				Options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+				Options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+			}).AddJwtBearer(configureOptions =>
+			{
+				configureOptions.TokenValidationParameters = new TokenValidationParameters()
+				{
+					ValidIssuer = configuration["jwtConfig:issuer"],
+					ValidAudience = configuration["jwtConfig:audience"],
+					IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["jwtConfig:Key"])),
+					ValidateIssuerSigningKey = true,
+					ValidateLifetime = true,
+				};
+				configureOptions.SaveToken = true;
+				configureOptions.Events = new JwtBearerEvents
+				{
+					//OnTokenValidated = context =>
+					//{
+					//    var tokenValidatorService = context.HttpContext.RequestServices.GetRequiredService<ITokenValidator>();
+					//    return tokenValidatorService.ExecuteAsync(context);
+					//}
+				};
+			});
 
 			#endregion Authentication
 
@@ -123,10 +127,25 @@ namespace EndPoint.Api.Configurations
 			//});
 			services.AddScoped<IDatabaseContext, DatabaseContext>();
 			services.AddScoped<IGetProvincesService, GetProvincesService>();
-            services.AddScoped<IGetCountriesService, GetCountriesService>();
-            services.AddScoped<IGetJobCategoriesService, GetJobCategoriesService>();
-            services.AddScoped<IGetLanguagesService, GetLanguagesService>();
-            services.AddScoped<IGetMethodOfRecieveQuestionsService, GetMethodOfRecieveQuestionsService>();
+			services.AddScoped<IGetCountriesService, GetCountriesService>();
+			services.AddScoped<IGetJobCategoriesService, GetJobCategoriesService>();
+			services.AddScoped<IGetLanguagesService, GetLanguagesService>();
+			services.AddScoped<IGetMethodOfRecieveQuestionsService, GetMethodOfRecieveQuestionsService>();
+			services.AddScoped<IAddCountryService,AddCountryService>();
+			services.AddScoped<IAddJobCategoryService,AddJobCategoryService>();
+			services.AddScoped<IAddLanguageService,AddLanguageService>();
+			services.AddScoped<IAddMethodOfReceiveQuestionService, AddMethodOfReceiveQuestionService>();
+			services.AddScoped<IAddProvinceService, AddProvinceService>();
+			services.AddScoped<IUpdateCountryService, UpdateCountryService>();
+			services.AddScoped<IUpdateJobCategoryService, UpdateJobCategoryService>();
+			services.AddScoped<IUpdateLanguageService, UpdateLanguageService>();
+			services.AddScoped<IUpdateMethodOfReceiveQuestionService, UpdateMethodOfReceiveQuestionService>();
+			services.AddScoped<IUpdateProvinceService, UpdateProvinceService>();
+			services.AddScoped<IDeleteCountryService, DeleteCountryService>();
+			services.AddScoped<IDeleteJobCategoryService, DeleteJobCategoryService>();
+			services.AddScoped<IDeleteLanguageService, DeleteLanguageService>();
+			services.AddScoped<IDeleteMethodOfReceiveQuestionService , DeleteMethodOfReceiveQuestionService>();
+			services.AddScoped<IDeleteProvinceService , DeleteProvinceService>();
 			#endregion
 
 			#region authentications
@@ -138,6 +157,14 @@ namespace EndPoint.Api.Configurations
 			services.AddScoped<IGetOneAccessService, GetOneAccessService>();
 			#endregion
 
+			#region users
+			services.AddScoped<IAddUserService, AddUserService>();
+			services.AddScoped<IDeleteUserService, DeleteUserService>();
+			services.AddScoped<IUpdateUserAccessService, UpdateUserAccessService>();
+			services.AddScoped<IGetUsersService, GetUsersService>();
+			services.AddScoped<IGetUserAccessService, GetUserAccessService>();
+			#endregion
+
 			#endregion services
 
 			#region automapper
@@ -147,93 +174,93 @@ namespace EndPoint.Api.Configurations
 			#region defaults
 
 			var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-            services.AddCors(options =>
-            {
+			services.AddCors(options =>
+			{
 
-                options.AddPolicy(name: MyAllowSpecificOrigins,
-                                  builder =>
-                                  {
-                                      builder.SetIsOriginAllowed(s => s.Contains("form.amoozeshbeseh.ir") || s.Contains("localhost") );
-                                      //builder.AllowAnyOrigin();
-                                      //builder.WithOrigins("http://form.amoozeshbeseh.ir");
-                                      builder.AllowAnyHeader();
-                                      builder.AllowAnyMethod();
-                                      builder.AllowCredentials();
-                                      //builder.AllowAnyOrigin();
-                                      //builder.WithExposedHeaders("*");
-                                  });
-            });
+				options.AddPolicy(name: MyAllowSpecificOrigins,
+								  builder =>
+								  {
+									  builder.SetIsOriginAllowed(s => s.Contains("form.amoozeshbeseh.ir") || s.Contains("localhost"));
+									  //builder.AllowAnyOrigin();
+									  //builder.WithOrigins("http://form.amoozeshbeseh.ir");
+									  builder.AllowAnyHeader();
+									  builder.AllowAnyMethod();
+									  builder.AllowCredentials();
+									  //builder.AllowAnyOrigin();
+									  //builder.WithExposedHeaders("*");
+								  });
+			});
 
 
 
-            services.AddControllers().AddFluentValidation(fv =>
-            {
-                fv.DisableDataAnnotationsValidation = true;
-            });
+			services.AddControllers().AddFluentValidation(fv =>
+			{
+				fv.DisableDataAnnotationsValidation = true;
+			});
 
-            //.AddDataAnnotationsLocalization(options =>
-            //{
-            //    options.DataAnnotationLocalizerProvider = (type, factory) =>
-            //    {
-            //        var assemblyName = new AssemblyName(typeof(SharedResource).GetTypeInfo().Assembly.FullName);
-            //        var localizer = factory.Create("SharedResource", assemblyName.Name);
-            //        Localizer.CustomLocalizer = localizer;
-            //        return localizer;
-            //    };
-            //});
-            services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
+			//.AddDataAnnotationsLocalization(options =>
+			//{
+			//    options.DataAnnotationLocalizerProvider = (type, factory) =>
+			//    {
+			//        var assemblyName = new AssemblyName(typeof(SharedResource).GetTypeInfo().Assembly.FullName);
+			//        var localizer = factory.Create("SharedResource", assemblyName.Name);
+			//        Localizer.CustomLocalizer = localizer;
+			//        return localizer;
+			//    };
+			//});
+			services.AddEndpointsApiExplorer();
+			services.AddSwaggerGen();
 
-            #endregion defaults
+			#endregion defaults
 
-            #region Swagger
+			#region Swagger
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = "Istifta",
-                    Version = "v1",
-                    Contact = new OpenApiContact
-                    {
-                        Email = "m.h.adib1368@gmail.com",
-                        Name = "M-h-adib"
-                    }
-                });
+			services.AddSwaggerGen(c =>
+			{
+				c.SwaggerDoc("v1", new OpenApiInfo
+				{
+					Title = "Istifta",
+					Version = "v1",
+					Contact = new OpenApiContact
+					{
+						Email = "m.h.adib1368@gmail.com",
+						Name = "M-h-adib"
+					}
+				});
 
-                //c.OrderActionsBy(a => a.ParameterDescriptions.Count.ToString());
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
-                {
-                    Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer",
-                    BearerFormat = "JWT",
-                    In = ParameterLocation.Header,
-                    Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\r\n\r\nExample: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\"",
-                });
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
-            {
-                    {
-                          new OpenApiSecurityScheme
-                            {
-                                Reference = new OpenApiReference
-                                {
-                                    Type = ReferenceType.SecurityScheme,
-                                    Id = "Bearer"
-                                }
-                            },
-                            new string[] {}
-                    }
-            });
+				//c.OrderActionsBy(a => a.ParameterDescriptions.Count.ToString());
+				c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+				{
+					Name = "Authorization",
+					Type = SecuritySchemeType.ApiKey,
+					Scheme = "Bearer",
+					BearerFormat = "JWT",
+					In = ParameterLocation.Header,
+					Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\r\n\r\nExample: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\"",
+				});
+				c.AddSecurityRequirement(new OpenApiSecurityRequirement
+			{
+					{
+						  new OpenApiSecurityScheme
+							{
+								Reference = new OpenApiReference
+								{
+									Type = ReferenceType.SecurityScheme,
+									Id = "Bearer"
+								}
+							},
+							new string[] {}
+					}
+			});
 
-                ///project properties => Build => check documentation file
-                //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                //c.IncludeXmlComments(xmlPath);
+				///project properties => Build => check documentation file
+				//var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+				//var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+				//c.IncludeXmlComments(xmlPath);
 
-            });
+			});
 
-            #endregion Swagger
-        }
-    }
+			#endregion Swagger
+		}
+	}
 }

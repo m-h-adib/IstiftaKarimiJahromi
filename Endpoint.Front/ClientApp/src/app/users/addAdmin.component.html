@@ -1,0 +1,44 @@
+<div class="card mb-4">
+  <div class="card-header colorPurple">
+    <div class="card-title">
+      <strong>افزودن کاربر مدیر</strong>
+      <button class="btn btn-warning float-end" [routerLink]="['/users']">بازگشت</button>
+    </div>
+  </div>
+  <div class="card-body">
+    <form class="row g-3">
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">نام</label>
+        <input type="text" class="form-control" [(ngModel)]="AddDto.name" name="AddDto.name" placeholder="نام" />
+      </div>
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">نام کاربری</label>
+        <input type="text" class="form-control" [(ngModel)]="AddDto.username" name="AddDto.username" placeholder="نام کاربری"  />
+      </div>
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">رمز عبور</label>
+        <input type="password" class="form-control" [(ngModel)]="AddDto.password" name="AddDto.password" placeholder="رمز عبور"  />
+      </div>
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">تکرار رمز عبور</label>
+        <input type="password" class="form-control" [(ngModel)]="AddDto.repassword" name="AddDto.repassword" placeholder="تکرار رمز عبور"  />
+      </div>
+
+
+      <hr class="mt-4 border border-1 border-primary" />
+
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary m-1" (click)="Save()">ثبت</button>
+        <button type="submit" class="btn btn-warning float-end m-1" [routerLink]="['/users']">بازگشت</button>
+      </div>
+      <div class="spinner-border text-primary" role="status" *ngIf="IsLoading">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <div class="row col-md-12 mt-3">
+        <div class="alert alert-danger" *ngFor="let a of Errors">
+          {{a}}
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

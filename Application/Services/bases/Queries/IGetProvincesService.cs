@@ -30,7 +30,7 @@ public class GetProvincesService: IGetProvincesService
 		if (CountryId == null)
 			return ResultDto<List<GetProvinceDto>>.Failed("لطفا شماره کشور را وارد نمایید", 400);
 
-		var items=await _context.Provinces.Where(p => p.IsActive && !p.IsRemoved && p.CountryId==CountryId).Select(p => new GetProvinceDto
+		var items=await _context.Provinces.Where(p => p.IsActive && !p.IsRemoved && p.CountryId==CountryId).OrderBy(p=>p.Order).Select(p => new GetProvinceDto
 		{
 			Id = p.Id,
 			Name = p.Title,

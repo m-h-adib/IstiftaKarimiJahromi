@@ -3,14 +3,14 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, map } from "rxjs";
 import { environment } from "../../../environments/environment";
 import { ListDataResultDto } from "../../_models/common/ResultDto";
-import { GetMenuAccessDto } from "../../_models/login/GetMenuAccessDto";
+import { GetMenuAccessDto } from "../../_models/login/getMenuAccessDto";
 
 
 @Injectable({
   providedIn:'root'
 })
 export class GetMenuAccessService {
-  url: string = environment.url + "api/Identity/GetMenuAccess";
+  url: string = environment.url + "api/Identity/GetMunuAccess";
   header: any;
 
   constructor(private http: HttpClient) { }

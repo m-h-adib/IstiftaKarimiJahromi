@@ -1,48 +1,3 @@
-<!--<header>
-  <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
-  >
-    <div class="container-fluid">
-      <a class="navbar-brand" [routerLink]="['/']">سامانه استفتائات</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target=".navbar-collapse"
-        aria-label="Toggle navigation"
-        [attr.aria-expanded]="isExpanded"
-        (click)="toggle()"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div
-        class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
-        [ngClass]="{ show: isExpanded }"
-      >
-        <ul class="navbar-nav flex-grow">
-          <li
-            class="nav-item"
-            [routerLinkActive]="['link-active']"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
-            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
-          </li>-->
-<!--<li class="nav-item" [routerLinkActive]="['link-active']">
-  <a class="nav-link text-dark" [routerLink]="['/counter']"
-    >Counter</a
-  >
-</li>-->
-<!--<li class="nav-item" [routerLinkActive]="['link-active']">
-  <a class="nav-link text-dark" [routerLink]="['/fetch-data']"
-    >Fetch data</a
-  >
-</li>-->
-<!--</ul>
-      </div>
-    </div>
-  </nav>
-</header>-->
-
 
 <header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light colorDark border-bottom box-shadow mb-3" style="color:white">
@@ -60,10 +15,10 @@
               (click)="toggle()">
         <span #toggleButton2 class="navbar-toggler-icon"></span>
       </button>
-      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-start text-white"
+      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-start colorDark text-white"
            [ngClass]="{ show: isExpanded }">
-        <ul class="navbar-nav flex-grow">
-          <!--<ng-container *ngFor="let a of Menus">
+        <ul class="navbar-nav flex-grow colorDark">
+          <ng-container *ngFor="let a of Menus">
             <li class="nav-item"
                 *ngIf="a.childs?.length==0"
                 [routerLinkActive]="['link-active']"
@@ -74,9 +29,9 @@
               <a #toggleButton class="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false" (click)="toggle()">
                 {{a.title}}
               </a>
-              <ul class="dropdown-menu dropdown-menu-dark border-black" [class.show]="isExpanded==true" #menu>
+              <ul class="dropdown-menu dropdown-menu-dark colorDark border-black" [class.show]="isExpanded==true" #menu>
                 <li *ngFor="let b of a.childs" [routerLinkActive]="['link-active']">
-                  <a *ngIf="b.title!='-'" class="dropdown-item text-white hover-warning" [routerLink]="[b.link]"
+                  <a *ngIf="b.title!='-'" class="dropdown-item text-white hover-warning" style="text-align:right;" [routerLink]="[b.link]"
                      [queryParams]="b.queryParams!=null ? getrouterparams(b.queryParams.split(':')[0],b.queryParams.split(':')[1]) : undefined"
                      (click)="toggle()">
                     {{b.title}}
@@ -87,7 +42,7 @@
               </ul>
             </li>
 
-          </ng-container>-->
+          </ng-container>
         </ul>
 
       </div>

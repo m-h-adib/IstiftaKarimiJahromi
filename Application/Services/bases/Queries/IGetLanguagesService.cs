@@ -29,7 +29,7 @@ public class GetLanguagesService : IGetLanguagesService
 	{
 
 
-		var items = await _context.Languages.Where(p => p.IsActive && !p.IsRemoved).Select(p => new GetLanguageDto
+		var items = await _context.Languages.Where(p => p.IsActive && !p.IsRemoved).OrderBy(p => p.Order).Select(p => new GetLanguageDto
 		{
 			Id=p.Id,
 			Name=p.Title,

@@ -3,7 +3,7 @@ import { StoreService } from '../StoreService';
 import { Router } from '@angular/router';
 import { GetAccessService } from '../_services/identity/getAccessService';
 import { GetMenuAccessService } from '../_services/identity/getMenuAccessService';
-import { GetMenuAccessDto } from '../_models/login/GetMenuAccessDto';
+import { GetMenuAccessDto } from '../_models/login/getMenuAccessDto';
 
 @Component({
   selector: 'app-nav-menu',

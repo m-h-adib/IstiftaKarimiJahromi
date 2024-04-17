@@ -28,7 +28,7 @@ export class LoginComponent {
         localStorage.setItem("name", p.data.name!);
         localStorage.setItem("status", p.data.status.toString()!);
         this._store.setLoginStatus(true);
-        this.router.navigate(["/home"]);
+        this.router.navigate(["/"]);
       }
       else {
         this.Error = p.message

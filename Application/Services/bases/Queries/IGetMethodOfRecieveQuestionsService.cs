@@ -29,7 +29,7 @@ public class GetMethodOfRecieveQuestionsService : IGetMethodOfRecieveQuestionsSe
 	{
 
 
-		var items = await _context.Countries.Where(p => p.IsActive && !p.IsRemoved).Select(p => new GetMethodOfRecieveQuestionDto
+		var items = await _context.Countries.Where(p => p.IsActive && !p.IsRemoved).OrderBy(p => p.Order).Select(p => new GetMethodOfRecieveQuestionDto
 		{
 			Id=p.Id,
 			Name=p.Title,

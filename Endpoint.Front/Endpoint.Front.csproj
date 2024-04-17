@@ -24,11 +24,23 @@
   <ItemGroup>
     <None Remove="ClientApp\src\app\loginService.ts" />
     <None Remove="ClientApp\src\app\login\login.component.ts" />
+    <None Remove="ClientApp\src\app\_models\country\AddCountryDto.ts" />
+    <None Remove="ClientApp\src\app\_models\country\GetCountryDto.ts" />
+    <None Remove="ClientApp\src\app\_models\country\UpdateCountryDto.ts" />
     <None Remove="ClientApp\src\app\_models\loginRequestModel.ts" />
     <None Remove="ClientApp\src\app\_models\loginResponseModel.ts" />
+    <None Remove="ClientApp\src\app\_services\country\addCountryService.ts" />
+    <None Remove="ClientApp\src\app\_services\country\deleteCountryService.ts" />
+    <None Remove="ClientApp\src\app\_services\country\updateCountryService.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\_models\country\AddCountryDto.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_models\country\GetCountryDto.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_models\country\UpdateCountryDto.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_services\country\addCountryService.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_services\country\deleteCountryService.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_services\country\updateCountryService.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_services\identity\loginService.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\login\login.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_models\login\loginRequestModel.ts" />

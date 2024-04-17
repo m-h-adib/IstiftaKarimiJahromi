@@ -16,6 +16,11 @@ import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { StoreService } from './StoreService';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './auth.guard';
+import { AdminsComponent } from './users/admins.component';
+import { AddAdminComponent } from './users/addAdmin.component';
+import { AdminAccessComponent } from './users/adminAccess.component';
+import { CountriesComponent } from './countries/countries.component';
 
 
 @NgModule({
@@ -23,7 +28,11 @@ import { LoginComponent } from './login/login.component';
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    AdminsComponent,
+    AddAdminComponent,
+    AdminAccessComponent,
+    CountriesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -37,8 +46,12 @@ import { LoginComponent } from './login/login.component';
     // for Core use:
     LoadingBarModule,
     RouterModule.forRoot([
-      { path: '', component: LoginComponent, pathMatch: 'full' },
-      { path: 'home', component: HomeComponent }
+      { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [AuthGuard] },
+      { path: 'login', component: LoginComponent },
+      { path: 'users', component: AdminsComponent, canActivate: [AuthGuard] },
+      { path: 'adduser', component: AddAdminComponent, canActivate: [AuthGuard] },
+      { path: 'useraccess/:id', component: AdminAccessComponent, canActivate: [AuthGuard] },
+      { path: 'countries', component: CountriesComponent, canActivate: [AuthGuard] },
     ])
   ],
   providers: [StoreService],
