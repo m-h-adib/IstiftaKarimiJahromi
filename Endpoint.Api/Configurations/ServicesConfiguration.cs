@@ -146,6 +146,11 @@ namespace EndPoint.Api.Configurations
 			services.AddScoped<IDeleteLanguageService, DeleteLanguageService>();
 			services.AddScoped<IDeleteMethodOfReceiveQuestionService , DeleteMethodOfReceiveQuestionService>();
 			services.AddScoped<IDeleteProvinceService , DeleteProvinceService>();
+			services.AddScoped<IGetOneCountryService, GetOneCountryService>();
+			services.AddScoped<IGetOneJobCategoryService, GetOneJobCategoryService>();
+			services.AddScoped<IGetOneLanguageService, GetOneLanguageService>();
+			services.AddScoped<IGetOneMethodOfRecieveQuestionService, GetOneMethodOfRecieveQuestionService>();
+			services.AddScoped<IGetOneProvinceService, GetOneProvinceService>();
 			#endregion
 
 			#region authentications

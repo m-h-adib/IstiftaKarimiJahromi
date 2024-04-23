@@ -27,14 +27,18 @@ public class GetProvincesService: IGetProvincesService
 
     public async Task<ResultDto<List<GetProvinceDto>>> ExecuteAsync(long? CountryId)
 	{
-		if (CountryId == null)
-			return ResultDto<List<GetProvinceDto>>.Failed("لطفا شماره کشور را وارد نمایید", 400);
+		var aa = _context.Provinces
+			.Where(p => p.IsActive && !p.IsRemoved);
 
-		var items=await _context.Provinces.Where(p => p.IsActive && !p.IsRemoved && p.CountryId==CountryId).OrderBy(p=>p.Order).Select(p => new GetProvinceDto
+		if (CountryId != null)
+			aa = aa.Where(p => p.CountryId == CountryId);
+
+		var items=await aa.OrderBy(p=>p.Order).Select(p => new GetProvinceDto
 		{
 			Id = p.Id,
-			Name = p.Title,
-			Order = p.Order
+			Name = p.Country!.Title +" => " +p.Title,
+			Order = p.Order,
+			CountryId=(int)p.CountryId!
 		}).ToListAsync();
 
 		return ResultDto<List<GetProvinceDto>>.Succeeded("ok", items);
@@ -48,5 +52,6 @@ public class GetProvinceDto
     public long? Id { get; set; }
     public string? Name { get; set; }
 	public int? Order { get; set; }
+    public int? CountryId { get; set; }
 }
 #endregion

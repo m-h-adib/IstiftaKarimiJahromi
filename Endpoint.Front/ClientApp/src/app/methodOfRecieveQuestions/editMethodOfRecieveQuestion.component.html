@@ -1,0 +1,36 @@
+<div class="card mb-4">
+  <div class="card-header colorPurple">
+    <div class="card-title">
+      <strong>ویرایش روش دریافت سوال</strong>
+      <button class="btn btn-warning float-end" [routerLink]="['/methodOfRecieveQuestions']">بازگشت</button>
+    </div>
+  </div>
+  <div class="card-body">
+    <form class="row g-3">
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">عنوان</label>
+        <input type="text" class="form-control" [(ngModel)]="AddDto.name" name="AddDto.name" placeholder="عنوان" />
+      </div>
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">اولویت نمایش</label>
+        <input type="text" class="form-control" [(ngModel)]="AddDto.order" name="AddDto.order" placeholder="اولویت نمایش" />
+      </div>
+     
+
+      <hr class="mt-4 border border-1 border-primary" />
+
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary m-1" (click)="Save()">ثبت</button>
+        <button type="submit" class="btn btn-warning float-end m-1" [routerLink]="['/methodOfRecieveQuestions']">بازگشت</button>
+      </div>
+      <div class="spinner-border text-primary" role="status" *ngIf="IsLoading">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <div class="row col-md-12 mt-3">
+        <div class="alert alert-danger" *ngFor="let a of Errors">
+          {{a}}
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

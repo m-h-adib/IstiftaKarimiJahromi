@@ -22,22 +22,156 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\languages\addLanguage.component.ts" />
+    <None Remove="ClientApp\src\app\jobCategories\addJobCategory.component.ts" />
+    <None Remove="ClientApp\src\app\jobCategories\editJobCategory.component.ts" />
+    <None Remove="ClientApp\src\app\languages\editLanguage.component.ts" />
+    <None Remove="ClientApp\src\app\methodOfRecieveQuestions\addMethodOfRecieveQuestion.component.ts" />
+    <None Remove="ClientApp\src\app\methodOfRecieveQuestions\editMethodOfRecieveQuestion.component.ts" />
+    <None Remove="ClientApp\src\app\provinces\addProvince.component.ts" />
+    <None Remove="ClientApp\src\app\countries\addCountry.component.ts" />
+    <None Remove="ClientApp\src\app\countries\editCountry.component.ts" />
     <None Remove="ClientApp\src\app\loginService.ts" />
     <None Remove="ClientApp\src\app\login\login.component.ts" />
+    <None Remove="ClientApp\src\app\provinces\editProvince.component.ts" />
+    <None Remove="ClientApp\src\app\_models\methodRecieveQuestion\AddMethodOfRecieveQuestionDto.ts" />
+    <None Remove="ClientApp\src\app\_models\methodRecieveQuestion\GetMethodOfRecieveQuestionDto.ts" />
+    <None Remove="ClientApp\src\app\_models\language\AddLanguageDto.ts" />
+    <None Remove="ClientApp\src\app\_models\language\GetLanguageDto.ts" />
+    <None Remove="ClientApp\src\app\_models\jobCategory\AddJobCategoryDto.ts" />
+    <None Remove="ClientApp\src\app\_models\jobCategory\GetJobCategoryDto.ts" />
     <None Remove="ClientApp\src\app\_models\country\AddCountryDto.ts" />
     <None Remove="ClientApp\src\app\_models\country\GetCountryDto.ts" />
     <None Remove="ClientApp\src\app\_models\country\UpdateCountryDto.ts" />
+    <None Remove="ClientApp\src\app\_models\jobCategory\UpdateJobCategoryDto.ts" />
+    <None Remove="ClientApp\src\app\_models\language\UpdateLanguageDto.ts" />
     <None Remove="ClientApp\src\app\_models\loginRequestModel.ts" />
     <None Remove="ClientApp\src\app\_models\loginResponseModel.ts" />
+    <None Remove="ClientApp\src\app\_models\methodRecieveQuestion\UpdateMethodOfRecieveQuestionDto.ts" />
+    <None Remove="ClientApp\src\app\_models\province\AddProvinceDto.ts" />
+    <None Remove="ClientApp\src\app\_models\province\GetProvinceDto.ts" />
+    <None Remove="ClientApp\src\app\_models\province\UpdateProvinceDto.ts" />
+    <None Remove="ClientApp\src\app\_services\methodOfRecieveQuestion\addMethodOfRecieveQuestionService.ts" />
+    <None Remove="ClientApp\src\app\_services\methodOfRecieveQuestion\deleteMethodOfRecieveQuestionService.ts" />
+    <None Remove="ClientApp\src\app\_services\language\addLanguageService.ts" />
+    <None Remove="ClientApp\src\app\_services\language\deleteLanguageService.ts" />
+    <None Remove="ClientApp\src\app\_services\jobCategory\addJobCategoryService.ts" />
+    <None Remove="ClientApp\src\app\_services\jobCategory\deleteJobCategoryService.ts" />
+    <None Remove="ClientApp\src\app\_services\jobCategory\updateJobCategoryService.ts" />
+    <None Remove="ClientApp\src\app\_services\language\updateLanguageService.ts" />
+    <None Remove="ClientApp\src\app\_services\methodOfRecieveQuestion\updateMethodOfRecieveQuestionService.ts" />
+    <None Remove="ClientApp\src\app\_services\province\addProvinceService.ts" />
+    <None Remove="ClientApp\src\app\_services\province\deleteProvinceService.ts" />
     <None Remove="ClientApp\src\app\_services\country\addCountryService.ts" />
     <None Remove="ClientApp\src\app\_services\country\deleteCountryService.ts" />
     <None Remove="ClientApp\src\app\_services\country\updateCountryService.ts" />
+    <None Remove="ClientApp\src\app\_services\province\updateProvinceService.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\methodOfRecieveQuestions\addMethodOfRecieveQuestion.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\methodOfRecieveQuestions\editMethodOfRecieveQuestion.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\languages\addLanguage.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\languages\editLanguage.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\jobCategories\addJobCategory.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\jobCategories\editJobCategory.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\provinces\addProvince.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\provinces\editProvince.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\countries\editCountry.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\countries\addCountry.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_models\methodRecieveQuestion\AddMethodOfRecieveQuestionDto.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_models\methodRecieveQuestion\GetMethodOfRecieveQuestionDto.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_models\methodRecieveQuestion\UpdateMethodOfRecieveQuestionDto.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_models\language\AddLanguageDto.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_models\language\GetLanguageDto.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_models\language\UpdateLanguageDto.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_models\jobCategory\AddJobCategoryDto.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_models\jobCategory\GetJobCategoryDto.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_models\jobCategory\UpdateJobCategoryDto.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\_models\country\AddCountryDto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_models\country\GetCountryDto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_models\country\UpdateCountryDto.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_models\province\AddProvinceDto.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_models\province\GetProvinceDto.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_models\province\UpdateProvinceDto.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_services\methodOfRecieveQuestion\addMethodOfRecieveQuestionService.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_services\methodOfRecieveQuestion\deleteMethodOfRecieveQuestionService.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_services\methodOfRecieveQuestion\updateMethodOfRecieveQuestionService.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_services\language\addLanguageService.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_services\language\deleteLanguageService.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_services\language\updateLanguageService.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_services\jobCategory\addJobCategoryService.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_services\jobCategory\deleteJobCategoryService.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_services\jobCategory\updateJobCategoryService.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_services\province\addProvinceService.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_services\province\deleteProvinceService.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_services\province\updateProvinceService.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\_services\country\addCountryService.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_services\country\deleteCountryService.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_services\country\updateCountryService.ts" />

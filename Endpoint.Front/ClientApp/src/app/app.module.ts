@@ -21,6 +21,20 @@ import { AdminsComponent } from './users/admins.component';
 import { AddAdminComponent } from './users/addAdmin.component';
 import { AdminAccessComponent } from './users/adminAccess.component';
 import { CountriesComponent } from './countries/countries.component';
+import { AddCountryComponent } from './countries/addCountry.component';
+import { EditCountryComponent } from './countries/editCountry.component';
+import { ProvincesComponent } from './provinces/provinces.component';
+import { AddProvinceComponent } from './provinces/addProvince.component';
+import { EditProvinceComponent } from './provinces/editProvince.component';
+import { JobCategoriesComponent } from './jobCategories/jobCategories.component';
+import { AddJobCategoryComponent } from './jobCategories/addJobCategory.component';
+import { EditJobCategoryComponent } from './jobCategories/editJobCategory.component';
+import { LanguagesComponent } from './languages/languages.component';
+import { AddLanguageComponent } from './languages/addLanguage.component';
+import { EditLanguageComponent } from './languages/editLanguage.component';
+import { MethodOfRecieveQuestionsComponent } from './methodOfRecieveQuestions/methodOfRecieveQuestions.component';
+import { AddMethodOfRecieveQuestionComponent } from './methodOfRecieveQuestions/addMethodOfRecieveQuestion.component';
+import { EditMethodOfRecieveQuestionComponent } from './methodOfRecieveQuestions/editMethodOfRecieveQuestion.component';
 
 
 @NgModule({
@@ -32,7 +46,21 @@ import { CountriesComponent } from './countries/countries.component';
     AdminsComponent,
     AddAdminComponent,
     AdminAccessComponent,
-    CountriesComponent
+    CountriesComponent,
+    AddCountryComponent,
+    EditCountryComponent,
+    ProvincesComponent,
+    AddProvinceComponent,
+    EditProvinceComponent,
+    JobCategoriesComponent,
+    AddJobCategoryComponent,
+    EditJobCategoryComponent,
+    LanguagesComponent,
+    AddLanguageComponent,
+    EditLanguageComponent,
+    MethodOfRecieveQuestionsComponent,
+    AddMethodOfRecieveQuestionComponent,
+    EditMethodOfRecieveQuestionComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -52,6 +80,20 @@ import { CountriesComponent } from './countries/countries.component';
       { path: 'adduser', component: AddAdminComponent, canActivate: [AuthGuard] },
       { path: 'useraccess/:id', component: AdminAccessComponent, canActivate: [AuthGuard] },
       { path: 'countries', component: CountriesComponent, canActivate: [AuthGuard] },
+      { path: 'addCountry', component: AddCountryComponent, canActivate: [AuthGuard] },
+      { path: 'editCountry/:id', component: EditCountryComponent, canActivate: [AuthGuard] },
+      { path: 'provinces', component: ProvincesComponent, canActivate: [AuthGuard] },
+      { path: 'addProvince', component: AddProvinceComponent, canActivate: [AuthGuard] },
+      { path: 'editProvince/:id', component: EditProvinceComponent, canActivate: [AuthGuard] },
+      { path: 'jobCategories', component: JobCategoriesComponent, canActivate: [AuthGuard] },
+      { path: 'addJobCategory', component: AddJobCategoryComponent, canActivate: [AuthGuard] },
+      { path: 'editJobCategory/:id', component: EditJobCategoryComponent, canActivate: [AuthGuard] },
+      { path: 'languages', component: LanguagesComponent, canActivate: [AuthGuard] },
+      { path: 'addLanguage', component: AddLanguageComponent, canActivate: [AuthGuard] },
+      { path: 'editLanguage/:id', component: EditLanguageComponent, canActivate: [AuthGuard] },
+      { path: 'methodOfRecieveQuestions', component: MethodOfRecieveQuestionsComponent, canActivate: [AuthGuard] },
+      { path: 'addMethodOfRecieveQuestion', component: AddMethodOfRecieveQuestionComponent, canActivate: [AuthGuard] },
+      { path: 'editMethodOfRecieveQuestion/:id', component: EditMethodOfRecieveQuestionComponent, canActivate: [AuthGuard] },
     ])
   ],
   providers: [StoreService],

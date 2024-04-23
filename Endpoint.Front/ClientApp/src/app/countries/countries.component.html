@@ -47,7 +47,9 @@
             </td>
 
             <td>
+              <a class="btn btn-warning m-1" *ngIf="getAccess('UpdateCountry')" [routerLink]="['/editCountry',item.id]">ویرایش</a>
               <a class="btn btn-danger m-1" *ngIf="getAccess('DeleteCountry')" (click)="showDeleteDialog(item.id)">حذف</a>
+
               <!--<a class="btn btn-info m-1" *ngIf="getAccess('ChangeUserAccess')" [routerLink]="['/useraccess',item.id]">دسترسی</a>-->
             </td>
           </tr>
@@ -73,6 +75,8 @@
     </div>
   </div>
 </div>
+
+
 
 <div class="modal fade" [class.show]="deleteDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="deleteDialog==true ? 'block' : null" style="padding-left: 0px;">
   <div class="modal-dialog model-sm">

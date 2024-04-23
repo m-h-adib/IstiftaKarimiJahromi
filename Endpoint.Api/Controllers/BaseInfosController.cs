@@ -32,6 +32,11 @@ public class BaseInfosController : ControllerBase
 	private readonly IDeleteLanguageService _deleteLanguageService;
 	private readonly IDeleteMethodOfReceiveQuestionService _deleteMethodOfReceiveQuestionService;
 	private readonly IDeleteProvinceService _deleteProvinceService;
+	private readonly IGetOneJobCategoryService _getOneJobCategoryService;
+	private readonly IGetOneCountryService _getOneCountryService;
+	private readonly IGetOneLanguageService _getOneLanguageService;
+	private readonly IGetOneMethodOfRecieveQuestionService _getOneMethodOfRecieveQuestionService;
+	private readonly IGetOneProvinceService _getOneProvinceService;
     #endregion
     #region ctors
     public BaseInfosController(IGetLanguagesService getLanguagesService,
@@ -53,7 +58,12 @@ public class BaseInfosController : ControllerBase
 		IDeleteJobCategoryService deleteJobCategoryService,
 		IDeleteLanguageService deleteLanguageService,
 		IDeleteMethodOfReceiveQuestionService deleteMethodOfReceiveQuestionService,
-		IDeleteProvinceService deleteProvinceService)
+		IDeleteProvinceService deleteProvinceService,
+		IGetOneCountryService getOneCountryService,
+		IGetOneJobCategoryService getOneJobCategoryService,
+		IGetOneLanguageService getOneLanguageService,
+		IGetOneMethodOfRecieveQuestionService getOneMethodOfRecieveQuestionService,
+		IGetOneProvinceService getOneProvinceService)
     {
         _getCountriesService = getCountriesService;
         _getJobCategoriesService = getJobCategoriesService;
@@ -75,6 +85,11 @@ public class BaseInfosController : ControllerBase
 		_deleteLanguageService = deleteLanguageService;
 		_deleteMethodOfReceiveQuestionService = deleteMethodOfReceiveQuestionService;
 		_deleteProvinceService = deleteProvinceService;
+		_getOneCountryService = getOneCountryService;
+		_getOneJobCategoryService = getOneJobCategoryService;
+		_getOneLanguageService = getOneLanguageService;
+		_getOneMethodOfRecieveQuestionService = getOneMethodOfRecieveQuestionService;
+		_getOneProvinceService = getOneProvinceService;
     }
     #endregion
 
@@ -87,9 +102,23 @@ public class BaseInfosController : ControllerBase
     }
 
 	[HttpGet]
+	public async Task<IActionResult> GetOneCountry(int CountryId)
+	{
+		var res = await _getOneCountryService.ExecuteAsync(CountryId);
+		return StatusCode(res.StatusCode, res);
+	}
+
+	[HttpGet]
 	public async Task<IActionResult> GetJobCategories()
 	{
 		var res = await _getJobCategoriesService.ExecuteAsync();
+		return StatusCode(res.StatusCode, res);
+	}
+
+	[HttpGet]
+	public async Task<IActionResult> GetOneJobCategory(int JobCategoryId)
+	{
+		var res = await _getOneJobCategoryService.ExecuteAsync(JobCategoryId);
 		return StatusCode(res.StatusCode, res);
 	}
 
@@ -101,6 +130,13 @@ public class BaseInfosController : ControllerBase
 	}
 
 	[HttpGet]
+	public async Task<IActionResult> GetOneLanguage(int LanguageId)
+	{
+		var res = await _getOneLanguageService.ExecuteAsync(LanguageId);
+		return StatusCode(res.StatusCode, res);
+	}
+
+	[HttpGet]
 	public async Task<IActionResult> GetMethodOfRecieveQuestions()
 	{
 		var res = await _getMethodOfRecieveQuestionsService.ExecuteAsync();
@@ -108,9 +144,23 @@ public class BaseInfosController : ControllerBase
 	}
 
 	[HttpGet]
+	public async Task<IActionResult> GetOneMethodOfRecieveQuestion(int MethodId)
+	{
+		var res = await _getOneMethodOfRecieveQuestionService.ExecuteAsync(MethodId);
+		return StatusCode(res.StatusCode, res);
+	}
+
+	[HttpGet]
 	public async Task<IActionResult> GetProvinces(long? CountryId)
 	{
 		var res = await _getProvincesService.ExecuteAsync(CountryId);
+		return StatusCode(res.StatusCode, res);
+	}
+
+	[HttpGet]
+	public async Task<IActionResult> GetOneProvince(int ProvinceId)
+	{
+		var res = await _getOneProvinceService.ExecuteAsync(ProvinceId);
 		return StatusCode(res.StatusCode, res);
 	}
 

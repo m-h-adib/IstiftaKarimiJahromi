@@ -1,0 +1,98 @@
+<div class="card">
+  <div class="card-header colorPurple">
+    <div class="card-title">
+      <span>
+        <strong>لیست عناوین شغلی</strong>
+      </span>
+      <a class="btn btn-warning float-end" *ngIf="getAccess('AddCountry')" [routerLink]="['/addJobCategory']">جدید</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <!--<div class="row col-md-12">
+      <div class="col-md-4">
+        <input type="text" class="form-control" [(ngModel)]="req.name" placeholder="نام و نام خانوادگی...." />
+      </div>
+      <div class="col-md-4">
+        <input type="text" class="form-control" [(ngModel)]="req.username" placeholder="نام کاربری...." />
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-primary" (click)="getData();">جستجو</button>
+      </div>
+    </div>
+    <br />-->
+
+    <div class="table-responsive">
+
+      <table class="table align-middle table-bordered text-center">
+        <thead class="fw-bold">
+          <tr>
+            <td>
+              نام
+            </td>
+            <td>
+              ترتیب نمایش
+            </td>
+
+            <td>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items?.data">
+            <td>
+              {{item.name}}
+            </td>
+            <td>
+              {{item.order}}
+            </td>
+
+            <td>
+              <a class="btn btn-warning m-1" *ngIf="getAccess('UpdateJobCategory')" [routerLink]="['/editJobCategory',item.id]">ویرایش</a>
+              <a class="btn btn-danger m-1" *ngIf="getAccess('DeleteJobCategory')" (click)="showDeleteDialog(item.id)">حذف</a>
+
+              <!--<a class="btn btn-info m-1" *ngIf="getAccess('ChangeUserAccess')" [routerLink]="['/useraccess',item.id]">دسترسی</a>-->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!--<nav dir="ltr">
+        <ul class="pagination">
+          <li class="page-item" style="cursor:pointer" [class.disabled]="admins?.data?.paging?.page==1" (click)="dec()">
+            <span class="page-link colorDarkest">صفحه قبل</span>
+          </li>
+          <li class="page-item active" aria-current="page">
+            <input type="number" class="form-control text-center" style="width:150px;" (change)="change()" [(ngModel)]="req.pageNumber" />
+          </li>
+
+          <li class="page-item">
+            <a class="page-link" style="cursor:pointer" [class.disabled]="req!.pageNumber! == pageCount" (click)="inc()">صفحه بعد</a>
+          </li>
+        </ul>
+      </nav>
+      <span>صفحه {{req.pageNumber}} از {{pageCount}}</span>-->
+
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" [class.show]="deleteDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="deleteDialog==true ? 'block' : null" style="padding-left: 0px;">
+  <div class="modal-dialog model-sm">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h1 class="modal-title fs-5" id="exampleModalLiveLabel">پیام سیستم!</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="showDeleteDialog()"></button>
+      </div>
+      <div class="modal-body">
+        <p>از حذف عنوان شغلی مورد نظر مطمئنید؟</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="showDeleteDialog()">انصراف</button>
+        <button type="button" class="btn btn-danger" (click)="deleteJobCategory()">بله</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="deleteDialog==true" class="modal-backdrop fade show"></div>
