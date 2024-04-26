@@ -35,6 +35,8 @@ import { EditLanguageComponent } from './languages/editLanguage.component';
 import { MethodOfRecieveQuestionsComponent } from './methodOfRecieveQuestions/methodOfRecieveQuestions.component';
 import { AddMethodOfRecieveQuestionComponent } from './methodOfRecieveQuestions/addMethodOfRecieveQuestion.component';
 import { EditMethodOfRecieveQuestionComponent } from './methodOfRecieveQuestions/editMethodOfRecieveQuestion.component';
+import { QuestionTreeComponent } from './questionCategories/questionTree.component';
+import { QuestionCategoriesComponent } from './questionCategories/questionCategories.component';
 
 
 @NgModule({
@@ -60,7 +62,9 @@ import { EditMethodOfRecieveQuestionComponent } from './methodOfRecieveQuestions
     EditLanguageComponent,
     MethodOfRecieveQuestionsComponent,
     AddMethodOfRecieveQuestionComponent,
-    EditMethodOfRecieveQuestionComponent
+    EditMethodOfRecieveQuestionComponent,
+    QuestionCategoriesComponent,
+    QuestionTreeComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -94,6 +98,7 @@ import { EditMethodOfRecieveQuestionComponent } from './methodOfRecieveQuestions
       { path: 'methodOfRecieveQuestions', component: MethodOfRecieveQuestionsComponent, canActivate: [AuthGuard] },
       { path: 'addMethodOfRecieveQuestion', component: AddMethodOfRecieveQuestionComponent, canActivate: [AuthGuard] },
       { path: 'editMethodOfRecieveQuestion/:id', component: EditMethodOfRecieveQuestionComponent, canActivate: [AuthGuard] },
+      { path: 'questionCats', component: QuestionCategoriesComponent, canActivate: [AuthGuard] },
     ])
   ],
   providers: [StoreService],

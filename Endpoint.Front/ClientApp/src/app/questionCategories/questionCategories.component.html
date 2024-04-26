@@ -1,0 +1,27 @@
+<div class="card">
+  <div class="card-header colorPurple">
+    <div class="card-title">
+      <span>
+        <strong>لیست دسته بندی سوالات</strong>
+      </span>
+    </div>
+  </div>
+  <div class="card-body">
+    <form class="row g-3">
+      <div class="col-auto">
+        <label for="staticEmail2" class="visually-hidden">نام دسته</label>
+        <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="عنوان دسته:">
+      </div>
+      <div class="col-auto">
+        <label for="inputPassword2" class="visually-hidden">عنوان دسته</label>
+        <input type="text" class="form-control" id="inputPassword2" [(ngModel)]="dto.title" name="dto.title" placeholder="عنوان دسته را بنویسید...">
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary mb-3" (click)="Add()">ثبت</button>
+      </div>
+    </form>
+    <question-view [tree]="myTree"  (newItemEvent)="change($event)" (renew)="GetData()"></question-view>
+  </div>
+</div>
+
+

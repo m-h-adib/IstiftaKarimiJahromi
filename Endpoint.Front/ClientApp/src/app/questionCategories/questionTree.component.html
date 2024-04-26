@@ -1,0 +1,32 @@
+<ul>
+  <li *ngFor="let node of tree" class='p-1'>
+    <input type='radio' name='cat' (click)='change(node.id!)' />
+    {{node.title}}<span> (<span style='font-size:8pt;cursor:pointer' class='text-danger' (click)="showDeleteDialog(node.id!)">حذف</span><span> , </span><span style='font-size:8pt;cursor:pointer' class='text-success' (click)="showEditDialog(node.id!)">ویرایش</span>)</span>
+    <div *ngIf="node.isEditMode==true">
+      <input type="text" [(ngModel)]="node.title" class="m-2" />
+      <input type="button" value="ویرایش" class="btn btn-warning m-2" (click)="Update(node.id!)" />
+      <input type="button" value="انصراف" class="btn btn-danger m-2" (click)="hideEditDialog(node.id!)" />
+    </div>
+    <question-view [tree]="node.childs!" (newItemEvent)="change($event)" (renew)="GetData()"></question-view>
+  </li>
+</ul>
+
+
+<div class="modal fade" [class.show]="deleteDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="deleteDialog==true ? 'block' : null" style="padding-left: 0px;">
+  <div class="modal-dialog model-sm">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h1 class="modal-title fs-5" id="exampleModalLiveLabel">پیام سیستم!</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="showDeleteDialog()"></button>
+      </div>
+      <div class="modal-body">
+        <p>از حذف دسته مورد نظر مطمئنید؟</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="showDeleteDialog()">انصراف</button>
+        <button type="button" class="btn btn-danger" (click)="deleteQuestionCategory()">بله</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="deleteDialog==true" class="modal-backdrop fade show"></div>

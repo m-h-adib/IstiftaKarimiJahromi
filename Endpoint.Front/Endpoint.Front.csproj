@@ -34,6 +34,8 @@
     <None Remove="ClientApp\src\app\loginService.ts" />
     <None Remove="ClientApp\src\app\login\login.component.ts" />
     <None Remove="ClientApp\src\app\provinces\editProvince.component.ts" />
+    <None Remove="ClientApp\src\app\questionCategories\questionCategories.component.ts" />
+    <None Remove="ClientApp\src\app\questionCategories\questionTree.component.ts" />
     <None Remove="ClientApp\src\app\_models\methodRecieveQuestion\AddMethodOfRecieveQuestionDto.ts" />
     <None Remove="ClientApp\src\app\_models\methodRecieveQuestion\GetMethodOfRecieveQuestionDto.ts" />
     <None Remove="ClientApp\src\app\_models\language\AddLanguageDto.ts" />
@@ -51,6 +53,9 @@
     <None Remove="ClientApp\src\app\_models\province\AddProvinceDto.ts" />
     <None Remove="ClientApp\src\app\_models\province\GetProvinceDto.ts" />
     <None Remove="ClientApp\src\app\_models\province\UpdateProvinceDto.ts" />
+    <None Remove="ClientApp\src\app\_models\questionCategory\AddQuestionCategoryDto.ts" />
+    <None Remove="ClientApp\src\app\_models\questionCategory\GetQuestionCategoryDto.ts" />
+    <None Remove="ClientApp\src\app\_models\questionCategory\UpdateQuestionCategoryDto.ts" />
     <None Remove="ClientApp\src\app\_services\methodOfRecieveQuestion\addMethodOfRecieveQuestionService.ts" />
     <None Remove="ClientApp\src\app\_services\methodOfRecieveQuestion\deleteMethodOfRecieveQuestionService.ts" />
     <None Remove="ClientApp\src\app\_services\language\addLanguageService.ts" />
@@ -66,6 +71,10 @@
     <None Remove="ClientApp\src\app\_services\country\deleteCountryService.ts" />
     <None Remove="ClientApp\src\app\_services\country\updateCountryService.ts" />
     <None Remove="ClientApp\src\app\_services\province\updateProvinceService.ts" />
+    <None Remove="ClientApp\src\app\_services\questionCategory\addQuestionCategoryService.ts" />
+    <None Remove="ClientApp\src\app\_services\questionCategory\deleteQuestionCategoryService.ts" />
+    <None Remove="ClientApp\src\app\_services\questionCategory\getQuestionCategoriesService.ts" />
+    <None Remove="ClientApp\src\app\_services\questionCategory\updateQuestionCategoryService.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -97,6 +106,8 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\countries\addCountry.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\questionCategories\questionCategories.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\questionCategories\questionTree.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_models\methodRecieveQuestion\AddMethodOfRecieveQuestionDto.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -134,6 +145,11 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\_models\province\UpdateProvinceDto.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_models\questionCategory\AddQuestionCategoryDto.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_models\questionCategory\GetQuestionCategoryDto.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_models\questionCategory\UpdateQuestionCategoryDto.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\_services\methodOfRecieveQuestion\addMethodOfRecieveQuestionService.ts">
@@ -179,6 +195,14 @@
     <TypeScriptCompile Include="ClientApp\src\app\login\login.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_models\login\loginRequestModel.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_models\login\loginResponseModel.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_services\questionCategory\addQuestionCategoryService.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_services\questionCategory\deleteQuestionCategoryService.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_services\questionCategory\getQuestionCategoriesService.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_services\questionCategory\updateQuestionCategoryService.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
   </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
