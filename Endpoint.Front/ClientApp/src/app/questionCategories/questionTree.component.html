@@ -1,11 +1,11 @@
 <ul>
   <li *ngFor="let node of tree" class='p-1'>
     <input type='radio' name='cat' (click)='change(node.id!)' />
-    {{node.title}}<span> (<span style='font-size:8pt;cursor:pointer' class='text-danger' (click)="showDeleteDialog(node.id!)">حذف</span><span> , </span><span style='font-size:8pt;cursor:pointer' class='text-success' (click)="showEditDialog(node.id!)">ویرایش</span>)</span>
+    {{node.title}}<span> (<span style='font-size:8pt;cursor:pointer' *ngIf="getAccess('DeleteQuestionCategory')" class='text-danger' (click)="showDeleteDialog(node.id!)">حذف</span><span> , </span><span style='font-size:8pt;cursor:pointer' class='text-success' *ngIf="getAccess('UpdateQuestionCategory')" (click)="showEditDialog(node.id!)">ویرایش</span>)</span>
     <div *ngIf="node.isEditMode==true">
       <input type="text" [(ngModel)]="node.title" class="m-2" />
-      <input type="button" value="ویرایش" class="btn btn-warning m-2" (click)="Update(node.id!)" />
-      <input type="button" value="انصراف" class="btn btn-danger m-2" (click)="hideEditDialog(node.id!)" />
+      <input type="button" value="ویرایش" class="btn btn-warning m-2"  (click)="Update(node.id!)" />
+      <input type="button" value="انصراف" class="btn btn-danger m-2"  (click)="hideEditDialog(node.id!)" />
     </div>
     <question-view [tree]="node.childs!" (newItemEvent)="change($event)" (renew)="GetData()"></question-view>
   </li>

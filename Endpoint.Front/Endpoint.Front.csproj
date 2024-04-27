@@ -56,6 +56,11 @@
     <None Remove="ClientApp\src\app\_models\questionCategory\AddQuestionCategoryDto.ts" />
     <None Remove="ClientApp\src\app\_models\questionCategory\GetQuestionCategoryDto.ts" />
     <None Remove="ClientApp\src\app\_models\questionCategory\UpdateQuestionCategoryDto.ts" />
+    <None Remove="ClientApp\src\app\_models\question\addQuestionDto.ts" />
+    <None Remove="ClientApp\src\app\_models\question\getOneQuestionDto.ts" />
+    <None Remove="ClientApp\src\app\_models\question\getQuestionsDto.ts" />
+    <None Remove="ClientApp\src\app\_models\question\getQuestionsRequestDto.ts" />
+    <None Remove="ClientApp\src\app\_models\question\updateQuestionDto.ts" />
     <None Remove="ClientApp\src\app\_services\methodOfRecieveQuestion\addMethodOfRecieveQuestionService.ts" />
     <None Remove="ClientApp\src\app\_services\methodOfRecieveQuestion\deleteMethodOfRecieveQuestionService.ts" />
     <None Remove="ClientApp\src\app\_services\language\addLanguageService.ts" />
@@ -75,6 +80,7 @@
     <None Remove="ClientApp\src\app\_services\questionCategory\deleteQuestionCategoryService.ts" />
     <None Remove="ClientApp\src\app\_services\questionCategory\getQuestionCategoriesService.ts" />
     <None Remove="ClientApp\src\app\_services\questionCategory\updateQuestionCategoryService.ts" />
+    <None Remove="ClientApp\src\app\_services\question\getQuestionsService.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -152,6 +158,11 @@
     <TypeScriptCompile Include="ClientApp\src\app\_models\questionCategory\UpdateQuestionCategoryDto.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_models\question\addQuestionDto.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_models\question\getOneQuestionDto.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_models\question\getQuestionsDto.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_models\question\getQuestionsRequestDto.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_models\question\updateQuestionDto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_services\methodOfRecieveQuestion\addMethodOfRecieveQuestionService.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -203,6 +214,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\_services\questionCategory\updateQuestionCategoryService.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_services\question\getQuestionsService.ts" />
   </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

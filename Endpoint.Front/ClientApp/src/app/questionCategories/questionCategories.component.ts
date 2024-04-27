@@ -11,13 +11,19 @@ import { AddQuestionCategoryDto } from "../_models/questionCategory/AddQuestionC
 export class QuestionCategoriesComponent implements OnInit {
   myTree: GetQuestionCategoryDto[] = [];
   dto: AddQuestionCategoryDto = {};
+  access: string[] = [];
  
   constructor(private _getQuestionCategoriesService: GetQuestionCategoriesService,
     private _addQuestionCategoryService: AddQuestionCategoryService) { }
 
 
   ngOnInit(): void {
-    this.GetData();
+    this.access = JSON.parse(localStorage.getItem("access")!);
+    if (this.access.find(p => p == "QuestionCategories") != undefined) {
+      this.GetData();
+    }
+    
+    
   };
 
   GetData() {
@@ -42,5 +48,13 @@ export class QuestionCategoriesComponent implements OnInit {
 
   change(id: number) {
     this.dto.parentId = id;
+  }
+
+
+  getAccess(id: string): boolean {
+    if (this.access.find(p => p == id) != undefined)
+      return true;
+    else
+      return false;
   }
 }

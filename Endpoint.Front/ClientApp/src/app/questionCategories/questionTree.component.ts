@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { GetQuestionCategoryDto } from "../_models/questionCategory/GetQuestionCategoryDto";
 import { DeleteQuestionCategoryService } from "../_services/questionCategory/deleteQuestionCategoryService";
 import { UpdateQuestionCategoryService } from "../_services/questionCategory/updateQuestionCategoryService";
@@ -9,17 +9,24 @@ import { StoreService } from "../StoreService";
   selector: 'question-view',
   templateUrl: './questionTree.component.html'
 })
-export class QuestionTreeComponent {
+export class QuestionTreeComponent implements OnInit {
   deleteDialog: boolean = false;
   updateDto?: UpdateQuestionCategoryDto = {};
 
-  @Input({ required: true }) tree!: GetQuestionCategoryDto[];
+  @Input() tree!: GetQuestionCategoryDto[];
   @Output() newItemEvent = new EventEmitter<number>();
   @Output() renew = new EventEmitter();
 
+  access: string[] = [];
+
   constructor(private _deleteQuestionCategoryService: DeleteQuestionCategoryService,
     private _updateQuestionCategoryService: UpdateQuestionCategoryService,
-    private store: StoreService) { }
+    private store: StoreService) {
+   
+  }
+    ngOnInit(): void {
+      this.access = JSON.parse(localStorage.getItem("access")!);
+    }
 
   change(id: number) {
 
@@ -79,6 +86,13 @@ export class QuestionTreeComponent {
         alert(p.message);
       }
     })
+  }
+
+  getAccess(id: string): boolean {
+    if (this.access.find(p => p == id) != undefined)
+      return true;
+    else
+      return false;
   }
 }
 

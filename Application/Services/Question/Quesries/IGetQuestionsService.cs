@@ -1,5 +1,6 @@
 ﻿using Application.Common;
 using Application.Interfaces.Contexts;
+using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -47,7 +48,7 @@ public class GetQuestionsService: IGetQuestionsService
                 Name = p.FirstName + " " + p.LastName,
                 Category = p.QuestionCategory.Title,
                 QuestionDate = p.QuestionDate.Value.ToPersian(),
-                Status = ""
+                Status = p.Step!.GetDisplayName()
             })
             .ToListAsync();
 

@@ -17,6 +17,8 @@ using Application.Services.Person.Commands;
 using Application.Services.User.Commands;
 using Application.AdminServices.User.Queries;
 using Application.Services.bases.Commands;
+using Application.Services.Question.Quesries;
+using Application.Services.Question.Commands;
 
 namespace EndPoint.Api.Configurations
 {
@@ -172,6 +174,15 @@ namespace EndPoint.Api.Configurations
 			services.AddScoped<IUpdateUserAccessService, UpdateUserAccessService>();
 			services.AddScoped<IGetUsersService, GetUsersService>();
 			services.AddScoped<IGetUserAccessService, GetUserAccessService>();
+			#endregion
+
+			#region Questions
+			services.AddScoped<IGetQuestionsService, GetQuestionsService>();
+			services.AddScoped<IGetOneQuestionService, GetOneQuestionService>();
+			services.AddScoped<IAddQuestionService, AddQuestionService>();
+			services.AddScoped<IEditQuestionService, EditQuestionService>();
+			services.AddScoped<IDeleteQuestionService, DeleteQuestionService>();
+			services.AddScoped<IDeleteQuestionFileService, DeleteQuestionFileService>();
 			#endregion
 
 			#endregion services
