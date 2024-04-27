@@ -14,6 +14,7 @@ export class QuestionTreeComponent implements OnInit {
   updateDto?: UpdateQuestionCategoryDto = {};
 
   @Input() tree!: GetQuestionCategoryDto[];
+  @Input() showEditDelete!: boolean;
   @Output() newItemEvent = new EventEmitter<number>();
   @Output() renew = new EventEmitter();
 

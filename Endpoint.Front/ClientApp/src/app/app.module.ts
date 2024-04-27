@@ -37,6 +37,9 @@ import { AddMethodOfRecieveQuestionComponent } from './methodOfRecieveQuestions/
 import { EditMethodOfRecieveQuestionComponent } from './methodOfRecieveQuestions/editMethodOfRecieveQuestion.component';
 import { QuestionTreeComponent } from './questionCategories/questionTree.component';
 import { QuestionCategoriesComponent } from './questionCategories/questionCategories.component';
+import { QuestionsComponent } from './questions/questions.component';
+import { AddQuestionComponent } from './questions/addQuestion.component';
+import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
 
 
 @NgModule({
@@ -64,7 +67,9 @@ import { QuestionCategoriesComponent } from './questionCategories/questionCatego
     AddMethodOfRecieveQuestionComponent,
     EditMethodOfRecieveQuestionComponent,
     QuestionCategoriesComponent,
-    QuestionTreeComponent
+    QuestionTreeComponent,
+    QuestionsComponent,
+    AddQuestionComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -77,6 +82,7 @@ import { QuestionCategoriesComponent } from './questionCategories/questionCatego
     LoadingBarRouterModule,
     // for Core use:
     LoadingBarModule,
+    NgPersianDatepickerModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [AuthGuard] },
       { path: 'login', component: LoginComponent },
@@ -99,6 +105,8 @@ import { QuestionCategoriesComponent } from './questionCategories/questionCatego
       { path: 'addMethodOfRecieveQuestion', component: AddMethodOfRecieveQuestionComponent, canActivate: [AuthGuard] },
       { path: 'editMethodOfRecieveQuestion/:id', component: EditMethodOfRecieveQuestionComponent, canActivate: [AuthGuard] },
       { path: 'questionCats', component: QuestionCategoriesComponent, canActivate: [AuthGuard] },
+      { path: 'questions', component: QuestionsComponent, canActivate: [AuthGuard] },
+      { path: 'addquestion', component: AddQuestionComponent, canActivate: [AuthGuard] }
     ])
   ],
   providers: [StoreService],

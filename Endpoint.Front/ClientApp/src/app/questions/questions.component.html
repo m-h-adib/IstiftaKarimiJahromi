@@ -1,0 +1,123 @@
+<div class="card">
+  <div class="card-header colorPurple">
+    <div class="card-title">
+      <span>
+        <strong>لیست سوالات</strong>
+      </span>
+      <!--<a class="btn btn-warning float-end" *ngIf="getAccess('AddQuestion')" [routerLink]="['/addQuestion']">جدید</a>-->
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row col-md-12">
+      <div class="col-md-4">
+        <form class="row row-cols-lg-auto g-3 align-items-center">
+          <div class="col-12">
+            <label class="visually-hidden"  for="inlineFormInputGroupUsername">عنوان سوال</label>
+            <div class="input-group">
+              <div class="input-group-text">عنوان سوال</div>
+              <input type="text" class="form-control" [(ngModel)]="req.title" name="req.title" id="inlineFormInputGroupUsername" placeholder="....">
+            </div>
+          </div>
+
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary">جستجو</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <br />
+
+
+
+
+    <div class="table-responsive">
+
+      <table class="table align-middle table-bordered text-center">
+        <thead class="fw-bold">
+          <tr>
+            <td>
+              عنوان سوال
+            </td>
+            <td>
+              تاریخ ثبت
+            </td>
+            <td>
+              نام 
+            </td>
+            <td>
+              دسته سوال
+            </td>
+            <td>
+              وضعیت سوال
+            </td>
+            <td>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items">
+            <td>
+              {{item.title}}
+            </td>
+            <td>
+              {{item.questionDate}}
+            </td>
+            <td>
+              {{item.name}}
+            </td>
+            <td>
+              {{item.category}}
+            </td>
+            <td>
+              {{item.status}}
+            </td>
+            <td>
+              <!--<a class="btn btn-warning m-1" *ngIf="getAccess('UpdateCategory')" [routerLink]="['/editCategory',item.id]">ویرایش</a>
+              <a class="btn btn-danger m-1" *ngIf="getAccess('DeleteCategory')" (click)="showDeleteDialog(item.id)">حذف</a>-->
+
+              <!--<a class="btn btn-info m-1" *ngIf="getAccess('ChangeUserAccess')" [routerLink]="['/useraccess',item.id]">دسترسی</a>-->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <nav dir="ltr">
+        <ul class="pagination">
+          <li class="page-item" style="cursor:pointer" [class.disabled]="req.pageNumber==1" (click)="dec()">
+            <span class="page-link colorDarkest">صفحه قبل</span>
+          </li>
+          <li class="page-item active" aria-current="page">
+            <input type="number" class="form-control text-center" style="width:150px;" (change)="change()" [(ngModel)]="req.pageNumber" />
+          </li>
+
+          <li class="page-item">
+            <a class="page-link" style="cursor:pointer" [class.disabled]="req!.pageNumber! == pageCount" (click)="inc()">صفحه بعد</a>
+          </li>
+        </ul>
+      </nav>
+      <span>صفحه {{req.pageNumber}} از {{pageCount}}</span>
+
+    </div>
+  </div>
+</div>
+
+
+
+<!--<div class="modal fade" [class.show]="deleteDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="deleteDialog==true ? 'block' : null" style="padding-left: 0px;">
+  <div class="modal-dialog model-sm">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h1 class="modal-title fs-5" id="exampleModalLiveLabel">پیام سیستم!</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="showDeleteDialog()"></button>
+      </div>
+      <div class="modal-body">
+        <p>از حذف استان مورد نظر مطمئنید؟</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="showDeleteDialog()">انصراف</button>
+        <button type="button" class="btn btn-danger" (click)="deleteQuestion()">بله</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="deleteDialog==true" class="modal-backdrop fade show"></div>-->

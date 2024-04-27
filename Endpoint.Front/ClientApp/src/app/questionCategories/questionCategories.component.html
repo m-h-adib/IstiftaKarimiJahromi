@@ -20,7 +20,7 @@
         <button type="submit" class="btn btn-primary mb-3" (click)="Add()">ثبت</button>
       </div>
     </form>
-    <question-view *ngIf="getAccess('QuestionCategories')" [tree]="myTree"  (newItemEvent)="change($event)" (renew)="GetData()"></question-view>
+    <question-view *ngIf="getAccess('QuestionCategories')" [tree]="myTree" [showEditDelete]="true" (newItemEvent)="change($event)" (renew)="GetData()"></question-view>
   </div>
 </div>
 

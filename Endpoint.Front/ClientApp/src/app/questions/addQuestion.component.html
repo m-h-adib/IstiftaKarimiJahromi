@@ -1,0 +1,172 @@
+<div class="card mb-4">
+  <div class="card-header colorPurple">
+    <div class="card-title">
+      <strong>افزودن سوال</strong>
+      <button class="btn btn-warning float-end" [routerLink]="['/questions']">بازگشت</button>
+    </div>
+  </div>
+  <div class="card-body">
+    <form class="row g-3">
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">عنوان</label>
+        <input type="text" class="form-control" [(ngModel)]="AddDto.title" name="AddDto.title" placeholder="عنوان" />
+      </div>
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">نام</label>
+        <input type="text" class="form-control" [(ngModel)]="AddDto.firstName" name="AddDto.firstName" placeholder="نام" />
+      </div>
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">نام خانوادگی</label>
+        <input type="text" class="form-control" [(ngModel)]="AddDto.lastName" name="AddDto.lastName" placeholder="نام خانوادگی" />
+      </div>
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">شماره همراه</label>
+        <input type="text" class="form-control" [(ngModel)]="AddDto.mobile" name="AddDto.mobile" placeholder="شماره همراه" />
+      </div>
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">سن</label>
+        <input type="text" class="form-control" [(ngModel)]="AddDto.age" name="AddDto.age" placeholder="سن" />
+      </div>
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">جنسیت</label>
+        <select class="form-select" [(ngModel)]="AddDto.gender" name="AddDto.gender">
+          <option>انتخاب کنید</option>
+          <option value="1">آقا</option>
+          <option value="2">خانم</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">تحصیلات</label>
+        <select class="form-select" [(ngModel)]="AddDto.education" name="AddDto.education">
+          <option>انتخاب کنید</option>
+          <option value="1">بی سواد</option>
+          <option value="2">ابتدایی</option>
+          <option value="3">سیکل</option>
+          <option value="4">دیپلم</option>
+          <option value="5">فوق دیپلم</option>
+          <option value="6">کارشناسی</option>
+          <option value="7">کارشناسی ارشد</option>
+          <option value="8">دکتری</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">ایمیل</label>
+        <input type="text" class="form-control" [(ngModel)]="AddDto.email" name="AddDto.email" placeholder="ایمیل" />
+      </div>
+
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">کشور</label>
+        <select class="form-select" [(ngModel)]="AddDto.countryId" name="AddDto.countryId" (change)="changeCountry()">
+          <option value="" selected="selected">انتخاب کنید</option>
+          <option *ngFor="let a of countries" value="{{a.id}}">
+            {{a.name}}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">استان</label>
+        <select class="form-select" [(ngModel)]="AddDto.provinceId" name="AddDto.provinceId">
+          <option>انتخاب کنید</option>
+          <option *ngFor="let a of provinces" value="{{a.id}}">
+            {{a.name}}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">شهر</label>
+        <input type="text" class="form-control" [(ngModel)]="AddDto.city" name="AddDto.city" placeholder="شهر" />
+      </div>
+
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">آدرس</label>
+        <input type="text" class="form-control" [(ngModel)]="AddDto.address" name="AddDto.address" placeholder="آدرس" />
+      </div>
+
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">دسته شغلی</label>
+        <select class="form-select" [(ngModel)]="AddDto.jobCategoryId" name="AddDto.jobCategoryId">
+          <option>انتخاب کنید</option>
+          <option *ngFor="let a of jobs" value="{{a.id}}">
+            {{a.name}}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">شغل</label>
+        <input type="text" class="form-control" [(ngModel)]="AddDto.job" name="AddDto.job" placeholder="شغل" />
+      </div>
+
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">دسته سوال</label>
+        <input class="btn form-control" [ngClass]="catName!='دسته سوال' ? 'btn-success' : 'btn-warning'" type="button" value="{{catName}}" (click)="showCatDialog()" />
+        <input hidden="hidden" type="text" class="form-control" [(ngModel)]="AddDto.questionCategoryId" name="AddDto.questionCategoryId" placeholder="دسته سوال" />
+      </div>
+
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">شیوه دریافت سوال</label>
+        <select class="form-select" [(ngModel)]="AddDto.methodOfReceiveQuestionId" name="AddDto.methodOfReceiveQuestionId">
+          <option>انتخاب کنید</option>
+          <option *ngFor="let a of methods" value="{{a.id}}">
+            {{a.name}}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">تاریخ ثبت سوال</label>
+        <ng-persian-datepicker [dateInitValue]="false">
+          <input type="text" [formControl]="dateValue" [(ngModel)]="AddDto.questionDate" name="questionDate" required class="form-control" placeholder="تاریخ ثبت سوال" />
+        </ng-persian-datepicker>
+
+      </div>
+
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">متن سوال</label>
+        <input type="text" class="form-control" [(ngModel)]="AddDto.questionText" name="AddDto.questionText" placeholder="متن سوال" />
+      </div>
+
+
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">فایل های پیوست سوال</label>
+        <input type="file" class="form-control" [(ngModel)]="AddDto.attachs" name="AddDto.attachs" placeholder="فایل های پیوست سوال" />
+      </div>
+
+      <hr class="mt-4 border border-1 border-primary" />
+
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary m-1" (click)="Save()">ثبت</button>
+        <button type="submit" class="btn btn-warning float-end m-1" [routerLink]="['/questions']">بازگشت</button>
+      </div>
+      <div class="spinner-border text-primary" role="status" *ngIf="IsLoading">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <div class="row col-md-12 mt-3">
+        <div class="alert alert-danger" *ngFor="let a of Errors">
+          {{a}}
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal fade" [class.show]="catDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="catDialog==true ? 'block' : null" style="padding-left: 0px;">
+  <div class="modal-dialog model-sm">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h1 class="modal-title fs-5" id="exampleModalLiveLabel">پیام سیستم!</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="showCatDialog()"></button>
+      </div>
+      <div class="modal-body">
+        <question-view [tree]="myTree" [showEditDelete]="false" (newItemEvent)="selectCat($event)"></question-view>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="showCatDialog()">انصراف</button>
+        <button type="button" class="btn btn-danger" (click)="selectCategory()">انتخاب</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="catDialog==true" class="modal-backdrop fade show"></div>
