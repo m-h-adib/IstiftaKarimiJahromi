@@ -21,7 +21,7 @@ export class GetQuestionsService {
       'authorization': 'bearer ' + localStorage.getItem("token")
     });
 
-    return this.http.get<any>(this.url + "?pageNumber=" + dto.pageNumber + "&pageSize=" + dto.pageSize + "&title=" + dto.title, { headers: this.header }).pipe(
+    return this.http.get<any>(this.url + "?PageNumber=" + dto.pageNumber + "&PageSize=" + dto.pageSize + "&Title=" + (dto.title != undefined ? dto.title : ""), { headers: this.header }).pipe(
       map(p => {
         return p
       })

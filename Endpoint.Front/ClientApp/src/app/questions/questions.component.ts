@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { GetQuestionsService } from "../_services/question/getQuestionsService";
 import { GetQuestionsRequestDto } from "../_models/question/getQuestionsRequestDto";
 import { GetQuestionsDto } from "../_models/question/getQuestionsDto";
+import { Utils } from "../_utils/Utils";
 
 @Component({
   templateUrl: './questions.component.html',
@@ -11,8 +12,12 @@ import { GetQuestionsDto } from "../_models/question/getQuestionsDto";
 export class QuestionsComponent implements OnInit {
 
   access: string[] = [];
+  
   pageCount: number = 1;
-  req: GetQuestionsRequestDto = {};
+  req: GetQuestionsRequestDto = {
+    pageNumber: 1,
+    pageSize: 10
+  };
 
   items?:  GetQuestionsDto[] = [];
 
@@ -27,7 +32,9 @@ export class QuestionsComponent implements OnInit {
   getData() {
     this._getQuestionsService.GetQuestions(this.req!).subscribe(p => {
       this.items = p.data.items;
-      this.pageCount = ((p.data.paging.totalItems % this.req.pageSize!) == 0 ? (p.data.paging.totalItems / this.req.pageSize!) : (p.data.paging.totalItems / this.req.pageSize!)+1)
+      this.pageCount = Math.floor((p.data.paging.totalItems % this.req.pageSize!) == 0 ? (p.data.paging.totalItems / this.req.pageSize!) : (p.data.paging.totalItems / this.req.pageSize!) + 1)
+      console.log(this.pageCount);
+      console.log(this.req.pageNumber);
     })
   }
 
@@ -42,5 +49,12 @@ export class QuestionsComponent implements OnInit {
 
   change() {
     this.getData();
+  }
+
+  getAccess(id: string): boolean {
+    if (JSON.parse(localStorage.getItem("access")!).find((p: string) => p == id) != undefined)
+      return true;
+    else
+      return false;
   }
 }

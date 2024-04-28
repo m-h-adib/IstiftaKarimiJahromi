@@ -4,7 +4,7 @@
       <span>
         <strong>لیست سوالات</strong>
       </span>
-      <!--<a class="btn btn-warning float-end" *ngIf="getAccess('AddQuestion')" [routerLink]="['/addQuestion']">جدید</a>-->
+      <a class="btn btn-warning float-end" *ngIf="getAccess('AddQuestion')" [routerLink]="['/addquestion']">جدید</a>
     </div>
   </div>
   <div class="card-body">
@@ -83,15 +83,15 @@
 
       <nav dir="ltr">
         <ul class="pagination">
-          <li class="page-item" style="cursor:pointer" [class.disabled]="req.pageNumber==1" (click)="dec()">
-            <span class="page-link colorDarkest">صفحه قبل</span>
+          <li class="page-item" style="cursor:pointer"  >
+            <span class="page-link colorDarkest" [class.disabled]="req.pageNumber==1" (click)="dec()">صفحه قبل</span>
           </li>
           <li class="page-item active" aria-current="page">
             <input type="number" class="form-control text-center" style="width:150px;" (change)="change()" [(ngModel)]="req.pageNumber" />
           </li>
 
-          <li class="page-item">
-            <a class="page-link" style="cursor:pointer" [class.disabled]="req!.pageNumber! == pageCount" (click)="inc()">صفحه بعد</a>
+          <li class="page-item" style="cursor:pointer">
+            <a class="page-link" [class.disabled]="req!.pageNumber! == pageCount" (click)="inc()">صفحه بعد</a>
           </li>
         </ul>
       </nav>

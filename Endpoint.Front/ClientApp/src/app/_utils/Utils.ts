@@ -1,8 +1,11 @@
+import { OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
 export class Utils {
+  
 
   constructor(private router: Router) { }
+
 
   public static PersianToEnglish(input: string): number {
     const persianNums = '۰۱۲۳۴۵۶۷۸۹';
@@ -25,5 +28,6 @@ export class Utils {
 
     return number;
   }
+
 
 }

@@ -20,7 +20,9 @@ import { Router } from "@angular/router";
 })
 export class AddQuestionComponent implements OnInit {
   Errors: string[] = [];
-  AddDto: AddQuestionDto = {};
+  AddDto: AddQuestionDto = {
+    attachs: []
+  };
   IsLoading: boolean = false;
   countries: GetCountryDto[] = [];
   provinces: GetProvinceDto[] = [];
@@ -108,9 +110,16 @@ export class AddQuestionComponent implements OnInit {
         for (let a of p.message.split('|'))
           this.Errors.push(a);
     }, (error) => {
+      this.Errors = [];
       for (let a of error.error.message.split('|'))
         this.Errors.push(a);
     })
   }
+
+  onFilechange(event: any) {
+    console.log(event.target.files[0])
+    this.AddDto.attachs?.push(event.target.files[0]);
+    
+ }
 
 }
