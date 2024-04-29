@@ -200,7 +200,7 @@ namespace EndPoint.Api.Configurations
 				options.AddPolicy(name: MyAllowSpecificOrigins,
 								  builder =>
 								  {
-									  builder.SetIsOriginAllowed(s => s.Contains("form.amoozeshbeseh.ir") || s.Contains("localhost"));
+									  builder.SetIsOriginAllowed(s => s.Contains("istifta.amoozeshbeseh.ir") || s.Contains("localhost"));
 									  //builder.AllowAnyOrigin();
 									  //builder.WithOrigins("http://form.amoozeshbeseh.ir");
 									  builder.AllowAnyHeader();
