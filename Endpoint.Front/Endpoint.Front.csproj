@@ -37,6 +37,7 @@
     <None Remove="ClientApp\src\app\questionCategories\questionCategories.component.ts" />
     <None Remove="ClientApp\src\app\questionCategories\questionTree.component.ts" />
     <None Remove="ClientApp\src\app\questions\addQuestion.component.ts" />
+    <None Remove="ClientApp\src\app\questions\editQuestion.component.ts" />
     <None Remove="ClientApp\src\app\questions\questions.component.ts" />
     <None Remove="ClientApp\src\app\_models\methodRecieveQuestion\AddMethodOfRecieveQuestionDto.ts" />
     <None Remove="ClientApp\src\app\_models\methodRecieveQuestion\GetMethodOfRecieveQuestionDto.ts" />
@@ -121,6 +122,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\countries\addCountry.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\questionCategories\questionCategories.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\questionCategories\questionTree.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\questions\editQuestion.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\questions\addQuestion.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\questions\questions.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_models\methodRecieveQuestion\AddMethodOfRecieveQuestionDto.ts">

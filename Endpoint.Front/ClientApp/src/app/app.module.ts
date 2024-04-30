@@ -40,6 +40,7 @@ import { QuestionCategoriesComponent } from './questionCategories/questionCatego
 import { QuestionsComponent } from './questions/questions.component';
 import { AddQuestionComponent } from './questions/addQuestion.component';
 import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
+import { EditQuestionComponent } from './questions/editQuestion.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
     QuestionCategoriesComponent,
     QuestionTreeComponent,
     QuestionsComponent,
-    AddQuestionComponent
+    AddQuestionComponent,
+    EditQuestionComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -106,7 +108,8 @@ import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
       { path: 'editMethodOfRecieveQuestion/:id', component: EditMethodOfRecieveQuestionComponent, canActivate: [AuthGuard] },
       { path: 'questionCats', component: QuestionCategoriesComponent, canActivate: [AuthGuard] },
       { path: 'questions', component: QuestionsComponent, canActivate: [AuthGuard] },
-      { path: 'addquestion', component: AddQuestionComponent, canActivate: [AuthGuard] }
+      { path: 'addquestion', component: AddQuestionComponent, canActivate: [AuthGuard] },
+      { path: 'editquestion/:id', component: EditQuestionComponent, canActivate: [AuthGuard] }
     ])
   ],
   providers: [StoreService],

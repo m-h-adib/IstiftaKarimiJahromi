@@ -55,7 +55,9 @@ public class GetOneQuestionService: IGetOneQuestionService
 				QuestionDate = p.QuestionDate!.Value.ToPersianWithoutTime(),
 				QuestionText = p.QuestionText,
 				Title = p.Title,
-				Attachs = p.QuestionAttaches!=null ? p.QuestionAttaches.Select(u => new GetOneQuestionFileDto
+				Attachs = p.QuestionAttaches!=null ? p.QuestionAttaches
+				.Where(u=>!u.IsRemoved)
+				.Select(u => new GetOneQuestionFileDto
 				{
 					Id = u.Id,
 					Title = u.File

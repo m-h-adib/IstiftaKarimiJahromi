@@ -4,4 +4,5 @@ export interface GetQuestionCategoryDto {
   order?: number;
   childs?: GetQuestionCategoryDto[];
   isEditMode?: boolean;
+  isSelect?: boolean;
 }

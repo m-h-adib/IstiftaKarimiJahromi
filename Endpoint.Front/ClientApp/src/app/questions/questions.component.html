@@ -72,8 +72,8 @@
               {{item.status}}
             </td>
             <td>
-              <!--<a class="btn btn-warning m-1" *ngIf="getAccess('UpdateCategory')" [routerLink]="['/editCategory',item.id]">ویرایش</a>
-              <a class="btn btn-danger m-1" *ngIf="getAccess('DeleteCategory')" (click)="showDeleteDialog(item.id)">حذف</a>-->
+              <a class="btn btn-warning m-1" *ngIf="getAccess('UpdateQuestion')" [routerLink]="['/editquestion',item.id]">ویرایش</a>
+              <a class="btn btn-danger m-1" *ngIf="getAccess('DeleteQuestion')" (click)="showDeleteDialog(item.id)">حذف</a>
 
               <!--<a class="btn btn-info m-1" *ngIf="getAccess('ChangeUserAccess')" [routerLink]="['/useraccess',item.id]">دسترسی</a>-->
             </td>
@@ -103,7 +103,7 @@
 
 
 
-<!--<div class="modal fade" [class.show]="deleteDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="deleteDialog==true ? 'block' : null" style="padding-left: 0px;">
+<div class="modal fade" [class.show]="deleteDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="deleteDialog==true ? 'block' : null" style="padding-left: 0px;">
   <div class="modal-dialog model-sm">
     <div class="modal-content">
       <div class="modal-header bg-danger text-white">
@@ -120,4 +120,4 @@
     </div>
   </div>
 </div>
-<div *ngIf="deleteDialog==true" class="modal-backdrop fade show"></div>-->
+<div *ngIf="deleteDialog==true" class="modal-backdrop fade show"></div>

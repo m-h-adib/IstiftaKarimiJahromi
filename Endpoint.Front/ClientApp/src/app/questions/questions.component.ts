@@ -3,6 +3,7 @@ import { GetQuestionsService } from "../_services/question/getQuestionsService";
 import { GetQuestionsRequestDto } from "../_models/question/getQuestionsRequestDto";
 import { GetQuestionsDto } from "../_models/question/getQuestionsDto";
 import { Utils } from "../_utils/Utils";
+import { DeleteQuestionService } from "../_services/question/deleteQuestionService";
 
 @Component({
   templateUrl: './questions.component.html',
@@ -11,8 +12,12 @@ import { Utils } from "../_utils/Utils";
 
 export class QuestionsComponent implements OnInit {
 
+
   access: string[] = [];
-  
+
+
+  deleteDialog?: boolean = false;
+  selectItem?: number;
   pageCount: number = 1;
   req: GetQuestionsRequestDto = {
     pageNumber: 1,
@@ -21,7 +26,8 @@ export class QuestionsComponent implements OnInit {
 
   items?:  GetQuestionsDto[] = [];
 
-  constructor(private _getQuestionsService: GetQuestionsService) { }
+  constructor(private _getQuestionsService: GetQuestionsService,
+    private _deleteQuestionService:DeleteQuestionService) { }
 
   ngOnInit(): void {
     this.access = JSON.parse(localStorage.getItem("access")!);
@@ -56,5 +62,19 @@ export class QuestionsComponent implements OnInit {
       return true;
     else
       return false;
+  }
+
+  showDeleteDialog(id?: number) {
+    this.selectItem = id;
+    this.deleteDialog = !this.deleteDialog;
+  }
+
+  deleteQuestion() {
+    this._deleteQuestionService.DeleteQuestion(this.selectItem).subscribe(p => {
+      const index = this.items?.findIndex(p => p.id == this.selectItem)!;
+      this.items?.splice(index, 1);
+      this.deleteDialog = false;
+      this.selectItem = undefined;
+    })
   }
 }
