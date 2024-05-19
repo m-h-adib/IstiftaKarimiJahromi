@@ -39,6 +39,7 @@
     <None Remove="ClientApp\src\app\questions\addQuestion.component.ts" />
     <None Remove="ClientApp\src\app\questions\editQuestion.component.ts" />
     <None Remove="ClientApp\src\app\questions\questions.component.ts" />
+    <None Remove="ClientApp\src\app\_models\common\keyValueType.ts" />
     <None Remove="ClientApp\src\app\_models\methodRecieveQuestion\AddMethodOfRecieveQuestionDto.ts" />
     <None Remove="ClientApp\src\app\_models\methodRecieveQuestion\GetMethodOfRecieveQuestionDto.ts" />
     <None Remove="ClientApp\src\app\_models\language\AddLanguageDto.ts" />
@@ -63,6 +64,7 @@
     <None Remove="ClientApp\src\app\_models\question\getOneQuestionDto.ts" />
     <None Remove="ClientApp\src\app\_models\question\getQuestionsDto.ts" />
     <None Remove="ClientApp\src\app\_models\question\getQuestionsRequestDto.ts" />
+    <None Remove="ClientApp\src\app\_models\question\referenceToProcessorDto.ts" />
     <None Remove="ClientApp\src\app\_models\question\updateQuestionDto.ts" />
     <None Remove="ClientApp\src\app\_services\methodOfRecieveQuestion\addMethodOfRecieveQuestionService.ts" />
     <None Remove="ClientApp\src\app\_services\methodOfRecieveQuestion\deleteMethodOfRecieveQuestionService.ts" />
@@ -125,6 +127,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\questions\editQuestion.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\questions\addQuestion.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\questions\questions.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_models\common\keyValueType.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_models\methodRecieveQuestion\AddMethodOfRecieveQuestionDto.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -173,6 +176,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\_models\question\getOneQuestionDto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_models\question\getQuestionsDto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_models\question\getQuestionsRequestDto.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_models\question\referenceToProcessorDto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_models\question\updateQuestionDto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_services\methodOfRecieveQuestion\addMethodOfRecieveQuestionService.ts">
       <SubType>Code</SubType>

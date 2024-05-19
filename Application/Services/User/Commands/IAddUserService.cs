@@ -49,7 +49,7 @@ public class AddUserService: IAddUserService
             Name = dto.Name,
             Username = dto.Username,
             Password = pass,
-            Role=RoleType.Admin
+            Role=dto.Role!=null ? (RoleType)dto.Role : RoleType.Admin,
         });
 
         await _context.SaveChangesAsync();
@@ -64,6 +64,7 @@ public class AddAdminDto
     public string? Name { get; set; }
     public string? Username { get; set; }
 	public string? Password { get; set; }
+    public int? Role { get; set; }
 }
 
 #endregion

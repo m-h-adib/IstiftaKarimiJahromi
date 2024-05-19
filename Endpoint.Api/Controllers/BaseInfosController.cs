@@ -41,6 +41,7 @@ public class BaseInfosController : ControllerBase
 	private readonly IGetOneLanguageService _getOneLanguageService;
 	private readonly IGetOneMethodOfRecieveQuestionService _getOneMethodOfRecieveQuestionService;
 	private readonly IGetOneProvinceService _getOneProvinceService;
+	private readonly IGetUsersByRolesService _getUsersByRolesService;
 	#endregion
 	#region ctors
 	public BaseInfosController(IGetLanguagesService getLanguagesService,
@@ -71,7 +72,8 @@ public class BaseInfosController : ControllerBase
 		IGetOneJobCategoryService getOneJobCategoryService,
 		IGetOneLanguageService getOneLanguageService,
 		IGetOneMethodOfRecieveQuestionService getOneMethodOfRecieveQuestionService,
-		IGetOneProvinceService getOneProvinceService)
+		IGetOneProvinceService getOneProvinceService,
+		IGetUsersByRolesService getUsersByRolesService)
     {
         _getCountriesService = getCountriesService;
         _getJobCategoriesService = getJobCategoriesService;
@@ -102,6 +104,7 @@ public class BaseInfosController : ControllerBase
 		_getOneLanguageService = getOneLanguageService;
 		_getOneMethodOfRecieveQuestionService = getOneMethodOfRecieveQuestionService;
 		_getOneProvinceService = getOneProvinceService;
+		_getUsersByRolesService = getUsersByRolesService;
     }
     #endregion
 
@@ -180,6 +183,13 @@ public class BaseInfosController : ControllerBase
 	public async Task<IActionResult> GetOneProvince(int ProvinceId)
 	{
 		var res = await _getOneProvinceService.ExecuteAsync(ProvinceId);
+		return StatusCode(res.StatusCode, res);
+	}
+
+	[HttpGet]
+	public async Task<IActionResult> GetUsersByRoles([FromQuery]List<int> roles)
+	{
+		var res = await _getUsersByRolesService.ExecuteAsync(roles);
 		return StatusCode(res.StatusCode, res);
 	}
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities;
 
-public class Proccess:BaseEntity<long>
+public class PreProccess:BaseEntity<long>
 {    
     public string? Description { get; set; }
 
@@ -15,9 +15,5 @@ public class Proccess:BaseEntity<long>
     #region ctors
     public long? QuestionCycleId { get; set; }
     public QuestionCycle? QuestionCycle { get; set; }
-    public long? DuplicateId { get; set; }
-    public Question? Duplicate { get; set; }
-    public long? ResearcherId { get; set; }
-    public User? Researcher { get; set; }
     #endregion
 }

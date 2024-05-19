@@ -157,6 +157,7 @@ namespace EndPoint.Api.Configurations
 			services.AddScoped<IGetOneLanguageService, GetOneLanguageService>();
 			services.AddScoped<IGetOneMethodOfRecieveQuestionService, GetOneMethodOfRecieveQuestionService>();
 			services.AddScoped<IGetOneProvinceService, GetOneProvinceService>();
+			services.AddScoped<IGetUsersByRolesService,GetUsersByRolesService>();
 			#endregion
 
 			#region authentications

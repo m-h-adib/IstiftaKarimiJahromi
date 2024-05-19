@@ -19,7 +19,6 @@ public interface IDatabaseContext
 	DbSet<Editor> Editors { get; set; }
 	DbSet<JobCategory> JobCategories { get; set; }
 	DbSet<Language> Languages { get; set; }
-	DbSet<Proccess> Proccesses { get; set; }
 	DbSet<Province> Provinces { get; set; }
 	DbSet<Question> Questions { get; set; }
 	DbSet<QuestionAttach> QuestionAttaches { get; set; }
@@ -29,6 +28,7 @@ public interface IDatabaseContext
 	DbSet<Research> Researchs { get; set; }
 	DbSet<Session> Sessions { get; set; }
 	DbSet<SessionUser> SessionUsers { get; set; }
+	DbSet<PreProccess> PreProccesses { get; set; }
 	#endregion
 	#region methods
 

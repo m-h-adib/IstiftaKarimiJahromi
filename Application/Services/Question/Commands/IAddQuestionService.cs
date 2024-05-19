@@ -20,26 +20,26 @@ public interface IAddQuestionService
 	Task<ResultDto> ExecuteAsync(AddQuestionDto dto);
 }
 
-public class AddQuestionService: IAddQuestionService
+public class AddQuestionService : IAddQuestionService
 {
 	#region members
 	private readonly IDatabaseContext _context;
 	private readonly IHostingEnvironment _environment;
 	private readonly ITokenContents _tokenContents;
 	private readonly IHttpContextAccessor _httpContextAccessor;
-    #endregion
-    #region ctors
-    public AddQuestionService(IDatabaseContext context,
+	#endregion
+	#region ctors
+	public AddQuestionService(IDatabaseContext context,
 		IHostingEnvironment environment,
 		ITokenContents tokenContents,
 		IHttpContextAccessor httpContextAccessor)
-    {
-        _context = context;
+	{
+		_context = context;
 		_environment = environment;
 		_httpContextAccessor = httpContextAccessor;
 		_tokenContents = tokenContents;
-    }
-    #endregion
+	}
+	#endregion
 
 
 	public async Task<ResultDto> ExecuteAsync(AddQuestionDto dto)
@@ -95,11 +95,28 @@ public class AddQuestionService: IAddQuestionService
 				File = p,
 				IsActive = true,
 				IsRemoved = false
-			}).ToList()
+			}).ToList(),
+			QuestionCycles = new List<QuestionCycle>() { 
+				new QuestionCycle
+				{
+					FromStep = QuestionStepType.None,
+					ToStep = QuestionStepType.Add,
+					FromUserId = null,
+					ToUserId = userid,
+					UserId = userid,
+					CreatedAt = DateTime.Now,
+					IsAccept = null,
+					IsRemoved = false,
+					IsActive = true,
+					Description="ثبت اولیه سوال"
+				}
+			}
 		});
+
 
 		await _context.SaveChangesAsync();
 
+		
 		return ResultDto.Succeeded("ok");
 	}
 }
@@ -125,15 +142,15 @@ public class AddQuestionDto
 	public long? MethodOfReceiveQuestionId { get; set; }
 	public long? QuestionCategoryId { get; set; }
 	public string? QuestionText { get; set; }
-    public List<IFormFile>? Attachs { get; set; }
+	public List<IFormFile>? Attachs { get; set; }
 }
 #endregion
 
 #region validations
 public class AddQuestionValidator : AbstractValidator<AddQuestionDto>
 {
-    public AddQuestionValidator()
-    {
+	public AddQuestionValidator()
+	{
 		RuleFor(p => p.Title).NotNull().WithMessage("عنوان سوال الزامیست");
 		RuleFor(p => p.QuestionDate).NotNull().WithMessage("تاریخ دریافت سوال الزامیست")
 			.Must(p => p.Split("/").Length == 3).WithMessage("تاریخ را به درستی وارد نمایید"); ;

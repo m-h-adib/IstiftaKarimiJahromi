@@ -11,6 +11,8 @@ public class Editor:BaseEntity<long>
 {
     public string? AnswerText { get; set; }
     public string? ReasonText { get; set; }
+    public bool? IsAccept { get; set; }
+    public string? Description { get; set; }
 
 
     #region navigations

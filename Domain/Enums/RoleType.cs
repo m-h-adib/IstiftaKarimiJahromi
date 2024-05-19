@@ -13,8 +13,12 @@ public enum RoleType
 	SuperAdmin=1,
 	[Display(Name ="ادمین")]
 	Admin=2,
+	[Display(Name = "ثبت کننده سوال")]
+	Register = 3,
+	[Display(Name = "پردازشگر")]
+	Processor = 4,
 	[Display(Name ="محقق")]
-	Researcher=3,
+	Researcher=5,
 	[Display(Name = "ویراستار")]
-	Editor=4
+	Editor=6
 }

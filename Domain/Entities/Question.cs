@@ -28,8 +28,10 @@ public class Question:BaseEntity<long>
 
 
 
-    #region navigations
-    public long? CountryId { get; set; }
+	#region navigations
+	public long? DuplicateId { get; set; }
+	public Question? Duplicate { get; set; }
+	public long? CountryId { get; set; }
     public Country? Country { get; set; }
     public long? ProvinceId { get; set; }
     public Province? Province { get; set; }
@@ -42,5 +44,6 @@ public class Question:BaseEntity<long>
     public long? UserId { get; set; }
     public User? User { get; set; }
     public ICollection<QuestionAttach>? QuestionAttaches { get; set; }
+    public ICollection<QuestionCycle>? QuestionCycles { get; set; }
     #endregion
 }

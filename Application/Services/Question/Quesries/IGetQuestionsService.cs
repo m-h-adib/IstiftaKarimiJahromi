@@ -1,6 +1,8 @@
 ﻿using Application.Common;
 using Application.Interfaces.Contexts;
+using Application.Services.Authentication.Methods;
 using Domain.Enums;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -20,18 +22,30 @@ public class GetQuestionsService: IGetQuestionsService
 {
 	#region members
 	private readonly IDatabaseContext _context;
+    private readonly ITokenContents _tokenContents;
+    private readonly IHttpContextAccessor _httpContextAccessor;
     #endregion
     #region ctors
-    public GetQuestionsService(IDatabaseContext context)
+    public GetQuestionsService(IDatabaseContext context,
+        ITokenContents tokenContents,
+        IHttpContextAccessor httpContextAccessor)
     {
         _context = context;
+        _tokenContents = tokenContents;
+        _httpContextAccessor = httpContextAccessor;
     }
     #endregion
 
     public async Task<ResultDto<ResultOfList<GetQuestionDto>>> ExecuteAsync(GetQuestionRequestDto dto)
     {
+        long userid = _tokenContents.GetUserId(_httpContextAccessor.HttpContext!.User);
+
         var items = _context.Questions
-            .Where(p => !p.IsRemoved);
+            .Where(p => !p.IsRemoved && p.Step==QuestionStepType.Add);
+
+        if (!await _context.AdminSectionAccesses.AnyAsync(p => p.AdminSection!.Name == "ShowAllQuestions" && p.UserId == userid))
+            items = items.Where(p => p.UserId == userid);
+
 
         #region Filters
         if (!dto.Title.IsNullOrEmpty())

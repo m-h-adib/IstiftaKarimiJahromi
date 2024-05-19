@@ -9,10 +9,12 @@ namespace Domain.Enums;
 
 public enum QuestionStepType
 {
+	[Display(Name ="بدون وضعیت")]
+	None=0,
 	[Display(Name ="ثبت سوال")]
 	Add=1,
 	[Display(Name = "پیش پردازش سوال")]
-	Proccess =2,
+	Processing =2,
 	[Display(Name = "در حال تحقیق")]
 	Research =3,
 	[Display(Name = "ارجاع به جلسه مشورتی")]
@@ -20,7 +22,5 @@ public enum QuestionStepType
 	[Display(Name = "در حال ویراستاری")]
 	Editor =5,
 	[Display(Name = "آرشیو شده")]
-	Archive=6,
-	[Display(Name ="سوال تکراری")]
-	Duplicate=7
+	Archive=6
 }

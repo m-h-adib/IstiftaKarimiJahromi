@@ -44,7 +44,6 @@ public class DatabaseContext: DbContext, IDatabaseContext
     public DbSet<Editor> Editors { get; set; }
     public DbSet<JobCategory> JobCategories { get; set; }
 	public DbSet<Language> Languages { get; set; }
-    public DbSet<Proccess> Proccesses { get; set; }
 	public DbSet<Province> Provinces { get; set; }
 	public DbSet<Question> Questions { get; set; }
 	public DbSet<QuestionAttach> QuestionAttaches { get; set; }
@@ -54,5 +53,6 @@ public class DatabaseContext: DbContext, IDatabaseContext
     public DbSet<Research> Researchs { get; set; }
     public DbSet<Session> Sessions { get; set; }
     public DbSet<SessionUser> SessionUsers { get; set; }
+    public DbSet<PreProccess> PreProccesses { get; set; }
     #endregion dbSets
 }

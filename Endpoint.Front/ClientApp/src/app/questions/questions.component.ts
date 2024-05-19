@@ -4,6 +4,9 @@ import { GetQuestionsRequestDto } from "../_models/question/getQuestionsRequestD
 import { GetQuestionsDto } from "../_models/question/getQuestionsDto";
 import { Utils } from "../_utils/Utils";
 import { DeleteQuestionService } from "../_services/question/deleteQuestionService";
+import { ReferenceToProcessorDto } from "../_models/question/referenceToProcessorDto";
+import { GetUsersByRolesService } from "../_services/user/getUsersByRolesService";
+import { KeyValueType } from "../_models/common/keyValueType";
 
 @Component({
   templateUrl: './questions.component.html',
@@ -15,8 +18,10 @@ export class QuestionsComponent implements OnInit {
 
   access: string[] = [];
 
-
+  referenceToProcessorDto: ReferenceToProcessorDto = {};
+  refrenceUsers: KeyValueType[] = [];
   deleteDialog?: boolean = false;
+  refrenceDialog?: boolean = false;
   selectItem?: number;
   pageCount: number = 1;
   req: GetQuestionsRequestDto = {
@@ -27,7 +32,8 @@ export class QuestionsComponent implements OnInit {
   items?:  GetQuestionsDto[] = [];
 
   constructor(private _getQuestionsService: GetQuestionsService,
-    private _deleteQuestionService:DeleteQuestionService) { }
+    private _deleteQuestionService: DeleteQuestionService,
+    private _getUsersByRolesService: GetUsersByRolesService) { }
 
   ngOnInit(): void {
     this.access = JSON.parse(localStorage.getItem("access")!);
@@ -41,6 +47,11 @@ export class QuestionsComponent implements OnInit {
       this.pageCount = Math.floor((p.data.paging.totalItems % this.req.pageSize!) == 0 ? (p.data.paging.totalItems / this.req.pageSize!) : (p.data.paging.totalItems / this.req.pageSize!) + 1)
       console.log(this.pageCount);
       console.log(this.req.pageNumber);
+    })
+
+    this._getUsersByRolesService.GetUsers([1, 2, 4]).subscribe(p => {
+      this.refrenceUsers = p.data;
+      console.log(this.refrenceUsers);
     })
   }
 
@@ -67,6 +78,11 @@ export class QuestionsComponent implements OnInit {
   showDeleteDialog(id?: number) {
     this.selectItem = id;
     this.deleteDialog = !this.deleteDialog;
+  }
+
+  showRefrenceDialog(id?: number) {
+    this.selectItem = id;
+    this.refrenceDialog = !this.refrenceDialog;
   }
 
   deleteQuestion() {
