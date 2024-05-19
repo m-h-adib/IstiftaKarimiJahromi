@@ -17,7 +17,7 @@ public class Research:BaseEntity<long>
     public string? Description { get; set; }
 
     #region navigations
-    public long? QuestionCycleId { get; set; }
+    public long QuestionCycleId { get; set; }
     public QuestionCycle? QuestionCycle { get; set; }
     public ICollection<Session>? Sessions { get; set; }
     #endregion

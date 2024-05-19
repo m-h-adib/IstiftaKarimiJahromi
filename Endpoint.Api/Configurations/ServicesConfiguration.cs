@@ -19,6 +19,9 @@ using Application.AdminServices.User.Queries;
 using Application.Services.bases.Commands;
 using Application.Services.Question.Quesries;
 using Application.Services.Question.Commands;
+using Application.Services.Process.Quesries;
+using Application.Services.Process.Queries;
+using Application.Services.Process.Commands;
 
 namespace EndPoint.Api.Configurations
 {
@@ -184,6 +187,14 @@ namespace EndPoint.Api.Configurations
 			services.AddScoped<IEditQuestionService, EditQuestionService>();
 			services.AddScoped<IDeleteQuestionService, DeleteQuestionService>();
 			services.AddScoped<IDeleteQuestionFileService, DeleteQuestionFileService>();
+			services.AddScoped<IReferenceToProcessorService, ReferenceToProcessorService>();
+			#endregion
+
+			#region Process
+			services.AddScoped<IGetProcessQuestionsService, GetProcessQuestionsService>();
+			services.AddScoped<IGetProcessCyclesService, GetProcessCyclesService>();
+			services.AddScoped<ISearchQuestionService, SearchQuestionService>();
+			services.AddScoped<IAddProcessQuestionService, AddProcessQuestionService>();
 			#endregion
 
 			#endregion services

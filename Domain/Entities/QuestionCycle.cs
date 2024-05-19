@@ -32,8 +32,8 @@ public class QuestionCycle:BaseEntity<long>
 	public User? ToUser { get; set; }
     public long QuestionId { get; set; }
     public Question? Question { get; set; }
-	public ICollection<PreProccess>? PreProccesses { get; set; }
-	public ICollection<Research>? Researches { get; set; }
+	public PreProccess? PreProccess { get; set; }
+	public Research? Research { get; set; }
     public ICollection<Editor>? Editors { get; set; }
     /// <summary>
     /// یوزر ارجاع دهنده

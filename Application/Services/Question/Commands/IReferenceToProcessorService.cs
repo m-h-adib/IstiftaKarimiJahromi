@@ -60,7 +60,7 @@ public class ReferenceToProcessorService : IReferenceToProcessorService
 		await _context.QuestionCycles.AddAsync(new Domain.Entities.QuestionCycle
 		{
 			CreatedAt = DateTime.Now,
-			FromUserId = dto.FromUser,
+			FromUserId = question.UserId,
 			ToUserId = dto.ToUser,
 			UserId = userid,
 			QuestionId = question.Id,
@@ -82,7 +82,6 @@ public class ReferenceToProcessorService : IReferenceToProcessorService
 public class ReferenceToProcessorDto
 {
     public long? QuestionId { get; set; }
-    public long? FromUser { get; set; }
     public long? ToUser { get; set; }
     public string? Description { get; set; }
 }

@@ -1,0 +1,107 @@
+<div class="row col-md-12">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header colorPurple">
+              <div class="card-title">
+                <span>
+                  <strong>ثبت پردازش سوال</strong>
+                </span>
+              </div>
+            </div>
+            <div class="card-body">
+                <form class="row g-3">
+                    <div class="col-md-6">
+                        <label for="inputEmail4" class="form-label">دسته سوال </label>
+                        <input class="btn form-control" [ngClass]="catName!='دسته سوال' ? 'btn-success' : 'btn-warning'" type="button" value="{{catName}}" (click)="showCatDialog()"  />
+                        <input hidden="hidden" type="text" class="form-control" [(ngModel)]="searchReq.category" name="searchReq.category" placeholder="دسته سوال" />
+                      </div>
+                
+                    <div class="col-md-12">
+                      <label for="inputEmail4" class="form-label">توضیحات</label>
+                      <textarea type="text" class="form-control" [(ngModel)]="add.description" name="add.description" rows="8" cols="100" placeholder="توضیحات"></textarea>
+                    </div>
+                </form>
+            </div>
+
+         
+
+              
+        </div>
+    </div>
+
+
+
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header colorPurple">
+              <div class="card-title">
+                <span>
+                  <strong>لیست گردازش های این سوال</strong>
+                </span>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+          
+                <table class="table align-middle table-bordered text-center">
+                  <thead class="fw-bold">
+                    <tr>
+                      <td>
+                        توضیحات مدیر
+                      </td>
+                      <td>
+                        توضیحات پردازش
+                      </td>
+                      <td>
+                        سوال تکراری
+                      </td>
+                      <td>
+                        وضعیت
+                      </td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of cycles">
+                      <td>
+                        {{item.qDesctiption}}
+                      </td>
+                      <td>
+                        {{item.pDescription}}
+                      </td>
+                      <td>
+                        {{item.duplicate}}
+                      </td>
+                      <td>
+                        {{item.isAccept==true ? "تاید شده" :  item.isAccept==false ? "رد شده" : "در انتظار"}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          
+    </div>
+   
+</div>
+
+
+
+<div class="modal fade" [class.show]="catDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="catDialog==true ? 'block' : null" style="padding-left: 0px;">
+    <div class="modal-dialog model-sm">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h1 class="modal-title fs-5" id="exampleModalLiveLabel">پیام سیستم!</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="showCatDialog()"></button>
+        </div>
+        <div class="modal-body">
+          <question-view [tree]="myTree" [showEditDelete]="false" (newItemEvent)="selectCat($event)"></question-view>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="showCatDialog()">انصراف</button>
+          <button type="button" class="btn btn-danger" (click)="selectCategory()">انتخاب</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="catDialog==true" class="modal-backdrop fade show"></div>

@@ -13,7 +13,9 @@ public class PreProccess:BaseEntity<long>
 
 
     #region ctors
-    public long? QuestionCycleId { get; set; }
+    public long QuestionCycleId { get; set; }
     public QuestionCycle? QuestionCycle { get; set; }
+    public long? DuplicateId { get; set; }
+    public Question? Duplicate { get; set; }
     #endregion
 }

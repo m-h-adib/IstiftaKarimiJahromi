@@ -41,6 +41,8 @@ import { QuestionsComponent } from './questions/questions.component';
 import { AddQuestionComponent } from './questions/addQuestion.component';
 import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
 import { EditQuestionComponent } from './questions/editQuestion.component';
+import { ProcessQuestionsComponent } from './process/processQuestions.component';
+import { ProcessCyclesComponent } from './process/processCycles.component';
 
 
 @NgModule({
@@ -71,7 +73,9 @@ import { EditQuestionComponent } from './questions/editQuestion.component';
     QuestionTreeComponent,
     QuestionsComponent,
     AddQuestionComponent,
-    EditQuestionComponent
+    EditQuestionComponent,
+    ProcessQuestionsComponent,
+    ProcessCyclesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -109,7 +113,9 @@ import { EditQuestionComponent } from './questions/editQuestion.component';
       { path: 'questionCats', component: QuestionCategoriesComponent, canActivate: [AuthGuard] },
       { path: 'questions', component: QuestionsComponent, canActivate: [AuthGuard] },
       { path: 'addquestion', component: AddQuestionComponent, canActivate: [AuthGuard] },
-      { path: 'editquestion/:id', component: EditQuestionComponent, canActivate: [AuthGuard] }
+      { path: 'editquestion/:id', component: EditQuestionComponent, canActivate: [AuthGuard] },
+      { path: 'processQuestions', component: ProcessQuestionsComponent, canActivate: [AuthGuard] },
+      { path: 'processCycles/:questionId/:userId', component: ProcessCyclesComponent, canActivate: [AuthGuard] },
     ])
   ],
   providers: [StoreService],

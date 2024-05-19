@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Services.Question.Quesries;
+namespace Application.Services.Process.Quesries;
 
 public interface IGetProcessQuestionsService
 {
@@ -62,8 +62,11 @@ public class GetProcessQuestionsService : IGetProcessQuestionsService
                 Name = p.FirstName + " " + p.LastName,
                 Category = p.QuestionCategory!.Title,
                 QuestionDate = p.QuestionDate!.Value.ToPersian(),
-                IsChecked=_context.PreProccesses
-                .Any(u=>u.QuestionCycle!.QuestionId==p.Id && u.QuestionCycle.ToUserId==p.UserId && u.QuestionCycle.ToStep==QuestionStepType.Processing && u.QuestionCycle.IsAccept==false)
+                Text=p.QuestionText,
+                Status=p.Step!.GetDisplayName(),
+                UserId=p.UserId,
+                UserName=p.User!.Name,
+                IsChecked=_context.PreProccesses.Any(u=>u.QuestionCycle!.QuestionId==p.Id && u.QuestionCycle.ToUserId==p.UserId && u.QuestionCycle.ToStep==QuestionStepType.Processing && u.QuestionCycle.PreProccess!=null)
             })
             .ToListAsync();
 
@@ -92,5 +95,9 @@ public class GetProcessQuestionDto
 	public string? Name { get; set; }
     public string? Category { get; set; }
     public bool? IsChecked { get; set; }
+    public string? Text { get; set; }
+    public string? Status { get; set; }
+    public long? UserId { get; set; }
+    public string? UserName { get; set; }
 }
 #endregion

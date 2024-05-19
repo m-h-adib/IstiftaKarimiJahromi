@@ -7,6 +7,7 @@ import { DeleteQuestionService } from "../_services/question/deleteQuestionServi
 import { ReferenceToProcessorDto } from "../_models/question/referenceToProcessorDto";
 import { GetUsersByRolesService } from "../_services/user/getUsersByRolesService";
 import { KeyValueType } from "../_models/common/keyValueType";
+import { ReferenceToProcessorService } from '../_services/question/referenceToProcessorService';
 
 @Component({
   templateUrl: './questions.component.html',
@@ -33,7 +34,8 @@ export class QuestionsComponent implements OnInit {
 
   constructor(private _getQuestionsService: GetQuestionsService,
     private _deleteQuestionService: DeleteQuestionService,
-    private _getUsersByRolesService: GetUsersByRolesService) { }
+    private _getUsersByRolesService: GetUsersByRolesService,
+    private _referenceToProcessorService:ReferenceToProcessorService) { }
 
   ngOnInit(): void {
     this.access = JSON.parse(localStorage.getItem("access")!);
@@ -81,7 +83,7 @@ export class QuestionsComponent implements OnInit {
   }
 
   showRefrenceDialog(id?: number) {
-    this.selectItem = id;
+    this.referenceToProcessorDto.questionId = id;
     this.refrenceDialog = !this.refrenceDialog;
   }
 
@@ -91,6 +93,15 @@ export class QuestionsComponent implements OnInit {
       this.items?.splice(index, 1);
       this.deleteDialog = false;
       this.selectItem = undefined;
+    })
+  }
+
+  reference(){
+    this._referenceToProcessorService.Refrenece(this.referenceToProcessorDto).subscribe(p => {
+      alert(p.message);
+      this.referenceToProcessorDto.questionId = 0;
+      this.refrenceDialog = !this.refrenceDialog;
+      this.getData();
     })
   }
 }

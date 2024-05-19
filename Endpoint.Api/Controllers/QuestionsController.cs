@@ -1,4 +1,5 @@
-﻿using Application.Services.Question.Commands;
+﻿using Application.Services.Process.Quesries;
+using Application.Services.Question.Commands;
 using Application.Services.Question.Quesries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -18,14 +19,16 @@ namespace Endpoint.Api.Controllers
 		private readonly IEditQuestionService _editQuestionService;
 		private readonly IDeleteQuestionService _deleteQuestionService;
 		private readonly IDeleteQuestionFileService _deleteQuestionFileService;
-        #endregion
-        #region ctors
-        public QuestionsController(IGetQuestionsService getQuestionsService,
+		private readonly IReferenceToProcessorService _referenceToProcessorService;
+		#endregion
+		#region ctors
+		public QuestionsController(IGetQuestionsService getQuestionsService,
 			IGetOneQuestionService getOneQuestionService,
 			IAddQuestionService addQuestionService,
 			IEditQuestionService editQuestionService,
 			IDeleteQuestionService deleteQuestionService,
-			IDeleteQuestionFileService deleteQuestionFileService)
+			IDeleteQuestionFileService deleteQuestionFileService,
+			IReferenceToProcessorService referenceToProcessorService)
         {
             _addQuestionService = addQuestionService;
 			_deleteQuestionFileService = deleteQuestionFileService;
@@ -33,9 +36,13 @@ namespace Endpoint.Api.Controllers
 			_editQuestionService = editQuestionService;
 			_getQuestionsService = getQuestionsService;
 			_getOneQuestionService = getOneQuestionService;
-        }
+			_referenceToProcessorService = referenceToProcessorService;
+
+		}
 		#endregion
 
+
+	
 
 		[HttpGet]
 		public async Task<IActionResult> GetQuestions([FromQuery] GetQuestionRequestDto dto)
@@ -57,6 +64,13 @@ namespace Endpoint.Api.Controllers
 		public async Task<IActionResult> AddQuestion([FromForm] AddQuestionDto dto)
 		{
 			var res = await _addQuestionService.ExecuteAsync(dto);
+			return StatusCode(res.StatusCode, res);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> ReferenceToProcessor([FromBody] ReferenceToProcessorDto dto)
+		{
+			var res = await _referenceToProcessorService.ExecuteAsync(dto);
 			return StatusCode(res.StatusCode, res);
 		}
 

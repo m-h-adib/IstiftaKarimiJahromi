@@ -168,6 +168,12 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("IsAccept")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -300,7 +306,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("MethodOfReceiveQuestions");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Proccess", b =>
+            modelBuilder.Entity("Domain.Entities.PreProccess", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -323,14 +329,11 @@ namespace Infrastructure.Migrations
                     b.Property<bool>("IsRemoved")
                         .HasColumnType("bit");
 
-                    b.Property<long?>("QuestionCycleId")
+                    b.Property<long>("QuestionCycleId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime?>("RemovedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<long?>("ResearcherId")
-                        .HasColumnType("bigint");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -339,11 +342,10 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("DuplicateId");
 
-                    b.HasIndex("QuestionCycleId");
+                    b.HasIndex("QuestionCycleId")
+                        .IsUnique();
 
-                    b.HasIndex("ResearcherId");
-
-                    b.ToTable("Proccesses");
+                    b.ToTable("PreProccesses");
                 });
 
             modelBuilder.Entity("Domain.Entities.Province", b =>
@@ -407,6 +409,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<long?>("DuplicateId")
+                        .HasColumnType("bigint");
 
                     b.Property<int?>("Education")
                         .HasColumnType("int");
@@ -474,6 +479,8 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CountryId");
+
+                    b.HasIndex("DuplicateId");
 
                     b.HasIndex("JobCategoryId");
 
@@ -592,6 +599,9 @@ namespace Infrastructure.Migrations
                     b.Property<bool>("IsRemoved")
                         .HasColumnType("bit");
 
+                    b.Property<long>("QuestionId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime?>("RemovedAt")
                         .HasColumnType("datetime2");
 
@@ -608,6 +618,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
 
                     b.HasIndex("UserId");
 
@@ -643,7 +655,7 @@ namespace Infrastructure.Migrations
                     b.Property<bool>("IsRemoved")
                         .HasColumnType("bit");
 
-                    b.Property<long?>("QuestionCycleId")
+                    b.Property<long>("QuestionCycleId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("ReasonFile")
@@ -657,7 +669,8 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("QuestionCycleId");
+                    b.HasIndex("QuestionCycleId")
+                        .IsUnique();
 
                     b.ToTable("Researchs");
                 });
@@ -790,11 +803,11 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedAt = new DateTime(2024, 4, 16, 11, 25, 26, 708, DateTimeKind.Local).AddTicks(2633),
+                            CreatedAt = new DateTime(2024, 5, 19, 20, 2, 34, 115, DateTimeKind.Local).AddTicks(8845),
                             IsActive = true,
                             IsRemoved = false,
                             Name = "محمدحسین ادیب",
-                            Password = "AJDT6ooMoJVHDjzF204I3NBaoMqx3t4yFKTo6dYKvU9syHnqEnBe28+Uqqs0W6Y3hA==",
+                            Password = "APyumCE2234ABB5YQjLXkz/FQKK3RbFqI2aDLQEmAFQfcJ5m+rHBiNdawXakEDAD0Q==",
                             Role = 2,
                             Username = "m-h-adib"
                         });
@@ -843,25 +856,21 @@ namespace Infrastructure.Migrations
                     b.Navigation("QuestionCycle");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Proccess", b =>
+            modelBuilder.Entity("Domain.Entities.PreProccess", b =>
                 {
                     b.HasOne("Domain.Entities.Question", "Duplicate")
                         .WithMany()
                         .HasForeignKey("DuplicateId");
 
                     b.HasOne("Domain.Entities.QuestionCycle", "QuestionCycle")
-                        .WithMany("Proccesses")
-                        .HasForeignKey("QuestionCycleId");
-
-                    b.HasOne("Domain.Entities.User", "Researcher")
-                        .WithMany()
-                        .HasForeignKey("ResearcherId");
+                        .WithOne("PreProccess")
+                        .HasForeignKey("Domain.Entities.PreProccess", "QuestionCycleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Duplicate");
 
                     b.Navigation("QuestionCycle");
-
-                    b.Navigation("Researcher");
                 });
 
             modelBuilder.Entity("Domain.Entities.Province", b =>
@@ -878,6 +887,10 @@ namespace Infrastructure.Migrations
                     b.HasOne("Domain.Entities.Country", "Country")
                         .WithMany("Questions")
                         .HasForeignKey("CountryId");
+
+                    b.HasOne("Domain.Entities.Question", "Duplicate")
+                        .WithMany()
+                        .HasForeignKey("DuplicateId");
 
                     b.HasOne("Domain.Entities.JobCategory", "JobCategory")
                         .WithMany("Questions")
@@ -900,6 +913,8 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("Country");
+
+                    b.Navigation("Duplicate");
 
                     b.Navigation("JobCategory");
 
@@ -932,9 +947,17 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.QuestionCycle", b =>
                 {
+                    b.HasOne("Domain.Entities.Question", "Question")
+                        .WithMany("QuestionCycles")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("QuestionCycles")
                         .HasForeignKey("UserId");
+
+                    b.Navigation("Question");
 
                     b.Navigation("User");
                 });
@@ -942,8 +965,10 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.Research", b =>
                 {
                     b.HasOne("Domain.Entities.QuestionCycle", "QuestionCycle")
-                        .WithMany("Researches")
-                        .HasForeignKey("QuestionCycleId");
+                        .WithOne("Research")
+                        .HasForeignKey("Domain.Entities.Research", "QuestionCycleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("QuestionCycle");
                 });
@@ -1008,6 +1033,8 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.Question", b =>
                 {
                     b.Navigation("QuestionAttaches");
+
+                    b.Navigation("QuestionCycles");
                 });
 
             modelBuilder.Entity("Domain.Entities.QuestionCategory", b =>
@@ -1019,9 +1046,9 @@ namespace Infrastructure.Migrations
                 {
                     b.Navigation("Editors");
 
-                    b.Navigation("Proccesses");
+                    b.Navigation("PreProccess");
 
-                    b.Navigation("Researches");
+                    b.Navigation("Research");
                 });
 
             modelBuilder.Entity("Domain.Entities.Research", b =>
