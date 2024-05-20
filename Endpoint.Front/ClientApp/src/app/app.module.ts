@@ -43,6 +43,7 @@ import { NgPersianDatepickerModule } from 'ng-persian-datepicker';
 import { EditQuestionComponent } from './questions/editQuestion.component';
 import { ProcessQuestionsComponent } from './process/processQuestions.component';
 import { ProcessCyclesComponent } from './process/processCycles.component';
+import { SearchQuestionComponent } from './process/searchQuestion.component';
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import { ProcessCyclesComponent } from './process/processCycles.component';
     AddQuestionComponent,
     EditQuestionComponent,
     ProcessQuestionsComponent,
-    ProcessCyclesComponent
+    ProcessCyclesComponent,
+    SearchQuestionComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -15,19 +15,18 @@ import { GetQuestionCategoriesService } from '../_services/questionCategory/getQ
   
   export class ProcessCyclesComponent implements OnInit {
   
-    catDialog: boolean = false;
+
     access: string[] = [];
-    catName?:string="دسته سوال";
-    catId?: number;
     req: GetProcessCycleRequestDto = {};
     add:AddProcessQuestionDto={};
     searchReq:SearchQuestionRequestDto={};
-    myTree: GetQuestionCategoryDto[] = [];
     cycles?:  GetProcessCyclesDto[] = [];
+    
+    qName?:string ='بدون سوال تکراری';
+    searchDialog?:boolean=false;
   
     constructor(private _getProcessCyclesService: GetProcessCyclesService,
-        private route:ActivatedRoute,
-        private _GetQuestionCategoriesService: GetQuestionCategoriesService,) { }
+        private route:ActivatedRoute) { }
   
     ngOnInit(): void {
 
@@ -45,9 +44,9 @@ import { GetQuestionCategoriesService } from '../_services/questionCategory/getQ
         console.log(p.data);
       })
 
-      this._GetQuestionCategoriesService.GetQuestionCategories().subscribe(p => {
-        this.myTree = p.data;
-      })
+      // this._GetQuestionCategoriesService.GetQuestionCategories().subscribe(p => {
+      //   this.myTree = p.data;
+      // })
     }
   
     
@@ -57,34 +56,11 @@ import { GetQuestionCategoriesService } from '../_services/questionCategory/getQ
       else
         return false;
     }
-  
-    showCatDialog(){
-        this.catDialog = !this.catDialog;
-    }
-  
-    selectCat(id: number) {
-        this.catId = id;
-      }
-    
-      selectCategory() {
-        console.log( this.catId);
-        if ( this.catId != undefined) {
-          this.searchReq.category = this.catId;
-          this.findInTree(this.myTree, this.catId!);
-        }
-        this.catDialog = !this.catDialog;
-      }
 
-      findInTree(tree: GetQuestionCategoryDto[], id: number) {
-        for (var i = 0; i < tree.length; i++) {
-          if (tree[i].id == id) {
-            this.catName = tree[i].title!;
-            break;
-          }
-          if (tree[i].childs?.length! > 0)
-            this.findInTree(tree[i].childs!, id);
-        }
-      }
+    showSearchDialog(){
+      this.searchDialog=!this.searchDialog;
+    }
+
     /*showRefrenceDialog(id?: number) {
       this.referenceToProcessorDto.questionId = id;
       this.refrenceDialog = !this.refrenceDialog;
