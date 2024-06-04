@@ -23,7 +23,7 @@ export class GetUsersByRolesService {
       'authorization': 'bearer ' + localStorage.getItem('token')
     });
 
-    
+    this.s = "";
     for (var i = 0; i < dto!.length; i++) {
       this.s = this.s + "roles=" + dto![i] + "&";
     }

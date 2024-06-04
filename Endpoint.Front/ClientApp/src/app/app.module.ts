@@ -117,7 +117,7 @@ import { SearchQuestionComponent } from './process/searchQuestion.component';
       { path: 'addquestion', component: AddQuestionComponent, canActivate: [AuthGuard] },
       { path: 'editquestion/:id', component: EditQuestionComponent, canActivate: [AuthGuard] },
       { path: 'processQuestions', component: ProcessQuestionsComponent, canActivate: [AuthGuard] },
-      { path: 'processCycles/:questionId/:userId', component: ProcessCyclesComponent, canActivate: [AuthGuard] },
+      { path: 'processCycles/:questionId', component: ProcessCyclesComponent, canActivate: [AuthGuard] },
     ])
   ],
   providers: [StoreService],

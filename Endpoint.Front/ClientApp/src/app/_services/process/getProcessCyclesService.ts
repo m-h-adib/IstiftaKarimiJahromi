@@ -25,7 +25,7 @@ export class GetProcessCyclesService {
       'authorization': 'bearer ' + localStorage.getItem("token")
     });
 
-    return this.http.get<any>(this.url + "?questionId=" + dto.questionId+"&userId="+dto.userId, { headers: this.header }).pipe(
+    return this.http.get<any>(this.url + "?questionId=" + dto.questionId, { headers: this.header }).pipe(
       map(p => {
         return p
       })

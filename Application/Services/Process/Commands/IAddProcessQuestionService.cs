@@ -38,7 +38,7 @@ public class AddProcessQuestionService: IAddProcessQuestionService
 	{
 		var cycle = await _context.QuestionCycles
 			.Include(p=>p.PreProccess)
-			.FirstOrDefaultAsync(p => p.Id == dto.CycleId && !p.IsRemoved && p.IsAccept==null);
+			.FirstOrDefaultAsync(p => p.QuestionId == dto.QuestionId && !p.IsRemoved && p.IsAccept==null);
 
 		if (cycle == null)
 			return ResultDto.Failed("خطا در ارسال اطلاعات");
@@ -65,7 +65,7 @@ public class AddProcessQuestionService: IAddProcessQuestionService
 #region dtos
 public class AddProcessQuestionDto
 {
-    public long? CycleId { get; set; }
+    public long? QuestionId { get; set; }
     public string? Description { get; set; }
     public long? DuplicateId { get; set; }
 }

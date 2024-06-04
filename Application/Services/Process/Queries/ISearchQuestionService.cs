@@ -37,7 +37,7 @@ public class SearchQuestionService: ISearchQuestionService
 
 	public async Task<ResultDto<List<SearchQuestionDto>>> ExecuteAsync(SearchQuestionRequestDto dto)
 	{
-		if(dto.Title!.Length>3 && dto.Title.Split(" ").Length >= 2)
+		if(dto.Title!=null && dto.Title!.Length>3 && dto.Title.Split(" ").Length >= 2)
 		{
 			var items = _context.Questions
 				.Where(p => !p.IsRemoved)

@@ -17,17 +17,20 @@ public class ProcessesController : ControllerBase
     private readonly IGetProcessCyclesService _processCyclesService;
     private readonly ISearchQuestionService _searchQuestionService;
     private readonly IAddProcessQuestionService _addProcessQuestionService;
+    private readonly IAcceptOrRejectProcessService _acceptOrRejectProcessService;
     #endregion
     #region ctors
     public ProcessesController(IGetProcessQuestionsService processQuestionsService,
         IGetProcessCyclesService processCyclesService,
         ISearchQuestionService searchQuestionService,
-        IAddProcessQuestionService addProcessQuestionService)
+        IAddProcessQuestionService addProcessQuestionService,
+        IAcceptOrRejectProcessService acceptOrRejectProcessService)
     {
         _processQuestionsService = processQuestionsService;
         _addProcessQuestionService = addProcessQuestionService;
         _processCyclesService = processCyclesService;
         _searchQuestionService = searchQuestionService;
+        _acceptOrRejectProcessService = acceptOrRejectProcessService;
     }
     #endregion
 
@@ -60,4 +63,11 @@ public class ProcessesController : ControllerBase
 		var res = await _addProcessQuestionService.ExecuteAsync(dto);
 		return StatusCode(res.StatusCode, res);
 	}
+
+    [HttpPost]
+    public async Task<IActionResult> AcceptOrRejectProcess([FromBody] AcceptOrRejectProcessDto dto)
+    {
+        var res = await _acceptOrRejectProcessService.ExecuteAsync(dto);
+        return StatusCode(res.StatusCode, res);
+    }
 }

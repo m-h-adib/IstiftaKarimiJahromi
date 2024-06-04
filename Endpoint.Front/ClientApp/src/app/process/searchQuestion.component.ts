@@ -1,6 +1,10 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 import { GetQuestionCategoryDto } from '../_models/questionCategory/GetQuestionCategoryDto';
 import { GetQuestionCategoriesService } from '../_services/questionCategory/getQuestionCategoriesService';
+import { SearchQuestionDto } from "../_models/process/searechQuestionDto";
+import { SearchQuestionsService } from "../_services/process/searchQuestionsService";
+import { SearchQuestionRequestDto } from "../_models/process/searchQuestionRequestDto";
+import { KeyValueType } from "../_models/common/keyValueType";
 
 @Component({
     selector:'SearchQuestionComponent',
@@ -8,13 +12,15 @@ import { GetQuestionCategoriesService } from '../_services/questionCategory/getQ
 })
 
 export class SearchQuestionComponent{
-    term?:string;
     catId?:number;
     catDialog: boolean = false;
     myTree: GetQuestionCategoryDto[] = [];
-    catName: string = "دسته سوال";
-
-    constructor(private _GetQuestionCategoriesService: GetQuestionCategoriesService) { }
+  catName: string = "دسته سوال";
+  items: SearchQuestionDto[]=[];
+  req: SearchQuestionRequestDto = {};
+  @Output() newItemEvent = new EventEmitter<KeyValueType>();
+  constructor(private _GetQuestionCategoriesService: GetQuestionCategoriesService,
+    private _searchQuestionService: SearchQuestionsService) { }
     
     ngOnInit(): void {
         this._GetQuestionCategoriesService.GetQuestionCategories().subscribe(p => {
@@ -48,5 +54,21 @@ export class SearchQuestionComponent{
           if (tree[i].childs?.length! > 0)
             this.findInTree(tree[i].childs!, id);
         }
-      }
+  }
+
+  search() {
+    this._searchQuestionService.Search(this.req).subscribe(p => {
+      //this.items.push(p.data);
+      this.items = p.data;
+      //console.log(this.items);
+    })
+  }
+
+  select(id: number, title: string) {
+    let a: KeyValueType = {};
+    a.key = id;
+    a.value = title;
+    this.newItemEvent.emit(a);
+
+  }
 }

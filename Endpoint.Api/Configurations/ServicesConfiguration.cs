@@ -195,6 +195,7 @@ namespace EndPoint.Api.Configurations
 			services.AddScoped<IGetProcessCyclesService, GetProcessCyclesService>();
 			services.AddScoped<ISearchQuestionService, SearchQuestionService>();
 			services.AddScoped<IAddProcessQuestionService, AddProcessQuestionService>();
+			services.AddScoped<IAcceptOrRejectProcessService, AcceptOrRejectProcessService>();
 			#endregion
 
 			#endregion services

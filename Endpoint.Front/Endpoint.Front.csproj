@@ -54,6 +54,7 @@
     <None Remove="ClientApp\src\app\_models\loginRequestModel.ts" />
     <None Remove="ClientApp\src\app\_models\loginResponseModel.ts" />
     <None Remove="ClientApp\src\app\_models\methodRecieveQuestion\UpdateMethodOfRecieveQuestionDto.ts" />
+    <None Remove="ClientApp\src\app\_models\process\acceptOrRejectProcessDto.ts" />
     <None Remove="ClientApp\src\app\_models\province\AddProvinceDto.ts" />
     <None Remove="ClientApp\src\app\_models\province\GetProvinceDto.ts" />
     <None Remove="ClientApp\src\app\_models\province\UpdateProvinceDto.ts" />
@@ -75,6 +76,7 @@
     <None Remove="ClientApp\src\app\_services\jobCategory\updateJobCategoryService.ts" />
     <None Remove="ClientApp\src\app\_services\language\updateLanguageService.ts" />
     <None Remove="ClientApp\src\app\_services\methodOfRecieveQuestion\updateMethodOfRecieveQuestionService.ts" />
+    <None Remove="ClientApp\src\app\_services\process\acceptOrRejectProcessService.ts" />
     <None Remove="ClientApp\src\app\_services\province\addProvinceService.ts" />
     <None Remove="ClientApp\src\app\_services\province\deleteProvinceService.ts" />
     <None Remove="ClientApp\src\app\_services\country\addCountryService.ts" />
@@ -158,6 +160,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\_models\country\AddCountryDto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_models\country\GetCountryDto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_models\country\UpdateCountryDto.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_models\process\acceptOrRejectProcessDto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_models\province\AddProvinceDto.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -205,6 +208,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\_services\jobCategory\updateJobCategoryService.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_services\process\acceptOrRejectProcessService.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_services\province\addProvinceService.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

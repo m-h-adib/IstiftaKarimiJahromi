@@ -37,9 +37,12 @@ public class GetProcessCyclesService: IGetProcessCyclesService
 
 	public async Task<ResultDto<List<GetProcessCycleDto>>> ExecuteAsync(GetProcessCycleRequestDto dto)
 	{
+		long userid = _tokenContents.GetUserId(_httpContextAccessor.HttpContext!.User);
+
+
 		var res = await _context.QuestionCycles
 			.Where(p => !p.IsRemoved)
-			.Where(p => p.ToUserId == dto.UserId)
+			.Where(p => p.ToUserId == userid)
 			.Where(p => p.QuestionId == dto.QuestionId)
 			.Where(p => p.ToStep == Domain.Enums.QuestionStepType.Processing)
 			.Select(p => new GetProcessCycleDto
@@ -59,7 +62,6 @@ public class GetProcessCyclesService: IGetProcessCyclesService
 #region dtos
 public class GetProcessCycleRequestDto
 {
-    public long UserId { get; set; }
     public long QuestionId { get; set; }
 }
 public class GetProcessCycleDto

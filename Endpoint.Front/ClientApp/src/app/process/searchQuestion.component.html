@@ -1,23 +1,59 @@
 <form class="row g-3">
-    <div class="col-md-6">
-      <label for="inputEmail4" class="form-label">متن جستجو سوال</label>
-      <input type="text" class="form-control" [(ngModel)]="term" name="term" placeholder="متن جستجو سوال" />
-    </div>
-    <div class="col-md-4">
-        <label for="inputEmail4" class="form-label">دسته سوال</label>
-        <input class="btn form-control" [ngClass]="catName!='دسته سوال' ? 'btn-success' : 'btn-warning'" type="button" value="{{catName}}" (click)="showCatDialog()" />
-        <input hidden="hidden" type="text" class="form-control" [(ngModel)]="catId" name="catId" placeholder="دسته سوال" />
-      </div>
-    <div class="col-md-2">
-        <button class="btn btn-primary" value="جستجو">جستجو</button>
-       
-      </div>
+  <div class="col-md-6">
+    <label for="inputEmail4" class="form-label">متن جستجو سوال</label>
+    <input type="text" class="form-control" [(ngModel)]="req.title" name="req.title" placeholder="متن جستجو سوال" />
+  </div>
+  <div class="col-md-4">
+    <label for="inputEmail4" class="form-label">دسته سوال</label>
+    <input class="btn form-control" [ngClass]="catName!='دسته سوال' ? 'btn-success' : 'btn-warning'" type="button" value="{{catName}}" (click)="showCatDialog()" />
+    <input hidden="hidden" type="text" class="form-control" [(ngModel)]="catId" name="catId" placeholder="دسته سوال" />
+  </div>
+  <div class="col-md-2">
+    <button class="btn btn-primary" value="جستجو" (click)="search()">جستجو</button>
+
+  </div>
 
 
-    <hr class="mt-4 border border-1 border-primary" />
+  <hr class="mt-4 border border-1 border-primary" />
 
 
-  </form>
+  <table class="table align-middle table-bordered text-center">
+    <thead class="fw-bold">
+      <tr>
+        <td>
+          دسته سوال
+        </td>
+        <td>
+          عنوان سوال
+        </td>
+        <td>
+          متن سوال
+        </td>
+        <td>
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items">
+        <td>
+          {{item.category}}
+        </td>
+        <td>
+          {{item.title}}
+        </td>
+        <td>
+          {{item.text}}
+        </td>
+        <td>
+          
+          <a class="btn btn-info m-1" (click)="select(item.id!,item.title!)">انتخاب</a>
+          <!--<a class="btn btn-info m-1" *ngIf="getAccess('ReferenceToProcessor')" (click)="showRefrenceDialog(item.id)">ارجاع به پردازشگر</a>-->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</form>
   
   <div class="modal fade" [class.show]="catDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="catDialog==true ? 'block' : null" style="padding-left: 0px;">
     <div class="modal-dialog model-sm">

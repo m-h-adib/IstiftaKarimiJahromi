@@ -71,7 +71,7 @@
                 {{item.status}}
             </td>
             <td>
-              <a class="btn btn-info m-1" *ngIf="!item.isChecked" [routerLink]="['/processCycles/'+item.id+'/'+item.userId]">پردازش سوال</a>
+              <a class="btn btn-info m-1" [routerLink]="['/processCycles/'+item.id]">پردازش سوال</a>
               <!--<a class="btn btn-info m-1" *ngIf="getAccess('ReferenceToProcessor')" (click)="showRefrenceDialog(item.id)">ارجاع به پردازشگر</a>-->
             </td>
           </tr>

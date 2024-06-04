@@ -1,5 +1,5 @@
 export interface AddProcessQuestionDto{
-    cycleId?:number;
+    questionId?:number;
     description?:string;
     duplicateId?:number;
 }

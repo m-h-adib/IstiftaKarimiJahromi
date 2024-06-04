@@ -1,94 +1,103 @@
 <div class="row col-md-12">
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-header colorPurple">
-              <div class="card-title">
-                <span>
-                  <strong>ثبت پردازش سوال</strong>
-                </span>
-              </div>
-            </div>
-            <div class="card-body">
-                <form class="row g-3">
-                    <div class="col-md-12">
-                        <label for="inputEmail4" class="form-label">سوال تکراری </label>
-                        <input class="btn form-control" [ngClass]="qName!='بدون سوال تکراری' ? 'btn-success' : 'btn-warning'" type="button" value="{{qName}}" (click)="showSearchDialog()"  />
-                        <input hidden="hidden" type="text" class="form-control" [(ngModel)]="searchReq.category" name="searchReq.category" placeholder="بدون سوال تکراری" />
-                      </div>
-                
-                    <div class="col-md-12">
-                      <label for="inputEmail4" class="form-label">توضیحات</label>
-                      <textarea type="text" class="form-control" [(ngModel)]="add.description" name="add.description" rows="8" cols="100" placeholder="توضیحات"></textarea>
-                    </div>
-                </form>
-            </div>
-
-         
-
-              
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header colorPurple">
+        <div class="card-title">
+          <span>
+            <strong>ثبت پردازش سوال</strong>
+          </span>
         </div>
-    </div>
-
-
-
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-header colorPurple">
-              <div class="card-title">
-                <span>
-                  <strong>لیست گردازش های این سوال</strong>
-                </span>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="table-responsive">
-          
-                <table class="table align-middle table-bordered text-center">
-                  <thead class="fw-bold">
-                    <tr>
-                      <td>
-                        توضیحات مدیر
-                      </td>
-                      <td>
-                        توضیحات پردازش
-                      </td>
-                      <td>
-                        سوال تکراری
-                      </td>
-                      <td>
-                        وضعیت
-                      </td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let item of cycles">
-                      <td>
-                        {{item.qDesctiption}}
-                      </td>
-                      <td>
-                        {{item.pDescription}}
-                      </td>
-                      <td>
-                        {{item.duplicate}}
-                      </td>
-                      <td>
-                        {{item.isAccept==true ? "تاید شده" :  item.isAccept==false ? "رد شده" : "در انتظار"}}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+      </div>
+      <div class="card-body">
+        <form class="row g-3">
+          <div class="col-md-12">
+            <label for="inputEmail4" class="form-label">سوال تکراری </label>
+            <input class="btn form-control" [ngClass]="qName!='بدون سوال تکراری' ? 'btn-success' : 'btn-warning'" type="button" value="{{qName}}" (click)="showSearchDialog()" />
+            <input hidden="hidden" type="text" class="form-control" [(ngModel)]="searchReq.category" name="searchReq.category" placeholder="بدون سوال تکراری" />
           </div>
-          
+
+          <div class="col-md-12">
+            <label for="inputEmail4" class="form-label">توضیحات</label>
+            <textarea type="text" class="form-control" [(ngModel)]="add.description" name="add.description" rows="8" cols="100" placeholder="توضیحات"></textarea>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary m-1" (click)="Save()">ثبت</button>
+          </div>
+        </form>
+      </div>
+
+
+
+
     </div>
-   
+  </div>
+
+
+
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header colorPurple">
+        <div class="card-title">
+          <span>
+            <strong>لیست پردازش های این سوال</strong>
+          </span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+
+          <table class="table align-middle table-bordered text-center">
+            <thead class="fw-bold">
+              <tr>
+                <td>
+                  توضیحات مدیر
+                </td>
+                <td>
+                  توضیحات پردازش
+                </td>
+                <td>
+                  سوال تکراری
+                </td>
+                <td>
+                  وضعیت
+                </td>
+                <td>
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of cycles">
+                <td>
+                  {{item.qDesctiption}}
+                </td>
+                <td>
+                  {{item.pDescription}}
+                </td>
+                <td>
+                  {{item.duplicate}}
+                </td>
+                <td>
+                  {{item.isAccept==true ? "تاید شده" :  item.isAccept==false ? "رد شده" : "در انتظار"}}
+                </td>
+                <td>
+                  <a class="btn btn-danger m-1" *ngIf="item.isAccept==null" (click)="showRejectDialog(item.id)">رد</a>
+                  <a class="btn btn-primary m-1" *ngIf="item.isAccept==null" (click)="showReferenceDialog(item.id)">ارجاع به محقق</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
 </div>
 
 
 
 <div class="modal fade" [class.show]="searchDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="searchDialog==true ? 'block' : null" style="padding-left: 0px;">
-  <div class="modal-dialog model-sm">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header bg-danger text-white">
         <h1 class="modal-title fs-5" id="exampleModalLiveLabel">پیام سیستم!</h1>
@@ -96,7 +105,7 @@
       </div>
       <div class="modal-body">
         <!-- <question-view [tree]="myTree" [showEditDelete]="false" (newItemEvent)="selectCat($event)"></question-view> -->
-        <SearchQuestionComponent></SearchQuestionComponent>
+        <SearchQuestionComponent (newItemEvent)="selectQues($event)"></SearchQuestionComponent>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="showSearchDialog()">انصراف</button>
@@ -105,3 +114,68 @@
   </div>
 </div>
 <div *ngIf="searchDialog==true" class="modal-backdrop fade show"></div>
+
+<div class="modal fade" [class.show]="rejectDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="rejectDialog==true ? 'block' : null" style="padding-left: 0px;">
+  <div class="modal-dialog model-sm">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h1 class="modal-title fs-5" id="exampleModalLiveLabel">رد پردازش!</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="showRejectDialog()"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3">
+          <div class="col-md-12">
+            <label for="inputEmail4" class="form-label">توضیحات</label>
+            <textarea class="form-control" [(ngModel)]="acceptOrRejectProcess.description" name="acceptOrRejectProcess.description" placeholder="توضیحات" rows="8" cols="100"></textarea>
+          </div>
+          <div class="col-md-12">
+            <label for="inputEmail4" class="form-label">پردازشگر</label>
+            <select class="form-select" [(ngModel)]="acceptOrRejectProcess.toUser" name="acceptOrRejectProcess.toUser">
+              <option *ngFor="let a of refrenceUsers" value="{{a.key}}">
+                {{a.value}}
+              </option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="showRejectDialog()">انصراف</button>
+        <button type="button" class="btn btn-danger" (click)="reject()">ثبت</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="rejectDialog==true" class="modal-backdrop fade show"></div>
+
+<div class="modal fade" [class.show]="referenceDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="referenceDialog==true ? 'block' : null" style="padding-left: 0px;">
+  <div class="modal-dialog model-sm">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h1 class="modal-title fs-5" id="exampleModalLiveLabel">ارجاع به محقق!</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="showReferenceDialog()"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3">
+          <div class="col-md-12">
+            <label for="inputEmail4" class="form-label">توضیحات</label>
+            <textarea class="form-control" [(ngModel)]="acceptOrRejectProcess.description" name="acceptOrRejectProcess.description" placeholder="توضیحات" rows="8" cols="100"></textarea>
+          </div>
+          <div class="col-md-12">
+            <label for="inputEmail4" class="form-label">محقق</label>
+            <select class="form-select" [(ngModel)]="acceptOrRejectProcess.toUser" name="acceptOrRejectProcess.toUser">
+              <option *ngFor="let a of refrenceUsers1" value="{{a.key}}">
+                {{a.value}}
+              </option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="showReferenceDialog()">انصراف</button>
+        <button type="button" class="btn btn-primary" (click)="reference()">ثبت</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="referenceDialog==true" class="modal-backdrop fade show"></div>
+

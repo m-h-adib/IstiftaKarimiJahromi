@@ -21,7 +21,7 @@ export class SearchQuestionsService {
 
   constructor(private http: HttpClient) { }
 
-  Search(dto: SearchQuestionRequestDto): Observable<DataResultDto<SearchQuestionDto>> {
+  Search(dto: SearchQuestionRequestDto): Observable<ListDataResultDto<SearchQuestionDto>> {
     this.header = new HttpHeaders({
       'content-type': 'application/json',
       'authorization': 'bearer ' + localStorage.getItem("token")
