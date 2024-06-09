@@ -11,7 +11,7 @@ public class Research:BaseEntity<long>
 {
     public string? AnswerText { get; set; }
     public string? AnswerFile { get; set; }
-    public string? ReasonText { get;}
+    public string? ReasonText { get; set; }
     public string? ReasonFile { get; set; }
     public bool? IsAccept { get; set; }
     public string? Description { get; set; }
