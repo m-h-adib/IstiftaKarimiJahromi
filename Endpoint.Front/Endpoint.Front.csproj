@@ -67,6 +67,7 @@
     <None Remove="ClientApp\src\app\_models\question\getQuestionsRequestDto.ts" />
     <None Remove="ClientApp\src\app\_models\question\referenceToProcessorDto.ts" />
     <None Remove="ClientApp\src\app\_models\question\updateQuestionDto.ts" />
+    <None Remove="ClientApp\src\app\_models\research\acceptOrRejectResearchDto.ts" />
     <None Remove="ClientApp\src\app\_services\methodOfRecieveQuestion\addMethodOfRecieveQuestionService.ts" />
     <None Remove="ClientApp\src\app\_services\methodOfRecieveQuestion\deleteMethodOfRecieveQuestionService.ts" />
     <None Remove="ClientApp\src\app\_services\language\addLanguageService.ts" />
@@ -93,6 +94,7 @@
     <None Remove="ClientApp\src\app\_services\question\getOneQuestionService.ts" />
     <None Remove="ClientApp\src\app\_services\question\getQuestionsService.ts" />
     <None Remove="ClientApp\src\app\_services\question\updateQuestionService.ts" />
+    <None Remove="ClientApp\src\app\_services\research\acceptOrRejectResearchService.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -181,6 +183,9 @@
     <TypeScriptCompile Include="ClientApp\src\app\_models\question\getQuestionsRequestDto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_models\question\referenceToProcessorDto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_models\question\updateQuestionDto.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_models\research\acceptOrRejectResearchDto.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\_services\methodOfRecieveQuestion\addMethodOfRecieveQuestionService.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -241,6 +246,9 @@
     <TypeScriptCompile Include="ClientApp\src\app\_services\question\getOneQuestionService.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_services\question\getQuestionsService.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_services\question\updateQuestionService.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_services\research\acceptOrRejectResearchService.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
   </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
