@@ -53,13 +53,13 @@ public class AddResearchQuestionService: IAddResearchQuestionService
         string? aFile = null;
         if (dto.AnswerFile != null) {
             UploadFileToDirectory upload = new UploadFileToDirectory(_environment);
-            aFile = upload.Upload(dto.AnswerFile, "Researches").FileNameAddress;
+            aFile = upload.Upload(dto.AnswerFile[0], "Researches").FileNameAddress;
         }
         string? rFile = null;
         if (dto.ReasonFile != null)
         {
             UploadFileToDirectory upload = new UploadFileToDirectory(_environment);
-            rFile = upload.Upload(dto.ReasonFile, "Researches").FileNameAddress;
+            rFile = upload.Upload(dto.ReasonFile[0], "Researches").FileNameAddress;
         }
 
 
@@ -88,7 +88,7 @@ public class AddResearchQuestionDto
     public string? Description { get; set; }
     public string? AnswerText { get; set; }
     public string? ReasonText { get;set; }
-    public IFormFile? AnswerFile { get; set; }
-    public IFormFile? ReasonFile { get; set; }
+	public List<IFormFile>? AnswerFile { get; set; }
+    public List<IFormFile>? ReasonFile { get; set; }
 }
 #endregion

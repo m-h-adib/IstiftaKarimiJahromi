@@ -12,7 +12,7 @@ import { GetResearchCyclesDto } from "../../_models/research/getResearchCyclesDt
   providedIn:'root'
 })
 export class GetResearchCyclesService {
-  url?: string = environment.url + "api/Researches/GetCycles";
+  url?: string = environment.url + "api/Researches/GetResearchCycles";
   header?: any;
 
   constructor(private http: HttpClient) { }

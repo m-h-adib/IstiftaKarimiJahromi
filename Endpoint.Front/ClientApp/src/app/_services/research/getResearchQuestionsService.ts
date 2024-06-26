@@ -11,7 +11,7 @@ import { GetResearchQuestionsDto } from "../../_models/research/getResearchQuest
   providedIn:'root'
 })
 export class GetResearchQuestionsService {
-  url?: string = environment.url + "api/Researches/GetQuestions";
+  url?: string = environment.url + "api/Researches/GetResearchQuestions";
   header?: any;
 
   constructor(private http: HttpClient) { }

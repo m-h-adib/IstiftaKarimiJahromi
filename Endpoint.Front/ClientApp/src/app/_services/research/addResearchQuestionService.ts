@@ -17,14 +17,34 @@ export class AddResearchQuestionService {
 
   AddProcess(dto: AddResearchQuestionDto): Observable<ResultDto> {
     this.header = new HttpHeaders({
-      'content-type': 'application/json',
+     // 'content-type': 'application/json',
       'authorization': 'bearer ' + localStorage.getItem("token")
     });
 
-    return this.http.post<any>(this.url,dto, { headers: this.header }).pipe(
+    
+    const body = new FormData();
+
+    body.append("answerText", dto?.answerText!);
+    body.append("description", dto?.description!);
+    body.append("questionId", dto?.questionId?.toString()!);
+    body.append("reasonText", dto!.reasonText!);
+   
+
+    dto.answerFile?.forEach((obj) => {
+      body.append("answerFile", obj);
+    })
+    dto.reasonFile?.forEach((obj) => {
+      body.append("reasonFile", obj);
+    })
+
+
+    console.log(body);
+    return this.http.post<any>(this.url, body, { headers: this.header }).pipe(
       map(p => {
         return p
       })
-    )
+    );
+
+   
   }
 }

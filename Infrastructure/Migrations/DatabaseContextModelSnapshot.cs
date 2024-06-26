@@ -661,6 +661,9 @@ namespace Infrastructure.Migrations
                     b.Property<string>("ReasonFile")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ReasonText")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("RemovedAt")
                         .HasColumnType("datetime2");
 
@@ -803,11 +806,11 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedAt = new DateTime(2024, 5, 19, 20, 2, 34, 115, DateTimeKind.Local).AddTicks(8845),
+                            CreatedAt = new DateTime(2024, 6, 26, 10, 28, 57, 68, DateTimeKind.Local).AddTicks(7442),
                             IsActive = true,
                             IsRemoved = false,
                             Name = "محمدحسین ادیب",
-                            Password = "APyumCE2234ABB5YQjLXkz/FQKK3RbFqI2aDLQEmAFQfcJ5m+rHBiNdawXakEDAD0Q==",
+                            Password = "ADLZ39MPHhaw/Q6uzaRAqP5p20V4XFrNHlMbFh+Bcor7JtgX4dikI0kV++6ACgulBg==",
                             Role = 2,
                             Username = "m-h-adib"
                         });

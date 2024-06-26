@@ -53,8 +53,8 @@ public class GetResearchCyclesService: IGetResearchCyclesService
                 Duplicate = p.PreProccess != null && p.PreProccess.DuplicateId != null ? p.PreProccess.Duplicate!.Title : null,
                 IsAccept = p.IsAccept,
                 QDesctiption = p.Description,
-                PDescription = p.PreProccess != null ? p.PreProccess.Description : null,
-                HasProccess = p.PreProccess != null ? true : false
+                PDescription = p.Research != null ? p.Research.Description : null,
+                HasProccess = p.Research != null ? true : false
             }).ToListAsync();
 
         return ResultDto<List<GetResearchCycleDto>>.Succeeded("ok", res);

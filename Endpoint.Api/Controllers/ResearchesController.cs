@@ -40,7 +40,7 @@ namespace Endpoint.Api.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetRersearchCycles([FromQuery] GetResearchCycleRequestDto dto)
+        public async Task<IActionResult> GetResearchCycles([FromQuery] GetResearchCycleRequestDto dto)
         {
             var res =await _researchCyclesService.ExecuteAsync(dto);
             return StatusCode(res.StatusCode, res);
@@ -48,7 +48,7 @@ namespace Endpoint.Api.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> AddResearchQuestion([FromBody] AddResearchQuestionDto dto)
+        public async Task<IActionResult> AddResearchQuestion([FromForm] AddResearchQuestionDto dto)
         {
             var res=await  _addResearchQuestionService.ExecuteAsync(dto);
             return StatusCode(res.StatusCode, res);
