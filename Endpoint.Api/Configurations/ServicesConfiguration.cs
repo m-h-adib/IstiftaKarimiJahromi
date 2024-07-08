@@ -24,6 +24,8 @@ using Application.Services.Process.Queries;
 using Application.Services.Process.Commands;
 using Application.Services.Research.Queries;
 using Application.Services.Research.Commands;
+using Application.Services.Editor.Queries;
+using Application.Services.Editor.Commands;
 
 namespace EndPoint.Api.Configurations
 {
@@ -205,6 +207,13 @@ namespace EndPoint.Api.Configurations
 			services.AddScoped<IGetResearchCyclesService, GetResearchCyclesService>();
 			services.AddScoped<IAddResearchQuestionService, AddResearchQuestionService>();
 			services.AddScoped<IAcceptOrRejectResearchService, AcceptOrRejectResearchService>();
+			#endregion
+
+			#region Editor
+			services.AddScoped<IGetEditorQuestionsService, GetEditorQuestionsService>();
+			services.AddScoped<IGetEditorCyclesService, GetEditorCyclesService>();
+			services.AddScoped<IAddEditorQuestionService, AddEditorQuestionService>();
+			services.AddScoped<IAcceptOrRejectEditorService, AcceptOrRejectEditorService>();
 			#endregion
 
 			#endregion services

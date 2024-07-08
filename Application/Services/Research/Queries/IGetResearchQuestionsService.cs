@@ -68,7 +68,7 @@ public class GetResearchQuestionsService: IGetResearchQuestionsService
                 Status = p.Step!.GetDisplayName(),
                 UserId = p.UserId,
                 UserName = p.User!.Name,
-                IsChecked = _context.PreProccesses.Any(u => u.QuestionCycle!.QuestionId == p.Id && u.QuestionCycle.ToUserId == p.UserId && u.QuestionCycle.ToStep == QuestionStepType.Processing && u.QuestionCycle.PreProccess != null)
+                IsChecked = _context.Researchs.Any(u => u.QuestionCycle!.QuestionId == p.Id && u.QuestionCycle.ToUserId == p.UserId && u.QuestionCycle.ToStep == QuestionStepType.Research && u.QuestionCycle.Research != null)
             })
             .ToListAsync();
 
