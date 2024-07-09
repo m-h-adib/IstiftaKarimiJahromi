@@ -50,7 +50,7 @@ namespace Endpoint.Api.Controllers
 
 
 		[HttpPost]
-		public async Task<IActionResult> AddEditorQuestion([FromForm] AddEditorQuestionDto dto)
+		public async Task<IActionResult> AddEditorQuestion([FromBody] AddEditorQuestionDto dto)
 		{
 			var res = await _addEditorQuestionService.ExecuteAsync(dto);
 			return StatusCode(res.StatusCode, res);

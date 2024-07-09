@@ -1,0 +1,201 @@
+<div class="row col-md-12">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header colorPurple">
+        <div class="card-title">
+          <span>
+            <strong>ثبت ویراستاری سوال</strong>
+          </span>
+        </div>
+      </div>
+      <div class="card-body">
+        <form class="row g-3">
+
+          <div class="col-md-12">
+            <label for="inputEmail4" class="form-label">زبان</label>
+            <select class="form-select" [(ngModel)]="add.languageId" name="add.languageId">
+              <option *ngFor="let a of langs" value="{{a.id}}">
+                {{a.name}}
+              </option>
+            </select>
+          </div>
+
+          <div class="col-md-12">
+            <label for="inputEmail4" class="form-label">پاسخ سوال</label>
+            <textarea type="text" class="form-control" [(ngModel)]="add.answerText" name="add.answerText" rows="8" cols="100" placeholder="پاسخ سوال"></textarea>
+          </div>
+
+        
+          <div class="col-md-12">
+            <label for="inputEmail4" class="form-label">دلیل سوال</label>
+            <textarea type="text" class="form-control" [(ngModel)]="add.reasonText" name="add.reasonText" rows="8" cols="100" placeholder="دلیل سوال"></textarea>
+          </div>
+
+       
+          <div class="col-md-12">
+            <label for="inputEmail4" class="form-label">توضیحات</label>
+            <textarea type="text" class="form-control" [(ngModel)]="add.description" name="add.description" rows="8" cols="100" placeholder="توضیحات"></textarea>
+          </div>
+
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary m-1" (click)="Save()">ثبت</button>
+          </div>
+        </form>
+      </div>
+
+
+
+
+    </div>
+  </div>
+
+
+
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header colorPurple">
+        <div class="card-title">
+          <span>
+            <strong>لیست ویراستاری های این سوال</strong>
+          </span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+
+          <table class="table align-middle table-bordered text-center">
+            <thead class="fw-bold">
+              <tr>
+                <td>
+                  توضیحات مدیر
+                </td>
+               
+                <td>
+                  وضعیت
+                </td>
+                <td>
+                  ویراستاری ها
+                </td>
+                <td>
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of cycles">
+                <td>
+                  {{item.qDesctiption}}
+                </td>
+               
+                <td>
+                  {{item.isAccept==true ? "تاید شده" :  item.isAccept==false ? "رد شده" : "در انتظار"}}
+                </td>
+                <td>
+                  <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-success" data-bs-toggle="modal" [attr.data-bs-target]="'#exampleModal' + item.id" >
+                    مشاهده
+                  </button>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal{{item.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">ویراستاری ها</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <div  *ngFor="let item1 of item.items">
+                            <span>زبان: </span>{{item1.language}}
+                            <br />
+                            <span>متن سوال: </span>{{item1.answerText}}
+                            <br />
+                            <span>متن دلیل: </span>{{item1.reasonText}}
+                            <br />
+                            <span>توضیحات: </span>{{item1.description}}
+                            <hr />
+                          </div>
+                          
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <a class="btn btn-danger m-1" *ngIf="item.isAccept==null" (click)="showRejectDialog(item.id)">رد</a>
+                  <a class="btn btn-primary m-1" *ngIf="item.isAccept==null" (click)="showReferenceDialog(item.id)">ارجاع به بایگانی</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+<div class="modal fade" [class.show]="rejectDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="rejectDialog==true ? 'block' : null" style="padding-left: 0px;">
+  <div class="modal-dialog model-sm">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h1 class="modal-title fs-5" id="exampleModalLiveLabel">رد ویراستاری!</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="showRejectDialog()"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3">
+          <div class="col-md-12">
+            <label for="inputEmail4" class="form-label">توضیحات</label>
+            <textarea class="form-control" [(ngModel)]="acceptOrRejectEditor.description" name="acceptOrRejectEditor.description" placeholder="توضیحات" rows="8" cols="100"></textarea>
+          </div>
+          <div class="col-md-12">
+            <label for="inputEmail4" class="form-label">ویراستار</label>
+            <select class="form-select" [(ngModel)]="acceptOrRejectEditor.toUser" name="acceptOrRejectEditor.toUser">
+              <option *ngFor="let a of refrenceUsers" value="{{a.key}}">
+                {{a.value}}
+              </option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="showRejectDialog()">انصراف</button>
+        <button type="button" class="btn btn-danger" (click)="reject()">ثبت</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="rejectDialog==true" class="modal-backdrop fade show"></div>
+
+<div class="modal fade" [class.show]="referenceDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="referenceDialog==true ? 'block' : null" style="padding-left: 0px;">
+  <div class="modal-dialog model-sm">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h1 class="modal-title fs-5" id="exampleModalLiveLabel">ارجاع به بایگانی!</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="showReferenceDialog()"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3">
+          <div class="col-md-12">
+            <label for="inputEmail4" class="form-label">توضیحات</label>
+            <textarea class="form-control" [(ngModel)]="acceptOrRejectEditor.description" name="acceptOrRejectEditor.description" placeholder="توضیحات" rows="8" cols="100"></textarea>
+          </div>
+          
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="showReferenceDialog()">انصراف</button>
+        <button type="button" class="btn btn-primary" (click)="reference()">ثبت</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="referenceDialog==true" class="modal-backdrop fade show"></div>
+

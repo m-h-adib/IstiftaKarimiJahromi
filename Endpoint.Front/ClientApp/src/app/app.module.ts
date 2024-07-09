@@ -46,6 +46,8 @@ import { ProcessCyclesComponent } from './process/processCycles.component';
 import { SearchQuestionComponent } from './process/searchQuestion.component';
 import { ResearchCyclesComponent } from './research/researchCycles.component';
 import { ResearchQuestionsComponent } from './research/researchQuestions.component';
+import { EditorQuestionsComponent } from './editor/editorQuestions.component';
+import { EditorCyclesComponent } from './editor/editorCycles.component';
 
 
 @NgModule({
@@ -81,7 +83,9 @@ import { ResearchQuestionsComponent } from './research/researchQuestions.compone
     ProcessCyclesComponent,
     SearchQuestionComponent,
     ResearchCyclesComponent,
-    ResearchQuestionsComponent
+    ResearchQuestionsComponent,
+    EditorQuestionsComponent,
+    EditorCyclesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -124,6 +128,8 @@ import { ResearchQuestionsComponent } from './research/researchQuestions.compone
       { path: 'processCycles/:questionId', component: ProcessCyclesComponent, canActivate: [AuthGuard] },
       { path: 'researchQuestions', component: ResearchQuestionsComponent, canActivate: [AuthGuard] },
       { path: 'researchCycles/:questionId', component: ResearchCyclesComponent, canActivate: [AuthGuard] },
+      { path: 'editors', component: EditorQuestionsComponent, canActivate: [AuthGuard] },
+      { path: 'editorCycles/:questionId', component: EditorCyclesComponent, canActivate: [AuthGuard] }
     ])
   ],
   providers: [StoreService],
