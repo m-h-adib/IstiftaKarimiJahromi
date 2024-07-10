@@ -120,7 +120,7 @@ public class AcceptOrRejectEditorValidation : AbstractValidator<AcceptOrRejectEd
     {
         RuleFor(p => p.CycleId).NotNull().WithMessage("لطفا شماره ادیت را وارد نمایید");
         RuleFor(p => p.Description).NotEmpty().WithMessage("لطفا توضیحات را وارد نمایید");
-        RuleFor(p => p.ToUser).NotNull().WithMessage("لطفا کاربر مورد نظر را انتخاب نمایید");
+       // RuleFor(p => p.ToUser).NotNull().WithMessage("لطفا کاربر مورد نظر را انتخاب نمایید");
     }
 }
 #endregion
