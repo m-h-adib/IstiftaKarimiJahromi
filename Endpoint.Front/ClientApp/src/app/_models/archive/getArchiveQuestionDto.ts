@@ -1,0 +1,20 @@
+export interface GetArchiveQuestionDto{
+    id:number;
+    title?:string;
+    questionDate?:string;
+    name?:string;
+    gender?:string;
+    age?:number;
+    city?:string;
+    education?:string;
+    job?:string;
+    mobile?:string;
+    email?:string;
+    address?:string;
+    duplicateId?:number;
+    country?:string;
+    province?:string;
+    jobCategory?:string;
+    methodOfReceiveQuestion?:string;
+    questionCategory?:string;
+}

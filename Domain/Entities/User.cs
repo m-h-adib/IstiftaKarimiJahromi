@@ -18,5 +18,7 @@ public class User:BaseEntity<long>
     #region navigations
     public ICollection<Question>? Questions { get; set; }
     public ICollection<QuestionCycle>? QuestionCycles { get; set; }
+    public ICollection<QuestionCycle>? QuestionCyclesFromUsers { get; set; }
+    public ICollection<QuestionCycle>? QuestionCyclesToUsers { get; set; }
     #endregion
 }

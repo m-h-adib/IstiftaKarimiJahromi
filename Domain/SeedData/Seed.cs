@@ -71,7 +71,16 @@ public static class Seed
 		#endregion
 
 
+		builder.Entity<QuestionCycle>()
+			.HasOne(p=>p.FromUser)
+			.WithMany(p=>p.QuestionCyclesFromUsers)
+			.HasForeignKey(p=>p.FromUserId)
+			.OnDelete(DeleteBehavior.NoAction);
 
-
-	}
+        builder.Entity<QuestionCycle>()
+            .HasOne(p => p.ToUser)
+            .WithMany(p => p.QuestionCyclesToUsers)
+            .HasForeignKey(p => p.ToUserId)
+            .OnDelete(DeleteBehavior.NoAction);
+    }
 }

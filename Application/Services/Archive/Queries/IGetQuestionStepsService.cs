@@ -46,9 +46,9 @@ public class GetQuestionStepsService: IGetQuestionStepsService
                 Description=p.Description,
                 Date=p.CreatedAt.ToPersianWithoutTime(),
                 IsAccept=p.IsAccept,
-                FromUser=p.FromUserId!=null ? p.FromUser.Name : "",
-                ToUser=p.ToUserId!=null ? p.ToUser.Name : "",
-                CreateUser=p.UserId!=null ? p.User.Name : ""
+                FromUser=p.FromUser!=null ? p.FromUser!.Name : "",
+                ToUser=p.ToUser!=null ? p.ToUser!.Name : "",
+                CreateUser=p.User!=null ? p.User!.Name : ""
             })
             .ToListAsync();
 

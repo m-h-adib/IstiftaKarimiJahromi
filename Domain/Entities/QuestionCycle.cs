@@ -22,13 +22,13 @@ public class QuestionCycle:BaseEntity<long>
     /// یوزر انجام دهنده فعالیت قبل
     /// </summary>
     public long? FromUserId { get; set; }
-	[NotMapped]
+	//[NotMapped]
 	public User? FromUser { get; set; }
     /// <summary>
     /// یوزری که باید فعالیت جدید را انجام دهد
     /// </summary>
 	public long? ToUserId { get; set; }
-	[NotMapped]
+	//[NotMapped]
 	public User? ToUser { get; set; }
     public long QuestionId { get; set; }
     public Question? Question { get; set; }
