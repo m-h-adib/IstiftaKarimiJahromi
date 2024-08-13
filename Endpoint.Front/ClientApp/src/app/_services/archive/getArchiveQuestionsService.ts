@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { DataResultDto, ListDataResultDto } from "../../_models/common/ResultDto";
+import { DataResultDto, ListDataResultDto, PagingDataResultDto } from "../../_models/common/ResultDto";
 import { GetCountryDto } from "../../_models/country/GetCountryDto";
 import { Observable } from "rxjs/internal/Observable";
 import { map } from "rxjs/internal/operators/map";
@@ -17,7 +17,7 @@ export class GetArchiveQuestionService {
 
   constructor(private http: HttpClient) { }
 
-  GetArchives(dto?:GetArchiveQuestionRequestDto): Observable<ListDataResultDto<GetArchiveQuestionDto>> {
+  GetArchives(dto?:GetArchiveQuestionRequestDto): Observable<PagingDataResultDto<GetArchiveQuestionDto>> {
     this.header = new HttpHeaders({
       'content-type': 'application/json',
       'authorization': 'bearer ' + localStorage.getItem('token')
@@ -27,8 +27,8 @@ export class GetArchiveQuestionService {
       "?PageNumber=" + dto?.PageNumber + 
       "&PageSize=" + dto?.PageSize+
       "&City="+dto?.City+
-      "&CountryId="+dto?.CountryId+
-      "&Education="+dto?.Education+
+      "&CountryId="+ (dto?.CountryId!=undefined ? dto?.CountryId : null)+
+      "&Education="+(dto?.Education!=undefined ? dto?.Education : null)+
       "&FirstName="+dto?.FirstName+
       "&FromAge="+dto?.FromAge+
       "&FromDate="+dto?.FromDate+

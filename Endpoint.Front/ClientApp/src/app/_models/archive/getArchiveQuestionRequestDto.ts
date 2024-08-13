@@ -1,6 +1,8 @@
+
+
 export interface GetArchiveQuestionRequestDto{
-    PageNumber?:number;
-    PageSize?:number;
+    PageNumber:number;
+    PageSize:number;
     Title?:string;
     FromDate?:string;
     ToDate?:string;
