@@ -49,6 +49,9 @@ import { ResearchQuestionsComponent } from './research/researchQuestions.compone
 import { EditorQuestionsComponent } from './editor/editorQuestions.component';
 import { EditorCyclesComponent } from './editor/editorCycles.component';
 import { ArchivesComponent } from './Archive/archives.component';
+import { QuestionDetailComponent } from './Archive/questionDetail.component';
+import { QuestionStepsComponent } from './Archive/questionStep.component';
+import { QuestionResultComponent } from './Archive/questionResult.component';
 
 
 @NgModule({
@@ -87,7 +90,10 @@ import { ArchivesComponent } from './Archive/archives.component';
     ResearchQuestionsComponent,
     EditorQuestionsComponent,
     EditorCyclesComponent,
-    ArchivesComponent
+    ArchivesComponent,
+    QuestionDetailComponent,
+    QuestionStepsComponent,
+    QuestionResultComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

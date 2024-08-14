@@ -13,6 +13,10 @@ import { GetJobCategoryDto } from '../_models/jobCategory/GetJobCategoryDto';
 import { GetJobCategoriesService } from '../_services/jobCategory/getJobCategoriesService';
 import { GetMethodOfRecieveQuestionDto } from '../_models/methodRecieveQuestion/GetMethodOfRecieveQuestionDto';
 import { GetMethodOfRecieveQuestionsService } from '../_services/methodOfRecieveQuestion/getMethodOfRecieveQuestionsService';
+import { GetArchiveStepsService } from '../_services/archive/getArchiveStepsService';
+import { GetArchiveStepDto } from '../_models/archive/getArchiveStepDto';
+import { GetArchiveResultService } from '../_services/archive/getArchiveResultService';
+import { GetArchiveResultDto } from '../_models/archive/getArchiveResultDto';
 
 @Component({
     templateUrl:'./archives.component.html',
@@ -22,7 +26,7 @@ export class ArchivesComponent implements OnInit{
    
     Filter: GetArchiveQuestionRequestDto = {
         PageNumber:1,
-        PageSize:10,
+        PageSize:15,
         Title:"",
         City:"",
         FirstName:"",
@@ -31,8 +35,12 @@ export class ArchivesComponent implements OnInit{
         Mobile:"",
         ToDate:""
     };
+    pageCount: number = 1;
     catName: string = "دسته سوال";
     catDialog: boolean = false;
+    detailDialog: boolean = false;
+    stepDialog:boolean=false;
+    resultDialog:boolean=false;
     myTree: GetQuestionCategoryDto[] = [];
     catId?: number;
     dateValue = new FormControl();
@@ -42,13 +50,35 @@ export class ArchivesComponent implements OnInit{
     Provinces:GetProvinceDto[]=[];
     Jobs:GetJobCategoryDto[]=[];
     Methods:GetMethodOfRecieveQuestionDto[]=[];
+    SelectQues:GetArchiveQuestionDto={
+      title:"",
+      address:"",
+      city:"",
+      country:"",
+      education:"",
+      email:"",
+      gender:"",
+      job:"",
+      jobCategory:"",
+      methodOfReceiveQuestion:"",
+      mobile:"",
+      name:"",
+      province:"",
+      questionCategory:"",
+      questionDate:"",
+      id:1
+    };
+    Steps:GetArchiveStepDto[]=[];
+    Results:GetArchiveResultDto[]=[];
 
     constructor(private _GetQuestionCategoriesService:GetQuestionCategoriesService,
         private _GetArchivesService:GetArchiveQuestionService,
         private _GetCountriesService:GetCountriesService,
         private _GetProvincesService:GetProvincesService,
         private _GetJobsService:GetJobCategoriesService,
-        private _GetMethodsService:GetMethodOfRecieveQuestionsService){
+        private _GetMethodsService:GetMethodOfRecieveQuestionsService,
+        private _GetArchiveSteps:GetArchiveStepsService,
+        private _GetArchiveResults:GetArchiveResultService){
 
     }
 
@@ -58,10 +88,7 @@ export class ArchivesComponent implements OnInit{
 
           })
 
-          this._GetArchivesService.GetArchives(this.Filter!).subscribe(p=>{
-              this.Questions=p.data.items;
-          })
-
+       this.getData();
           this._GetCountriesService.GetUsers().subscribe(p=>{
             this.Countries=p.data;
  
@@ -74,6 +101,27 @@ export class ArchivesComponent implements OnInit{
             this.Methods=p.data;
         })
     }
+
+    getData() {
+      this._GetArchivesService.GetArchives(this.Filter!).subscribe(p=>{
+        this.Questions=p.data.items;
+        this.pageCount = Math.floor((p.data.paging.totalItems % this.Filter.PageSize!) == 0 ? (p.data.paging.totalItems / this.Filter.PageSize!) : (p.data.paging.totalItems / this.Filter.PageSize!) + 1)
+    })
+    }
+
+    inc() {
+      this.Filter.PageNumber! += 1;
+      this.getData();
+    }
+    dec() {
+      this.Filter.PageNumber! -= 1;
+      this.getData();
+    }
+  
+    change() {
+      this.getData();
+    }
+
     changeCountry() {
         if (this.Filter.CountryId != undefined && this.Filter.CountryId != null) {
           this._GetProvincesService.GetProvinces(this.Filter.CountryId).subscribe(p => {
@@ -98,7 +146,13 @@ export class ArchivesComponent implements OnInit{
     selectCat(id: number) {
         this.catId = id;
       }
-    
+      showDetailDialog(id?:number){
+        if(id!=null && id!=undefined){
+          this.SelectQues=this.Questions[this.Questions.findIndex(p=>p.id==id)];
+        }
+        
+        this.detailDialog=!this.detailDialog;
+      }
       selectCategory() {
         console.log(this.catId);
         if (this.catId != undefined) {
@@ -118,4 +172,29 @@ export class ArchivesComponent implements OnInit{
             this.findInTree(tree[i].childs!, id);
         }
       }
+
+      showStepDialog(id?:number):void{
+        if(id!=null){
+        this._GetArchiveSteps.GetSteps(id).subscribe(p=>{
+          this.Steps=p.data;
+          this.stepDialog=!this.stepDialog;
+        })
+      }
+      else{
+        this.stepDialog=!this.stepDialog;
+      }
+    }
+
+
+    showResultDialog(id?:number):void{
+      if(id!=null){
+      this._GetArchiveResults.GetResults(id).subscribe(p=>{
+        this.Results=p.data;
+        this.resultDialog=!this.resultDialog;
+      })
+    }
+    else{
+      this.resultDialog=!this.resultDialog;
+    }
+  }
 }

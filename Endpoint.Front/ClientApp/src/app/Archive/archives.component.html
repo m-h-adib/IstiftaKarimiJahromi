@@ -185,13 +185,29 @@
                                   <!--<a class="btn btn-info m-1" *ngIf="getAccess('ReferenceToProcessor')" (click)="showRefrenceDialog(item.id)">ارجاع به پردازشگر</a>
                                   <a class="btn btn-warning m-1" *ngIf="getAccess('UpdateQuestion')" [routerLink]="['/editquestion',item.id]">ویرایش</a>
                                   <a class="btn btn-danger m-1" *ngIf="getAccess('DeleteQuestion')" (click)="showDeleteDialog(item.id)">حذف</a>-->
-                    
+                                  <a class="btn btn-warning m-1" (click)="showDetailDialog(item.id)">جزئیات</a>
+                                  <a class="btn btn-success m-1" (click)="showStepDialog(item.id)">مراحل</a>
+                                  <a class="btn btn-info m-1" (click)="showResultDialog(item.id)">نتیجه</a>
                                   <!--<a class="btn btn-info m-1" *ngIf="getAccess('ChangeUserAccess')" [routerLink]="['/useraccess',item.id]">دسترسی</a>-->
                                 </td>
                               </tr>
                           </tbody>
                         </table>
+                        <nav dir="ltr">
+                          <ul class="pagination">
+                            <li class="page-item" style="cursor:pointer">
+                              <span class="page-link colorDarkest" [class.disabled]="Filter.PageNumber==1" (click)="dec()">صفحه قبل</span>
+                            </li>
+                            <li class="page-item active" aria-current="page">
+                              <input type="number" class="form-control text-center" style="width:150px;" (change)="change()" [(ngModel)]="Filter.PageNumber" />
+                            </li>
                   
+                            <li class="page-item" style="cursor:pointer">
+                              <a class="page-link" [class.disabled]="Filter.PageNumber! == pageCount" (click)="inc()">صفحه بعد</a>
+                            </li>
+                          </ul>
+                        </nav>
+                        <span>صفحه {{Filter.PageNumber}} از {{pageCount}}</span>
                    </div>
                </div>
            </div>
@@ -201,7 +217,7 @@
 </div>
 
 
-
+<!--category modal-->
 <div class="modal fade" [class.show]="catDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="catDialog==true ? 'block' : null" style="padding-left: 0px;">
     <div class="modal-dialog model-sm">
       <div class="modal-content">
@@ -220,3 +236,64 @@
     </div>
   </div>
   <div *ngIf="catDialog==true" class="modal-backdrop fade show"></div>
+
+
+<!--question detail modal-->
+  <div class="modal fade" [class.show]="detailDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="detailDialog==true ? 'block' : null" style="padding-left: 0px;">
+    <div class="modal-dialog model-sm">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h1 class="modal-title fs-5" id="exampleModalLiveLabel">پیام سیستم!</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="showDetailDialog()"></button>
+        </div>
+        <div class="modal-body">
+          <QuestionDetailComponent [ques]="SelectQues"></QuestionDetailComponent>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="showDetailDialog()">انصراف</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="detailDialog==true" class="modal-backdrop fade show"></div>
+
+
+
+  <!--question steps modal-->
+  <div class="modal fade" [class.show]="stepDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="stepDialog==true ? 'block' : null" style="padding-left: 0px;">
+    <div class="modal-dialog model-sm">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h1 class="modal-title fs-5" id="exampleModalLiveLabel">پیام سیستم!</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="showStepDialog()"></button>
+        </div>
+        <div class="modal-body">
+          <QuestionStepsComponent [steps]="Steps"></QuestionStepsComponent>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="showStepDialog()">انصراف</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="stepDialog==true" class="modal-backdrop fade show"></div>
+
+
+    <!--question results modal-->
+    <div class="modal fade" [class.show]="resultDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="resultDialog==true ? 'block' : null" style="padding-left: 0px;">
+      <div class="modal-dialog model-sm">
+        <div class="modal-content">
+          <div class="modal-header bg-danger text-white">
+            <h1 class="modal-title fs-5" id="exampleModalLiveLabel">پیام سیستم!</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="showResultDialog()"></button>
+          </div>
+          <div class="modal-body">
+            <QuestionResultComponent [results]="Results"></QuestionResultComponent>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="showResultDialog()">انصراف</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="resultDialog==true" class="modal-backdrop fade show"></div>

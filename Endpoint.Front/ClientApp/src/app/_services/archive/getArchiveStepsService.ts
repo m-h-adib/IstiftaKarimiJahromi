@@ -4,6 +4,7 @@ import { ListDataResultDto } from 'src/app/_models/common/ResultDto';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from "rxjs/internal/Observable";
+import { map } from "rxjs/internal/operators/map";
 
 @Injectable({
     providedIn:"root"

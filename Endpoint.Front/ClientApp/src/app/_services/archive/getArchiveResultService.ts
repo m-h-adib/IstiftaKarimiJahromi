@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from "rxjs/internal/Observable";
 import { GetArchiveResultDto } from 'src/app/_models/archive/getArchiveResultDto';
+import { map } from "rxjs/internal/operators/map";
 
 @Injectable({
     providedIn:"root"
