@@ -38,11 +38,11 @@ public class GetProcessCyclesService: IGetProcessCyclesService
 	public async Task<ResultDto<List<GetProcessCycleDto>>> ExecuteAsync(GetProcessCycleRequestDto dto)
 	{
 		long userid = _tokenContents.GetUserId(_httpContextAccessor.HttpContext!.User);
-
+		var user = await _context.Users.FirstOrDefaultAsync(p => p.Id == userid);
 
 		var res = await _context.QuestionCycles
 			.Where(p => !p.IsRemoved)
-			.Where(p => p.ToUserId == userid)
+			.Where(p => user!.Role==Domain.Enums.RoleType.Admin ? true : p.ToUserId == userid)
 			.Where(p => p.QuestionId == dto.QuestionId)
 			.Where(p => p.ToStep == Domain.Enums.QuestionStepType.Processing)
 			.Select(p => new GetProcessCycleDto

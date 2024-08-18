@@ -39,9 +39,12 @@ public class GetProcessQuestionsService : IGetProcessQuestionsService
     public async Task<ResultDto<ResultOfList<GetProcessQuestionDto>>> ExecuteAsync(GetProcessQuestionRequestDto dto)
     {
         long userid = _tokenContents.GetUserId(_httpContextAccessor.HttpContext!.User);
+        var user = await _context.Users.FirstOrDefaultAsync(p => p.Id == userid);
 
         var items = _context.Questions
-            .Where(p => !p.IsRemoved && p.Step==QuestionStepType.Processing);
+            .Where(p => !p.IsRemoved)
+            .Where(p=>p.Step==QuestionStepType.Processing)
+            .Where(p => user!.Role == RoleType.Admin ? true : p.QuestionCycles.Any(u=>u.ToUserId==userid && u.ToStep==QuestionStepType.Processing));
 
         //if (!await _context.AdminSectionAccesses.AnyAsync(p => p.AdminSection!.Name == "ShowAllQuestions" && p.UserId == userid))
         //    items = items.Where(p => p.UserId == userid);
