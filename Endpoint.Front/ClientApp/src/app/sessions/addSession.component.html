@@ -21,13 +21,18 @@
   
         <div class="col-md-6">
           <label for="inputEmail4" class="form-label">ساعت جلسه</label>
+        
           <input type="text" class="form-control" [(ngModel)]="AddDto.time" name="AddDto.time" placeholder="ساعت جلسه" />
         </div>
   
   
         <div class="col-md-6">
           <label for="inputEmail4" class="form-label">شرکت کنندگان جلسه</label>
-          
+          <br>
+          <div class="form-check form-check-inline" *ngFor="let a of Users">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" [value]="a.id" (change)="changeUser(a.id!)">
+            <label class="form-check-label" for="inlineCheckbox1">{{a.name}}</label>
+          </div>
         </div>
   
         <hr class="mt-4 border border-1 border-primary" />

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { DataResultDto } from 'src/app/_models/common/ResultDto';
+import { GetOneSessionDto } from 'src/app/_models/session/GetOneSessionDto';
 import { GetSessionDto } from 'src/app/_models/session/GetSessionDto';
 import { environment } from 'src/environments/environment';
 
@@ -14,7 +15,7 @@ export class GetOneSessionService{
 
     constructor(private http:HttpClient){}
 
-    GetOneSession(id:number):Observable<DataResultDto<GetSessionDto>>{
+    GetOneSession(id:number):Observable<DataResultDto<GetOneSessionDto>>{
         this.header=new HttpHeaders({
             'content-type':'application/json',
             'authorization':'bearer '+localStorage.getItem("token")

@@ -49,6 +49,7 @@ public class GetResearchCyclesService: IGetResearchCyclesService
             .Select(p => new GetResearchCycleDto
             {
                 Id = p.Id,
+                ResearchId=p.Research!=null ? p.Research.Id : null,
                 DuplicateId = p.PreProccess != null && p.PreProccess.DuplicateId != null ? p.PreProccess.DuplicateId : null,
                 Duplicate = p.PreProccess != null && p.PreProccess.DuplicateId != null ? p.PreProccess.Duplicate!.Title : null,
                 IsAccept = p.IsAccept,
@@ -68,6 +69,7 @@ public class GetResearchCycleRequestDto
 public class GetResearchCycleDto
 {
     public long Id { get; set; }
+    public long? ResearchId { get; set; }
     public string? QDesctiption { get; set; }
     public string? PDescription { get; set; }
     public long? DuplicateId { get; set; }

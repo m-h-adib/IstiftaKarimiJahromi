@@ -10,12 +10,12 @@ import { environment } from "src/environments/environment";
     providedIn:'root'
 })
 export class UpdateSessionService{
-    url:string=environment.url+"api/sesstions/UpdateSession";
+    url:string=environment.url+"api/sessions/UpdateSession";
     header:any;
 
     constructor(private http:HttpClient){}
 
-    AddSession(dto:UpdateSessionDto):Observable<ResultDto>{
+    UpdateSession(dto:UpdateSessionDto):Observable<ResultDto>{
         this.header=new HttpHeaders({
             'content-type':'application/json',
             'authorization':'bearer '+localStorage.getItem("token")

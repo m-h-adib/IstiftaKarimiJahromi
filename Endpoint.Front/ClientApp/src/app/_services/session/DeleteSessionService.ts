@@ -8,7 +8,7 @@ import { environment } from "src/environments/environment";
     providedIn:'root'
 })
 
-export class DeleteSession{
+export class DeleteSessionService{
     url:string=environment.url+"api/sessions/DeleteSession";
     header:any;
 

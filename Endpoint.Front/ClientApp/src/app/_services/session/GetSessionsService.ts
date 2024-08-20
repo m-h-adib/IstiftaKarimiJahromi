@@ -17,7 +17,7 @@ export class GetSessionsService{
     GetSessions(pageNumber?:number,pageSize?:number):Observable<PagingDataResultDto<GetSessionDto>>{
         this.header=new HttpHeaders({
             'content-type':'application/json',
-            'authorization':'baerer '+localStorage.getItem("token")
+            'authorization':'bearer '+localStorage.getItem("token")
         });
 
         return this.http.get<any>(this.url+"?PageNumber="+pageNumber+"&PageSize="+pageSize,{headers:this.header}).pipe(

@@ -9,7 +9,7 @@ import { environment } from "src/environments/environment";
     providedIn:'root'
 })
 export class AddSessionService{
-    url:string=environment.url+"api/sesstions/AddSession";
+    url:string=environment.url+"api/sessions/Addsession";
     header:any;
 
     constructor(private http:HttpClient){}

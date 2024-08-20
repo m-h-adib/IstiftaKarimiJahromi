@@ -52,7 +52,8 @@
                   </p>
               </td>
               <td>
-                <!--<a class="btn btn-info m-1" [routerLink]="['/researchCycles/'+item.id]">تحقیق سوال</a>-->
+                <a class="btn btn-warning m-1" *ngIf="getAccess('UpdateSession')" [routerLink]="['/updatesession',item.id]">ویرایش جلسه</a>
+                <a class="btn btn-danger m-1" *ngIf="getAccess('DeleteSession')" (click)="showDeleteDialog(item.id)">حذف جلسه</a>
                 <!--<a class="btn btn-info m-1" *ngIf="getAccess('ReferenceToProcessor')" (click)="showRefrenceDialog(item.id)">ارجاع به پردازشگر</a>-->
               </td>
             </tr>
@@ -79,6 +80,24 @@
     </div>
   </div>
   
+  <div class="modal fade" [class.show]="deleteDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="deleteDialog==true ? 'block' : null" style="padding-left: 0px;">
+    <div class="modal-dialog model-sm">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h1 class="modal-title fs-5" id="exampleModalLiveLabel">پیام سیستم!</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="showDeleteDialog()"></button>
+        </div>
+        <div class="modal-body">
+          <p>از حذف جلسه مورد نظر مطمئنید؟</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="showDeleteDialog()">انصراف</button>
+          <button type="button" class="btn btn-danger" (click)="deleteSession()">بله</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="deleteDialog==true" class="modal-backdrop fade show"></div>
   
   <!--<div class="modal fade" [class.show]="refrenceDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="refrenceDialog==true ? 'block' : null" style="padding-left: 0px;">
     <div class="modal-dialog model-sm">

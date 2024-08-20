@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { GetSessionDto } from "../_models/session/GetSessionDto";
 import { GetSessionsService } from "../_services/session/GetSessionsService";
+import { DeleteSessionService } from "../_services/session/DeleteSessionService";
 
 @Component({
     templateUrl:'./sessions.component.html',
@@ -11,14 +12,23 @@ export class SessionsComponent implements OnInit{
     pageSize?:number=10;
     pageCount: number = 1;
     sessions?:GetSessionDto[]=[];
+    deleteDialog?:boolean=false;
+    selectSession ?:number;
 
-    constructor(private _getSessionsService:GetSessionsService){}
+    constructor(private _getSessionsService:GetSessionsService,
+      private _deleteSessionService:DeleteSessionService){}
 
 
     ngOnInit(): void {
         this.GetData();
     }
 
+    getAccess(id: string): boolean {
+      if (JSON.parse(localStorage.getItem("access")!).find((p: string) => p == id) != undefined)
+        return true;
+      else
+        return false;
+    }
 
     GetData():void{
         this._getSessionsService.GetSessions(this.pageNumber,this.pageSize).subscribe(p=>{
@@ -39,4 +49,19 @@ export class SessionsComponent implements OnInit{
       change() {
         this.GetData();
       }
+
+      showDeleteDialog(id?: number){
+        this.selectSession=id;
+        this.deleteDialog=!this.deleteDialog;
+      }
+
+      deleteSession(){
+        this._deleteSessionService.DeleteSession(this.selectSession!).subscribe(p=>{
+          this.showDeleteDialog();
+          this.GetData();
+        })
+      }
+
+
+
 }

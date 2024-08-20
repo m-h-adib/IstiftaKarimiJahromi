@@ -1,5 +1,6 @@
 export interface GetResearchCyclesDto{
     id?:number;
+    researchId?:number;
     qDesctiption?:string;
     pDescription?:string;
     duplicateId?:number;

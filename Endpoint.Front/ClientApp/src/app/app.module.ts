@@ -54,6 +54,7 @@ import { QuestionStepsComponent } from './Archive/questionStep.component';
 import { QuestionResultComponent } from './Archive/questionResult.component';
 import { SessionsComponent } from './sessions/sessions.component';
 import { AddSessionComponent } from './sessions/addSession.component';
+import { UpdateSessionComponent } from './sessions/updateSession.component';
 
 
 @NgModule({
@@ -97,7 +98,8 @@ import { AddSessionComponent } from './sessions/addSession.component';
     QuestionStepsComponent,
     QuestionResultComponent,
     SessionsComponent,
-    AddSessionComponent
+    AddSessionComponent,
+    UpdateSessionComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -144,7 +146,8 @@ import { AddSessionComponent } from './sessions/addSession.component';
       { path: 'editorCycles/:questionId', component: EditorCyclesComponent, canActivate: [AuthGuard] },
       { path: 'archives', component: ArchivesComponent, canActivate: [AuthGuard] },
       { path: 'sessions', component: SessionsComponent, canActivate: [AuthGuard] },
-      { path: 'addSession', component: AddSessionComponent, canActivate: [AuthGuard] }
+      { path: 'addsession/:researchid', component: AddSessionComponent, canActivate: [AuthGuard] },
+      { path: 'updatesession/:id', component: UpdateSessionComponent, canActivate: [AuthGuard] }
     ])
   ],
   providers: [StoreService],

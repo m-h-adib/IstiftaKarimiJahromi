@@ -13,7 +13,7 @@ namespace Application.Services.Session.Queries;
 
 public interface IGetOneSessionService
 {
-    Task<ResultDto<GetSessionDto>> ExecuteAsync(long Id);
+    Task<ResultDto<GetOneSessionDto>> ExecuteAsync(long Id);
 }
 
 public class GetOneSessionService: IGetOneSessionService
@@ -28,25 +28,35 @@ public class GetOneSessionService: IGetOneSessionService
     }
     #endregion
 
-    public async Task<ResultDto<GetSessionDto>> ExecuteAsync(long Id)
+    public async Task<ResultDto<GetOneSessionDto>> ExecuteAsync(long Id)
     {
         var res = await _context.Sessions
           .Where(p => p.IsActive)
           .Where(p => !p.IsRemoved)
           .Where(p => p.Id == Id)
-          .Select(p => new GetSessionDto
+          .Select(p => new GetOneSessionDto
           {
               Id = p.Id,
               Date = p.Date.Value.ToPersianWithoutTime(),
               Time = p.Time,
               Question = p.Research.QuestionCycle.Question.Title,
               Title = p.Title,
-              Users = p.SessionUsers.Select(u => u.User.Name).ToList()
+              Users = p.SessionUsers.Select(u => u.User.Id).ToList()
           }).FirstOrDefaultAsync();
 
         if (res == null)
-            return ResultDto<GetSessionDto>.Failed("جلسه ای یافت نشد");
+            return ResultDto<GetOneSessionDto>.Failed("جلسه ای یافت نشد");
 
-        return ResultDto<GetSessionDto>.Succeeded("ok", res);
+        return ResultDto<GetOneSessionDto>.Succeeded("ok", res);
     }
+}
+
+public class GetOneSessionDto
+{
+    public long Id { get; set; }
+    public string? Title { get; set; }
+    public string? Date { get; set; }
+    public string? Time { get; set; }
+    public string? Question { get; set; }
+    public List<long>? Users { get; set; }
 }
