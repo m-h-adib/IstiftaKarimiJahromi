@@ -1,0 +1,48 @@
+<div class="card mb-4">
+    <div class="card-header colorPurple">
+      <div class="card-title">
+        <strong>افزودن جلسه</strong>
+      </div>
+    </div>
+    <div class="card-body">
+      <form class="row g-3">
+        <div class="col-md-6">
+          <label for="inputEmail4" class="form-label">عنوان</label>
+          <input type="text" class="form-control" [(ngModel)]="AddDto.title" name="AddDto.title" placeholder="عنوان" />
+        </div>
+
+        <div class="col-md-6">
+          <label for="inputEmail4" class="form-label">تاریخ جلسه</label>
+          <ng-persian-datepicker [dateInitValue]="false">
+            <input type="text" [formControl]="dateValue" [(ngModel)]="AddDto.date" name="date" required class="form-control" placeholder="تاریخ جلسه" />
+          </ng-persian-datepicker>
+  
+        </div>
+  
+        <div class="col-md-6">
+          <label for="inputEmail4" class="form-label">ساعت جلسه</label>
+          <input type="text" class="form-control" [(ngModel)]="AddDto.time" name="AddDto.time" placeholder="ساعت جلسه" />
+        </div>
+  
+  
+        <div class="col-md-6">
+          <label for="inputEmail4" class="form-label">شرکت کنندگان جلسه</label>
+          
+        </div>
+  
+        <hr class="mt-4 border border-1 border-primary" />
+  
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary m-1" (click)="Save()">ثبت</button>
+         
+        </div>
+      
+        <div class="row col-md-12 mt-3">
+          <div class="alert alert-danger" *ngFor="let a of Errors">
+            {{a}}
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  

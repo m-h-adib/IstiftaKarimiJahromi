@@ -1,0 +1,115 @@
+<div class="card">
+    <div class="card-header colorPurple">
+      <div class="card-title">
+        <span>
+          <strong>لیست جلسات</strong>
+        </span>
+      </div>
+    </div>
+    <div class="card-body">
+    
+      <div class="table-responsive">
+  
+        <table class="table align-middle table-bordered text-center">
+          <thead class="fw-bold">
+            <tr>
+              <td>
+                عنوان جلسه
+              </td>
+              <td>
+                تاریخ 
+              </td>
+              <td>
+                ساعت
+              </td>
+              <td>
+                موضوع جلسه (سوال)
+              </td>
+              <td>
+                شرکت کنندگان جلسه
+              </td>
+              <td>
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of sessions">
+              <td>
+                {{item.title}}
+              </td>
+              <td>
+                {{item.date}}
+              </td>
+              <td>
+                {{item.time}}
+              </td>
+              <td>
+                {{item.question}}
+              </td>
+              <td>
+                  <p *ngFor="let a of item.users">
+                    {{a}}
+                  </p>
+              </td>
+              <td>
+                <!--<a class="btn btn-info m-1" [routerLink]="['/researchCycles/'+item.id]">تحقیق سوال</a>-->
+                <!--<a class="btn btn-info m-1" *ngIf="getAccess('ReferenceToProcessor')" (click)="showRefrenceDialog(item.id)">ارجاع به پردازشگر</a>-->
+              </td>
+            </tr>
+          </tbody>
+        </table>
+  
+        <nav dir="ltr">
+          <ul class="pagination">
+            <li class="page-item" style="cursor:pointer">
+              <span class="page-link colorDarkest" [class.disabled]="pageNumber==1" (click)="dec()">صفحه قبل</span>
+            </li>
+            <li class="page-item active" aria-current="page">
+              <input type="number" class="form-control text-center" style="width:150px;" (change)="change()" [(ngModel)]="pageNumber" />
+            </li>
+  
+            <li class="page-item" style="cursor:pointer">
+              <a class="page-link" [class.disabled]="pageNumber! == pageCount" (click)="inc()">صفحه بعد</a>
+            </li>
+          </ul>
+        </nav>
+        <span>صفحه {{pageNumber}} از {{pageCount}}</span>
+  
+      </div>
+    </div>
+  </div>
+  
+  
+  <!--<div class="modal fade" [class.show]="refrenceDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="refrenceDialog==true ? 'block' : null" style="padding-left: 0px;">
+    <div class="modal-dialog model-sm">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h1 class="modal-title fs-5" id="exampleModalLiveLabel">ارجاع به پردازشگر سوال!</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="showRefrenceDialog()"></button>
+        </div>
+        <div class="modal-body">
+          <form class="row g-3">
+            <div class="col-md-12">
+              <label for="inputEmail4" class="form-label">توضیحات</label>
+              <textarea class="form-control" [(ngModel)]="referenceToProcessorDto.description" name="referenceToProcessorDto.description" placeholder="توضیحات" rows="8" cols="100"></textarea>
+            </div>
+            <div class="col-md-12">
+              <label for="inputEmail4" class="form-label">پردازشگر</label>
+              <select class="form-select" [(ngModel)]="referenceToProcessorDto.toUser" name="referenceToProcessorDto.toUser">
+                <option *ngFor="let a of refrenceUsers" value="{{a.key}}">
+                  {{a.value}}
+                </option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="showRefrenceDialog()">انصراف</button>
+          <button type="button" class="btn btn-danger" (click)="reference()">تایید</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="refrenceDialog==true" class="modal-backdrop fade show"></div>
+  -->
+  

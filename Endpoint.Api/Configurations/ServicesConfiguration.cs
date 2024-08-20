@@ -27,6 +27,8 @@ using Application.Services.Research.Commands;
 using Application.Services.Editor.Queries;
 using Application.Services.Editor.Commands;
 using Application.Services.Archive.Queries;
+using Application.Services.Session.Queries;
+using Application.Services.Session.Commands;
 
 namespace EndPoint.Api.Configurations
 {
@@ -221,6 +223,14 @@ namespace EndPoint.Api.Configurations
 			services.AddScoped<IGetArchiveQuestionService,GetArchiveQuestionService>();
 			services.AddScoped<IGetQuestionStepsService,GetQuestionStepsService>();
 			services.AddScoped<IGetQuestionResultService, GetQuestionResultService>();
+			#endregion
+
+			#region sessions
+			services.AddScoped<IGetSessionsService,GetSessionsService>();
+			services.AddScoped<IGetOneSessionService,GetOneSessionService>();
+			services.AddScoped<IAddSessionService,AddSessionService>();
+			services.AddScoped<IUpdateSessionService, UpdateSessionService>();
+			services.AddScoped<IDeleteSessionService, DeleteSessionService>();
 			#endregion
 
 			#endregion services
