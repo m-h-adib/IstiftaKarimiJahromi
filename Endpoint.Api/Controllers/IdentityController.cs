@@ -16,17 +16,20 @@ public class IdentityController : ControllerBase
     private readonly IGetAccessService _getAccessService;
     private readonly IGetMenuAccessService _getMenuAccessService;
     private readonly IGetOneAccessService _getOneAccessService;
+    private readonly IResetPasswordService _resetPasswordService;
     #endregion
     #region ctors
     public IdentityController(ILoginService loginService,
         IGetAccessService getAccessService,
         IGetMenuAccessService getMenuAccessService,
-        IGetOneAccessService getOneAccessService)
+        IGetOneAccessService getOneAccessService,
+        IResetPasswordService resetPasswordService)
     {
         _loginService = loginService;
         _getAccessService = getAccessService;
         _getMenuAccessService = getMenuAccessService;
         _getOneAccessService = getOneAccessService;
+        _resetPasswordService = resetPasswordService;
     }
 	#endregion
 
@@ -66,6 +69,11 @@ public class IdentityController : ControllerBase
     }
 
 
-    
+    [HttpPost]
+    public async Task<IActionResult> ResetPassword([FromQuery]long? UserId)
+    {
+        var res = await _resetPasswordService.ExecuteAsync(UserId);
+        return StatusCode(res.StatusCode, res);
+    }
 
 }

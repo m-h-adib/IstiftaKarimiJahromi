@@ -20,6 +20,7 @@ namespace Endpoint.Api.Controllers
 		private readonly IDeleteQuestionService _deleteQuestionService;
 		private readonly IDeleteQuestionFileService _deleteQuestionFileService;
 		private readonly IReferenceToProcessorService _referenceToProcessorService;
+		private readonly IGetPopupQuestionService _getPopupQuestionService;
 		#endregion
 		#region ctors
 		public QuestionsController(IGetQuestionsService getQuestionsService,
@@ -28,7 +29,8 @@ namespace Endpoint.Api.Controllers
 			IEditQuestionService editQuestionService,
 			IDeleteQuestionService deleteQuestionService,
 			IDeleteQuestionFileService deleteQuestionFileService,
-			IReferenceToProcessorService referenceToProcessorService)
+			IReferenceToProcessorService referenceToProcessorService,
+			IGetPopupQuestionService getPopupQuestionService)
         {
             _addQuestionService = addQuestionService;
 			_deleteQuestionFileService = deleteQuestionFileService;
@@ -37,6 +39,7 @@ namespace Endpoint.Api.Controllers
 			_getQuestionsService = getQuestionsService;
 			_getOneQuestionService = getOneQuestionService;
 			_referenceToProcessorService = referenceToProcessorService;
+			_getPopupQuestionService = getPopupQuestionService;
 
 		}
 		#endregion
@@ -60,7 +63,14 @@ namespace Endpoint.Api.Controllers
 		}
 
 
-		[HttpPost]
+        [HttpGet]
+        public async Task<IActionResult> GetPopupQuestion([FromQuery] long? QuestionId)
+        {
+            var res = await _getPopupQuestionService.ExecuteAsync(QuestionId);
+            return StatusCode(res.StatusCode, res);
+        }
+
+        [HttpPost]
 		public async Task<IActionResult> AddQuestion([FromForm] AddQuestionDto dto)
 		{
 			var res = await _addQuestionService.ExecuteAsync(dto);
