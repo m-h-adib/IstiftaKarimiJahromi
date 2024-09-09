@@ -18,19 +18,22 @@ public class UsersController : ControllerBase
 	private readonly IUpdateUserAccessService _updateUserAccessService;
 	private readonly IGetUsersService _getUsersService;
 	private readonly IGetUserAccessService _getUserAccessService;
+	private readonly IResetPasswordService _resetPasswordService;
     #endregion
     #region ctors
     public UsersController(IGetUserAccessService getUserAccessService,
         IGetUsersService getUsersService,
         IAddUserService addUserService,
         IUpdateUserAccessService updateUserAccessService,
-        IDeleteUserService deleteUserService)
+        IDeleteUserService deleteUserService,
+		IResetPasswordService resetPasswordService)
     {
         _addUserService = addUserService;
         _deleteUserService = deleteUserService;
         _getUserAccessService = getUserAccessService;
         _getUsersService = getUsersService;
         _updateUserAccessService = updateUserAccessService;
+		_resetPasswordService = resetPasswordService;
     }
 	#endregion
 
@@ -57,7 +60,14 @@ public class UsersController : ControllerBase
 	}
 
 
-	[HttpPut]
+    [HttpPost]
+    public async Task<IActionResult> ResetPassword([FromQuery] long? UserId)
+    {
+        var res = await _resetPasswordService.ExecuteAsync(UserId);
+        return StatusCode(res.StatusCode, res);
+    }
+
+    [HttpPut]
 	public async Task<IActionResult> UpdateUserAccess([FromBody] UpdateUserAccessDto dto)
 	{
 		var res = await _updateUserAccessService.ExecuteAsync(dto);

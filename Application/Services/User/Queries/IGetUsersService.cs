@@ -3,6 +3,7 @@ using Application.Interfaces.Contexts;
 using Application.Services.Authentication.Methods;
 using Application.Services.Authentication.Queries;
 using Domain.Enums;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -55,7 +56,8 @@ public class GetUsersService: IGetUsersService
 			items = items.Where(p => p.Username == dto.Username);
 		if (dto.Name != null && dto.Name != "")
 			items = items.Where(p => (p.Name + " " + p.Name).Contains(dto.Name));
-		
+
+		PasswordHasher hasher = new PasswordHasher();
 
 		int rows = 0;
 		var res = await items.Select(p => new GetAdminsResponeDto

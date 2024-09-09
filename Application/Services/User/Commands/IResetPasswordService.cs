@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Services.Authentication.Commands;
+namespace Application.Services.User.Commands;
 
 public interface IResetPasswordService
 {
@@ -29,24 +29,25 @@ public class ResetPasswordService: IResetPasswordService
 
     public async Task<ResultDto<string>> ExecuteAsync(long? UserId)
     {
-        if (UserId == null)
-            return ResultDto<string>.Failed("bad request");
+        if (!UserId.HasValue)
+            return ResultDto<string>.Failed("کد کاربر را ارسال نمایید");
 
         var user = await _context.Users.FirstOrDefaultAsync(p => p.Id == UserId);
 
         if (user == null)
-            return ResultDto<string>.Failed("کاربر یافت نشد");
+            return ResultDto<string>.Failed("کاربری یافت نشد");
 
-        Random random = new Random();
-        int pass=random.Next(99999);
-        string password = pass.ToString("D5");
+        Random rdm=new Random();
+        rdm.Next(10000, 99999);
 
-        PasswordHasher hash = new PasswordHasher();
-        string hashpass = hash.HashPassword(password);
+        PasswordHasher hasher = new PasswordHasher();
+        string pass = hasher.HashPassword(rdm.ToString());
 
-        user.Password=hashpass;
+        user.Password = pass;
+        user.UpdatedAt = DateTime.Now;
+
         await _context.SaveChangesAsync();
 
-        return ResultDto<string>.Succeeded("ok", password, 200);
+        return ResultDto<string>.Succeeded("رمز با موفقیت تغییر یافت", pass, 200);
     }
 }

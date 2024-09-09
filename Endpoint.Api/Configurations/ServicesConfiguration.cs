@@ -177,7 +177,6 @@ namespace EndPoint.Api.Configurations
 			services.AddScoped<IGetMenuAccessService, GetMenuAccessService>();
 			services.AddScoped<IGetAccessService, GetAccessService>();
 			services.AddScoped<IGetOneAccessService, GetOneAccessService>();
-			services.AddScoped<IResetPasswordService, ResetPasswordService>();
 			#endregion
 
 			#region users
@@ -186,6 +185,7 @@ namespace EndPoint.Api.Configurations
 			services.AddScoped<IUpdateUserAccessService, UpdateUserAccessService>();
 			services.AddScoped<IGetUsersService, GetUsersService>();
 			services.AddScoped<IGetUserAccessService, GetUserAccessService>();
+			services.AddScoped<IResetPasswordService,ResetPasswordService>();
 			#endregion
 
 			#region Questions
