@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { GetQuestionsService } from "../_services/question/getQuestionsService";
 import { GetQuestionsRequestDto } from "../_models/question/getQuestionsRequestDto";
 import { GetQuestionsDto } from "../_models/question/getQuestionsDto";
@@ -14,6 +14,7 @@ import { GetProcessQuestionsDto } from '../_models/process/getProcessQuestionsDt
 import { GetResearchQuestionsRequestDto } from "../_models/research/getResearchQuestionsRequestDto";
 import { GetResearchQuestionsDto } from "../_models/research/getResearchQuestionsDto";
 import { GetResearchQuestionsService } from "../_services/research/getResearchQuestionsService";
+import Swal from "sweetalert2";
 
 @Component({
   templateUrl: './researchQuestions.component.html',
@@ -48,6 +49,7 @@ export class ResearchQuestionsComponent implements OnInit {
       this.pageCount = Math.floor((p.data.paging.totalItems % this.req.pageSize!) == 0 ? (p.data.paging.totalItems / this.req.pageSize!) : (p.data.paging.totalItems / this.req.pageSize!) + 1)
     })
   }
+  
 
   inc() {
     this.req.pageNumber! += 1;

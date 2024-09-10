@@ -49,6 +49,18 @@
             <td>
               <a class="btn btn-danger m-1" *ngIf="getAccess('DeleteUser')" (click)="showDeleteDialog(item.id)">حذف</a>
               <a class="btn btn-info m-1" *ngIf="getAccess('ChangeUserAccess')" [routerLink]="['/useraccess',item.id]">دسترسی</a>
+              <a class="btn btn-warning m-1" *ngIf="getAccess('ChangeUserAccess')"  [swal]="resetSwal">بازنشانی رمزعبور</a>
+              <swal
+                #resetSwal
+                title="از بازنشانی رمزعبور مطمئنید؟"
+                icon="question"
+                [showCancelButton]="true"
+                confirmButtonText="بله"
+                cancelButtonText="خیر"
+                [focusCancel]="true"
+                (confirm)="resetPassord(item.id)">
+              </swal>
+              <swal #alertSwal title="" text=""></swal>
             </td>
           </tr>
         </tbody>

@@ -1,10 +1,13 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { GetUsersService } from "../_services/user/getUsersService";
 import { PagingDataResultDto } from "../_models/common/ResultDto";
 import { GetUsersDto } from "../_models/user/GetUsersDto";
 import { GetUsersRequestDto } from "../_models/user/GetUsersRequestDto";
 import { DeleteUserService } from "../_services/user/DeleteUserService";
+import { ResetPasswordService } from "../_services/user/ResetPasswordService";
+import { SwalComponent } from "@sweetalert2/ngx-sweetalert2";
+
 
 @Component({
   templateUrl: './admins.component.html',
@@ -24,11 +27,14 @@ export class AdminsComponent implements OnInit {
     username:""
   };
   access: string[] = [];
+  @ViewChild('alertSwal')
+  public readonly alertSwal!: SwalComponent;
 
   constructor(private _getUsersService: GetUsersService,
     private _deleteUserService: DeleteUserService,
     private router: Router,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private resetPass:ResetPasswordService) { }
 
 
   ngOnInit(): void {
@@ -49,6 +55,16 @@ export class AdminsComponent implements OnInit {
   }
 
 
+  resetPassord(userId?:number):void{
+
+    this.resetPass.ResetPassword(userId!).subscribe(p=>{
+      this.alertSwal.title=p.message;
+      this.alertSwal.text="رمز: "+p.data;
+      console.log(p);
+      this.alertSwal.fire();
+    });
+
+  }
 
   getData() {
     if (this.isAccess) {

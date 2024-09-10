@@ -19,7 +19,7 @@
           </div>
 
           <div class="col-12">
-            <button type="submit" class="btn btn-primary">جستجو</button>
+            <button type="submit" class="btn btn-primary" (click)="getData()">جستجو</button>
           </div>
         </form>
       </div>
@@ -71,6 +71,12 @@
                 {{item.status}}
             </td>
             <td>
+              <swal #aa>
+
+                <QuestionPopupComponent *swalPortal="undefined" [questionId]="item.id!"></QuestionPopupComponent>
+              </swal>
+
+              <a [swal]="aa" class="btn btn-warning m-1">سوال</a>
               <a class="btn btn-info m-1" [routerLink]="['/researchCycles/'+item.id]">تحقیق سوال</a>
               <!--<a class="btn btn-info m-1" *ngIf="getAccess('ReferenceToProcessor')" (click)="showRefrenceDialog(item.id)">ارجاع به پردازشگر</a>-->
             </td>

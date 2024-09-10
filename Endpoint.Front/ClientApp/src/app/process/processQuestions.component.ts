@@ -11,6 +11,7 @@ import { ReferenceToProcessorService } from '../_services/question/referenceToPr
 import { GetProcessQuestionsRequestDto } from '../_models/process/getProcessQuestionsRequestDto';
 import { GetProcessQuestionsService } from '../_services/process/getProcessQuestionsService';
 import { GetProcessQuestionsDto } from '../_models/process/getProcessQuestionsDto';
+import { QuestionPopupComponent } from "../questions/questionPopup.component";
 
 @Component({
   templateUrl: './processQuestions.component.html',
@@ -59,13 +60,16 @@ export class ProcessQuestionsComponent implements OnInit {
     this.getData();
   }
 
+
   getAccess(id: string): boolean {
+
     if (JSON.parse(localStorage.getItem("access")!).find((p: string) => p == id) != undefined)
       return true;
     else
       return false;
   }
 
+ 
 
   /*showRefrenceDialog(id?: number) {
     this.referenceToProcessorDto.questionId = id;

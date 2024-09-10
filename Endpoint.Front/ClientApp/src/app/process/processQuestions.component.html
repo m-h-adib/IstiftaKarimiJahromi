@@ -19,7 +19,7 @@
           </div>
 
           <div class="col-12">
-            <button type="submit" class="btn btn-primary">جستجو</button>
+            <button type="submit" class="btn btn-primary" (click)="getData()">جستجو</button>
           </div>
         </form>
       </div>
@@ -71,6 +71,11 @@
                 {{item.status}}
             </td>
             <td>
+              <swal #aa title="SweetAlert2 Timer">
+                <div *swalPortal="undefined" >asdasdsa</div>
+              </swal>
+
+              <a [swal]="aa">asdasda</a>
               <a class="btn btn-info m-1" [routerLink]="['/processCycles/'+item.id]">پردازش سوال</a>
               <!--<a class="btn btn-info m-1" *ngIf="getAccess('ReferenceToProcessor')" (click)="showRefrenceDialog(item.id)">ارجاع به پردازشگر</a>-->
             </td>

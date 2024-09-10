@@ -55,6 +55,9 @@ import { QuestionResultComponent } from './Archive/questionResult.component';
 import { SessionsComponent } from './sessions/sessions.component';
 import { AddSessionComponent } from './sessions/addSession.component';
 import { UpdateSessionComponent } from './sessions/updateSession.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { QuestionPopupComponent } from './questions/questionPopup.component';
+
 
 
 @NgModule({
@@ -99,7 +102,8 @@ import { UpdateSessionComponent } from './sessions/updateSession.component';
     QuestionResultComponent,
     SessionsComponent,
     AddSessionComponent,
-    UpdateSessionComponent
+    UpdateSessionComponent,
+    QuestionPopupComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -112,6 +116,8 @@ import { UpdateSessionComponent } from './sessions/updateSession.component';
     LoadingBarRouterModule,
     // for Core use:
     LoadingBarModule,
+    //npm install sweetalert2 @sweetalert2/ngx-sweetalert2@^12.0.0
+    SweetAlert2Module.forRoot(),
     NgPersianDatepickerModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [AuthGuard] },
@@ -150,7 +156,8 @@ import { UpdateSessionComponent } from './sessions/updateSession.component';
       { path: 'updatesession/:id', component: UpdateSessionComponent, canActivate: [AuthGuard] }
     ])
   ],
-  providers: [StoreService],
+  providers: [StoreService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

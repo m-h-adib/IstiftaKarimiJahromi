@@ -6,6 +6,12 @@
           <span>
             <strong>ثبت ویراستاری سوال</strong>
           </span>
+          <swal #aa>
+
+            <QuestionPopupComponent *swalPortal="undefined" [questionId]="req.questionId!"></QuestionPopupComponent>
+          </swal>
+
+          <a [swal]="aa" class="btn btn-warning m-1 float-end">مشاهده سوال</a>
         </div>
       </div>
       <div class="card-body">
@@ -58,6 +64,7 @@
           <span>
             <strong>لیست ویراستاری های این سوال</strong>
           </span>
+          <a class="btn btn-warning float-end" [routerLink]="['/editors']">بازگشت</a>
         </div>
       </div>
       <div class="card-body">

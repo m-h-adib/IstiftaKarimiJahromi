@@ -5,6 +5,12 @@
         <div class="card-title">
           <span>
             <strong>ثبت تحقیق سوال</strong>
+            <swal #aa>
+
+              <QuestionPopupComponent *swalPortal="undefined" [questionId]="req.questionId!"></QuestionPopupComponent>
+            </swal>
+
+            <a [swal]="aa" class="btn btn-warning m-1 float-end">مشاهده سوال</a>
           </span>
         </div>
       </div>
@@ -59,6 +65,7 @@
           <span>
             <strong>لیست پردازش های این سوال</strong>
           </span>
+          <a class="btn btn-warning float-end" [routerLink]="['/researchQuestions']">بازگشت</a>
         </div>
       </div>
       <div class="card-body">

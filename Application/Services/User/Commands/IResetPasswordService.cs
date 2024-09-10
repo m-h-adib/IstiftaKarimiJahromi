@@ -38,16 +38,17 @@ public class ResetPasswordService: IResetPasswordService
             return ResultDto<string>.Failed("کاربری یافت نشد");
 
         Random rdm=new Random();
-        rdm.Next(10000, 99999);
+       
+        string s = rdm.Next(10000, 99999).ToString();
 
         PasswordHasher hasher = new PasswordHasher();
-        string pass = hasher.HashPassword(rdm.ToString());
+        string pass = hasher.HashPassword(s);
 
         user.Password = pass;
         user.UpdatedAt = DateTime.Now;
 
         await _context.SaveChangesAsync();
 
-        return ResultDto<string>.Succeeded("رمز با موفقیت تغییر یافت", pass, 200);
+        return ResultDto<string>.Succeeded("رمز با موفقیت تغییر یافت", s, 200);
     }
 }

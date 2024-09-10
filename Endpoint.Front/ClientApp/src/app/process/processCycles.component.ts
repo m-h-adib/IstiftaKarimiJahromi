@@ -122,8 +122,8 @@ import { GetUsersByRolesService } from '../_services/user/getUsersByRolesService
   }
 
   Save() {
-    if (this.add.description == null || this.add.description == "")
-      alert("لطفا توضیحات را بنویسید");
+    //if (this.add.description == null || this.add.description == "")
+     // alert("لطفا توضیحات را بنویسید");
 
     this._addProccessQuestionService.AddProcess(this.add).subscribe(p => {
       if (p.isSuccess)
