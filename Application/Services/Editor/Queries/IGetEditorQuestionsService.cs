@@ -45,8 +45,9 @@ public class GetEditorQuestionsService : IGetEditorQuestionsService
         var items = _context.Questions
             .Where(p => !p.IsRemoved && p.Step == QuestionStepType.Editor);
 
-        //if (!await _context.AdminSectionAccesses.AnyAsync(p => p.AdminSection!.Name == "ShowAllQuestions" && p.UserId == userid))
-        //    items = items.Where(p => p.UserId == userid);
+        if (!await _context.AdminSectionAccesses.AnyAsync(p => p.UserId == userid && !p.IsRemoved && p.AdminSection!.Name == "ShowAllEditor"))
+            items = items.Where(p => p.QuestionCycles.Any(u => u.ToUserId == userid && u.ToStep == QuestionStepType.Editor));
+
 
 
         #region Filters

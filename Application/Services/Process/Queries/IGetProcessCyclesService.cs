@@ -40,6 +40,9 @@ public class GetProcessCyclesService: IGetProcessCyclesService
 		long userid = _tokenContents.GetUserId(_httpContextAccessor.HttpContext!.User);
 		var user = await _context.Users.FirstOrDefaultAsync(p => p.Id == userid);
 
+		if (!await _context.AdminSectionAccesses.AnyAsync(p => p.UserId == userid && !p.IsRemoved && p.AdminSection!.Name == "AddProcessQuestion"))
+			return ResultDto<List<GetProcessCycleDto>>.Failed("NOT ACCESS", 403);
+
 		var res = await _context.QuestionCycles
 			.Where(p => !p.IsRemoved)
 			.Where(p => user!.Role==Domain.Enums.RoleType.Admin ? true : p.ToUserId == userid)

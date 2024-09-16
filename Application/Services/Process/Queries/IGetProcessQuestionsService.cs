@@ -41,17 +41,18 @@ public class GetProcessQuestionsService : IGetProcessQuestionsService
         long userid = _tokenContents.GetUserId(_httpContextAccessor.HttpContext!.User);
         var user = await _context.Users.FirstOrDefaultAsync(p => p.Id == userid);
 
+
         var items = _context.Questions
             .Where(p => !p.IsRemoved)
-            .Where(p=>p.Step==QuestionStepType.Processing)
-            .Where(p => user!.Role == RoleType.Admin ? true : p.QuestionCycles.Any(u=>u.ToUserId==userid && u.ToStep==QuestionStepType.Processing));
+            .Where(p => p.Step == QuestionStepType.Processing);
+            //.Where(p => user!.Role == RoleType.Admin ? true : p.QuestionCycles.Any(u=>u.ToUserId==userid && u.ToStep==QuestionStepType.Processing));
 
-        //if (!await _context.AdminSectionAccesses.AnyAsync(p => p.AdminSection!.Name == "ShowAllQuestions" && p.UserId == userid))
-        //    items = items.Where(p => p.UserId == userid);
+        if (!await _context.AdminSectionAccesses.AnyAsync(p => p.UserId == userid && !p.IsRemoved && p.AdminSection!.Name == "ShowAllProcessQuestion"))
+            items = items.Where(p => p.QuestionCycles.Any(u => u.ToUserId == userid && u.ToStep == QuestionStepType.Processing));
 
 
-        #region Filters
-        if (!dto.Title.IsNullOrEmpty())
+            #region Filters
+            if (!dto.Title.IsNullOrEmpty())
             items = items.Where(p => p.Title!.Contains(dto.Title!));
         #endregion
 

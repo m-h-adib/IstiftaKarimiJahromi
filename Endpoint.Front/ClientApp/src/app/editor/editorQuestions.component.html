@@ -31,8 +31,8 @@
 
     <div class="table-responsive">
 
-      <table class="table align-middle table-bordered text-center">
-        <thead class="fw-bold">
+      <table class="table align-middle table-bordered text-center table-striped">
+        <thead class="fw-bold table-success">
           <tr>
             <td>
               عنوان سوال
@@ -71,7 +71,7 @@
                 {{item.status}}
             </td>
             <td>
-              <a class="btn btn-info m-1" [routerLink]="['/editorCycles/'+item.id]">ویراستاری سوال</a>
+              <a class="btn btn-info m-1" *ngIf="getAccess('AddEditor')"  [routerLink]="['/editorCycles/'+item.id]">ویراستاری سوال</a>
               <!--<a class="btn btn-info m-1" *ngIf="getAccess('ReferenceToProcessor')" (click)="showRefrenceDialog(item.id)">ارجاع به پردازشگر</a>-->
             </td>
           </tr>

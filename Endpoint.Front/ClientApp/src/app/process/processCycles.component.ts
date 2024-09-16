@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GetProcessCycleRequestDto } from '../_models/process/getProcessCycleRequestDto';
 import { GetProcessCyclesDto } from '../_models/process/getProcessCyclesDto';
 import { GetProcessCyclesService } from '../_services/process/getProcessCyclesService';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AddProcessQuestionDto } from '../_models/process/addProcessQuestionDto';
 import { SearchQuestionRequestDto } from '../_models/process/searchQuestionRequestDto';
 import { GetQuestionCategoryDto } from '../_models/questionCategory/GetQuestionCategoryDto';
@@ -19,10 +19,12 @@ import { GetUsersByRolesService } from '../_services/user/getUsersByRolesService
   })
   
   export class ProcessCyclesComponent implements OnInit {
-  
+
+  access: string[] = [];
+
   rejectDialog?: boolean = false;
   referenceDialog?: boolean = false;
-  access: string[] = [];
+  
   refrenceUsers: KeyValueType[] = [];
   refrenceUsers1: KeyValueType[] = [];
     req: GetProcessCycleRequestDto = {};
@@ -38,19 +40,23 @@ import { GetUsersByRolesService } from '../_services/user/getUsersByRolesService
     private _addProccessQuestionService: AddProcessQuestionService,
     private _acceptOrRejectProcessService: AcceptOrRejectProcessService,
     private _getUsersByRolesService: GetUsersByRolesService,
+    private router: Router,
         private route:ActivatedRoute) { }
   
     ngOnInit(): void {
+      this.access = JSON.parse(localStorage.getItem("access")!);
+
+      if (!this.getAccess("AddProcessQuestion"))
+        this.router.navigate(["./"]);
 
         this.req.questionId = Number.parseInt(this.route.snapshot.paramMap.get('questionId')!);
 
       this.add.questionId = this.req.questionId;
 
-      this.access = JSON.parse(localStorage.getItem("access")!);
-  
       this.getData();
     }
-  
+
+
   getData() {
 
     this._getUsersByRolesService.GetUsers([1, 2, 4]).subscribe(p => {

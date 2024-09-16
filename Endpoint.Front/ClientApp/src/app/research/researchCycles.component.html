@@ -45,7 +45,7 @@
           </div>
 
           <div class="col-12">
-            <button type="submit" class="btn btn-primary m-1" (click)="Save()">ثبت</button>
+            <button type="submit" class="btn btn-primary m-1" *ngIf="getAccess('AddResearchQuestion')"  (click)="Save()">ثبت</button>
           </div>
         </form>
       </div>
@@ -71,8 +71,8 @@
       <div class="card-body">
         <div class="table-responsive">
 
-          <table class="table align-middle table-bordered text-center">
-            <thead class="fw-bold">
+          <table class="table align-middle table-bordered text-center table-striped">
+            <thead class="fw-bold table-success">
               <tr>
                 <td>
                   توضیحات مدیر
@@ -90,7 +90,7 @@
                 </td>
               </tr>
             </thead>
-            <tbody>
+            <tbody *ngIf="getAccess('AddResearchQuestion')" >
               <tr *ngFor="let item of cycles">
                 <td>
                   {{item.qDesctiption}}
@@ -105,8 +105,8 @@
                   {{item.isAccept==true ? "تاید شده" :  item.isAccept==false ? "رد شده" : "در انتظار"}}
                 </td>
                 <td>
-                  <a class="btn btn-danger m-1" *ngIf="item.isAccept==null" (click)="showRejectDialog(item.id)">رد</a>
-                  <a class="btn btn-primary m-1" *ngIf="item.isAccept==null" (click)="showReferenceDialog(item.id)">ارجاع به ویراستار</a>
+                  <a class="btn btn-danger m-1" *ngIf="item.isAccept==null && getAccess('AcceptResearchQuestion')" (click)="showRejectDialog(item.id)">رد</a>
+                  <a class="btn btn-primary m-1" *ngIf="item.isAccept==null && getAccess('AcceptResearchQuestion')" (click)="showReferenceDialog(item.id)">ارجاع به ویراستار</a>
                   <a class="btn btn-warning m-1" *ngIf="item.researchId!=null && item.isAccept==null && getAccess('AddSession')" [routerLink]="['/addsession',item.researchId]">ایجاد جلسه</a> 
                 </td>
               </tr>

@@ -10,8 +10,8 @@
     
       <div class="table-responsive">
   
-        <table class="table align-middle table-bordered text-center">
-          <thead class="fw-bold">
+        <table class="table align-middle table-bordered text-center table-striped">
+          <thead class="fw-bold table-success">
             <tr>
               <td>
                 عنوان جلسه
@@ -32,7 +32,7 @@
               </td>
             </tr>
           </thead>
-          <tbody>
+          <tbody *ngIf="getAccess('Sessions')" >
             <tr *ngFor="let item of sessions">
               <td>
                 {{item.title}}
@@ -131,4 +131,3 @@
   </div>
   <div *ngIf="refrenceDialog==true" class="modal-backdrop fade show"></div>
   -->
-  

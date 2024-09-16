@@ -45,8 +45,8 @@ public class GetResearchQuestionsService: IGetResearchQuestionsService
         var items = _context.Questions
             .Where(p => !p.IsRemoved && p.Step == QuestionStepType.Research);
 
-        //if (!await _context.AdminSectionAccesses.AnyAsync(p => p.AdminSection!.Name == "ShowAllQuestions" && p.UserId == userid))
-        //    items = items.Where(p => p.UserId == userid);
+        if (!await _context.AdminSectionAccesses.AnyAsync(p => p.UserId == userid && !p.IsRemoved && p.AdminSection!.Name == "ShowAllResearchQuestion"))
+            items = items.Where(p => p.QuestionCycles.Any(u => u.ToUserId == userid && u.ToStep == QuestionStepType.Research));
 
 
         #region Filters

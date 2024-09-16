@@ -40,6 +40,11 @@ public class AddEditorQuestionService : IAddEditorQuestionService
 
     public async Task<ResultDto> ExecuteAsync(AddEditorQuestionDto dto)
     {
+        long userid = _tokenContents.GetUserId(_httpContextAccessor.HttpContext!.User);
+
+        if (!await _context.AdminSectionAccesses.AnyAsync(p => p.UserId == userid && !p.IsRemoved && p.AdminSection!.Name == "AddEditor"))
+            return ResultDto.Failed("NOT ACCESS", 403);
+
         var cycle = await _context.QuestionCycles
             .Include(p => p.Editors)
             .FirstOrDefaultAsync(p => p.QuestionId == dto.QuestionId && !p.IsRemoved && p.IsAccept == null);

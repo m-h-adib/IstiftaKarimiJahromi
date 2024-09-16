@@ -40,10 +40,13 @@ public class GetResearchCyclesService: IGetResearchCyclesService
     {
         long userid = _tokenContents.GetUserId(_httpContextAccessor.HttpContext!.User);
 
+        if (!await _context.AdminSectionAccesses.AnyAsync(p => p.UserId == userid && !p.IsRemoved && p.AdminSection!.Name == "AddResearchQuestion"))
+            return ResultDto<List<GetResearchCycleDto>>.Failed("NOT ACCESS", 403);
+
 
         var res = await _context.QuestionCycles
             .Where(p => !p.IsRemoved)
-            .Where(p => p.ToUserId == userid)
+            //.Where(p => p.ToUserId == userid)
             .Where(p => p.QuestionId == dto.QuestionId)
             .Where(p => p.ToStep == Domain.Enums.QuestionStepType.Research)
             .Select(p => new GetResearchCycleDto

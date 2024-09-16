@@ -47,6 +47,9 @@ public class AcceptOrRejectResearchService: IAcceptOrRejectResearchService
 
         long userid = _tokenContents.GetUserId(_httpContextAccessor.HttpContext!.User);
 
+        if (!await _context.AdminSectionAccesses.AnyAsync(p => p.UserId == userid && !p.IsRemoved && p.AdminSection!.Name == "AcceptResearchQuestion"))
+            return ResultDto.Failed("NOT ACCESS", 403);
+
 
         var cycle = await _context.QuestionCycles
             .Where(p => p.Id == dto.CycleId)

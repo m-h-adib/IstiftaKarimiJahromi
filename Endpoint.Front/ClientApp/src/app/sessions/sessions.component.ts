@@ -8,18 +8,21 @@ import { DeleteSessionService } from "../_services/session/DeleteSessionService"
     selector:'SessionsComponent'
 })
 export class SessionsComponent implements OnInit{
-    pageNumber?:number=1;
+  access: string[] = [];
+  pageNumber?: number = 1;
     pageSize?:number=10;
     pageCount: number = 1;
     sessions?:GetSessionDto[]=[];
     deleteDialog?:boolean=false;
-    selectSession ?:number;
+  selectSession?: number;
+
 
     constructor(private _getSessionsService:GetSessionsService,
       private _deleteSessionService:DeleteSessionService){}
 
 
-    ngOnInit(): void {
+  ngOnInit(): void {
+    this.access = JSON.parse(localStorage.getItem("access")!);
         this.GetData();
     }
 
