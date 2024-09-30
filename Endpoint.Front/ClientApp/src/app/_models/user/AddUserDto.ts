@@ -3,4 +3,5 @@ export interface AddUserDto {
   username?: string;
   password?: string;
   repassword?: string;
+  role?:number;
 }

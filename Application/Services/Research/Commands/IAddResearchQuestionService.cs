@@ -42,7 +42,7 @@ public class AddResearchQuestionService: IAddResearchQuestionService
     {
         long userid = _tokenContents.GetUserId(_httpContextAccessor.HttpContext!.User);
 
-        if (await _context.AdminSectionAccesses.AnyAsync(p => p.UserId == userid && !p.IsRemoved && p.AdminSection!.Name == "AddResearchQuestion"))
+        if (!await _context.AdminSectionAccesses.AnyAsync(p => p.UserId == userid && !p.IsRemoved && p.AdminSection!.Name == "AddResearchQuestion"))
             return ResultDto.Failed("NOT ACCESS", 403);
 
         var cycle = await _context.QuestionCycles

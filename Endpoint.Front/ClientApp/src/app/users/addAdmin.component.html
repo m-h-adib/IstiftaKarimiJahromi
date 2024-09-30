@@ -23,7 +23,16 @@
         <label for="inputEmail4" class="form-label">تکرار رمز عبور</label>
         <input type="password" class="form-control" [(ngModel)]="AddDto.repassword" name="AddDto.repassword" placeholder="تکرار رمز عبور"  />
       </div>
-
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">سطح دسترسی کاربری</label>
+        <select class="form-select" [(ngModel)]="AddDto.role" name="AddDto.role">
+          <option value="2">ادمین</option>
+          <option value="3">ثبت کننده سوال</option>
+          <option value="4">پردازشگر</option>
+          <option value="5">محقق</option>
+          <option value="6">ویراستار</option>
+        </select>
+      </div>
 
       <hr class="mt-4 border border-1 border-primary" />
 

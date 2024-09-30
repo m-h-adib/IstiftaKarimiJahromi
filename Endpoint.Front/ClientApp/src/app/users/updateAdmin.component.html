@@ -1,0 +1,46 @@
+<div class="card mb-4">
+  <div class="card-header colorPurple">
+    <div class="card-title">
+      <strong>ویرایش کاربر</strong>
+      <button class="btn btn-warning float-end" [routerLink]="['/users']">بازگشت</button>
+    </div>
+  </div>
+  <div class="card-body">
+    <form class="row g-3">
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">نام</label>
+        <input type="text" class="form-control" [(ngModel)]="UpdateDto.name" name="UpdateDto.name" placeholder="نام" />
+      </div>
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">نام کاربری</label>
+        <input type="text" class="form-control" [(ngModel)]="UpdateDto.username" name="UpdateDto.username" placeholder="نام کاربری"  />
+      </div>
+    
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">سطح دسترسی کاربری</label>
+        <select class="form-select" [(ngModel)]="UpdateDto.role" name="UpdateDto.role">
+          <option value="2">ادمین</option>
+          <option value="3">ثبت کننده سوال</option>
+          <option value="4">پردازشگر</option>
+          <option value="5">محقق</option>
+          <option value="6">ویراستار</option>
+        </select>
+      </div>
+
+      <hr class="mt-4 border border-1 border-primary" />
+
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary m-1" (click)="Save()">ثبت</button>
+        <button type="submit" class="btn btn-warning float-end m-1" [routerLink]="['/users']">بازگشت</button>
+      </div>
+      <div class="spinner-border text-primary" role="status" *ngIf="IsLoading">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <div class="row col-md-12 mt-3">
+        <div class="alert alert-danger" *ngFor="let a of Errors">
+          {{a}}
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

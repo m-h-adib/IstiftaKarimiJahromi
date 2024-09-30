@@ -29,6 +29,7 @@ using Application.Services.Editor.Commands;
 using Application.Services.Archive.Queries;
 using Application.Services.Session.Queries;
 using Application.Services.Session.Commands;
+using Application.Services.User.Queries;
 
 namespace EndPoint.Api.Configurations
 {
@@ -186,6 +187,8 @@ namespace EndPoint.Api.Configurations
 			services.AddScoped<IGetUsersService, GetUsersService>();
 			services.AddScoped<IGetUserAccessService, GetUserAccessService>();
 			services.AddScoped<IResetPasswordService,ResetPasswordService>();
+			services.AddScoped<IGetOneUserService, GetOneUserService>();
+			services.AddScoped<IUpdateUserService, UpdateUserService>();
 			#endregion
 
 			#region Questions
