@@ -16,7 +16,7 @@
         <input type="text" class="form-control" [(ngModel)]="req.username" placeholder="نام کاربری...." />
       </div>
       <div class="col-md-4">
-        <button class="btn btn-primary" (click)="getData();">جستجو</button>
+        <button class="btn btn-primary" (click)="search();">جستجو</button>
       </div>
     </div>
     <br />
@@ -26,6 +26,7 @@
       <table class="table align-middle table-bordered text-center table-striped">
         <thead class="fw-bold table-success">
           <tr>
+            <td>#</td>
             <td>
               نام
             </td>
@@ -38,7 +39,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of admins?.data?.items!">
+          <tr *ngFor="let item of admins?.data?.items!; index as i">
+            <td>{{((req.pageNumber! - 1) * req.pageSize!) +i+1}}</td>
             <td>
               {{item.name}}
             </td>

@@ -59,7 +59,15 @@ public class AcceptOrRejectEditorService : IAcceptOrRejectEditorService
         if (cycle == null)
             return ResultDto.Failed("ادیت مورد نظر یافت نشد");
 
-        cycle.IsAccept = dto.IsAccept;
+		var editor = await _context.Editors
+			.Where(p => p.QuestionCycleId == cycle.Id)
+			.Where(p => !p.IsRemoved)
+			.FirstOrDefaultAsync();
+
+		if (editor == null)
+			return ResultDto.Failed("هنوز ویراستاری برای این سوال ثبت نشده");
+
+		cycle.IsAccept = dto.IsAccept;
         cycle.UpdatedAt = DateTime.Now;
 
         if (dto.IsAccept == true)

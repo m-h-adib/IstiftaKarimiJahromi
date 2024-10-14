@@ -43,6 +43,11 @@ export class QuestionsComponent implements OnInit {
     this.getData();
   }
 
+  search(){
+    this.req.pageNumber=1;
+    this.getData();
+  }
+
   getData() {
     this._getQuestionsService.GetQuestions(this.req!).subscribe(p => {
       this.items = p.data.items;

@@ -34,6 +34,7 @@
       <table class="table align-middle table-bordered text-center table-striped">
         <thead class="fw-bold table-success">
           <tr>
+            <td>#</td>
             <td>
               عنوان سوال
             </td>
@@ -54,7 +55,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of items">
+          <tr *ngFor="let item of items; index as i">
+            <td>
+              {{((req.pageNumber!-1)*req.pageSize!)+i+1}}
+            </td>
             <td>
               {{item.title}}
             </td>
@@ -71,7 +75,7 @@
                 {{item.status}}
             </td>
             <td>
-              <swal #aa>
+              <swal #aa confirmButtonText="بستن">
 
                 <QuestionPopupComponent *swalPortal="undefined" [questionId]="item.id!"></QuestionPopupComponent>
               </swal>

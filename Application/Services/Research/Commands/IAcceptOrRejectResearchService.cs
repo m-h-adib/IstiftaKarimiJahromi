@@ -60,7 +60,15 @@ public class AcceptOrRejectResearchService: IAcceptOrRejectResearchService
         if (cycle == null)
             return ResultDto.Failed("تحقیق مورد نظر یافت نشد");
 
-        cycle.IsAccept = dto.IsAccept;
+		var research = await _context.Researchs
+			.Where(p => p.QuestionCycleId == cycle.Id)
+			.Where(p => !p.IsRemoved)
+			.FirstOrDefaultAsync();
+
+		if (research == null)
+			return ResultDto.Failed("هنوز تحقیق برای این سوال ثبت نشده");
+
+		cycle.IsAccept = dto.IsAccept;
         cycle.UpdatedAt = DateTime.Now;
 
         if (dto.IsAccept == true)

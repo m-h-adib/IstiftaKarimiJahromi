@@ -150,6 +150,7 @@
                         <table class="table align-middle table-bordered text-center table-striped">
                           <thead class="fw-bold table-success">
                             <tr>
+                              <td>#</td>
                               <td>
                                 عنوان سوال
                               </td>
@@ -167,7 +168,10 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr *ngFor="let item of Questions">
+                            <tr *ngFor="let item of Questions; index as i">
+                              <td>
+                                {{((Filter.PageNumber!-1)*Filter.PageSize!)+i+1}}
+                              </td>
                                 <td>
                                   {{item.title}}
                                 </td>

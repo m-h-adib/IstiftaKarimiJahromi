@@ -5,12 +5,12 @@
         <div class="card-title">
           <span>
             <strong>ثبت تحقیق سوال</strong>
-            <swal #aa>
+            <swal #aa confirmButtonText="بستن">
 
               <QuestionPopupComponent *swalPortal="undefined" [questionId]="req.questionId!"></QuestionPopupComponent>
             </swal>
 
-            <a [swal]="aa" class="btn btn-warning m-1 float-end">مشاهده سوال</a>
+            <a [swal]="aa"   class="btn btn-warning m-1 float-end">مشاهده سوال</a>
           </span>
         </div>
       </div>
@@ -96,7 +96,7 @@
                   {{item.qDesctiption}}
                 </td>
                 <td>
-                  {{item.pDescription}}
+                  {{item.pDescription!=undefined ? item.pDescription : 'ندارد'}}
                 </td>
                 <td>
                   {{item.duplicate}}

@@ -26,6 +26,7 @@
       <table class="table align-middle table-bordered text-center table-striped">
         <thead class="fw-boldt table-success">
           <tr>
+            <td>#</td>
             <td>
               نام
             </td>
@@ -38,7 +39,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of countries?.data">
+          <tr *ngFor="let item of countries?.data; index as i">
+            <td>
+              {{i+1}}
+            </td>
             <td>
               {{item.name}}
             </td>

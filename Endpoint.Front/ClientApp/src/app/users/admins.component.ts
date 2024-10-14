@@ -66,6 +66,10 @@ export class AdminsComponent implements OnInit {
 
   }
 
+  search(){
+    this.req.pageNumber=1;
+    this.getData();
+  }
   getData() {
     if (this.isAccess) {
       this._getUsersService.GetUsers(this.req).subscribe(p => {

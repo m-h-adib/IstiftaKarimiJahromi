@@ -6,7 +6,12 @@
           <span>
             <strong>ثبت پردازش سوال</strong>
           </span>
-          <a class="btn btn-warning float-end" [routerLink]="['/processQuestions']">بازگشت</a>
+          <swal #aa confirmButtonText="بستن">
+
+            <QuestionPopupComponent *swalPortal="undefined" [questionId]="req.questionId!"></QuestionPopupComponent>
+          </swal>
+
+          <a [swal]="aa"   class="btn btn-warning m-1 float-end">مشاهده سوال</a>
         </div>
       </div>
       <div class="card-body">
@@ -42,6 +47,7 @@
           <span>
             <strong>لیست پردازش های این سوال</strong>
           </span>
+          <a class="btn btn-warning float-end" [routerLink]="['/processQuestions']">بازگشت</a>
         </div>
       </div>
       <div class="card-body">
@@ -72,7 +78,7 @@
                   {{item.qDesctiption}}
                 </td>
                 <td>
-                  {{item.pDescription}}
+                  {{item.pDescription!=undefined ? item.pDescription : 'ندارد'}}
                 </td>
                 <td>
                   {{item.duplicate}}

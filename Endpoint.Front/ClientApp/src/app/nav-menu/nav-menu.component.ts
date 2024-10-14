@@ -12,6 +12,7 @@ import { GetMenuAccessDto } from '../_models/login/getMenuAccessDto';
 })
 export class NavMenuComponent implements OnInit {
   isExpanded: boolean = false;
+  name:string="";
   Menus: GetMenuAccessDto[] = [];
   showCloseDialog: string = "";
   @ViewChild('toggleButton') toggleButton: ElementRef | undefined;
@@ -40,6 +41,7 @@ export class NavMenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.name=localStorage.getItem("name")!;
     this._getMenuAccessService.GetMenuAccess().subscribe(p => {
       this.Menus = p.data;
     })

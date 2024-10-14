@@ -17,7 +17,10 @@ export class SearchQuestionComponent{
     myTree: GetQuestionCategoryDto[] = [];
   catName: string = "دسته سوال";
   items: SearchQuestionDto[]=[];
-  req: SearchQuestionRequestDto = {};
+  req: SearchQuestionRequestDto = {
+    title:"",
+    category:0
+  };
   @Output() newItemEvent = new EventEmitter<KeyValueType>();
   constructor(private _GetQuestionCategoriesService: GetQuestionCategoriesService,
     private _searchQuestionService: SearchQuestionsService) { }
@@ -35,6 +38,7 @@ export class SearchQuestionComponent{
     
       selectCat(id: number) {
         this.catId = id;
+        this.req.category=id;
       }
     
       selectCategory() {
