@@ -5,5 +5,6 @@ export interface GetEditorCycleDto{
     qDesctiption?:string;
     hasProccess?:boolean;
     isAccept?:boolean;
+    name?:string;
     items?:GetEditorCycleItemDto[];
 }

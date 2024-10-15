@@ -1,6 +1,7 @@
 ﻿using Application.Common;
 using Application.Interfaces.Contexts;
 using Application.Services.Authentication.Methods;
+using Domain.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -43,11 +44,16 @@ public class GetProcessCyclesService: IGetProcessCyclesService
 		if (!await _context.AdminSectionAccesses.AnyAsync(p => p.UserId == userid && !p.IsRemoved && p.AdminSection!.Name == "AddProcessQuestion"))
 			return ResultDto<List<GetProcessCycleDto>>.Failed("NOT ACCESS", 403);
 
-		var res = await _context.QuestionCycles
+		var items = _context.QuestionCycles
 			.Where(p => !p.IsRemoved)
-			.Where(p => user!.Role==Domain.Enums.RoleType.Admin ? true : p.ToUserId == userid)
+			//.Where(p => user!.Role==Domain.Enums.RoleType.Admin ? true : p.ToUserId == userid)
 			.Where(p => p.QuestionId == dto.QuestionId)
-			.Where(p => p.ToStep == Domain.Enums.QuestionStepType.Processing)
+			.Where(p => p.ToStep == Domain.Enums.QuestionStepType.Processing);
+
+		if (!await _context.AdminSectionAccesses.AnyAsync(p => p.UserId == userid && !p.IsRemoved && p.AdminSection!.Name == "ShowAllProcessQuestion"))
+			items = items.Where(p => p.ToUserId == userid && p.ToStep == QuestionStepType.Processing);
+
+		var res = await items
 			.Select(p => new GetProcessCycleDto
 			{
 				Id = p.Id,
@@ -56,8 +62,11 @@ public class GetProcessCyclesService: IGetProcessCyclesService
 				IsAccept = p.IsAccept,
 				QDesctiption = p.Description,
 				PDescription = p.PreProccess != null ? p.PreProccess.Description : null,
-				HasProccess=p.PreProccess!=null ? true : false
+				HasProccess=p.PreProccess!=null ? true : false,
+				Name=p.FromUserId!=null ? p.FromUser!.Name : ""
 			}).ToListAsync();
+
+		
 
 		return ResultDto<List<GetProcessCycleDto>>.Succeeded("ok", res);
 	}
@@ -76,5 +85,6 @@ public class GetProcessCycleDto
     public string? Duplicate { get; set; }
     public bool? IsAccept { get; set; }
     public bool HasProccess { get; set; }
+    public string? Name { get; set; }
 }
 #endregion

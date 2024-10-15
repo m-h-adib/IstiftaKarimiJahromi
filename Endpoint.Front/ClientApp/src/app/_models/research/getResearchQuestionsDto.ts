@@ -9,4 +9,5 @@ export interface GetResearchQuestionsDto {
   status?:string;
   userId?:number;
   userName?:string;
+  date?:string;
 }

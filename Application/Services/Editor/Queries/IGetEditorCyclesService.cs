@@ -54,6 +54,7 @@ public class GetEditorCyclesService : IGetEditorCyclesService
                 IsAccept = p.IsAccept,
                 QDesctiption = p.Description,
                 HasProccess = p.Editors!=null && p.Editors.Any() ? true : false,
+                Name=p.FromUserId!=null ? p.FromUser!.Name : "",
                 Items=p.Editors!=null && p.Editors.Any() ? p.Editors!.Select(u=>new GetEditorCycleItemDto
                 {
                     AnswerText = u.AnswerText,
@@ -78,7 +79,8 @@ public class GetEditorCycleDto
     public string? QDesctiption { get; set; }
     public bool HasProccess { get; set; }
 	public bool? IsAccept { get; set; }
-	public ICollection<GetEditorCycleItemDto>? Items { get; set; }
+    public string? Name { get; set; }
+    public ICollection<GetEditorCycleItemDto>? Items { get; set; }
 }
 public class GetEditorCycleItemDto
 {

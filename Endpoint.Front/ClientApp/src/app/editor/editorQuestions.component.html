@@ -51,6 +51,9 @@
               وضعیت سوال
             </td>
             <td>
+              تاریخ ارجاع
+            </td>
+            <td>
             </td>
           </tr>
         </thead>
@@ -73,6 +76,9 @@
             </td>
             <td>
                 {{item.status}}
+            </td>
+            <td>
+              {{item.date}}
             </td>
             <td>
               <a class="btn btn-info m-1" *ngIf="getAccess('AddEditor')"  [routerLink]="['/editorCycles/'+item.id]">ویراستاری سوال</a>

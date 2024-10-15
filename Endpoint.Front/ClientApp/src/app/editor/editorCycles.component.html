@@ -74,6 +74,9 @@
             <thead class="fw-bold table-success">
               <tr>
                 <td>
+                  ویراستار
+                </td>
+                <td>
                   توضیحات مدیر
                 </td>
                
@@ -89,6 +92,9 @@
             </thead>
             <tbody *ngIf="getAccess('AddEditor')" >
               <tr *ngFor="let item of cycles">
+                <td>
+                  {{item.name}}
+                </td>
                 <td>
                   {{item.qDesctiption}}
                 </td>

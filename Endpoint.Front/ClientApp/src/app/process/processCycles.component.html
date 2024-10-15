@@ -57,6 +57,9 @@
             <thead class="fw-bold table-success">
               <tr>
                 <td>
+                  پردازشگر
+                </td>
+                <td>
                   توضیحات مدیر
                 </td>
                 <td>
@@ -75,6 +78,9 @@
             <tbody *ngIf="getAccess('AddProcessQuestion')" >
               <tr *ngFor="let item of cycles">
                 <td>
+                  {{item.name}}
+                </td>
+                <td>
                   {{item.qDesctiption}}
                 </td>
                 <td>
@@ -84,7 +90,7 @@
                   {{item.duplicate}}
                 </td>
                 <td>
-                  {{item.isAccept==true ? "تاید شده" :  item.isAccept==false ? "رد شده" : "در انتظار"}}
+                  {{item.isAccept==true ? "تایید شده" :  item.isAccept==false ? "رد شده" : "در انتظار"}}
                 </td>
                 <td>
                   <a class="btn btn-danger m-1" *ngIf="item.isAccept==null && getAccess('AcceptProcessQuestion')" (click)="showRejectDialog(item.id)">رد</a>

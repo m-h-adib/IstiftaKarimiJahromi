@@ -41,14 +41,14 @@ public class GetPopupQuestionService: IGetPopupQuestionService
                 .Select(u=>u.File).ToList() : null,
                 Question=p.QuestionText,
                 Category=p.QuestionCategory!.Title,
-                Answer=p.QuestionCycles.Any(u=>u.IsAccept==true && u.Research!=null && u.ToStep==Domain.Enums.QuestionStepType.Research) ?
-                p.QuestionCycles.Where(u => u.IsAccept == true && u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research).Select(u=>u.Research).FirstOrDefault().AnswerText : "",
-                AnswerFile = p.QuestionCycles.Any(u => u.IsAccept == true && u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research) ?
-                p.QuestionCycles.Where(u => u.IsAccept == true && u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research).Select(u => u.Research).FirstOrDefault().AnswerFile : "",
-                Reason = p.QuestionCycles.Any(u => u.IsAccept == true && u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research) ?
-                p.QuestionCycles.Where(u => u.IsAccept == true && u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research).Select(u => u.Research).FirstOrDefault().ReasonText : "",
-                ReasonFile = p.QuestionCycles.Any(u => u.IsAccept == true && u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research) ?
-                p.QuestionCycles.Where(u => u.IsAccept == true && u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research).Select(u => u.Research).FirstOrDefault().ReasonFile : ""
+                Answer=p.QuestionCycles.Any(u=>u.Research!=null && u.ToStep==Domain.Enums.QuestionStepType.Research) ?
+                p.QuestionCycles.Where(u => u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research).Select(u=>u.Research).FirstOrDefault().AnswerText : "",
+                AnswerFile = p.QuestionCycles.Any(u => u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research) ?
+                p.QuestionCycles.Where(u => u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research).Select(u => u.Research).FirstOrDefault().AnswerFile : "",
+                Reason = p.QuestionCycles.Any(u => u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research) ?
+                p.QuestionCycles.Where(u => u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research).Select(u => u.Research).FirstOrDefault().ReasonText : "",
+                ReasonFile = p.QuestionCycles.Any(u => u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research) ?
+                p.QuestionCycles.Where(u => u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research).Select(u => u.Research).FirstOrDefault().ReasonFile : ""
             })
             .FirstOrDefaultAsync();
 

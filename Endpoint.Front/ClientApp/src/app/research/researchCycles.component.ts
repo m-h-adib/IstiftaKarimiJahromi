@@ -34,6 +34,9 @@ export class ResearchCyclesComponent implements OnInit {
   refrenceUsers1: KeyValueType[] = [];
     req: GetResearchCycleRequestDto = {};
   add: AddResearchQuestionDto = {
+    description:"",
+    answerText:"",
+    reasonText:"",
     answerFile: [],
     reasonFile:[]
   };

@@ -58,7 +58,8 @@ public class GetResearchCyclesService: IGetResearchCyclesService
                 IsAccept = p.IsAccept,
                 QDesctiption = p.Description,
                 PDescription = p.Research != null ? p.Research.Description : null,
-                HasProccess = p.Research != null ? true : false
+                HasProccess = p.Research != null ? true : false,
+                Name=p.FromUserId!=null ? p.FromUser!.Name : ""
             }).ToListAsync();
 
         return ResultDto<List<GetResearchCycleDto>>.Succeeded("ok", res);
@@ -79,5 +80,6 @@ public class GetResearchCycleDto
     public string? Duplicate { get; set; }
     public bool? IsAccept { get; set; }
     public bool HasProccess { get; set; }
+    public string? Name { get; set; }
 }
 #endregion
