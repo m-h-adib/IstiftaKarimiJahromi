@@ -49,6 +49,7 @@ public class AddSessionService: IAddSessionService
             Time = dto.Time,
             Title = dto.Title,
             UserId = userid,
+            Description=dto.Description,
             SessionUsers = dto.Users.Select(u => new Domain.Entities.SessionUser
             {
                 IsActive = true,
@@ -71,5 +72,6 @@ public class AddSessionDto
     public string? Time { get; set; }
     public long? ResearchId { get; set; }
     public List<long>? Users { get; set; }
+    public string? Description { get; set; }
 }
 #endregion

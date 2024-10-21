@@ -57,10 +57,11 @@ public class AcceptOrRejectEditorService : IAcceptOrRejectEditorService
             .FirstOrDefaultAsync();
 
         if (cycle == null)
-            return ResultDto.Failed("ادیت مورد نظر یافت نشد");
+            return ResultDto.Failed("ویراستاری مورد نظر یافت نشد");
 
 		var editor = await _context.Editors
 			.Where(p => p.QuestionCycleId == cycle.Id)
+            .Where(p=>p.IsAccept==null)
 			.Where(p => !p.IsRemoved)
 			.FirstOrDefaultAsync();
 

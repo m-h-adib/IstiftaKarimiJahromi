@@ -2,6 +2,7 @@
     <div class="card-header colorPurple">
       <div class="card-title">
         <strong>افزودن جلسه</strong>
+        <a class="btn btn-warning float-end" [routerLink]="['/sessions']">بازگشت</a>
       </div>
     </div>
     <div class="card-body">
@@ -38,6 +39,11 @@
             <input class="form-check-input" type="checkbox" id="inlineCheckbox1" [value]="a.id" [attr.checked]="SessionDto.users!.indexOf(a!.id!) !== -1 ? 'a' : null" (change)="changeUser(a.id!)">
             <label class="form-check-label" for="inlineCheckbox1">{{a.name}}</label>
           </div>
+        </div>
+
+        <div class="col-md-12">
+          <label for="inputEmail4" class="form-label">توضیحات</label>
+          <textarea type="text" class="form-control" [(ngModel)]="UpdateDto.description" name="UpdateDto.description" placeholder="توضیحات"></textarea>
         </div>
   
         <hr class="mt-4 border border-1 border-primary" />

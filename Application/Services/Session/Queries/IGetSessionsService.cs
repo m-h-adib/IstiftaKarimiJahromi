@@ -59,7 +59,8 @@ public class GetSessionsService: IGetSessionsService
                 Date = p.Date.Value.ToPersianWithoutTime(),
                 Time = p.Time,
                 Question = p.Research.QuestionCycle.Question.Title,
-                Users = p.SessionUsers.Select(u => u.User.Name).ToList()
+                Users = p.SessionUsers.Select(u => u.User.Name).ToList(),
+                Description=p.Description
             })
             .ToListAsync();
 
@@ -87,5 +88,6 @@ public class GetSessionDto
     public string? Time { get; set; }
     public string? Question { get; set; }
     public List<string>? Users { get; set; }
+    public string? Description { get; set; }
 }
 #endregion

@@ -30,6 +30,9 @@
                 شرکت کنندگان جلسه
               </td>
               <td>
+                توضیحات
+              </td>
+              <td>
               </td>
             </tr>
           </thead>
@@ -54,6 +57,9 @@
                   <p *ngFor="let a of item.users">
                     {{a}}
                   </p>
+              </td>
+              <td>
+                {{item.description}}
               </td>
               <td>
                 <a class="btn btn-warning m-1" *ngIf="getAccess('UpdateSession')" [routerLink]="['/updatesession',item.id]">ویرایش جلسه</a>

@@ -39,6 +39,7 @@ public class UpdateSessionService : IUpdateSessionService
         session.Title = dto.Title;
         session.Time = dto.Time;
         session.Date = dto.Date.ToMiladi();
+        session.Description = dto.Description;
         session.UpdatedAt = DateTime.Now;
         if (session.SessionUsers == null)
             session.SessionUsers = new List<SessionUser>();
@@ -86,5 +87,6 @@ public class UpdateSessionDto
     public string? Date { get; set; }
     public string? Time { get; set; }
     public List<long>? Users { get; set; }
+    public string? Description { get; set; }
 }
 #endregion

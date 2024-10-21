@@ -54,7 +54,8 @@ public class AcceptOrRejectResearchService: IAcceptOrRejectResearchService
         var cycle = await _context.QuestionCycles
             .Where(p => p.Id == dto.CycleId)
             .Where(p => !p.IsRemoved)
-            .Include(p => p.Question)
+			.Where(p => p.IsAccept == null)
+			.Include(p => p.Question)
             .FirstOrDefaultAsync();
 
         if (cycle == null)

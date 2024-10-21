@@ -15,15 +15,18 @@
                     <form class="row">
                         <div class="row">
                             <div class="col-md-12">
-                                <label for="inputEmail4" class="form-label">دسته سوال</label>
+                                <label for="inputEmail4" class="form-label">دسته سوال</label> 
+                                <span class="btn btn-danger mb-2 float-end" (click)="deleteCat()">×</span>
                                 <input class="btn form-control" [ngClass]="catName!='دسته سوال' ? 'btn-success' : 'btn-warning'" type="button" value="{{catName}}" (click)="showCatDialog()" />
+                               
                                 <input hidden="hidden" type="text" class="form-control" [(ngModel)]="Filter.QuestionCategoryId" name="Filter.QuestionCategoryId" placeholder="دسته سوال" />
+                               
                               </div>
                         </div>
                         <div class="row">
                         <div class="col">
-                            <label for="Title" class="form-label">عنوان سوال</label>
-                            <input type="text" class="form-control"  [(ngModel)]="Filter.Title" name="Filter.Title" id="Title" placeholder="عنوان سوال را بنویسید...">
+                            <label for="Title" class="form-label"> سوال</label>
+                            <input type="text" class="form-control"  [(ngModel)]="Filter.Title" name="Filter.Title" id="Title" placeholder=" سوال را بنویسید...">
                         </div>
                     </div>
                         <div class="row" style="margin-top: 10px;">
@@ -36,7 +39,7 @@
                             <div class="col">
                                 <label for="ToDate" class="form-label">تا تاریخ</label>
                                 <ng-persian-datepicker [dateInitValue]="false">
-                                    <input type="text" [formControl]="dateValue2" [(ngModel)]="Filter.ToDate" name="ToDate" id="ToDate" required class="form-control" placeholder="از تاریخ" />
+                                    <input type="text" [formControl]="dateValue2" [(ngModel)]="Filter.ToDate" name="ToDate" id="ToDate" required class="form-control" placeholder="تا تاریخ" />
                                   </ng-persian-datepicker>
                             </div>
                           </div>
@@ -223,7 +226,7 @@
 
 <!--category modal-->
 <div class="modal fade" [class.show]="catDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="catDialog==true ? 'block' : null" style="padding-left: 0px;">
-    <div class="modal-dialog model-sm">
+    <div class="modal-dialog model-sm" style="max-width: 80%;">
       <div class="modal-content">
         <div class="modal-header bg-danger text-white">
           <h1 class="modal-title fs-5" id="exampleModalLiveLabel">پیام سیستم!</h1>
@@ -243,8 +246,8 @@
 
 
 <!--question detail modal-->
-  <div class="modal fade" [class.show]="detailDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="detailDialog==true ? 'block' : null" style="padding-left: 0px;">
-    <div class="modal-dialog model-sm">
+  <div class="modal model-xl fade" [class.show]="detailDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="detailDialog==true ? 'block' : null" style="padding-left: 0px;">
+    <div class="modal-dialog model-xl" style="max-width: 80%;">
       <div class="modal-content">
         <div class="modal-header bg-danger text-white">
           <h1 class="modal-title fs-5" id="exampleModalLiveLabel">پیام سیستم!</h1>
@@ -265,7 +268,7 @@
 
   <!--question steps modal-->
   <div class="modal fade" [class.show]="stepDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="stepDialog==true ? 'block' : null" style="padding-left: 0px;">
-    <div class="modal-dialog model-sm">
+    <div class="modal-dialog model-xl" style="max-width: 80%;">
       <div class="modal-content">
         <div class="modal-header bg-danger text-white">
           <h1 class="modal-title fs-5" id="exampleModalLiveLabel">پیام سیستم!</h1>
@@ -285,7 +288,7 @@
 
     <!--question results modal-->
     <div class="modal fade" [class.show]="resultDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="resultDialog==true ? 'block' : null" style="padding-left: 0px;">
-      <div class="modal-dialog model-sm">
+      <div class="modal-dialog model-xl" style="max-width: 80%;">
         <div class="modal-content">
           <div class="modal-header bg-danger text-white">
             <h1 class="modal-title fs-5" id="exampleModalLiveLabel">پیام سیستم!</h1>

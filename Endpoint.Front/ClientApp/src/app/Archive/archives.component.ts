@@ -82,6 +82,11 @@ export class ArchivesComponent implements OnInit{
 
     }
 
+    deleteCat(){
+      this.catId=undefined;
+      this.catName="دسته سوال";
+    }
+
     ngOnInit(): void {
         this._GetQuestionCategoriesService.GetQuestionCategories().subscribe(p => {
             this.myTree = p.data;

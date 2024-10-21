@@ -71,13 +71,13 @@ export class EditorCyclesComponent implements OnInit {
   
   getData() {
 
-    this._getUsersByRolesService.GetUsers([1, 2, 5]).subscribe(p => {
+    this._getUsersByRolesService.GetUsers([1, 2, 6]).subscribe(p => {
       this.refrenceUsers = p.data;
       console.log(this.refrenceUsers);
     })
 
     this._getUsersByRolesService.GetUsers([1, 2, 6]).subscribe(p => {
-      this.refrenceUsers1 = p.data;
+      this.refrenceUsers = p.data;
       console.log(this.refrenceUsers);
     })
 

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Domain.Enums;
 
 namespace Application.Services.Editor.Queries;
 
@@ -43,12 +44,17 @@ public class GetEditorCyclesService : IGetEditorCyclesService
         if (!await _context.AdminSectionAccesses.AnyAsync(p => p.UserId == userid && !p.IsRemoved && p.AdminSection!.Name == "AddEditor"))
             return ResultDto<List<GetEditorCycleDto>>.Failed("NOT ACCESS", 403);
 
-        var res = await _context.QuestionCycles
+        var items = _context.QuestionCycles
             .Where(p => !p.IsRemoved)
-            .Where(p => p.ToUserId == userid)
             .Where(p => p.QuestionId == dto.QuestionId)
-            .Where(p => p.ToStep == Domain.Enums.QuestionStepType.Editor)
-            .Select(p => new GetEditorCycleDto
+            .Where(p => p.ToStep == Domain.Enums.QuestionStepType.Editor);
+
+		if (!await _context.AdminSectionAccesses.AnyAsync(p => p.UserId == userid && !p.IsRemoved && p.AdminSection!.Name == "ShowAllEditor"))
+			items = items.Where(p => p.ToUserId == userid && p.ToStep == QuestionStepType.Editor);
+		
+        
+        var res = await items
+			.Select(p => new GetEditorCycleDto
 			{
                 Id = p.Id,
                 IsAccept = p.IsAccept,
@@ -61,8 +67,9 @@ public class GetEditorCyclesService : IGetEditorCyclesService
                     Description = u.Description,
                     IsAccept=u.IsAccept,
                     Language=u.Language!.Title,
-                    ReasonText=u.ReasonText
-                }).ToList() : null
+                    ReasonText=u.ReasonText,
+					Name = p.FromUserId != null ? p.FromUser!.Name : ""
+				}).ToList() : null
             }).ToListAsync();
 
         return ResultDto<List<GetEditorCycleDto>>.Succeeded("ok", res);
@@ -89,5 +96,6 @@ public class GetEditorCycleItemDto
 	public bool? IsAccept { get; set; }
 	public string? Description { get; set; }
     public string? Language { get; set; }
+    public string? Name { get; set; }
 }
 #endregion

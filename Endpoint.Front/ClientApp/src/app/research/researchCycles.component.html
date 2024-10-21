@@ -108,7 +108,7 @@
                   {{item.duplicate}}
                 </td>
                 <td>
-                  {{item.isAccept==true ? "تاید شده" :  item.isAccept==false ? "رد شده" : "در انتظار"}}
+                  {{item.isAccept==true ? "تاید شده" :  item.isAccept==false ? item.researchId!=null ? "رد شده" : "در انتظار محقق" :"در انتظار مدیر"}}
                 </td>
                 <td>
                   <a class="btn btn-danger m-1" *ngIf="item.isAccept==null && getAccess('AcceptResearchQuestion')" (click)="showRejectDialog(item.id)">رد</a>

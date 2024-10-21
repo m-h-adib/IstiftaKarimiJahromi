@@ -27,14 +27,14 @@
           </div>
 
           <div class="col-md-12">
-            <label for="inputEmail4" class="form-label">پاسخ سوال</label>
-            <textarea type="text" class="form-control" [(ngModel)]="add.answerText" name="add.answerText" rows="8" cols="100" placeholder="پاسخ سوال"></textarea>
+            <label for="inputEmail4" class="form-label">متن سوال</label>
+            <textarea type="text" class="form-control" [(ngModel)]="add.answerText" name="add.answerText" rows="8" cols="100" placeholder="متن سوال"></textarea>
           </div>
 
         
           <div class="col-md-12">
-            <label for="inputEmail4" class="form-label">دلیل سوال</label>
-            <textarea type="text" class="form-control" [(ngModel)]="add.reasonText" name="add.reasonText" rows="8" cols="100" placeholder="دلیل سوال"></textarea>
+            <label for="inputEmail4" class="form-label">پاسخ سوال</label>
+            <textarea type="text" class="form-control" [(ngModel)]="add.reasonText" name="add.reasonText" rows="8" cols="100" placeholder="پاسخ سوال"></textarea>
           </div>
 
        
@@ -119,11 +119,11 @@
                         <div class="modal-body">
                           <div  *ngFor="let item1 of item.items">
                             <span>زبان: </span>{{item1.language}}
-                            <br />
+                            <hr />
                             <span>متن سوال: </span>{{item1.answerText}}
-                            <br />
-                            <span>متن دلیل: </span>{{item1.reasonText}}
-                            <br />
+                            <hr />
+                            <span>متن پاسخ: </span>{{item1.reasonText}}
+                            <hr />
                             <span>توضیحات: </span>{{item1.description}}
                             <hr />
                           </div>

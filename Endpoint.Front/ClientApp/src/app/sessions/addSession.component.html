@@ -7,10 +7,10 @@
     <div class="card-body">
       <form class="row g-3">
         <div class="col-md-6">
-          <label for="inputEmail4" class="form-label">عنوان</label>
+          <label for="inputEmail4" class="form-label">عنوان جلسه</label>
           <input type="text" class="form-control" [(ngModel)]="AddDto.title" name="AddDto.title" placeholder="عنوان" />
         </div>
-
+        
         <div class="col-md-6">
           <label for="inputEmail4" class="form-label">تاریخ جلسه</label>
           <ng-persian-datepicker [dateInitValue]="false">
@@ -35,6 +35,11 @@
           </div>
         </div>
   
+        <div class="col-md-12">
+          <label for="inputEmail4" class="form-label">توضیحات</label>
+          <textarea type="text" class="form-control" [(ngModel)]="AddDto.description" name="AddDto.description" placeholder="توضیحات"></textarea>
+        </div>
+
         <hr class="mt-4 border border-1 border-primary" />
   
         <div class="col-12">
