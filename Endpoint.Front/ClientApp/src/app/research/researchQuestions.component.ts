@@ -43,6 +43,7 @@ export class ResearchQuestionsComponent implements OnInit {
     this.getData();
   }
 
+
   getData() {
     this._getResearchQuestionsService.GetQuestions(this.req!).subscribe(p => {
       this.items = p.data.items;

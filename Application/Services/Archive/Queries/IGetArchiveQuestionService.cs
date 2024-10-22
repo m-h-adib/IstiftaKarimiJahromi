@@ -81,6 +81,7 @@ public class GetArchiveQuestionService: IGetArchiveQuestionService
             items = items.Where(p => p.MethodOfReceiveQuestionId == request.MethodOfReceiveQuestionId);
 
         var res = await items
+            .OrderByDescending(p=>p.CreatedAt)
             .ToPaged(request.PageNumber, request.PageSize, out int rows)
             .Select(p => new GetArchiveQuestionDto
             {

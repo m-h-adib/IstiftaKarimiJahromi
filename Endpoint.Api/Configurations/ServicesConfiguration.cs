@@ -30,6 +30,7 @@ using Application.Services.Archive.Queries;
 using Application.Services.Session.Queries;
 using Application.Services.Session.Commands;
 using Application.Services.User.Queries;
+using Application.Services.Archive.Commands;
 
 namespace EndPoint.Api.Configurations
 {
@@ -228,6 +229,7 @@ namespace EndPoint.Api.Configurations
 			services.AddScoped<IGetArchiveQuestionService,GetArchiveQuestionService>();
 			services.AddScoped<IGetQuestionStepsService,GetQuestionStepsService>();
 			services.AddScoped<IGetQuestionResultService, GetQuestionResultService>();
+			services.AddScoped<IDeleteArchiveQuestionService, DeleteArchiveQuestionService>();
 			#endregion
 
 			#region sessions

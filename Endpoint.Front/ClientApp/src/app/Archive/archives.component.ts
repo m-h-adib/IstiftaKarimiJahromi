@@ -17,6 +17,7 @@ import { GetArchiveStepsService } from '../_services/archive/getArchiveStepsServ
 import { GetArchiveStepDto } from '../_models/archive/getArchiveStepDto';
 import { GetArchiveResultService } from '../_services/archive/getArchiveResultService';
 import { GetArchiveResultDto } from '../_models/archive/getArchiveResultDto';
+import { DeleteArchiveQuestionService } from '../_services/archive/deleteArchiveQuestionService';
 
 @Component({
     templateUrl:'./archives.component.html',
@@ -69,7 +70,10 @@ export class ArchivesComponent implements OnInit{
       id:1
     };
     Steps:GetArchiveStepDto[]=[];
-    Results:GetArchiveResultDto[]=[];
+  Results: GetArchiveResultDto[] = [];
+  access: string[] = [];
+  selectArchive?: number;
+  deleteDialog: boolean = false;
 
     constructor(private _GetQuestionCategoriesService:GetQuestionCategoriesService,
         private _GetArchivesService:GetArchiveQuestionService,
@@ -78,7 +82,8 @@ export class ArchivesComponent implements OnInit{
         private _GetJobsService:GetJobCategoriesService,
         private _GetMethodsService:GetMethodOfRecieveQuestionsService,
         private _GetArchiveSteps:GetArchiveStepsService,
-        private _GetArchiveResults:GetArchiveResultService){
+      private _GetArchiveResults: GetArchiveResultService,
+      private _DeleteArchiveQuestion: DeleteArchiveQuestionService) {
 
     }
 
@@ -87,7 +92,31 @@ export class ArchivesComponent implements OnInit{
       this.catName="دسته سوال";
     }
 
-    ngOnInit(): void {
+  showDeleteDialog(id?: number) {
+    this.selectArchive = id;
+    this.deleteDialog = !this.deleteDialog;
+  }
+
+  deleteArchive() {
+    this._DeleteArchiveQuestion.Delete(this.selectArchive!).subscribe(p => {
+      if (p.isSuccess) {
+        this.Questions! = this.Questions!.filter(p => p.id != this.selectArchive);
+        this.showDeleteDialog();
+
+      }
+    })
+  }
+
+  getAccess(id: string): boolean {
+    if (JSON.parse(localStorage.getItem("access")!).find((p: string) => p == id) != undefined)
+      return true;
+    else
+      return false;
+  }
+
+  ngOnInit(): void {
+    this.access = JSON.parse(localStorage.getItem("access")!);
+
         this._GetQuestionCategoriesService.GetQuestionCategories().subscribe(p => {
             this.myTree = p.data;
 

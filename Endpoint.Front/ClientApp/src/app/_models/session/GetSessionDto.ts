@@ -3,7 +3,8 @@ export interface GetSessionDto{
     title?:string;
     date?:string;
     time?:string;
-    question?:string;
+  question?: string;
+  questionId?: number;
     users?:string[];
     description?:string;
 }

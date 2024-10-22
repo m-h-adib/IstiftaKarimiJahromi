@@ -12,7 +12,9 @@ export class SessionsComponent implements OnInit{
   pageNumber?: number = 1;
     pageSize?:number=10;
     pageCount: number = 1;
-    sessions?:GetSessionDto[]=[];
+  sessions?: GetSessionDto[] = [];
+  sessionTitle?: string;
+    
     deleteDialog?:boolean=false;
   selectSession?: number;
 
@@ -33,12 +35,17 @@ export class SessionsComponent implements OnInit{
         return false;
     }
 
-    GetData():void{
-        this._getSessionsService.GetSessions(this.pageNumber,this.pageSize).subscribe(p=>{
+  GetData(): void{
+    this._getSessionsService.GetSessions(this.pageNumber, this.pageSize, this.sessionTitle).subscribe(p => {
             this.sessions=p.data.items;
             this.pageCount = Math.floor((p.data.paging.totalItems % this.pageSize!) == 0 ? (p.data.paging.totalItems / this.pageSize!) : (p.data.paging.totalItems / this.pageSize!) + 1)
         })
-    }
+  }
+
+  search() {
+    this.pageNumber = 1;
+    this.GetData();
+  }
 
     inc() {
         this.pageNumber! += 1;

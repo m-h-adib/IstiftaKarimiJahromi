@@ -68,6 +68,7 @@
     <None Remove="ClientApp\src\app\_models\question\referenceToProcessorDto.ts" />
     <None Remove="ClientApp\src\app\_models\question\updateQuestionDto.ts" />
     <None Remove="ClientApp\src\app\_models\research\acceptOrRejectResearchDto.ts" />
+    <None Remove="ClientApp\src\app\_services\archive\deleteArchiveQuestionService.ts" />
     <None Remove="ClientApp\src\app\_services\methodOfRecieveQuestion\addMethodOfRecieveQuestionService.ts" />
     <None Remove="ClientApp\src\app\_services\methodOfRecieveQuestion\deleteMethodOfRecieveQuestionService.ts" />
     <None Remove="ClientApp\src\app\_services\language\addLanguageService.ts" />
@@ -184,6 +185,9 @@
     <TypeScriptCompile Include="ClientApp\src\app\_models\question\referenceToProcessorDto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_models\question\updateQuestionDto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_models\research\acceptOrRejectResearchDto.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_services\archive\deleteArchiveQuestionService.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\_services\methodOfRecieveQuestion\addMethodOfRecieveQuestionService.ts">
