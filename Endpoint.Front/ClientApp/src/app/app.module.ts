@@ -58,6 +58,7 @@ import { UpdateSessionComponent } from './sessions/updateSession.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { QuestionPopupComponent } from './questions/questionPopup.component';
 import { UpdateAdminComponent } from './users/updateAdmin.component';
+import { ReportsComponent } from './reports/reports.component';
 
 
 
@@ -105,7 +106,8 @@ import { UpdateAdminComponent } from './users/updateAdmin.component';
     AddSessionComponent,
     UpdateSessionComponent,
     QuestionPopupComponent,
-    UpdateAdminComponent
+    UpdateAdminComponent,
+    ReportsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -156,7 +158,8 @@ import { UpdateAdminComponent } from './users/updateAdmin.component';
       { path: 'archives', component: ArchivesComponent, canActivate: [AuthGuard] },
       { path: 'sessions', component: SessionsComponent, canActivate: [AuthGuard] },
       { path: 'addsession/:researchid', component: AddSessionComponent, canActivate: [AuthGuard] },
-      { path: 'updatesession/:id', component: UpdateSessionComponent, canActivate: [AuthGuard] }
+      { path: 'updatesession/:id', component: UpdateSessionComponent, canActivate: [AuthGuard] },
+      { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] }
     ])
   ],
   providers: [StoreService

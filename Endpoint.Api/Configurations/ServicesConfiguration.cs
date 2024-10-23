@@ -31,6 +31,7 @@ using Application.Services.Session.Queries;
 using Application.Services.Session.Commands;
 using Application.Services.User.Queries;
 using Application.Services.Archive.Commands;
+using Application.Services.Report.Queries;
 
 namespace EndPoint.Api.Configurations
 {
@@ -238,6 +239,10 @@ namespace EndPoint.Api.Configurations
 			services.AddScoped<IAddSessionService,AddSessionService>();
 			services.AddScoped<IUpdateSessionService, UpdateSessionService>();
 			services.AddScoped<IDeleteSessionService, DeleteSessionService>();
+			#endregion
+
+			#region reports
+			services.AddScoped<IGetUserQueryService, GetUserQueryService>();
 			#endregion
 
 			#endregion services

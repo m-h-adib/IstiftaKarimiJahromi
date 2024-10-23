@@ -13,7 +13,7 @@ export class SessionsComponent implements OnInit{
     pageSize?:number=10;
     pageCount: number = 1;
   sessions?: GetSessionDto[] = [];
-  sessionTitle?: string;
+  sessionTitle?: string="";
     
     deleteDialog?:boolean=false;
   selectSession?: number;

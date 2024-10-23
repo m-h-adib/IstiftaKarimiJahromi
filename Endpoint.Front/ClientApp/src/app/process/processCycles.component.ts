@@ -132,10 +132,9 @@ import { GetUsersByRolesService } from '../_services/user/getUsersByRolesService
      // alert("لطفا توضیحات را بنویسید");
 
     this._addProccessQuestionService.AddProcess(this.add).subscribe(p => {
-      if (p.isSuccess)
-        this.getData();
-      else
-        alert(p.message);
+      if (p.isSuccess) {
+        this.router.navigate(["/processQuestions"]);
+      }
     }, (error) => {
       let Errors: String = "";
       for (let a of error.error.message.split('|'))

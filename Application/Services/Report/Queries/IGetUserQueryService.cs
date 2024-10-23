@@ -12,6 +12,7 @@ namespace Application.Services.Report.Queries;
 
 public interface IGetUserQueryService
 {
+    Task<ResultDto<ResultOfList<GetUserQueryResponseDto>>> ExecuteAsync(GetUserQueryRequestDto dto);
 }
 
 public class GetUserQueryService: IGetUserQueryService
@@ -52,14 +53,28 @@ public class GetUserQueryService: IGetUserQueryService
             if (dto.Type == 1)
                 items = items.Where(p => p.QuestionCycles.Any(u => u.IsAccept == true));
             else if (dto.Type == 2)
-            {
-                switch (user.Role)
-                {
-                   //case RoleType.SuperAdmin:
-                   // items=items.Where(p=>p.)
-                }   
-            }
+                items = items.Where(p => p.QuestionCycles.Any(u => u.PreProccess != null || u.Editors != null || u.Research != null));  
         }
+
+        var res = await items
+            .OrderByDescending(p => p.CreatedAt)
+            .ToPaged(dto.Page,dto.Size,out int rows)
+            .Select(p => new GetUserQueryResponseDto
+            {
+                Id = p.Id,
+                Category = p.QuestionCategory.Title,
+                Question = p.Title,
+                Date = p.CreatedAt.ToPersianWithoutTime()
+            })
+            .ToListAsync();
+
+        var result= new ResultOfList<GetUserQueryResponseDto>
+        {
+            Items = res,
+            Paging = new(dto.Page, dto.Size, rows)
+        };
+
+        return ResultDto<ResultOfList<GetUserQueryResponseDto>>.Succeeded("ok", result);
     }
 }
 #region dtos
@@ -69,10 +84,12 @@ public class GetUserQueryRequestDto
     public string? FromDate { get; set; }
     public string? ToDate { get; set; }
     public int? Type { get; set; }
+    public int Page { get; set; } = 1;
+    public int Size { get; set; } = 20;
 }
 public class GetUserQueryResponseDto
 {
-    public int? Id { get; set; }
+    public long? Id { get; set; }
     public string? Question { get; set; }
     public string? Date { get; set; }
     public string? Category { get; set; }

@@ -18,8 +18,7 @@ export class SearchQuestionComponent{
   catName: string = "دسته سوال";
   items: SearchQuestionDto[]=[];
   req: SearchQuestionRequestDto = {
-    title:"",
-    category:0
+    title: ""
   };
   @Output() newItemEvent = new EventEmitter<KeyValueType>();
   constructor(private _GetQuestionCategoriesService: GetQuestionCategoriesService,

@@ -31,9 +31,15 @@ public class GetQuestionCategoriesService: IGetQuestionCategoriesService
     {
 		List<GetQuestionCategoryDto> tree = new List<GetQuestionCategoryDto>();
 
-		List<QuestionCategory> items = await _context.QuestionCategories.Where(p => !p.IsRemoved).ToListAsync();
+		List<QuestionCategory> items = await _context.QuestionCategories
+			.Where(p => !p.IsRemoved)
+			.OrderBy(p=>p.Order)
+			.ToListAsync();
 
-		List<QuestionCategory> rootItems = items.Where(p => p.ParentId == null && !p.IsRemoved).OrderBy(p => p.Order).ToList();
+		List<QuestionCategory> rootItems = items
+			.Where(p => p.ParentId == null && !p.IsRemoved)
+			.OrderBy(p => p.Order)
+			.ToList();
 
 		foreach (QuestionCategory item in rootItems)
 		{
@@ -53,7 +59,10 @@ public class GetQuestionCategoriesService: IGetQuestionCategoriesService
 
 	private void BuildChildNodes(GetQuestionCategoryDto parentNode, List<QuestionCategory> items, long parentID)
 	{
-		List<QuestionCategory> children = items.Where(p => p.ParentId == parentID && !p.IsRemoved).OrderBy(p => p.Order).ToList();
+		List<QuestionCategory> children = items
+			.Where(p => p.ParentId == parentID && !p.IsRemoved)
+			.OrderBy(p => p.Order)
+			.ToList();
 		
 		parentNode.Childs = new List<GetQuestionCategoryDto>();
 		foreach (QuestionCategory item in children)
