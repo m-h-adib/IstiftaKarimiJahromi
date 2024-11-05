@@ -2,13 +2,14 @@
     <div class="card-header colorPurple">
       <div class="card-title">
         <strong>افزودن جلسه</strong>
+        <a class="btn btn-warning float-end" [routerLink]="['/researchCycles',qid]">بازگشت</a>
       </div>
     </div>
     <div class="card-body">
       <form class="row g-3">
         <div class="col-md-6">
           <label for="inputEmail4" class="form-label">عنوان جلسه</label>
-          <input type="text" class="form-control" [(ngModel)]="AddDto.title" name="AddDto.title" placeholder="عنوان" />
+          <input type="text" class="form-control" [(ngModel)]="AddDto.title" name="AddDto.title" placeholder="عنوان جلسه" />
         </div>
         
         <div class="col-md-6">
@@ -55,4 +56,3 @@
       </form>
     </div>
   </div>
-  

@@ -102,7 +102,7 @@
                   {{item.qDesctiption}}
                 </td>
                 <td>
-                  {{item.pDescription!=undefined ? item.pDescription : 'ندارد'}}
+                  {{item.pDescription!=undefined ? item.pDescription : ''}}
                 </td>
                 <td>
                   {{item.duplicate}}
@@ -113,7 +113,7 @@
                 <td>
                   <a class="btn btn-danger m-1" *ngIf="item.isAccept==null && getAccess('AcceptResearchQuestion')" (click)="showRejectDialog(item.id)">رد</a>
                   <a class="btn btn-primary m-1" *ngIf="item.isAccept==null && getAccess('AcceptResearchQuestion')" (click)="showReferenceDialog(item.id)">ارجاع به ویراستار</a>
-                  <a class="btn btn-warning m-1" *ngIf="item.researchId!=null && item.isAccept==null && getAccess('AddSession')" [routerLink]="['/addsession',item.researchId]">ایجاد جلسه</a> 
+                  <a class="btn btn-warning m-1" *ngIf="item.researchId!=null && item.isAccept==null && getAccess('AddSession')" [routerLink]="['/addsession',item.researchId,req.questionId]">ایجاد جلسه</a> 
                 </td>
               </tr>
             </tbody>

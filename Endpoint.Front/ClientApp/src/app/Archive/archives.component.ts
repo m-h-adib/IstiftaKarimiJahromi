@@ -89,7 +89,8 @@ export class ArchivesComponent implements OnInit{
 
     deleteCat(){
       this.catId=undefined;
-      this.catName="دسته سوال";
+      this.catName = "دسته سوال";
+      this.Filter.QuestionCategoryId = undefined;
     }
 
   showDeleteDialog(id?: number) {
@@ -167,9 +168,11 @@ export class ArchivesComponent implements OnInit{
         }
       }
 
-    search():void{
+  search(): void{
+    this.Filter.PageNumber = 1;
         this._GetArchivesService.GetArchives(this.Filter!).subscribe(p=>{
-            this.Questions=p.data.items;
+          this.Questions = p.data.items;
+          this.pageCount = Math.floor((p.data.paging.totalItems % this.Filter.PageSize!) == 0 ? (p.data.paging.totalItems / this.Filter.PageSize!) : (p.data.paging.totalItems / this.Filter.PageSize!) + 1)
         })
     }
 

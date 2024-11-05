@@ -5,4 +5,5 @@ export interface GetQuestionCategoryDto {
   childs?: GetQuestionCategoryDto[];
   isEditMode?: boolean;
   isSelect?: boolean;
+  expand?: boolean;
 }

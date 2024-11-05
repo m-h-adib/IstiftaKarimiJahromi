@@ -157,7 +157,7 @@ import { ReportsComponent } from './reports/reports.component';
       { path: 'editorCycles/:questionId', component: EditorCyclesComponent, canActivate: [AuthGuard] },
       { path: 'archives', component: ArchivesComponent, canActivate: [AuthGuard] },
       { path: 'sessions', component: SessionsComponent, canActivate: [AuthGuard] },
-      { path: 'addsession/:researchid', component: AddSessionComponent, canActivate: [AuthGuard] },
+      { path: 'addsession/:researchid/:questionid', component: AddSessionComponent, canActivate: [AuthGuard] },
       { path: 'updatesession/:id', component: UpdateSessionComponent, canActivate: [AuthGuard] },
       { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] }
     ])

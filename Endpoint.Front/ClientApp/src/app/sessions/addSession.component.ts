@@ -14,7 +14,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 export class AddSessionComponent implements OnInit{
     AddDto:AddSessionDto={
         users:[]
-    };
+  };
+  qid?: number = 0;
     dateValue = new FormControl();
     Users:GetUsersDto[]=[];
     GetUsersRequestDto:GetUsersRequestDto={
@@ -34,7 +35,8 @@ export class AddSessionComponent implements OnInit{
     
         ngOnInit(): void {
             this.route.paramMap.subscribe( paramMap => {
-                this.AddDto.researchId = Number.parseInt(paramMap.get('researchid')!.toString());
+              this.AddDto.researchId = Number.parseInt(paramMap.get('researchid')!.toString());
+              this.qid = Number.parseInt(paramMap.get('questionid')!.toString());
             })
 
             this._getUsersService.GetUsers(this.GetUsersRequestDto).subscribe(p=>{

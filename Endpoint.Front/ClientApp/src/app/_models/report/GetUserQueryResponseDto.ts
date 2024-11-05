@@ -3,4 +3,5 @@ export interface GetUserQueryResponseDto {
   question?: string;
   date?: string;
   category?: string;
+  activity?: string[];
 }

@@ -7,7 +7,8 @@ import { StoreService } from "../StoreService";
 
 @Component({
   selector: 'question-view',
-  templateUrl: './questionTree.component.html'
+  templateUrl: './questionTree.component.html',
+  styles: ['.plus::before {content: "+"; padding-right: 5px; margin-left:10px;} .minus::before {content: "-"; padding-right: 5px;; margin-left:10px} ul {list-style-type: none;margin-left: 10px;} ul li{margin-bottom: 12px;margin-left: -10px;align-items: center;}']
 })
 export class QuestionTreeComponent implements OnInit {
   deleteDialog: boolean = false;
@@ -29,6 +30,14 @@ export class QuestionTreeComponent implements OnInit {
       this.access = JSON.parse(localStorage.getItem("access")!);
     }
 
+  open(node?: GetQuestionCategoryDto) {
+    // alert(node!.id!);
+    console.log(node);
+    if (node!.expand == undefined || node!.expand == false)
+      node!.expand = true;
+    else
+      node!.expand = false;
+  }
   change(id: number) {
 
     this.store.SetQusetionCategory(id);

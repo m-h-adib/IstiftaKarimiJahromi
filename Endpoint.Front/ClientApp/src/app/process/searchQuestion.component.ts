@@ -30,6 +30,11 @@ export class SearchQuestionComponent{
         })
       }
 
+  deleteCat() {
+    this.catId = undefined;
+    this.catName = "دسته سوال";
+    this.req.category = undefined;
+  }
 
       showCatDialog() {
         this.catDialog = !this.catDialog;

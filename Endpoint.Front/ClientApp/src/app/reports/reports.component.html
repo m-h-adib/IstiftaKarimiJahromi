@@ -7,59 +7,59 @@
     </div>
   </div>
   <div class="card-body">
-   <div class="row col-md-12">
-     <form class="row row-cols-lg g-3 align-items-center">
-       <div class="col-md-6">
+    <div class="row col-md-12">
+      <form class="row row-cols-lg g-3 align-items-center">
+        <div class="col-md-6">
 
-         <label class="visually-hidden" for="inlineFormInputGroupUsername">کاربر</label>
-         <div class="input-group">
-           <div class="input-group-text">کاربر</div>
-           <select class="form-select" [(ngModel)]="req.userId" name="req.userId">
-             <option *ngFor="let a of refrenceUsers" value="{{a.key}}">
-               {{a.value}}
-             </option>
-           </select>
-           <!--<input type="text" class="form-control" [(ngModel)]="req.title" name="req.title" id="inlineFormInputGroupUsername" placeholder="....">-->
-         </div>
-       </div>
+          <label class="visually-hidden" for="inlineFormInputGroupUsername">کاربر</label>
+          <div class="input-group">
+            <div class="input-group-text">کاربر</div>
+            <select class="form-select" [(ngModel)]="req.userId" name="req.userId">
+              <option *ngFor="let a of refrenceUsers" value="{{a.key}}">
+                {{a.value}}
+              </option>
+            </select>
+            <!--<input type="text" class="form-control" [(ngModel)]="req.title" name="req.title" id="inlineFormInputGroupUsername" placeholder="....">-->
+          </div>
+        </div>
 
-       <div class="col-md-6">
+        <div class="col-md-6">
 
-         <label class="visually-hidden" for="inlineFormInputGroupUsername">نوع</label>
-         <div class="input-group">
-           <div class="input-group-text">نوع</div>
-           <select class="form-select" [(ngModel)]="req.type" name="req.type">
-             <option value="1">
-               سوالات ارجاع شده به کاربر
-             </option>
-             <option value="2">
-               سوالات انجام شده توسط کاربر
-             </option>
-             <option value="3">
-               تمام سوالات کاربر
-             </option>
-           </select>
-           <!--<input type="text" class="form-control" [(ngModel)]="req.title" name="req.title" id="inlineFormInputGroupUsername" placeholder="....">-->
-         </div>
-       </div>
+          <label class="visually-hidden" for="inlineFormInputGroupUsername">نوع</label>
+          <div class="input-group">
+            <div class="input-group-text">نوع</div>
+            <select class="form-select" [(ngModel)]="req.type" name="req.type">
+              <option value="1">
+                سوالات ارجاع شده به کاربر
+              </option>
+              <option value="2">
+                سوالات انجام شده توسط کاربر
+              </option>
+              <option value="3">
+                تمام سوالات کاربر
+              </option>
+            </select>
+            <!--<input type="text" class="form-control" [(ngModel)]="req.title" name="req.title" id="inlineFormInputGroupUsername" placeholder="....">-->
+          </div>
+        </div>
 
-       <div class="col-md-6">
-         <label for="FromDate" class="form-label">از تاریخ</label>
-         <ng-persian-datepicker [dateInitValue]="false">
-           <input type="text" [formControl]="dateValue" [(ngModel)]="req.fromDate" name="FromDate" id="FromDate" required class="form-control" placeholder="از تاریخ" />
-         </ng-persian-datepicker>
-       </div>
-       <div class="col-md-6">
-         <label for="ToDate" class="form-label">تا تاریخ</label>
-         <ng-persian-datepicker [dateInitValue]="false">
-           <input type="text" [formControl]="dateValue2" [(ngModel)]="req.toDate" name="ToDate" id="ToDate" required class="form-control" placeholder="تا تاریخ" />
-         </ng-persian-datepicker>
-       </div>
+        <div class="col-md-6">
+          <label for="FromDate" class="form-label">از تاریخ</label>
+          <ng-persian-datepicker [dateInitValue]="false">
+            <input type="text" [formControl]="dateValue" [(ngModel)]="req.fromDate" name="FromDate" id="FromDate" required class="form-control" placeholder="از تاریخ" />
+          </ng-persian-datepicker>
+        </div>
+        <div class="col-md-6">
+          <label for="ToDate" class="form-label">تا تاریخ</label>
+          <ng-persian-datepicker [dateInitValue]="false">
+            <input type="text" [formControl]="dateValue2" [(ngModel)]="req.toDate" name="ToDate" id="ToDate" required class="form-control" placeholder="تا تاریخ" />
+          </ng-persian-datepicker>
+        </div>
 
-       <div class="col-md-6">
-         <button type="submit" class="btn btn-primary" (click)="search()">جستجو</button>
-       </div>
-     </form>
+        <div class="col-md-6">
+          <button type="submit" class="btn btn-primary" (click)="search()">جستجو</button>
+        </div>
+      </form>
     </div>
     <br />
 
@@ -81,6 +81,9 @@
             <td>
               دسته سوال
             </td>
+            <td>
+              فعالیت ها
+            </td>
           </tr>
         </thead>
         <tbody>
@@ -92,9 +95,17 @@
             <td>
               {{item.date}}
             </td>
-           
+
             <td>
               {{item.category}}
+            </td>
+            <td>
+              
+              <ul>
+                <li *ngFor="let a of item.activity">
+                  {{a}}
+                </li>
+              </ul>
             </td>
           </tr>
         </tbody>

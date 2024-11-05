@@ -51,9 +51,9 @@ public class GetUserQueryService: IGetUserQueryService
         if(dto.Type!=null)
         {
             if (dto.Type == 1)
-                items = items.Where(p => p.QuestionCycles.Any(u => u.IsAccept == true));
+                items = items.Where(p => p.QuestionCycles.Any(u => u.IsAccept == false));
             else if (dto.Type == 2)
-                items = items.Where(p => p.QuestionCycles.Any(u => u.PreProccess != null || u.Editors != null || u.Research != null));  
+                items = items.Where(p => p.QuestionCycles.Any(u => u.IsAccept==true));  
         }
 
         var res = await items
@@ -64,7 +64,8 @@ public class GetUserQueryService: IGetUserQueryService
                 Id = p.Id,
                 Category = p.QuestionCategory.Title,
                 Question = p.Title,
-                Date = p.CreatedAt.ToPersianWithoutTime()
+                Date = p.CreatedAt.ToPersianWithoutTime(),
+                Activity=p.QuestionCycles.Where(u=>u.ToStep!=QuestionStepType.Archive).Select(u=>u.PreProccess!=null ? "پردازشگر " +(u.IsAccept==true ? "(تایید شده)" : "(رد شده)") : u.Research!=null ? "محقق " + (u.IsAccept == true ? "(تایید شده)" : "(رد شده)") : u.Editors.Any() ? "ویراستار " + (u.IsAccept == true ? "(تایید شده)" : "(رد شده)") : "ثبت کننده").ToList()
             })
             .ToListAsync();
 
@@ -93,5 +94,6 @@ public class GetUserQueryResponseDto
     public string? Question { get; set; }
     public string? Date { get; set; }
     public string? Category { get; set; }
+    public List<string>? Activity { get; set; }
 }
 #endregion

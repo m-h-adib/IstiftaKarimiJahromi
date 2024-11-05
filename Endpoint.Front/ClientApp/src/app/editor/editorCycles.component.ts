@@ -142,9 +142,9 @@ export class EditorCyclesComponent implements OnInit {
     {
       alert("لطفا زبان را انتخاب کنید");
     }
-   // if (this.add.description == null || this.add.description == "") {
-    //  alert("لطفا توضیحات را بنویسید");
-   // }
+    if (this.add.description == null || this.add.description == "") {
+      alert("لطفا توضیحات را بنویسید");
+    }
     if (this.add.answerText == null || this.add.answerText == "") {
       alert("لطفا پاسخ را بنویسید");
     }

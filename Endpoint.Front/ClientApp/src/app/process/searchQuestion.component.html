@@ -5,6 +5,7 @@
   </div>
   <div class="col-md-4">
     <label for="inputEmail4" class="form-label">دسته سوال</label>
+    <span class="btn btn-danger mb-2 float-end" (click)="deleteCat()">×</span>
     <input class="btn form-control" [ngClass]="catName!='دسته سوال' ? 'btn-success' : 'btn-warning'" type="button" value="{{catName}}" (click)="showCatDialog()" />
     <input hidden="hidden" type="text" class="form-control" [(ngModel)]="catId" name="catId" placeholder="دسته سوال" />
   </div>

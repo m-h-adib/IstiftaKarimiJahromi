@@ -19,7 +19,7 @@ export class DeleteArchiveQuestionService {
       'authorization': 'bearer ' + localStorage.getItem("token")
     });
 
-    return this.http.delete<any>(this.url + "?Id=" + id, { headers: this.header }).pipe(
+    return this.http.delete<any>(this.url + "?QuestionId=" + id, { headers: this.header }).pipe(
       map(p => {
         return p;
       })

@@ -190,8 +190,14 @@
 
                     <td>
                       <!--<a class="btn btn-info m-1" *ngIf="getAccess('ReferenceToProcessor')" (click)="showRefrenceDialog(item.id)">ارجاع به پردازشگر</a>
-                      <a class="btn btn-warning m-1" *ngIf="getAccess('UpdateQuestion')" [routerLink]="['/editquestion',item.id]">ویرایش</a>
-                      <a class="btn btn-danger m-1" *ngIf="getAccess('DeleteQuestion')" (click)="showDeleteDialog(item.id)">حذف</a>-->
+  <a class="btn btn-warning m-1" *ngIf="getAccess('UpdateQuestion')" [routerLink]="['/editquestion',item.id]">ویرایش</a>
+  <a class="btn btn-danger m-1" *ngIf="getAccess('DeleteQuestion')" (click)="showDeleteDialog(item.id)">حذف</a>-->
+                      <swal #aa confirmButtonText="بستن">
+
+                        <QuestionPopupComponent *swalPortal="undefined" [questionId]="item.id!"></QuestionPopupComponent>
+                      </swal>
+
+                      <a [swal]="aa" class="btn btn-secondary m-1">مشاهده سوال</a>
                       <a class="btn btn-warning m-1" (click)="showDetailDialog(item.id)">جزئیات</a>
                       <a class="btn btn-success m-1" (click)="showStepDialog(item.id)">مراحل</a>
                       <a class="btn btn-info m-1" (click)="showResultDialog(item.id)">نتیجه</a>
@@ -315,7 +321,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="showDeleteDialog()"></button>
         </div>
         <div class="modal-body">
-          <p>از حذف کشور مورد نظر مطمئنید؟</p>
+          <p>از حذف استفتاء مورد نظر مطمئنید؟</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="showDeleteDialog()">انصراف</button>

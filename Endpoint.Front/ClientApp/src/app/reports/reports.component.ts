@@ -12,6 +12,8 @@ import { GetUserQueryRequestDto } from "../_models/report/GetUserQueryRequestDto
 import { GetUserQueryResponseDto } from "../_models/report/GetUserQueryResponseDto";
 import { GetUserQueryService } from "../_services/report/getUserQueryService";
 import { FormControl } from "@angular/forms";
+import { GetArchiveStepsService } from "../_services/archive/getArchiveStepsService";
+import { GetArchiveStepDto } from "../_models/archive/getArchiveStepDto";
 
 @Component({
   templateUrl: './reports.component.html',
@@ -43,6 +45,7 @@ export class ReportsComponent implements OnInit {
 
     this.getData();
   }
+
 
   search() {
     this.req.page = 1;

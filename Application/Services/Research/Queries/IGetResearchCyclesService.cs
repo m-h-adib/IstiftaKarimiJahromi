@@ -53,8 +53,8 @@ public class GetResearchCyclesService: IGetResearchCyclesService
             {
                 Id = p.Id,
                 ResearchId=p.Research!=null ? p.Research.Id : null,
-                DuplicateId = p.PreProccess != null && p.PreProccess.DuplicateId != null ? p.PreProccess.DuplicateId : null,
-                Duplicate = p.PreProccess != null && p.PreProccess.DuplicateId != null ? p.PreProccess.Duplicate!.Title : null,
+                DuplicateId = _context.PreProccesses.Any(u => u.DuplicateId != null && u.QuestionCycle.QuestionId == p.QuestionId && !u.IsRemoved && !u.QuestionCycle.IsRemoved) ? _context.PreProccesses.OrderBy(u => u.Id).Where(u => u.DuplicateId != null && u.QuestionCycle.QuestionId == p.QuestionId && !u.IsRemoved && !u.QuestionCycle.IsRemoved).LastOrDefault().DuplicateId : null,
+                Duplicate = _context.PreProccesses.Any(u=>u.DuplicateId!=null && u.QuestionCycle.QuestionId==p.QuestionId && !u.IsRemoved && !u.QuestionCycle.IsRemoved) ? _context.PreProccesses.OrderBy(u=>u.Id).Where(u => u.DuplicateId != null && u.QuestionCycle.QuestionId == p.QuestionId && !u.IsRemoved && !u.QuestionCycle.IsRemoved).Select(u => u.Duplicate.Title).LastOrDefault() : null,//p.PreProccess != null && p.PreProccess.DuplicateId != null ? p.PreProccess.Duplicate!.Title : null,
                 IsAccept = p.IsAccept,
                 QDesctiption = p.Description,
                 PDescription = p.Research != null ? p.Research.Description : null,

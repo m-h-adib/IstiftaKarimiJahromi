@@ -47,7 +47,21 @@ public class SearchQuestionService : ISearchQuestionService
 		{
 			List<string> keys = dto.Title.Split(" ").ToList();
 
-			items = items.Where(p => p.Title!.Contains(dto.Title) || p.QuestionCategory!.Title!.Contains(dto.Title) || p.QuestionText!.Contains(dto.Title) || keys.Any(u => u.Equals(p.Title)));
+			switch (keys.Count)
+			{
+				case 1:
+					items = items.Where(p => p.Title.Contains(keys[0]) || p.QuestionText.Contains(keys[0]) || keys[0].Contains(p.Title) || keys[0].Contains(p.QuestionText));
+					break;
+				case 2:
+                    items = items.Where(p => p.Title.Contains(keys[0]) || p.QuestionText.Contains(keys[0]) || keys[0].Contains(p.Title) || keys[0].Contains(p.QuestionText) ||
+                    p.Title.Contains(keys[1]) || p.QuestionText.Contains(keys[1]) || keys[1].Contains(p.Title) || keys[1].Contains(p.QuestionText));
+                    break;
+                case 3:
+                    items = items.Where(p => p.Title.Contains(keys[0]) || p.QuestionText.Contains(keys[0]) || keys[0].Contains(p.Title) || keys[0].Contains(p.QuestionText) ||
+                    p.Title.Contains(keys[1]) || p.QuestionText.Contains(keys[1]) || keys[1].Contains(p.Title) || keys[1].Contains(p.QuestionText) ||
+                    p.Title.Contains(keys[2]) || p.QuestionText.Contains(keys[2]) || keys[2].Contains(p.Title) || keys[2].Contains(p.QuestionText));
+                    break;
+            }
 		}
 
 		if (dto.Category != null)
