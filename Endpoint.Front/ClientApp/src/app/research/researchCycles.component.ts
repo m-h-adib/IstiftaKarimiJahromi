@@ -132,7 +132,7 @@ export class ResearchCyclesComponent implements OnInit {
     if (this.add.description == null || this.add.description == "") {
       alert("لطفا توضیحات را بنویسید");
     }
-    if (this.add.answerText == null || this.add.answerText == "") {
+    else if (this.add.answerText == null || this.add.answerText == "") {
       alert("لطفا پاسخ را بنویسید");
     }
     else if (this.add.reasonText == null || this.add.reasonText == "") {

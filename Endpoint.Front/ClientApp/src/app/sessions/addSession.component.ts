@@ -48,22 +48,24 @@ export class AddSessionComponent implements OnInit{
         
 
 
-        Save():void{
-            if(this.AddDto.title==undefined || this.AddDto.title=="")
-                this.Errors.push("لطفا عنوان جلسه را وارد نمایید");
-            if(this.AddDto.date==null || this.AddDto.date=="")
-                this.Errors.push("لطفا تاریخ جلسه را انتخاب نمایید");
-            if(this.AddDto.time==null || this.AddDto.time=="")
-                this.Errors.push("لطفا ساعت جلسه را وارد نمایید");
-            if(this.AddDto.users?.length==0)
-                this.Errors.push("لطفا حاضرین جلسه را انتخاب نمایید");
+  Save(): void {
+    if (this.AddDto.title == undefined || this.AddDto.title == "")
+      this.Errors.push("لطفا عنوان جلسه را وارد نمایید");
+    if (this.AddDto.date == null || this.AddDto.date == "")
+      this.Errors.push("لطفا تاریخ جلسه را انتخاب نمایید");
+    if (this.AddDto.time == null || this.AddDto.time == "")
+      this.Errors.push("لطفا ساعت جلسه را وارد نمایید");
+    if (this.AddDto.users?.length == 0)
+      this.Errors.push("لطفا حاضرین جلسه را انتخاب نمایید");
+    if (this.AddDto.description == undefined || this.AddDto.description == "" || this.AddDto.description == null)
+      this.Errors.push("لطفا توضیحات جلسه را وارد نمایید");
 
-            if(this.Errors.length==0){
-                this._addSessionService.AddSession(this.AddDto).subscribe(p=>{
-                    this.router.navigate(["sessions"]);
-                })
-            }
-        }
+    if (this.Errors.length == 0) {
+      this._addSessionService.AddSession(this.AddDto).subscribe(p => {
+        this.router.navigate(["sessions"]);
+      })
+    }
+  }
 
         changeUser(id:number):void{
             if(this.AddDto.users?.filter(p=>p==id).length!>0)

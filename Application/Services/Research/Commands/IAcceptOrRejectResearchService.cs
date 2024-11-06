@@ -50,6 +50,7 @@ public class AcceptOrRejectResearchService: IAcceptOrRejectResearchService
         if (!await _context.AdminSectionAccesses.AnyAsync(p => p.UserId == userid && !p.IsRemoved && p.AdminSection!.Name == "AcceptResearchQuestion"))
             return ResultDto.Failed("NOT ACCESS", 403);
 
+       
 
         var cycle = await _context.QuestionCycles
             .Where(p => p.Id == dto.CycleId)
@@ -69,7 +70,11 @@ public class AcceptOrRejectResearchService: IAcceptOrRejectResearchService
 		if (research == null)
 			return ResultDto.Failed("هنوز تحقیق برای این سوال ثبت نشده");
 
-		cycle.IsAccept = dto.IsAccept;
+        if (await _context.Sessions
+            .AnyAsync(p => !p.IsRemoved && p.IsActive && p.ResearchId==research.Id && p.Date.Value.AddDays(1).CompareTo(DateTime.Now)<=0))
+            return ResultDto.Failed("شما یک جلسه فعال برای این تحقیق دارید و تا فردای برگزاری جلسه نمیتوانید تحقیق را تاید و یا رد کنید");
+
+        cycle.IsAccept = dto.IsAccept;
         cycle.UpdatedAt = DateTime.Now;
 
         if (dto.IsAccept == true)

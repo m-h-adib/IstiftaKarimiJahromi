@@ -171,20 +171,20 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let item of Questions; index as i">
-                    <td>
+                  <tr *ngFor="let item of Questions; index as i" >
+                    <td [style.color]="(item.duplicateId!=null && item.duplicateId!=undefined) ? '#dc3545' : null">
                       {{((Filter.PageNumber!-1)*Filter.PageSize!)+i+1}}
                     </td>
-                    <td>
+                    <td [style.color]="(item.duplicateId!=null && item.duplicateId!=undefined) ? '#dc3545' : null">
                       {{item.title}}
                     </td>
-                    <td>
+                    <td [style.color]="(item.duplicateId!=null && item.duplicateId!=undefined) ? '#dc3545' : null">
                       {{item.questionDate}}
                     </td>
-                    <td>
+                    <td [style.color]="(item.duplicateId!=null && item.duplicateId!=undefined) ? '#dc3545' : null">
                       {{item.name}}
                     </td>
-                    <td>
+                    <td [style.color]="(item.duplicateId!=null && item.duplicateId!=undefined) ? '#dc3545' : null">
                       {{item.questionCategory}}
                     </td>
 

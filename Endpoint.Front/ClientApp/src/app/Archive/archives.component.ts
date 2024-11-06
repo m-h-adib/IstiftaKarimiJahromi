@@ -74,6 +74,7 @@ export class ArchivesComponent implements OnInit{
   access: string[] = [];
   selectArchive?: number;
   deleteDialog: boolean = false;
+  
 
     constructor(private _GetQuestionCategoriesService:GetQuestionCategoriesService,
         private _GetArchivesService:GetArchiveQuestionService,

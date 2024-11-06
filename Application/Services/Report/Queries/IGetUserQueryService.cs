@@ -64,7 +64,7 @@ public class GetUserQueryService: IGetUserQueryService
                 Id = p.Id,
                 Category = p.QuestionCategory.Title,
                 Question = p.Title,
-                Date = p.CreatedAt.ToPersianWithoutTime(),
+                Date = p.QuestionDate.Value.ToPersianWithoutTime(),
                 Activity=p.QuestionCycles.Where(u=>u.ToStep!=QuestionStepType.Archive).Select(u=>u.PreProccess!=null ? "پردازشگر " +(u.IsAccept==true ? "(تایید شده)" : "(رد شده)") : u.Research!=null ? "محقق " + (u.IsAccept == true ? "(تایید شده)" : "(رد شده)") : u.Editors.Any() ? "ویراستار " + (u.IsAccept == true ? "(تایید شده)" : "(رد شده)") : "ثبت کننده").ToList()
             })
             .ToListAsync();

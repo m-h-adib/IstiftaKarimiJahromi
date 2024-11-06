@@ -128,18 +128,19 @@ import { GetUsersByRolesService } from '../_services/user/getUsersByRolesService
   Save() {
     if (this.add.description == null || this.add.description == "")
       alert("لطفا توضیحات را بنویسید");
+    else {
+      this._addProccessQuestionService.AddProcess(this.add).subscribe(p => {
+        if (p.isSuccess) {
+          this.router.navigate(["/processQuestions"]);
+        }
+      }, (error) => {
+        let Errors: String = "";
+        for (let a of error.error.message.split('|'))
+          Errors += a + "\n";
 
-    this._addProccessQuestionService.AddProcess(this.add).subscribe(p => {
-      if (p.isSuccess) {
-        this.router.navigate(["/processQuestions"]);
-      }
-    }, (error) => {
-      let Errors: String = "";
-      for (let a of error.error.message.split('|'))
-        Errors += a + "\n";
-
-      alert(Errors);
-    })
+        alert(Errors);
+      })
+    }
   }
 
   selectQues(a: KeyValueType) {
