@@ -41,6 +41,7 @@ public class SearchQuestionService : ISearchQuestionService
 		
 		var items = _context.Questions
 			.Where(p => !p.IsRemoved)
+			.Where(p=>p.DuplicateId==null)
 			.Where(p => p.Step == Domain.Enums.QuestionStepType.Archive);
 
 		if (!string.IsNullOrEmpty(dto.Title))

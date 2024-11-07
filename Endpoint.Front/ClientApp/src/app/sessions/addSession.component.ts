@@ -49,6 +49,7 @@ export class AddSessionComponent implements OnInit{
 
 
   Save(): void {
+    this.Errors = [];
     if (this.AddDto.title == undefined || this.AddDto.title == "")
       this.Errors.push("لطفا عنوان جلسه را وارد نمایید");
     if (this.AddDto.date == null || this.AddDto.date == "")
