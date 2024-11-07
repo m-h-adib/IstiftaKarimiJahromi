@@ -92,6 +92,8 @@ public class AcceptOrRejectProcessService : IAcceptOrRejectProcessService
 				});
 
 			cycle.Question!.Step = Domain.Enums.QuestionStepType.Research;
+			if(proccess.DuplicateId!=null)
+				cycle.Question.DuplicateId = proccess.DuplicateId;
 		}
 		else
 		{

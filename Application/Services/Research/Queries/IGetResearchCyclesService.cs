@@ -59,7 +59,7 @@ public class GetResearchCyclesService: IGetResearchCyclesService
                 QDesctiption = p.Description,
                 PDescription = p.Research != null ? p.Research.Description : null,
                 HasProccess = p.Research != null ? true : false,
-                Name=p.FromUserId!=null ? p.FromUser!.Name : ""
+                Name=p.ToUserId!=null ? p.ToUser!.Name : ""
             }).ToListAsync();
 
         return ResultDto<List<GetResearchCycleDto>>.Succeeded("ok", res);

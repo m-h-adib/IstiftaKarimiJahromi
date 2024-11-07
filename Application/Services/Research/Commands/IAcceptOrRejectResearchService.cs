@@ -71,8 +71,8 @@ public class AcceptOrRejectResearchService: IAcceptOrRejectResearchService
 			return ResultDto.Failed("هنوز تحقیق برای این سوال ثبت نشده");
 
         if (await _context.Sessions
-            .AnyAsync(p => !p.IsRemoved && p.IsActive && p.ResearchId==research.Id && p.Date.Value.AddDays(1).CompareTo(DateTime.Now)<=0))
-            return ResultDto.Failed("شما یک جلسه فعال برای این تحقیق دارید و تا فردای برگزاری جلسه نمیتوانید تحقیق را تاید و یا رد کنید");
+            .AnyAsync(p => !p.IsRemoved && p.IsActive && p.ResearchId==research.Id && p.Date.Value.AddDays(1).CompareTo(DateTime.Now)>=0))
+            return ResultDto.Failed("شما یک جلسه فعال برای این تحقیق دارید و تا فردای برگزاری جلسه نمیتوانید تحقیق را تایید و یا رد کنید");
 
         cycle.IsAccept = dto.IsAccept;
         cycle.UpdatedAt = DateTime.Now;

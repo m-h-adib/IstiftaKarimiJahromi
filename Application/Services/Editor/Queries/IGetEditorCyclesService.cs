@@ -62,7 +62,7 @@ public class GetEditorCyclesService : IGetEditorCyclesService
                 IsAccept = p.IsAccept,
                 QDesctiption = p.Description,
                 HasProccess = p.Editors!=null && p.Editors.Any() ? true : false,
-                Name=p.FromUserId!=null ? p.FromUser!.Name : "",
+                Name=p.ToUserId!=null ? p.ToUser!.Name : "",
                 Items=p.Editors!=null && p.Editors.Any() ? p.Editors!.Select(u=>new GetEditorCycleItemDto
                 {
                     AnswerText = u.AnswerText,

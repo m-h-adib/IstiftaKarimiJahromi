@@ -63,7 +63,7 @@ public class GetProcessCyclesService: IGetProcessCyclesService
 				QDesctiption = p.Description,
 				PDescription = p.PreProccess != null ? p.PreProccess.Description : null,
 				HasProccess=p.PreProccess!=null ? true : false,
-				Name=p.FromUserId!=null ? p.FromUser!.Name : ""
+				Name=p.ToUser!=null ? p.ToUser!.Name : ""
 			}).ToListAsync();
 
 		
