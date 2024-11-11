@@ -44,6 +44,7 @@ public class UpdateUserService: IUpdateUserService
             user.Name = dto.Name;
             user.Username = dto.Username;
             user.Role = (RoleType)dto.Role!.Value;
+            user.EitaaId=dto.EitaaId;
 
             await _context.SaveChangesAsync();
 
@@ -61,5 +62,6 @@ public class UpdateUserDto
     public string? Name { get; set; }
     public string? Username { get; set; }
     public int? Role { get; set; }
+    public string? EitaaId { get; set; }
 }
 #endregion

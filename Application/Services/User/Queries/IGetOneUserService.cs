@@ -43,7 +43,8 @@ public class GetOneUserService: IGetOneUserService
                 UserId = p.Id,
                 Name = p.Name,
                 Username = p.Username,
-                Role = (int)p.Role!.Value
+                Role = (int)p.Role!.Value,
+                EitaaId=p.EitaaId
             }).FirstOrDefaultAsync();
 
         return ResultDto<GetOneUserDto>.Succeeded("ok",res);
@@ -57,5 +58,6 @@ public class GetOneUserDto
     public string? Name { get; set; }
     public string? Username { get; set; }
     public int? Role { get; set; }
+    public string? EitaaId { get; set; }
 }
 #endregion

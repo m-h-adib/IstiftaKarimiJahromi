@@ -15,7 +15,10 @@
         <label for="inputEmail4" class="form-label">نام کاربری</label>
         <input type="text" class="form-control" [(ngModel)]="UpdateDto.username" name="UpdateDto.username" placeholder="نام کاربری"  />
       </div>
-    
+      <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">شناسه یا نام کاربری ایتا</label>
+        <input type="text" class="form-control" [(ngModel)]="UpdateDto.eitaaId" name="UpdateDto.eitaaId" placeholder="شناسه یا نام کاربری ایتا" />
+      </div>
       <div class="col-md-6">
         <label for="inputEmail4" class="form-label">سطح دسترسی کاربری</label>
         <select class="form-select" [(ngModel)]="UpdateDto.role" name="UpdateDto.role">

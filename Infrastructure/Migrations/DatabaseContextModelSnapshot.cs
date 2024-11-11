@@ -781,6 +781,9 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("EitaaId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -813,11 +816,11 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedAt = new DateTime(2024, 10, 21, 23, 12, 36, 917, DateTimeKind.Local).AddTicks(9673),
+                            CreatedAt = new DateTime(2024, 11, 11, 14, 2, 49, 989, DateTimeKind.Local).AddTicks(5979),
                             IsActive = true,
                             IsRemoved = false,
                             Name = "محمدحسین ادیب",
-                            Password = "AImDve37HUGPb9nfvXfcIgmdcgC9hBmFkgNgtgL8bWpw19OMkulnq2H9KltALKpIww==",
+                            Password = "ACb9pGqtoerp+7ECniIH2M9Yrdrc1Gm4acnPNXf1WP8pG+1LfMLHUCjgtRAwc0ugjw==",
                             Role = 2,
                             Username = "m-h-adib"
                         });

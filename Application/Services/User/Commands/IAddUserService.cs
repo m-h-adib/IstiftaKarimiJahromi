@@ -50,6 +50,7 @@ public class AddUserService: IAddUserService
             Username = dto.Username,
             Password = pass,
             Role=dto.Role!=null ? (RoleType)dto.Role : RoleType.Admin,
+            EitaaId=dto.EitaaId
         });
 
         await _context.SaveChangesAsync();
@@ -65,6 +66,7 @@ public class AddAdminDto
     public string? Username { get; set; }
 	public string? Password { get; set; }
     public int? Role { get; set; }
+    public string? EitaaId { get; set; }
 }
 
 #endregion
@@ -77,7 +79,7 @@ public class AddAdminValidator : AbstractValidator<AddAdminDto>
         RuleFor(p => p.Name).NotEmpty().WithMessage("لطفا نام را وارد نمایید");
 		RuleFor(p => p.Username).NotEmpty().WithMessage("لطفا نام کاربری را وارد نمایید");
 		RuleFor(p => p.Password).NotEmpty().WithMessage("لطفا رمزعبور را وارد نمایید");
-
+        RuleFor(p => p.EitaaId).NotEmpty().WithMessage("لطفا آی دی و یا شناسه ایتا را وارد نمایید");
 	}
 }
 #endregion
