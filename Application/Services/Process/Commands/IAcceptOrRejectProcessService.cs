@@ -1,6 +1,7 @@
 ﻿using Application.Common;
 using Application.Interfaces.Contexts;
 using Application.Services.Authentication.Methods;
+using Application.Services.bases.Commands;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -23,16 +24,19 @@ public class AcceptOrRejectProcessService : IAcceptOrRejectProcessService
 	private readonly IDatabaseContext _context;
 	private readonly ITokenContents _tokenContents;
 	private readonly IHttpContextAccessor _httpContextAccessor;
-	#endregion
-	#region ctors
-	public AcceptOrRejectProcessService(IDatabaseContext context,
+    private readonly ISendMessageService _sendMessageService;
+    #endregion
+    #region ctors
+    public AcceptOrRejectProcessService(IDatabaseContext context,
 		ITokenContents tokenContents,
-		IHttpContextAccessor httpContextAccessor)
+		IHttpContextAccessor httpContextAccessor,
+        ISendMessageService sendMessageService)
 	{
 		_context = context;
 		_tokenContents = tokenContents;
 		_httpContextAccessor = httpContextAccessor;
-	}
+        _sendMessageService = sendMessageService;
+    }
 	#endregion
 
 
@@ -94,8 +98,13 @@ public class AcceptOrRejectProcessService : IAcceptOrRejectProcessService
 			cycle.Question!.Step = Domain.Enums.QuestionStepType.Research;
 			if(proccess.DuplicateId!=null)
 				cycle.Question.DuplicateId = proccess.DuplicateId;
-		}
-		else
+
+            await _sendMessageService.ExecuteAsync(cycle.ToUserId!.Value, "با سلام" + Environment.NewLine + "پردازشگر عزیز پردازش سوال شما با عنوان "+cycle.Question.Title+" تایید شد." + Environment.NewLine + "با تشکر از همکاری شما." + Environment.NewLine + "http://185.142.157.171:8082/");
+            await _sendMessageService.ExecuteAsync(dto.ToUser!.Value, "با سلام" + Environment.NewLine + "محقق عزیز یک سوال جهت تحقیق به پنل شما اضافه گردید." + Environment.NewLine + "لطفا در اسرع وقت رسیدگی نمایید." + Environment.NewLine + "با تشکر از همکاری شما." + Environment.NewLine + "http://185.142.157.171:8082/");
+
+
+        }
+        else
 		{
 			await _context.QuestionCycles
 			   .AddAsync(new Domain.Entities.QuestionCycle
@@ -111,9 +120,12 @@ public class AcceptOrRejectProcessService : IAcceptOrRejectProcessService
 				   IsActive = true,
 				   IsRemoved = false
 			   });
-		}
 
-		await _context.SaveChangesAsync();
+            await _sendMessageService.ExecuteAsync(cycle.ToUserId!.Value, "با سلام" + Environment.NewLine + "پردازشگر عزیز پردازش سوال شما با عنوان " + cycle.Question.Title + " مورد تایید قرار نگرفت و جهت بازبینی مجدد ارجاع یافت." + Environment.NewLine + "با تشکر از همکاری شما." + Environment.NewLine + "http://185.142.157.171:8082/");
+
+        }
+
+        await _context.SaveChangesAsync();
 
 		return ResultDto.Succeeded("ok");
 	}

@@ -1,6 +1,7 @@
 ﻿using Application.Common;
 using Application.Interfaces.Contexts;
 using Application.Services.Authentication.Methods;
+using Application.Services.bases.Commands;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,15 +23,18 @@ public class AddSessionService: IAddSessionService
 	private readonly IDatabaseContext _context;
 	private readonly ITokenContents _tokenContents;
 	private readonly IHttpContextAccessor _contextAccessor;
+    private readonly ISendMessageService _sendMessageService;
     #endregion
     #region ctors
     public AddSessionService(IDatabaseContext context,
         IHttpContextAccessor contextAccessor,
-        ITokenContents tokenContents)
+        ITokenContents tokenContents,
+        ISendMessageService sendMessageService)
     {
         _context = context;
         _contextAccessor = contextAccessor;
         _tokenContents = tokenContents;
+        _sendMessageService = sendMessageService;
     }
     #endregion
 
@@ -60,6 +64,14 @@ public class AddSessionService: IAddSessionService
         });
 
         await _context.SaveChangesAsync();
+
+        if (res.Entity.SessionUsers != null)
+        {
+            foreach (var item in res.Entity.SessionUsers!)
+            {
+                await _sendMessageService.ExecuteAsync(item.UserId!.Value, "با سلام" + Environment.NewLine + "جلسه ای برای شما در تاریخ " + dto.Date + " و ساعت" + dto.Time + " با موضوع " + dto.Title + " برقرار شده است." + Environment.NewLine + "لطفا در زمان تایین شده در جلسه شرکت نمایید." + Environment.NewLine + "با تشکر از همکاری شما." + Environment.NewLine + "http://185.142.157.171:8082/");
+            }
+        }
 
         return ResultDto.Succeeded("ok");
     }

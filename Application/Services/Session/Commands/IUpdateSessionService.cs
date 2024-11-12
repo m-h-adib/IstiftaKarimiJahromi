@@ -1,5 +1,6 @@
 ﻿using Application.Common;
 using Application.Interfaces.Contexts;
+using Application.Services.bases.Commands;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,11 +21,14 @@ public class UpdateSessionService : IUpdateSessionService
 {
     #region members
     private readonly IDatabaseContext _context;
+    private readonly ISendMessageService _sendMessageService;
     #endregion
     #region ctors
-    public UpdateSessionService(IDatabaseContext context)
+    public UpdateSessionService(IDatabaseContext context,
+        ISendMessageService sendMessageService)
     {
         _context = context;
+        _sendMessageService = sendMessageService;
     }
     #endregion
 
@@ -52,6 +56,8 @@ public class UpdateSessionService : IUpdateSessionService
                 {
                     item.IsRemoved = true;
                     item.RemovedAt = DateTime.Now;
+
+                    await _sendMessageService.ExecuteAsync(item.UserId!.Value, "با سلام" + Environment.NewLine + "جلسه ای برای شما در تاریخ " + dto.Date + " و ساعت" + dto.Time + " با موضوع " + dto.Title + " برقرار شده است." + Environment.NewLine + "لطفا در زمان تایین شده در جلسه شرکت نمایید." + Environment.NewLine + "با تشکر از همکاری شما." + Environment.NewLine + "http://185.142.157.171:8082/");
                 }
             }
         }

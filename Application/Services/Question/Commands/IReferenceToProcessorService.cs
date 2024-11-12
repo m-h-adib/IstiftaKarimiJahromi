@@ -1,6 +1,7 @@
 ﻿using Application.Common;
 using Application.Interfaces.Contexts;
 using Application.Services.Authentication.Methods;
+using Application.Services.bases.Commands;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,15 +23,18 @@ public class ReferenceToProcessorService : IReferenceToProcessorService
 	private readonly IDatabaseContext _context;
 	private readonly ITokenContents _tokenContents;
 	private readonly IHttpContextAccessor _httpContextAccessor;
+	private readonly ISendMessageService _sendMessageService;
 	#endregion
 	#region ctors
 	public ReferenceToProcessorService(IDatabaseContext context,
 		ITokenContents tokenContents,
-		IHttpContextAccessor httpContextAccessor)
+		IHttpContextAccessor httpContextAccessor,
+		ISendMessageService sendMessageService)
     {
         _context = context;
 		_tokenContents = tokenContents;
 		_httpContextAccessor = httpContextAccessor;
+		_sendMessageService = sendMessageService;
     }
 	#endregion
 
@@ -73,6 +77,8 @@ public class ReferenceToProcessorService : IReferenceToProcessorService
 		});
 
 		await _context.SaveChangesAsync();
+
+		await _sendMessageService.ExecuteAsync(dto.ToUser!.Value, "با سلام"+Environment.NewLine+"پردازشگر عزیز یک سوال جهت پردازش به پنل شما اضافه گردید."+Environment.NewLine+"لطفا در اسرع وقت رسیدگی نمایید."+Environment.NewLine+"با تشکر از همکاری شما."+Environment.NewLine+ "http://185.142.157.171:8082/");
 
 		return ResultDto.Succeeded("ارجاع به پردازشگر سوال انجام شد");
 	}
