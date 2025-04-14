@@ -28,6 +28,7 @@ public class GetArchiveQuestionService: IGetArchiveQuestionService
 
     public async Task<ResultDto<ResultOfList<GetArchiveQuestionDto>>> ExecuteAsync(GetArchiveQuestionRequestDto request)
     {
+      
         var items = _context
             .Questions
             .Where(p => !p.IsRemoved && p.Step == QuestionStepType.Archive);
@@ -41,19 +42,18 @@ public class GetArchiveQuestionService: IGetArchiveQuestionService
             switch (keys.Count)
             {
                 case 1:
-                    items = items.Where(p => p.Title.Contains(request.Title) || request.Title.Contains(p.Title) || p.QuestionText.Contains(request.Title) || request.Title.Contains(p.QuestionText) ||
-                    p.Title.Contains(keys[0]) || p.QuestionText.Contains(keys[0]) || keys[0].Contains(p.Title) || keys[0].Contains(p.QuestionText));
+                    items = items.Where(p => p.Title.Contains(request.Title) || p.QuestionText.Contains(request.Title));
                     break;
                 case 2:
-                    items = items.Where(p => p.Title.Contains(request.Title) || request.Title.Contains(p.Title) || p.QuestionText.Contains(request.Title) || request.Title.Contains(p.QuestionText) ||
-                    ((p.Title.Contains(keys[0]) || p.QuestionText.Contains(keys[0]) || keys[0].Contains(p.Title) || keys[0].Contains(p.QuestionText)) &&
-                    (p.Title.Contains(keys[1]) || p.QuestionText.Contains(keys[1]) || keys[1].Contains(p.Title) || keys[1].Contains(p.QuestionText))));
+                    items = items.Where(p => p.Title.Contains(request.Title) || p.QuestionText.Contains(request.Title) ||
+                    ((p.Title.Contains(keys[0]) || p.QuestionText.Contains(keys[0])) &&
+                    (p.Title.Contains(keys[1]) || p.QuestionText.Contains(keys[1]))));
                     break;
                 case 3:
-                    items = items.Where(p => p.Title.Contains(request.Title) || request.Title.Contains(p.Title) || p.QuestionText.Contains(request.Title) || request.Title.Contains(p.QuestionText) ||
-                    ((p.Title.Contains(keys[0]) || p.QuestionText.Contains(keys[0]) || keys[0].Contains(p.Title) || keys[0].Contains(p.QuestionText)) &&
-                    (p.Title.Contains(keys[1]) || p.QuestionText.Contains(keys[1]) || keys[1].Contains(p.Title) || keys[1].Contains(p.QuestionText)) &&
-                    (p.Title.Contains(keys[2]) || p.QuestionText.Contains(keys[2]) || keys[2].Contains(p.Title) || keys[2].Contains(p.QuestionText))));
+                    items = items.Where(p => p.Title.Contains(request.Title) || p.QuestionText.Contains(request.Title) ||
+                    ((p.Title.Contains(keys[0]) || p.QuestionText.Contains(keys[0])) &&
+                    (p.Title.Contains(keys[1]) || p.QuestionText.Contains(keys[1])) &&
+                    (p.Title.Contains(keys[2]) || p.QuestionText.Contains(keys[2]))));
                     break;
             }
         }
@@ -103,6 +103,7 @@ public class GetArchiveQuestionService: IGetArchiveQuestionService
         if (request.MethodOfReceiveQuestionId != null)
             items = items.Where(p => p.MethodOfReceiveQuestionId == request.MethodOfReceiveQuestionId);
 
+      
         var res = await items
             .OrderByDescending(p=>p.CreatedAt)
             .ToPaged(request.PageNumber, request.PageSize, out int rows)
