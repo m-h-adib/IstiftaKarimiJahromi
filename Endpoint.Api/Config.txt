@@ -1,3 +1,4 @@
-﻿185.142.157.171
-administrator
-PV2IBvg8Ke-a9uPYBres
+﻿Protocol: RDP (TCP-UDP/3389)
+IP Address: 212.80.18.168 - 212.80.18.171
+Username: administrator
+Password: hKerTH6548eyXhasdG
