@@ -6,4 +6,5 @@ export interface GetProcessCyclesDto{
     duplicate?:string;
     isAccept?:boolean;
     hasProccess?:boolean;
+    name?:string;
 }

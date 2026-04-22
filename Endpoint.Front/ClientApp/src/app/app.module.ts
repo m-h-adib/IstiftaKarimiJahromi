@@ -57,6 +57,8 @@ import { AddSessionComponent } from './sessions/addSession.component';
 import { UpdateSessionComponent } from './sessions/updateSession.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { QuestionPopupComponent } from './questions/questionPopup.component';
+import { UpdateAdminComponent } from './users/updateAdmin.component';
+import { ReportsComponent } from './reports/reports.component';
 
 
 
@@ -103,7 +105,9 @@ import { QuestionPopupComponent } from './questions/questionPopup.component';
     SessionsComponent,
     AddSessionComponent,
     UpdateSessionComponent,
-    QuestionPopupComponent
+    QuestionPopupComponent,
+    UpdateAdminComponent,
+    ReportsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -125,6 +129,7 @@ import { QuestionPopupComponent } from './questions/questionPopup.component';
       { path: 'users', component: AdminsComponent, canActivate: [AuthGuard] },
       { path: 'adduser', component: AddAdminComponent, canActivate: [AuthGuard] },
       { path: 'useraccess/:id', component: AdminAccessComponent, canActivate: [AuthGuard] },
+      { path: 'updateuser/:id', component: UpdateAdminComponent, canActivate: [AuthGuard] },
       { path: 'countries', component: CountriesComponent, canActivate: [AuthGuard] },
       { path: 'addCountry', component: AddCountryComponent, canActivate: [AuthGuard] },
       { path: 'editCountry/:id', component: EditCountryComponent, canActivate: [AuthGuard] },
@@ -152,8 +157,9 @@ import { QuestionPopupComponent } from './questions/questionPopup.component';
       { path: 'editorCycles/:questionId', component: EditorCyclesComponent, canActivate: [AuthGuard] },
       { path: 'archives', component: ArchivesComponent, canActivate: [AuthGuard] },
       { path: 'sessions', component: SessionsComponent, canActivate: [AuthGuard] },
-      { path: 'addsession/:researchid', component: AddSessionComponent, canActivate: [AuthGuard] },
-      { path: 'updatesession/:id', component: UpdateSessionComponent, canActivate: [AuthGuard] }
+      { path: 'addsession/:researchid/:questionid', component: AddSessionComponent, canActivate: [AuthGuard] },
+      { path: 'updatesession/:id', component: UpdateSessionComponent, canActivate: [AuthGuard] },
+      { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] }
     ])
   ],
   providers: [StoreService

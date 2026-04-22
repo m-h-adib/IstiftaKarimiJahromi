@@ -34,6 +34,9 @@ export class ResearchCyclesComponent implements OnInit {
   refrenceUsers1: KeyValueType[] = [];
     req: GetResearchCycleRequestDto = {};
   add: AddResearchQuestionDto = {
+    description:"",
+    answerText:"",
+    reasonText:"",
     answerFile: [],
     reasonFile:[]
   };
@@ -126,10 +129,10 @@ export class ResearchCyclesComponent implements OnInit {
   }
 
   Save() {
-   // if (this.add.description == null || this.add.description == "") {
-     // alert("لطفا توضیحات را بنویسید");
-  //  }
-    if (this.add.answerText == null || this.add.answerText == "") {
+    if (this.add.description == null || this.add.description == "") {
+      alert("لطفا توضیحات را بنویسید");
+    }
+    else if (this.add.answerText == null || this.add.answerText == "") {
       alert("لطفا پاسخ را بنویسید");
     }
     else if (this.add.reasonText == null || this.add.reasonText == "") {

@@ -4,4 +4,5 @@ export class UpdateSessionDto{
     date?:string;
     time?:string;
     users?:number[];
+    description?:string;
 }

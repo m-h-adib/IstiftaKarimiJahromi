@@ -29,7 +29,7 @@ export class QuestionCategoriesComponent implements OnInit {
   GetData() {
     this._getQuestionCategoriesService.GetQuestionCategories().subscribe(p => {
       this.myTree = p.data;
-
+      
     })
   }
 

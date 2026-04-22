@@ -5,4 +5,5 @@ export interface GetOneSessionDto{
     time?:string;
     question?:string;
     users?:number[];
+    description?:string;
 }

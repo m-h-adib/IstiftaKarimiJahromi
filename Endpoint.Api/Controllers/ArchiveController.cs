@@ -1,4 +1,5 @@
-﻿using Application.Services.Archive.Queries;
+﻿using Application.Services.Archive.Commands;
+using Application.Services.Archive.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,13 +14,16 @@ namespace Endpoint.Api.Controllers
         private readonly IGetArchiveQuestionService _getArchiveQuestionService;
         private readonly IGetQuestionStepsService _getQuestionStepsService;
         private readonly IGetQuestionResultService _getQuestionResultService;
+        private readonly IDeleteArchiveQuestionService _deleteArchiveQuestionService;
         public ArchiveController(IGetArchiveQuestionService getArchiveQuestionService,
             IGetQuestionResultService getQuestionResultService,
-            IGetQuestionStepsService getQuestionStepsService)
+            IGetQuestionStepsService getQuestionStepsService,
+            IDeleteArchiveQuestionService deleteArchiveQuestionService)
         {
             _getArchiveQuestionService = getArchiveQuestionService;
             _getQuestionResultService = getQuestionResultService;
             _getQuestionStepsService = getQuestionStepsService;
+            _deleteArchiveQuestionService = deleteArchiveQuestionService;
         }
 
 
@@ -41,6 +45,15 @@ namespace Endpoint.Api.Controllers
         public async Task<IActionResult> GetQuestionResults([FromQuery]long? QuestionId)
         {
             var res = await _getQuestionResultService.ExecuteAsync(QuestionId);
+            return StatusCode(res.StatusCode, res);
+        }
+
+
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteArchiveQuestion([FromQuery] long? QuestionId)
+        {
+            var res = await _deleteArchiveQuestionService.ExecuteAsync(QuestionId);
             return StatusCode(res.StatusCode, res);
         }
     }

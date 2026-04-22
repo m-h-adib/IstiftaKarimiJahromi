@@ -28,12 +28,35 @@ public class GetArchiveQuestionService: IGetArchiveQuestionService
 
     public async Task<ResultDto<ResultOfList<GetArchiveQuestionDto>>> ExecuteAsync(GetArchiveQuestionRequestDto request)
     {
+      
         var items = _context
             .Questions
             .Where(p => !p.IsRemoved && p.Step == QuestionStepType.Archive);
 
+      
         if (!string.IsNullOrEmpty(request.Title))
-            items = items.Where(p => p.Title!.Contains(request.Title) || request.Title.Contains(p.Title) || request.Title.Contains(p.QuestionText!) || p.QuestionText!.Contains(request.Title));
+        {
+            List<string> keys = request.Title.Split(" ").ToList();
+
+
+            switch (keys.Count)
+            {
+                case 1:
+                    items = items.Where(p => p.Title.Contains(request.Title) || p.QuestionText.Contains(request.Title));
+                    break;
+                case 2:
+                    items = items.Where(p => p.Title.Contains(request.Title) || p.QuestionText.Contains(request.Title) ||
+                    ((p.Title.Contains(keys[0]) || p.QuestionText.Contains(keys[0])) &&
+                    (p.Title.Contains(keys[1]) || p.QuestionText.Contains(keys[1]))));
+                    break;
+                case 3:
+                    items = items.Where(p => p.Title.Contains(request.Title) || p.QuestionText.Contains(request.Title) ||
+                    ((p.Title.Contains(keys[0]) || p.QuestionText.Contains(keys[0])) &&
+                    (p.Title.Contains(keys[1]) || p.QuestionText.Contains(keys[1])) &&
+                    (p.Title.Contains(keys[2]) || p.QuestionText.Contains(keys[2]))));
+                    break;
+            }
+        }
 
         if (!string.IsNullOrEmpty(request.FirstName))
             items = items.Where(p => p.FirstName!.Contains(request.FirstName) || request.FirstName.Contains(p.FirstName));
@@ -80,7 +103,9 @@ public class GetArchiveQuestionService: IGetArchiveQuestionService
         if (request.MethodOfReceiveQuestionId != null)
             items = items.Where(p => p.MethodOfReceiveQuestionId == request.MethodOfReceiveQuestionId);
 
+      
         var res = await items
+            .OrderByDescending(p=>p.CreatedAt)
             .ToPaged(request.PageNumber, request.PageSize, out int rows)
             .Select(p => new GetArchiveQuestionDto
             {

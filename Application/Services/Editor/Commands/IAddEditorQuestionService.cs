@@ -53,7 +53,7 @@ public class AddEditorQuestionService : IAddEditorQuestionService
             return ResultDto.Failed("خطا در ارسال اطلاعات");
 
         if (cycle.Editors!=null && cycle.Editors.Any(p=>p.LanguageId==dto.LanguageId))
-            return ResultDto.Failed("شما این سوال را ادیت کرده اید و دوباره مجاز به ادیت نمی باشید");
+            return ResultDto.Failed("شما این سوال را ویراستاری کرده اید و دوباره مجاز به ویراستاری نمی باشید");
 
       
 

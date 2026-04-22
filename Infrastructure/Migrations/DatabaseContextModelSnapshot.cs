@@ -619,7 +619,11 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FromUserId");
+
                     b.HasIndex("QuestionId");
+
+                    b.HasIndex("ToUserId");
 
                     b.HasIndex("UserId");
 
@@ -691,6 +695,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -774,6 +781,9 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("EitaaId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -806,11 +816,11 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedAt = new DateTime(2024, 6, 26, 10, 28, 57, 68, DateTimeKind.Local).AddTicks(7442),
+                            CreatedAt = new DateTime(2024, 11, 11, 14, 2, 49, 989, DateTimeKind.Local).AddTicks(5979),
                             IsActive = true,
                             IsRemoved = false,
                             Name = "محمدحسین ادیب",
-                            Password = "ADLZ39MPHhaw/Q6uzaRAqP5p20V4XFrNHlMbFh+Bcor7JtgX4dikI0kV++6ACgulBg==",
+                            Password = "ACb9pGqtoerp+7ECniIH2M9Yrdrc1Gm4acnPNXf1WP8pG+1LfMLHUCjgtRAwc0ugjw==",
                             Role = 2,
                             Username = "m-h-adib"
                         });
@@ -950,17 +960,31 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.QuestionCycle", b =>
                 {
+                    b.HasOne("Domain.Entities.User", "FromUser")
+                        .WithMany("QuestionCyclesFromUsers")
+                        .HasForeignKey("FromUserId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.HasOne("Domain.Entities.Question", "Question")
                         .WithMany("QuestionCycles")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.User", "ToUser")
+                        .WithMany("QuestionCyclesToUsers")
+                        .HasForeignKey("ToUserId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("QuestionCycles")
                         .HasForeignKey("UserId");
 
+                    b.Navigation("FromUser");
+
                     b.Navigation("Question");
+
+                    b.Navigation("ToUser");
 
                     b.Navigation("User");
                 });
@@ -1067,6 +1091,10 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.User", b =>
                 {
                     b.Navigation("QuestionCycles");
+
+                    b.Navigation("QuestionCyclesFromUsers");
+
+                    b.Navigation("QuestionCyclesToUsers");
 
                     b.Navigation("Questions");
                 });

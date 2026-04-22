@@ -69,14 +69,17 @@ export class UpdateSessionComponent implements OnInit{
     }
 
     Save():void{
-        if(this.UpdateDto.title==undefined || this.UpdateDto.title=="")
-            this.Errors.push("لطفا عنوان جلسه را وارد نمایید");
-        if(this.UpdateDto.date==null || this.UpdateDto.date=="")
-            this.Errors.push("لطفا تاریخ جلسه را انتخاب نمایید");
-        if(this.UpdateDto.time==null || this.UpdateDto.time=="")
-            this.Errors.push("لطفا ساعت جلسه را وارد نمایید");
-        if(this.UpdateDto.users?.length==0)
-            this.Errors.push("لطفا حاضرین جلسه را انتخاب نمایید");
+      this.Errors = [];
+      if (this.UpdateDto.title == undefined || this.UpdateDto.title == "")
+        this.Errors.push("لطفا عنوان جلسه را وارد نمایید");
+      if (this.UpdateDto.date == null || this.UpdateDto.date == "")
+        this.Errors.push("لطفا تاریخ جلسه را انتخاب نمایید");
+      if (this.UpdateDto.time == null || this.UpdateDto.time == "")
+        this.Errors.push("لطفا ساعت جلسه را وارد نمایید");
+      if (this.UpdateDto.users?.length == 0)
+        this.Errors.push("لطفا حاضرین جلسه را انتخاب نمایید");
+      if (this.UpdateDto.description == undefined || this.UpdateDto.description == "" || this.UpdateDto.description == null)
+        this.Errors.push("لطفا توضیحات جلسه را وارد نمایید");
 
         if(this.Errors.length==0){
             this._updateSessionService.UpdateSession(this.UpdateDto).subscribe(p=>{

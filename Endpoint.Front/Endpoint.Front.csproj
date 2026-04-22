@@ -39,6 +39,7 @@
     <None Remove="ClientApp\src\app\questions\addQuestion.component.ts" />
     <None Remove="ClientApp\src\app\questions\editQuestion.component.ts" />
     <None Remove="ClientApp\src\app\questions\questions.component.ts" />
+    <None Remove="ClientApp\src\app\reports\reports.component.ts" />
     <None Remove="ClientApp\src\app\_models\common\keyValueType.ts" />
     <None Remove="ClientApp\src\app\_models\methodRecieveQuestion\AddMethodOfRecieveQuestionDto.ts" />
     <None Remove="ClientApp\src\app\_models\methodRecieveQuestion\GetMethodOfRecieveQuestionDto.ts" />
@@ -67,7 +68,10 @@
     <None Remove="ClientApp\src\app\_models\question\getQuestionsRequestDto.ts" />
     <None Remove="ClientApp\src\app\_models\question\referenceToProcessorDto.ts" />
     <None Remove="ClientApp\src\app\_models\question\updateQuestionDto.ts" />
+    <None Remove="ClientApp\src\app\_models\report\GetUserQueryRequestDto.ts" />
+    <None Remove="ClientApp\src\app\_models\report\GetUserQueryResponseDto.ts" />
     <None Remove="ClientApp\src\app\_models\research\acceptOrRejectResearchDto.ts" />
+    <None Remove="ClientApp\src\app\_services\archive\deleteArchiveQuestionService.ts" />
     <None Remove="ClientApp\src\app\_services\methodOfRecieveQuestion\addMethodOfRecieveQuestionService.ts" />
     <None Remove="ClientApp\src\app\_services\methodOfRecieveQuestion\deleteMethodOfRecieveQuestionService.ts" />
     <None Remove="ClientApp\src\app\_services\language\addLanguageService.ts" />
@@ -94,6 +98,7 @@
     <None Remove="ClientApp\src\app\_services\question\getOneQuestionService.ts" />
     <None Remove="ClientApp\src\app\_services\question\getQuestionsService.ts" />
     <None Remove="ClientApp\src\app\_services\question\updateQuestionService.ts" />
+    <None Remove="ClientApp\src\app\_services\report\getUserQueryService.ts" />
     <None Remove="ClientApp\src\app\_services\research\acceptOrRejectResearchService.ts" />
   </ItemGroup>
 
@@ -131,6 +136,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\questions\editQuestion.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\questions\addQuestion.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\questions\questions.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\reports\reports.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_models\common\keyValueType.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_models\methodRecieveQuestion\AddMethodOfRecieveQuestionDto.ts">
       <SubType>Code</SubType>
@@ -183,7 +189,12 @@
     <TypeScriptCompile Include="ClientApp\src\app\_models\question\getQuestionsRequestDto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_models\question\referenceToProcessorDto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_models\question\updateQuestionDto.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_models\report\GetUserQueryRequestDto.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_models\report\GetUserQueryResponseDto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_models\research\acceptOrRejectResearchDto.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_services\archive\deleteArchiveQuestionService.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\_services\methodOfRecieveQuestion\addMethodOfRecieveQuestionService.ts">
@@ -246,9 +257,14 @@
     <TypeScriptCompile Include="ClientApp\src\app\_services\question\getOneQuestionService.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_services\question\getQuestionsService.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_services\question\updateQuestionService.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_services\report\getUserQueryService.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_services\research\acceptOrRejectResearchService.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\src\assets\img\" />
   </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

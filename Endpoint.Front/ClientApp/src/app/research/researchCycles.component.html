@@ -5,12 +5,12 @@
         <div class="card-title">
           <span>
             <strong>ثبت تحقیق سوال</strong>
-            <swal #aa>
+            <swal #aa confirmButtonText="بستن">
 
               <QuestionPopupComponent *swalPortal="undefined" [questionId]="req.questionId!"></QuestionPopupComponent>
             </swal>
 
-            <a [swal]="aa" class="btn btn-warning m-1 float-end">مشاهده سوال</a>
+            <a [swal]="aa"   class="btn btn-warning m-1 float-end">مشاهده سوال</a>
           </span>
         </div>
       </div>
@@ -63,7 +63,7 @@
       <div class="card-header colorPurple">
         <div class="card-title">
           <span>
-            <strong>لیست پردازش های این سوال</strong>
+            <strong>لیست تحقیقات این سوال</strong>
           </span>
           <a class="btn btn-warning float-end" [routerLink]="['/researchQuestions']">بازگشت</a>
         </div>
@@ -74,6 +74,9 @@
           <table class="table align-middle table-bordered text-center table-striped">
             <thead class="fw-bold table-success">
               <tr>
+                <td>
+                  محقق
+                </td>
                 <td>
                   توضیحات مدیر
                 </td>
@@ -93,21 +96,24 @@
             <tbody *ngIf="getAccess('AddResearchQuestion')" >
               <tr *ngFor="let item of cycles">
                 <td>
+                  {{item.name}}
+                </td>
+                <td>
                   {{item.qDesctiption}}
                 </td>
                 <td>
-                  {{item.pDescription}}
+                  {{item.pDescription!=undefined ? item.pDescription : ''}}
                 </td>
                 <td>
                   {{item.duplicate}}
                 </td>
                 <td>
-                  {{item.isAccept==true ? "تاید شده" :  item.isAccept==false ? "رد شده" : "در انتظار"}}
+                  {{item.isAccept==true ? "تاید شده" :  item.isAccept==false ? item.researchId!=null ? "رد شده" : "در انتظار محقق" :"در انتظار مدیر"}}
                 </td>
                 <td>
                   <a class="btn btn-danger m-1" *ngIf="item.isAccept==null && getAccess('AcceptResearchQuestion')" (click)="showRejectDialog(item.id)">رد</a>
                   <a class="btn btn-primary m-1" *ngIf="item.isAccept==null && getAccess('AcceptResearchQuestion')" (click)="showReferenceDialog(item.id)">ارجاع به ویراستار</a>
-                  <a class="btn btn-warning m-1" *ngIf="item.researchId!=null && item.isAccept==null && getAccess('AddSession')" [routerLink]="['/addsession',item.researchId]">ایجاد جلسه</a> 
+                  <a class="btn btn-warning m-1" *ngIf="item.researchId!=null && item.isAccept==null && getAccess('AddSession')" [routerLink]="['/addsession',item.researchId,req.questionId]">ایجاد جلسه</a> 
                 </td>
               </tr>
             </tbody>

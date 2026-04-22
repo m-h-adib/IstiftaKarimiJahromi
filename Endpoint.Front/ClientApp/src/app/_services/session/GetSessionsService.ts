@@ -14,13 +14,13 @@ export class GetSessionsService{
 
     constructor(private http:HttpClient){}
 
-    GetSessions(pageNumber?:number,pageSize?:number):Observable<PagingDataResultDto<GetSessionDto>>{
+  GetSessions(pageNumber?: number, pageSize?: number, title?: string): Observable<PagingDataResultDto<GetSessionDto>>{
         this.header=new HttpHeaders({
             'content-type':'application/json',
             'authorization':'bearer '+localStorage.getItem("token")
         });
 
-        return this.http.get<any>(this.url+"?PageNumber="+pageNumber+"&PageSize="+pageSize,{headers:this.header}).pipe(
+    return this.http.get<any>(this.url + "?PageNumber=" + pageNumber + "&PageSize=" + pageSize + "&title=" + title, { headers: this.header }).pipe(
             map(p => {
               return p;
             })

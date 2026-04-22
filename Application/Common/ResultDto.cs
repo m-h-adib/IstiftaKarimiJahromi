@@ -1,5 +1,7 @@
 ﻿
 
+using Application.Services.User.Queries;
+
 namespace Application.Common;
 
 public class ResultDto
@@ -75,6 +77,11 @@ public class ResultDto<TData> : ResultDto
     public new static ResultDto<TData> Failed(string? message, int statusCode = 400)
     {
         return new ResultDto<TData>(false, message, statusCode);
+    }
+
+    internal static ResultDto<GetOneUserDto> Succeeded(string v, List<GetOneUserDto> res)
+    {
+        throw new NotImplementedException();
     }
 
     #endregion methods

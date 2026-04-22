@@ -16,7 +16,7 @@ public interface ISearchQuestionService
 	Task<ResultDto<List<SearchQuestionDto>>> ExecuteAsync(SearchQuestionRequestDto dto);
 }
 
-public class SearchQuestionService: ISearchQuestionService
+public class SearchQuestionService : ISearchQuestionService
 {
 	#region members
 	private readonly IDatabaseContext _context;
@@ -37,45 +37,68 @@ public class SearchQuestionService: ISearchQuestionService
 
 	public async Task<ResultDto<List<SearchQuestionDto>>> ExecuteAsync(SearchQuestionRequestDto dto)
 	{
-		if(dto.Title!=null && dto.Title!.Length>3 && dto.Title.Split(" ").Length >= 2)
+
+		
+		var items = _context.Questions
+			.Where(p => !p.IsRemoved)
+			.Where(p=>p.DuplicateId==null)
+			.Where(p => p.Step == Domain.Enums.QuestionStepType.Archive);
+
+		if (!string.IsNullOrEmpty(dto.Title))
 		{
-			var items = _context.Questions
-				.Where(p => !p.IsRemoved)
-				.Where(p => p.Step == Domain.Enums.QuestionStepType.Archive)
-				.Where(p => p.Title!.Contains(dto.Title) || p.QuestionCategory!.Title!.Contains(dto.Title) || p.QuestionText!.Contains(dto.Title));
-
-			if (dto.Category != null)
-				items = items.Where(p => p.QuestionCategoryId == dto.Category);
-
-			var res = await items
-				.Select(p=>new SearchQuestionDto
-				{
-					Id=p.Id,
-					Title=p.Title,
-					Text=p.QuestionText,
-					Category=p.QuestionCategory!.Title
-				})
-				.ToListAsync();
+			List<string> keys = dto.Title.Split(" ").ToList();
 
 
-			return ResultDto<List<SearchQuestionDto>>.Succeeded("ok", res);
+			switch (keys.Count)
+			{
+				case 1:
+					items = items.Where(p => p.Title.Contains(dto.Title) || dto.Title.Contains(p.Title) || p.QuestionText.Contains(dto.Title) || dto.Title.Contains(p.QuestionText) ||
+					p.Title.Contains(keys[0]) || p.QuestionText.Contains(keys[0]) || keys[0].Contains(p.Title) || keys[0].Contains(p.QuestionText));
+					break;
+				case 2:
+                    items = items.Where(p => p.Title.Contains(dto.Title) || dto.Title.Contains(p.Title) || p.QuestionText.Contains(dto.Title) || dto.Title.Contains(p.QuestionText) || 
+					((p.Title.Contains(keys[0]) || p.QuestionText.Contains(keys[0]) || keys[0].Contains(p.Title) || keys[0].Contains(p.QuestionText)) &&
+                    (p.Title.Contains(keys[1]) || p.QuestionText.Contains(keys[1]) || keys[1].Contains(p.Title) || keys[1].Contains(p.QuestionText))));
+                    break;
+                case 3:
+                    items = items.Where(p => p.Title.Contains(dto.Title) || dto.Title.Contains(p.Title) || p.QuestionText.Contains(dto.Title) || dto.Title.Contains(p.QuestionText) || 
+					((p.Title.Contains(keys[0]) || p.QuestionText.Contains(keys[0]) || keys[0].Contains(p.Title) || keys[0].Contains(p.QuestionText)) &&
+                    (p.Title.Contains(keys[1]) || p.QuestionText.Contains(keys[1]) || keys[1].Contains(p.Title) || keys[1].Contains(p.QuestionText)) &&
+                    (p.Title.Contains(keys[2]) || p.QuestionText.Contains(keys[2]) || keys[2].Contains(p.Title) || keys[2].Contains(p.QuestionText))));
+                    break;
+            }
 		}
 
-		return ResultDto<List<SearchQuestionDto>>.Failed("متن جستجو باید حداقل 4 کاراکتر و دو کلمه باشد", 400);
+		if (dto.Category != null)
+			items = items.Where(p => p.QuestionCategoryId == dto.Category);
+
+		var res = await items
+			.Select(p => new SearchQuestionDto
+			{
+				Id = p.Id,
+				Title = p.Title,
+				Text = p.QuestionText,
+				Category = p.QuestionCategory!.Title
+			})
+			.ToListAsync();
+
+
+		return ResultDto<List<SearchQuestionDto>>.Succeeded("ok", res);
+
 	}
 }
 
 #region dtos
 public class SearchQuestionRequestDto
 {
-    public string? Title { get; set; }
-    public long? Category { get; set; }
+	public string? Title { get; set; }
+	public long? Category { get; set; }
 }
 public class SearchQuestionDto
 {
-    public long Id { get; set; }
-    public string? Title { get; set; }
-    public string? Text { get; set; }
-    public string? Category { get; set; }
+	public long Id { get; set; }
+	public string? Title { get; set; }
+	public string? Text { get; set; }
+	public string? Category { get; set; }
 }
 #endregion

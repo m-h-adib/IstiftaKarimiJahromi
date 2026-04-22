@@ -7,17 +7,38 @@
       </div>
     </div>
     <div class="card-body">
-    
+
+      <div class="row col-md-12">
+        <div class="col-md-4">
+          <form class="row row-cols-lg-auto g-3 align-items-center">
+            <div class="col-12">
+              <label class="visually-hidden" for="inlineFormInputGroupUsername">عنوان جلسه</label>
+              <div class="input-group">
+                <div class="input-group-text">عنوان جلسه</div>
+                <input type="text" class="form-control" [(ngModel)]="sessionTitle" name="sessionTitle" id="inlineFormInputGroupUsername" placeholder="....">
+              </div>
+            </div>
+
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary" (click)="search()">جستجو</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <br />
+
+
       <div class="table-responsive">
-  
+
         <table class="table align-middle table-bordered text-center table-striped">
           <thead class="fw-bold table-success">
             <tr>
+              <td>#</td>
               <td>
                 عنوان جلسه
               </td>
               <td>
-                تاریخ 
+                تاریخ
               </td>
               <td>
                 ساعت
@@ -29,11 +50,17 @@
                 شرکت کنندگان جلسه
               </td>
               <td>
+                توضیحات
+              </td>
+              <td>
               </td>
             </tr>
           </thead>
-          <tbody *ngIf="getAccess('Sessions')" >
-            <tr *ngFor="let item of sessions">
+          <tbody *ngIf="getAccess('Sessions')">
+            <tr *ngFor="let item of sessions; index as i">
+              <td>
+                {{((pageNumber!-1)*pageSize!)+i+1}}
+              </td>
               <td>
                 {{item.title}}
               </td>
@@ -47,11 +74,20 @@
                 {{item.question}}
               </td>
               <td>
-                  <p *ngFor="let a of item.users">
-                    {{a}}
-                  </p>
+                <p *ngFor="let a of item.users">
+                  {{a}}
+                </p>
               </td>
               <td>
+                {{item.description}}
+              </td>
+              <td>
+                <swal #aa confirmButtonText="بستن">
+
+                  <QuestionPopupComponent *swalPortal="undefined" [questionId]="item.questionId!"></QuestionPopupComponent>
+                </swal>
+
+                <a [swal]="aa" class="btn btn-info">مشاهده سوال</a>
                 <a class="btn btn-warning m-1" *ngIf="getAccess('UpdateSession')" [routerLink]="['/updatesession',item.id]">ویرایش جلسه</a>
                 <a class="btn btn-danger m-1" *ngIf="getAccess('DeleteSession')" (click)="showDeleteDialog(item.id)">حذف جلسه</a>
                 <!--<a class="btn btn-info m-1" *ngIf="getAccess('ReferenceToProcessor')" (click)="showRefrenceDialog(item.id)">ارجاع به پردازشگر</a>-->
@@ -59,7 +95,7 @@
             </tr>
           </tbody>
         </table>
-  
+
         <nav dir="ltr">
           <ul class="pagination">
             <li class="page-item" style="cursor:pointer">
@@ -68,14 +104,14 @@
             <li class="page-item active" aria-current="page">
               <input type="number" class="form-control text-center" style="width:150px;" (change)="change()" [(ngModel)]="pageNumber" />
             </li>
-  
+
             <li class="page-item" style="cursor:pointer">
               <a class="page-link" [class.disabled]="pageNumber! == pageCount" (click)="inc()">صفحه بعد</a>
             </li>
           </ul>
         </nav>
         <span>صفحه {{pageNumber}} از {{pageCount}}</span>
-  
+
       </div>
     </div>
   </div>

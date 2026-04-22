@@ -1,6 +1,7 @@
 ﻿using Application.Common;
 using Application.Interfaces.Contexts;
 using Application.Services.Authentication.Methods;
+using Domain.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -44,10 +45,13 @@ public class GetSessionsService: IGetSessionsService
             .Where(p => p.IsActive)
             .Where(p => !p.IsRemoved);
 
-        if (user!.Role != Domain.Enums.RoleType.Admin)
-        {
-            items = items.Where(p => p.SessionUsers.Any(u => u.UserId == userid));
-        }
+        if (!await _context.AdminSectionAccesses.AnyAsync(p => p.UserId == userid && !p.IsRemoved && p.AdminSection!.Name == "ShowAllSessions"))
+            items = items.Where(p => p.UserId==userid);
+
+
+        if (!string.IsNullOrEmpty(dto.Title))
+            items = items.Where(p => p.Title.Contains(dto.Title) || dto.Title.Contains(p.Title) || p.Research.QuestionCycle.Question.Title.Contains(dto.Title) || dto.Title.Contains(p.Research.QuestionCycle.Question.Title));
+
 
         var res = await items
             .OrderByDescending(p => p.CreatedAt)
@@ -58,8 +62,10 @@ public class GetSessionsService: IGetSessionsService
                 Title = p.Title,
                 Date = p.Date.Value.ToPersianWithoutTime(),
                 Time = p.Time,
+                QuestionId=p.Research.QuestionCycle.QuestionId,
                 Question = p.Research.QuestionCycle.Question.Title,
-                Users = p.SessionUsers.Select(u => u.User.Name).ToList()
+                Users = p.SessionUsers.Select(u => u.User.Name).ToList(),
+                Description=p.Description
             })
             .ToListAsync();
 
@@ -76,6 +82,7 @@ public class GetSessionsService: IGetSessionsService
 #region dtos
 public class GetSessionRequestDto
 {
+    public string? Title { get; set; }
     public int PageNumber { get; set; } = 1;
     public int PageSize { get; set; } = 10;
 }
@@ -86,6 +93,8 @@ public class GetSessionDto
     public string? Date { get; set; }
     public string? Time { get; set; }
     public string? Question { get; set; }
+    public long? QuestionId { get; set; }
     public List<string>? Users { get; set; }
+    public string? Description { get; set; }
 }
 #endregion

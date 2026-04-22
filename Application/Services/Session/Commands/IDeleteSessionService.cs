@@ -1,5 +1,6 @@
 ﻿using Application.Common;
 using Application.Interfaces.Contexts;
+using Application.Services.bases.Commands;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,11 +19,14 @@ public class DeleteSessionService : IDeleteSessionService
 {
     #region members
     private readonly IDatabaseContext _context;
+    private readonly ISendMessageService _sendMessageService;
     #endregion
     #region ctors
-    public DeleteSessionService(IDatabaseContext context)
+    public DeleteSessionService(IDatabaseContext context,
+        ISendMessageService sendMessageService)
     {
         _context = context;
+        _sendMessageService = sendMessageService;
     }
     #endregion
 
@@ -46,6 +50,8 @@ public class DeleteSessionService : IDeleteSessionService
             {
                 item.IsRemoved = true;
                 item.RemovedAt = DateTime.Now;
+
+                await _sendMessageService.ExecuteAsync(item.UserId!.Value, "با سلام" + Environment.NewLine + "جلسه شما در تاریخ " + res.Date!.Value.ToPersianWithoutTime() + " و ساعت" + res.Time + " با موضوع " + res.Title + " لغو شد." + Environment.NewLine + "با تشکر از همکاری شما." + Environment.NewLine + "http://185.142.157.171:8082/");
             }
         }
 

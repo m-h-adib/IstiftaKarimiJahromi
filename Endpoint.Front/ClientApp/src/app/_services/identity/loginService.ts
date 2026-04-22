@@ -14,7 +14,7 @@ export class LoginService {
   url: string = environment.url + "api/Identity/Login";
   header: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {console.log(this.url) }
 
   login(dto: LoginRequestModel): Observable<DataResultDto<LoginResponseModel>> {
     this.header = new HttpHeaders({

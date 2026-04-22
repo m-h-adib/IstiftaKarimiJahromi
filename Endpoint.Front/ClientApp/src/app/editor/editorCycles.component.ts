@@ -71,13 +71,13 @@ export class EditorCyclesComponent implements OnInit {
   
   getData() {
 
-    this._getUsersByRolesService.GetUsers([1, 2, 5]).subscribe(p => {
+    this._getUsersByRolesService.GetUsers([1, 2, 6]).subscribe(p => {
       this.refrenceUsers = p.data;
       console.log(this.refrenceUsers);
     })
 
     this._getUsersByRolesService.GetUsers([1, 2, 6]).subscribe(p => {
-      this.refrenceUsers1 = p.data;
+      this.refrenceUsers = p.data;
       console.log(this.refrenceUsers);
     })
 
@@ -142,10 +142,10 @@ export class EditorCyclesComponent implements OnInit {
     {
       alert("لطفا زبان را انتخاب کنید");
     }
-   // if (this.add.description == null || this.add.description == "") {
-    //  alert("لطفا توضیحات را بنویسید");
-   // }
-    if (this.add.answerText == null || this.add.answerText == "") {
+    else if (this.add.description == null || this.add.description == "") {
+      alert("لطفا توضیحات را بنویسید");
+    }
+    else if (this.add.answerText == null || this.add.answerText == "") {
       alert("لطفا پاسخ را بنویسید");
     }
     else if (this.add.reasonText == null || this.add.reasonText == "") {

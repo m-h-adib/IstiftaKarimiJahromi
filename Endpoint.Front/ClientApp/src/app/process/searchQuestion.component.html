@@ -5,6 +5,7 @@
   </div>
   <div class="col-md-4">
     <label for="inputEmail4" class="form-label">دسته سوال</label>
+    <span class="btn btn-danger mb-2 float-end" (click)="deleteCat()">×</span>
     <input class="btn form-control" [ngClass]="catName!='دسته سوال' ? 'btn-success' : 'btn-warning'" type="button" value="{{catName}}" (click)="showCatDialog()" />
     <input hidden="hidden" type="text" class="form-control" [(ngModel)]="catId" name="catId" placeholder="دسته سوال" />
   </div>
@@ -20,6 +21,7 @@
   <table class="table align-middle table-bordered text-center table-striped">
     <thead class="fw-bold table-success">
       <tr>
+        <td>#</td>
         <td>
           دسته سوال
         </td>
@@ -34,7 +36,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of items">
+      <tr *ngFor="let item of items; index as i">
+        <td>
+          {{i+1}}
+        </td>
         <td>
           {{item.category}}
         </td>

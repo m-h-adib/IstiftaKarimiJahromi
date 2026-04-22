@@ -20,9 +20,11 @@ export class LoginComponent {
     private router: Router) { }
 
   Login(): void {
+    console.log(this.loginDto);
     this.loginDto.username = Utils.transformNonNumber(this.loginDto.username!);
     this.loginDto.password = Utils.transformNonNumber(this.loginDto.password!);
     this._loginService.login(this.loginDto).subscribe(p => {
+      console.log(p);
       if (p.isSuccess) {
         localStorage.setItem("token", p.data.token!);
         localStorage.setItem("name", p.data.name!);
@@ -31,12 +33,12 @@ export class LoginComponent {
         this.router.navigate(["/"]);
       }
       else {
-        this.Error = p.message
+        //this.Error = p.message
       }
     },
       (error) => {
         console.log(error);
-        this.Error = error.error.message;
+        //this.Error = error.error.message;
       })
   }
 }

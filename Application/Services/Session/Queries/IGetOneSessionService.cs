@@ -41,7 +41,8 @@ public class GetOneSessionService: IGetOneSessionService
               Time = p.Time,
               Question = p.Research.QuestionCycle.Question.Title,
               Title = p.Title,
-              Users = p.SessionUsers.Select(u => u.User.Id).ToList()
+              Users = p.SessionUsers.Select(u => u.User.Id).ToList(),
+              Description=p.Description
           }).FirstOrDefaultAsync();
 
         if (res == null)
@@ -59,4 +60,5 @@ public class GetOneSessionDto
     public string? Time { get; set; }
     public string? Question { get; set; }
     public List<long>? Users { get; set; }
+    public string? Description { get; set; }
 }

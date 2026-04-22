@@ -34,6 +34,7 @@
       <table class="table align-middle table-bordered text-center table-striped">
         <thead class="fw-bold table-success">
           <tr>
+            <td>#</td>
             <td>
               عنوان سوال
             </td>
@@ -50,11 +51,17 @@
               وضعیت سوال
             </td>
             <td>
+              تاریخ ارجاع
+            </td>
+            <td>
             </td>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of items">
+          <tr *ngFor="let item of items; index as i">
+            <td>
+              {{((req.pageNumber!-1)*req.pageSize!)+i+1}}
+            </td>
             <td>
               {{item.title}}
             </td>
@@ -71,12 +78,15 @@
                 {{item.status}}
             </td>
             <td>
-              <swal #aa>
+              {{item.date}}
+            </td>
+            <td>
+              <swal #aa confirmButtonText="بستن">
 
                 <QuestionPopupComponent *swalPortal="undefined" [questionId]="item.id!"></QuestionPopupComponent>
               </swal>
 
-              <a [swal]="aa" class="btn btn-warning m-1">سوال</a>
+              <a [swal]="aa" class="btn btn-warning m-1">مشاهده سوال</a>
               <a class="btn btn-info m-1" *ngIf="getAccess('AddResearchQuestion')"  [routerLink]="['/researchCycles/'+item.id]">تحقیق سوال</a>
               <!--<a class="btn btn-info m-1" *ngIf="getAccess('ReferenceToProcessor')" (click)="showRefrenceDialog(item.id)">ارجاع به پردازشگر</a>-->
             </td>

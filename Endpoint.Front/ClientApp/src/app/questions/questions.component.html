@@ -20,7 +20,7 @@
           </div>
 
           <div class="col-12">
-            <button type="submit" class="btn btn-primary" (click)="getData()">جستجو</button>
+            <button type="submit" class="btn btn-primary" (click)="search()">جستجو</button>
           </div>
         </form>
       </div>
@@ -35,6 +35,7 @@
       <table class="table align-middle table-bordered text-center table-striped">
         <thead class="fw-bold table-success">
           <tr>
+            <td>#</td>
             <td>
               عنوان سوال
             </td>
@@ -55,7 +56,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of items">
+          <tr *ngFor="let item of items; index as i">
+            <td>{{((req.pageNumber!-1)*req.pageSize!)+i+1}}</td>
             <td>
               {{item.title}}
             </td>
@@ -112,7 +114,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="showDeleteDialog()"></button>
       </div>
       <div class="modal-body">
-        <p>از حذف استان مورد نظر مطمئنید؟</p>
+        <p>از حذف سوال مورد نظر مطمئنید؟</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="showDeleteDialog()">انصراف</button>

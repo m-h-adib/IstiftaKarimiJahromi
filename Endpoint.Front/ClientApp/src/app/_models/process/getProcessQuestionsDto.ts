@@ -9,4 +9,5 @@ export interface GetProcessQuestionsDto {
   status?:string;
   userId?:number;
   userName?:string;
+  date?:string;
 }

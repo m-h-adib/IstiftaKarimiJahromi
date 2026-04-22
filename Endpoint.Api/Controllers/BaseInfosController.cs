@@ -42,6 +42,7 @@ public class BaseInfosController : ControllerBase
 	private readonly IGetOneMethodOfRecieveQuestionService _getOneMethodOfRecieveQuestionService;
 	private readonly IGetOneProvinceService _getOneProvinceService;
 	private readonly IGetUsersByRolesService _getUsersByRolesService;
+	private readonly ISendMessageService _sendMessageService;
 	#endregion
 	#region ctors
 	public BaseInfosController(IGetLanguagesService getLanguagesService,
@@ -73,7 +74,8 @@ public class BaseInfosController : ControllerBase
 		IGetOneLanguageService getOneLanguageService,
 		IGetOneMethodOfRecieveQuestionService getOneMethodOfRecieveQuestionService,
 		IGetOneProvinceService getOneProvinceService,
-		IGetUsersByRolesService getUsersByRolesService)
+		IGetUsersByRolesService getUsersByRolesService,
+		ISendMessageService sendMessageService)
     {
         _getCountriesService = getCountriesService;
         _getJobCategoriesService = getJobCategoriesService;
@@ -105,6 +107,7 @@ public class BaseInfosController : ControllerBase
 		_getOneMethodOfRecieveQuestionService = getOneMethodOfRecieveQuestionService;
 		_getOneProvinceService = getOneProvinceService;
 		_getUsersByRolesService = getUsersByRolesService;
+		_sendMessageService=sendMessageService;
     }
     #endregion
 
@@ -236,8 +239,15 @@ public class BaseInfosController : ControllerBase
 		return StatusCode(res.StatusCode, res);
 	}
 
+    [HttpPost]
+    public async Task<IActionResult> SendMessage([FromQuery] long userId, [FromQuery]string message)
+    {
+        var res = await _sendMessageService.ExecuteAsync(userId,message);
+        return StatusCode(res.StatusCode, res);
+    }
 
-	[HttpPut]
+
+    [HttpPut]
 	public async Task<IActionResult> UpdateCountry([FromBody] UpdateCountryDto dto)
 	{
 		var res = await _updateCountryService.ExecuteAsync(dto);

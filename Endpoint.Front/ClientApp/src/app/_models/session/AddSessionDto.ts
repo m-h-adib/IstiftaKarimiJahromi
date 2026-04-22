@@ -4,4 +4,5 @@ export interface AddSessionDto{
     time?:string;
     researchId?:number;
     users?:number[];
+    description?:string;
 }

@@ -17,7 +17,9 @@ export class SearchQuestionComponent{
     myTree: GetQuestionCategoryDto[] = [];
   catName: string = "دسته سوال";
   items: SearchQuestionDto[]=[];
-  req: SearchQuestionRequestDto = {};
+  req: SearchQuestionRequestDto = {
+    title: ""
+  };
   @Output() newItemEvent = new EventEmitter<KeyValueType>();
   constructor(private _GetQuestionCategoriesService: GetQuestionCategoriesService,
     private _searchQuestionService: SearchQuestionsService) { }
@@ -28,6 +30,11 @@ export class SearchQuestionComponent{
         })
       }
 
+  deleteCat() {
+    this.catId = undefined;
+    this.catName = "دسته سوال";
+    this.req.category = undefined;
+  }
 
       showCatDialog() {
         this.catDialog = !this.catDialog;
@@ -35,6 +42,7 @@ export class SearchQuestionComponent{
     
       selectCat(id: number) {
         this.catId = id;
+        this.req.category=id;
       }
     
       selectCategory() {

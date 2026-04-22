@@ -63,13 +63,14 @@ public class GetResearchQuestionsService: IGetResearchQuestionsService
                 Title = p.Title,
                 Name = p.FirstName + " " + p.LastName,
                 Category = p.QuestionCategory!.Title,
-                QuestionDate = p.QuestionDate!.Value.ToPersian(),
+                QuestionDate = p.QuestionDate!.Value.ToPersianWithoutTime(),
                 Text = p.QuestionText,
                 Status = p.Step!.GetDisplayName(),
                 UserId = p.UserId,
                 UserName = p.User!.Name,
-                IsChecked = _context.Researchs.Any(u => u.QuestionCycle!.QuestionId == p.Id && u.QuestionCycle.ToUserId == p.UserId && u.QuestionCycle.ToStep == QuestionStepType.Research && u.QuestionCycle.Research != null)
-            })
+                IsChecked = _context.Researchs.Any(u => u.QuestionCycle!.QuestionId == p.Id && u.QuestionCycle.ToUserId == p.UserId && u.QuestionCycle.ToStep == QuestionStepType.Research && u.QuestionCycle.Research != null),
+				Date = _context.QuestionCycles.FirstOrDefault(u => u.QuestionId == p.Id && u.ToStep == QuestionStepType.Research && !p.IsRemoved)!.CreatedAt.ToPersianWithoutTime()
+			})
             .ToListAsync();
 
         var result = new ResultOfList<GetResearchQuestionDto>
@@ -101,5 +102,6 @@ public class GetResearchQuestionDto
     public string? Status { get; set; }
     public long? UserId { get; set; }
     public string? UserName { get; set; }
+    public string? Date { get; set; }
 }
 #endregion

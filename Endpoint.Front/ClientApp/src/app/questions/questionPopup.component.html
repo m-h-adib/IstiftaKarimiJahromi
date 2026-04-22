@@ -21,18 +21,19 @@
         <div class="col-md-12">
           <label for="inputEmail4" class="form-label">متن سوال</label>
           <textarea class="form-control" [(ngModel)]="AddDto.question" name="AddDto.question" rows="8" cols="100" placeholder="متن سوال"></textarea>
+          <a *ngIf="AddDto.questionFile!='' && AddDto.questionFile!=null" href="http://185.142.157.171:8081/{{AddDto.questionFile}}" target="_blank" class="btn btn-primary">فایل سوال</a>
         </div>
   
         <div class="col-md-12">
             <label for="inputEmail4" class="form-label">پاسخ سوال</label>
             <textarea class="form-control" [(ngModel)]="AddDto.answer" name="AddDto.answer" rows="8" cols="100" placeholder="پاسخ سوال"></textarea>
-            <a *ngIf="AddDto.answerFile!='' && AddDto.answerFile!=null" href="http://185.142.157.171:8081/{{AddDto.answerFile}}" target="_blank" class="btn btn-primary">فایل سوال</a>
+            <a *ngIf="AddDto.answerFile!='' && AddDto.answerFile!=null" href="http://185.142.157.171:8081/{{AddDto.answerFile}}" target="_blank" class="btn btn-primary">فایل پاسخ</a>
           </div>
 
           <div class="col-md-12">
             <label for="inputEmail4" class="form-label">دلیل سوال</label>
             <textarea class="form-control" [(ngModel)]="AddDto.reason" name="AddDto.reason" rows="8" cols="100" placeholder="دلیل سوال"></textarea>
-            <a *ngIf="AddDto.reasonFile!='' && AddDto.answerFile!=null" href="http://185.142.157.171:8081/{{AddDto.reasonFile}}" target="_blank" class="btn btn-primary">فایل دلیل</a>
+            <a *ngIf="AddDto.reasonFile!='' && AddDto.reasonFile!=null" href="http://185.142.157.171:8081/{{AddDto.reasonFile}}" target="_blank" class="btn btn-primary">فایل دلیل</a>
           </div>
 
 
@@ -40,4 +41,3 @@
     </div>
   </div>
 
-  

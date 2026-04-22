@@ -1,6 +1,7 @@
 ﻿using Application.Common;
 using Application.Interfaces.Contexts;
 using Application.Services.Authentication.Methods;
+using Application.Services.bases.Commands;
 using Application.Services.Process.Commands;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
@@ -24,15 +25,18 @@ public class AcceptOrRejectResearchService: IAcceptOrRejectResearchService
     private readonly IDatabaseContext _context;
     private readonly ITokenContents _tokenContents;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly ISendMessageService _sendMessageService;
     #endregion
     #region ctors
     public AcceptOrRejectResearchService(IDatabaseContext context,
         ITokenContents tokenContents,
-        IHttpContextAccessor httpContextAccessor)
+        IHttpContextAccessor httpContextAccessor,
+        ISendMessageService sendMessageService)
     {
         _context = context;
         _tokenContents = tokenContents;
         _httpContextAccessor = httpContextAccessor;
+        _sendMessageService = sendMessageService;
     }
     #endregion
 
@@ -50,15 +54,29 @@ public class AcceptOrRejectResearchService: IAcceptOrRejectResearchService
         if (!await _context.AdminSectionAccesses.AnyAsync(p => p.UserId == userid && !p.IsRemoved && p.AdminSection!.Name == "AcceptResearchQuestion"))
             return ResultDto.Failed("NOT ACCESS", 403);
 
+       
 
         var cycle = await _context.QuestionCycles
             .Where(p => p.Id == dto.CycleId)
             .Where(p => !p.IsRemoved)
-            .Include(p => p.Question)
+			.Where(p => p.IsAccept == null)
+			.Include(p => p.Question)
             .FirstOrDefaultAsync();
 
         if (cycle == null)
             return ResultDto.Failed("تحقیق مورد نظر یافت نشد");
+
+		var research = await _context.Researchs
+			.Where(p => p.QuestionCycleId == cycle.Id)
+			.Where(p => !p.IsRemoved)
+			.FirstOrDefaultAsync();
+
+		if (research == null)
+			return ResultDto.Failed("هنوز تحقیق برای این سوال ثبت نشده");
+
+        if (await _context.Sessions
+            .AnyAsync(p => !p.IsRemoved && p.IsActive && p.ResearchId==research.Id && p.Date.Value.AddDays(1).CompareTo(DateTime.Now)>=0))
+            return ResultDto.Failed("شما یک جلسه فعال برای این تحقیق دارید و تا فردای برگزاری جلسه نمیتوانید تحقیق را تایید و یا رد کنید");
 
         cycle.IsAccept = dto.IsAccept;
         cycle.UpdatedAt = DateTime.Now;
@@ -81,6 +99,12 @@ public class AcceptOrRejectResearchService: IAcceptOrRejectResearchService
                 });
 
             cycle.Question!.Step = Domain.Enums.QuestionStepType.Editor;
+
+
+            await _sendMessageService.ExecuteAsync(cycle.ToUserId!.Value, "با سلام" + Environment.NewLine + "محقق عزیز تحقیق سوال شما با عنوان " + cycle.Question.Title + " تایید شد." + Environment.NewLine + "با تشکر از همکاری شما." + Environment.NewLine + "http://185.142.157.171:8082/");
+
+            await _sendMessageService.ExecuteAsync(dto.ToUser!.Value, "با سلام" + Environment.NewLine + "ویراستار عزیز یک سوال جهت ویراستاری به پنل شما اضافه گردید." + Environment.NewLine + "لطفا در اسرع وقت رسیدگی نمایید." + Environment.NewLine + "با تشکر از همکاری شما." + Environment.NewLine + "http://185.142.157.171:8082/");
+
         }
         else
         {
@@ -98,6 +122,9 @@ public class AcceptOrRejectResearchService: IAcceptOrRejectResearchService
                    IsActive = true,
                    IsRemoved = false
                });
+
+
+            await _sendMessageService.ExecuteAsync(cycle.ToUserId!.Value, "با سلام" + Environment.NewLine + "محقق عزیز تحقیق سوال شما با عنوان " + cycle.Question.Title + " مورد تایید قرار نگرفت و جهت بازبینی مجدد ارجاع داده شد." + Environment.NewLine + "با تشکر از همکاری شما." + Environment.NewLine + "http://185.142.157.171:8082/");
         }
 
         await _context.SaveChangesAsync();

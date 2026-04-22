@@ -1,6 +1,7 @@
 ﻿using Application.AdminServices.User.Queries;
 using Application.Services.Person.Commands;
 using Application.Services.User.Commands;
+using Application.Services.User.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,14 +20,18 @@ public class UsersController : ControllerBase
 	private readonly IGetUsersService _getUsersService;
 	private readonly IGetUserAccessService _getUserAccessService;
 	private readonly IResetPasswordService _resetPasswordService;
-    #endregion
-    #region ctors
-    public UsersController(IGetUserAccessService getUserAccessService,
+	private readonly IGetOneUserService _getOneUserService;
+	private readonly IUpdateUserService _updateUserService;
+	#endregion
+	#region ctors
+	public UsersController(IGetUserAccessService getUserAccessService,
         IGetUsersService getUsersService,
         IAddUserService addUserService,
         IUpdateUserAccessService updateUserAccessService,
         IDeleteUserService deleteUserService,
-		IResetPasswordService resetPasswordService)
+		IResetPasswordService resetPasswordService,
+		IGetOneUserService getOneUserService,
+		IUpdateUserService updateUserService)
     {
         _addUserService = addUserService;
         _deleteUserService = deleteUserService;
@@ -34,6 +39,8 @@ public class UsersController : ControllerBase
         _getUsersService = getUsersService;
         _updateUserAccessService = updateUserAccessService;
 		_resetPasswordService = resetPasswordService;
+		_getOneUserService = getOneUserService;
+		_updateUserService = updateUserService;
     }
 	#endregion
 
@@ -52,7 +59,14 @@ public class UsersController : ControllerBase
 		return StatusCode(res.StatusCode, res);
 	}
 
-	[HttpPost]
+    [HttpGet]
+    public async Task<IActionResult> GetOneUser(int UserId)
+    {
+        var res = await _getOneUserService.ExecuteAsync(UserId);
+        return StatusCode(res.StatusCode, res);
+    }
+
+    [HttpPost]
 	public async Task<IActionResult> AddUser([FromBody] AddAdminDto dto)
 	{
 		var res = await _addUserService.ExecuteAsync(dto);
@@ -74,7 +88,14 @@ public class UsersController : ControllerBase
 		return StatusCode(res.StatusCode, res);
 	}
 
-	[HttpDelete]
+    [HttpPut]
+    public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto dto)
+    {
+        var res = await _updateUserService.ExecuteAsync(dto);
+        return StatusCode(res.StatusCode, res);
+    }
+
+    [HttpDelete]
 	public async Task<IActionResult> DeleteUser(int UserId)
 	{
 		var res = await _deleteUserService.ExecuteAsync(UserId);

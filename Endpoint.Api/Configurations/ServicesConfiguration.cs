@@ -29,6 +29,9 @@ using Application.Services.Editor.Commands;
 using Application.Services.Archive.Queries;
 using Application.Services.Session.Queries;
 using Application.Services.Session.Commands;
+using Application.Services.User.Queries;
+using Application.Services.Archive.Commands;
+using Application.Services.Report.Queries;
 
 namespace EndPoint.Api.Configurations
 {
@@ -168,6 +171,7 @@ namespace EndPoint.Api.Configurations
 			services.AddScoped<IGetOneMethodOfRecieveQuestionService, GetOneMethodOfRecieveQuestionService>();
 			services.AddScoped<IGetOneProvinceService, GetOneProvinceService>();
 			services.AddScoped<IGetUsersByRolesService,GetUsersByRolesService>();
+			services.AddScoped<ISendMessageService, SendMessageService>();
 			#endregion
 
 			#region authentications
@@ -186,6 +190,8 @@ namespace EndPoint.Api.Configurations
 			services.AddScoped<IGetUsersService, GetUsersService>();
 			services.AddScoped<IGetUserAccessService, GetUserAccessService>();
 			services.AddScoped<IResetPasswordService,ResetPasswordService>();
+			services.AddScoped<IGetOneUserService, GetOneUserService>();
+			services.AddScoped<IUpdateUserService, UpdateUserService>();
 			#endregion
 
 			#region Questions
@@ -225,6 +231,7 @@ namespace EndPoint.Api.Configurations
 			services.AddScoped<IGetArchiveQuestionService,GetArchiveQuestionService>();
 			services.AddScoped<IGetQuestionStepsService,GetQuestionStepsService>();
 			services.AddScoped<IGetQuestionResultService, GetQuestionResultService>();
+			services.AddScoped<IDeleteArchiveQuestionService, DeleteArchiveQuestionService>();
 			#endregion
 
 			#region sessions
@@ -233,6 +240,10 @@ namespace EndPoint.Api.Configurations
 			services.AddScoped<IAddSessionService,AddSessionService>();
 			services.AddScoped<IUpdateSessionService, UpdateSessionService>();
 			services.AddScoped<IDeleteSessionService, DeleteSessionService>();
+			#endregion
+
+			#region reports
+			services.AddScoped<IGetUserQueryService, GetUserQueryService>();
 			#endregion
 
 			#endregion services
@@ -250,7 +261,7 @@ namespace EndPoint.Api.Configurations
 				options.AddPolicy(name: MyAllowSpecificOrigins,
 								  builder =>
 								  {
-									  builder.SetIsOriginAllowed(s => s.Contains("istifta.amoozeshbeseh.ir") || s.Contains("localhost") || s.Contains("185.142.157.171"));
+									  builder.SetIsOriginAllowed(s => s.Contains("istifta.amoozeshbeseh.ir") || s.Contains("localhost") || s.Contains("212.80.18.168"));
 									  //builder.AllowAnyOrigin();
 									  //builder.WithOrigins("http://form.amoozeshbeseh.ir");
 									  builder.AllowAnyHeader();

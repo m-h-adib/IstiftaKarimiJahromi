@@ -1,0 +1,133 @@
+<div class="card">
+  <div class="card-header colorPurple">
+    <div class="card-title">
+      <span>
+        <strong>گزارش</strong>
+      </span>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row col-md-12">
+      <form class="row row-cols-lg g-3 align-items-center">
+        <div class="col-md-6">
+
+          <label class="visually-hidden" for="inlineFormInputGroupUsername">کاربر</label>
+          <div class="input-group">
+            <div class="input-group-text">کاربر</div>
+            <select class="form-select" [(ngModel)]="req.userId" name="req.userId">
+              <option *ngFor="let a of refrenceUsers" value="{{a.key}}">
+                {{a.value}}
+              </option>
+            </select>
+            <!--<input type="text" class="form-control" [(ngModel)]="req.title" name="req.title" id="inlineFormInputGroupUsername" placeholder="....">-->
+          </div>
+        </div>
+
+        <div class="col-md-6">
+
+          <label class="visually-hidden" for="inlineFormInputGroupUsername">نوع</label>
+          <div class="input-group">
+            <div class="input-group-text">نوع</div>
+            <select class="form-select" [(ngModel)]="req.type" name="req.type">
+              <option value="1">
+                سوالات ارجاع شده به کاربر
+              </option>
+              <option value="2">
+                سوالات انجام شده توسط کاربر
+              </option>
+              <option value="3">
+                تمام سوالات کاربر
+              </option>
+            </select>
+            <!--<input type="text" class="form-control" [(ngModel)]="req.title" name="req.title" id="inlineFormInputGroupUsername" placeholder="....">-->
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <label for="FromDate" class="form-label">از تاریخ</label>
+          <ng-persian-datepicker [dateInitValue]="false">
+            <input type="text" [formControl]="dateValue" [(ngModel)]="req.fromDate" name="FromDate" id="FromDate" required class="form-control" placeholder="از تاریخ" />
+          </ng-persian-datepicker>
+        </div>
+        <div class="col-md-6">
+          <label for="ToDate" class="form-label">تا تاریخ</label>
+          <ng-persian-datepicker [dateInitValue]="false">
+            <input type="text" [formControl]="dateValue2" [(ngModel)]="req.toDate" name="ToDate" id="ToDate" required class="form-control" placeholder="تا تاریخ" />
+          </ng-persian-datepicker>
+        </div>
+
+        <div class="col-md-6">
+          <button type="submit" class="btn btn-primary" (click)="search()">جستجو</button>
+        </div>
+      </form>
+    </div>
+    <br />
+
+
+
+
+    <div class="table-responsive">
+
+      <table class="table align-middle table-bordered text-center table-striped">
+        <thead class="fw-bold table-success">
+          <tr>
+            <td>#</td>
+            <td>
+              عنوان سوال
+            </td>
+            <td>
+              تاریخ ثبت
+            </td>
+            <td>
+              دسته سوال
+            </td>
+            <td>
+              فعالیت ها
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items; index as i">
+            <td>{{((req.page!-1)*req.size!)+i+1}}</td>
+            <td>
+              {{item.question}}
+            </td>
+            <td>
+              {{item.date}}
+            </td>
+
+            <td>
+              {{item.category}}
+            </td>
+            <td>
+              
+              <ul>
+                <li *ngFor="let a of item.activity">
+                  {{a}}
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <nav dir="ltr">
+        <ul class="pagination">
+          <li class="page-item" style="cursor:pointer">
+            <span class="page-link colorDarkest" [class.disabled]="req.page==1" (click)="dec()">صفحه قبل</span>
+          </li>
+          <li class="page-item active" aria-current="page">
+            <input type="number" class="form-control text-center" style="width:150px;" (change)="change()" [(ngModel)]="req.page" />
+          </li>
+
+          <li class="page-item" style="cursor:pointer">
+            <a class="page-link" [class.disabled]="req!.page! == pageCount" (click)="inc()">صفحه بعد</a>
+          </li>
+        </ul>
+      </nav>
+      <span>صفحه {{req.page}} از {{pageCount}}</span>
+
+    </div>
+  </div>
+</div>
+

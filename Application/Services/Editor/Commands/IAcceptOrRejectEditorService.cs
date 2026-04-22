@@ -1,6 +1,7 @@
 ﻿using Application.Common;
 using Application.Interfaces.Contexts;
 using Application.Services.Authentication.Methods;
+using Application.Services.bases.Commands;
 using Application.Services.Process.Commands;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
@@ -24,15 +25,18 @@ public class AcceptOrRejectEditorService : IAcceptOrRejectEditorService
     private readonly IDatabaseContext _context;
     private readonly ITokenContents _tokenContents;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly ISendMessageService _sendMessageService;
     #endregion
     #region ctors
     public AcceptOrRejectEditorService(IDatabaseContext context,
         ITokenContents tokenContents,
-        IHttpContextAccessor httpContextAccessor)
+        IHttpContextAccessor httpContextAccessor,
+        ISendMessageService sendMessageService)
     {
         _context = context;
         _tokenContents = tokenContents;
         _httpContextAccessor = httpContextAccessor;
+        _sendMessageService = sendMessageService;
     }
     #endregion
 
@@ -57,9 +61,18 @@ public class AcceptOrRejectEditorService : IAcceptOrRejectEditorService
             .FirstOrDefaultAsync();
 
         if (cycle == null)
-            return ResultDto.Failed("ادیت مورد نظر یافت نشد");
+            return ResultDto.Failed("ویراستاری مورد نظر یافت نشد");
 
-        cycle.IsAccept = dto.IsAccept;
+		var editor = await _context.Editors
+			.Where(p => p.QuestionCycleId == cycle.Id)
+            .Where(p=>p.IsAccept==null)
+			.Where(p => !p.IsRemoved)
+			.FirstOrDefaultAsync();
+
+		if (editor == null)
+			return ResultDto.Failed("هنوز ویراستاری برای این سوال ثبت نشده");
+
+		cycle.IsAccept = dto.IsAccept;
         cycle.UpdatedAt = DateTime.Now;
 
         if (dto.IsAccept == true)
@@ -80,6 +93,8 @@ public class AcceptOrRejectEditorService : IAcceptOrRejectEditorService
                 });
 
             cycle.Question!.Step = Domain.Enums.QuestionStepType.Archive;
+
+            await _sendMessageService.ExecuteAsync(cycle.ToUserId!.Value, "با سلام" + Environment.NewLine + "ویراستار عزیز ویراستاری سوال شما با عنوان " + cycle.Question.Title + " تایید شد." + Environment.NewLine + "با تشکر از همکاری شما." + Environment.NewLine + "http://185.142.157.171:8082/");
         }
         else
         {
@@ -97,6 +112,8 @@ public class AcceptOrRejectEditorService : IAcceptOrRejectEditorService
                    IsActive = true,
                    IsRemoved = false
                });
+
+            await _sendMessageService.ExecuteAsync(dto.ToUser!.Value, "با سلام" + Environment.NewLine + "ویراستار عزیز ویراستاری سوال شما با عنوان " + cycle.Question.Title + " مورد تایید قرار نگرفت و جهت بازبینی مجدد ارجاع داده شد." + Environment.NewLine + "با تشکر از همکاری شما." + Environment.NewLine + "http://185.142.157.171:8082/");
         }
 
         await _context.SaveChangesAsync();

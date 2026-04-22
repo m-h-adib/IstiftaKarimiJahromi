@@ -6,7 +6,12 @@
           <span>
             <strong>ثبت پردازش سوال</strong>
           </span>
-          <a class="btn btn-warning float-end" [routerLink]="['/processQuestions']">بازگشت</a>
+          <swal #aa confirmButtonText="بستن">
+
+            <QuestionPopupComponent *swalPortal="undefined" [questionId]="req.questionId!"></QuestionPopupComponent>
+          </swal>
+
+          <a [swal]="aa"   class="btn btn-warning m-1 float-end">مشاهده سوال</a>
         </div>
       </div>
       <div class="card-body">
@@ -42,6 +47,7 @@
           <span>
             <strong>لیست پردازش های این سوال</strong>
           </span>
+          <a class="btn btn-warning float-end" [routerLink]="['/processQuestions']">بازگشت</a>
         </div>
       </div>
       <div class="card-body">
@@ -50,6 +56,9 @@
           <table class="table align-middle table-bordered text-center table-striped">
             <thead class="fw-bold table-success">
               <tr>
+                <td>
+                  پردازشگر
+                </td>
                 <td>
                   توضیحات مدیر
                 </td>
@@ -69,16 +78,19 @@
             <tbody *ngIf="getAccess('AddProcessQuestion')" >
               <tr *ngFor="let item of cycles">
                 <td>
+                  {{item.name}}
+                </td>
+                <td>
                   {{item.qDesctiption}}
                 </td>
                 <td>
-                  {{item.pDescription}}
+                  {{item.pDescription!=undefined ? item.pDescription : ''}}
                 </td>
                 <td>
                   {{item.duplicate}}
                 </td>
                 <td>
-                  {{item.isAccept==true ? "تاید شده" :  item.isAccept==false ? "رد شده" : "در انتظار"}}
+                  {{item.isAccept==true ? "تایید شده" :  item.isAccept==false ? "رد شده" : "در انتظار"}}
                 </td>
                 <td>
                   <a class="btn btn-danger m-1" *ngIf="item.isAccept==null && getAccess('AcceptProcessQuestion')" (click)="showRejectDialog(item.id)">رد</a>

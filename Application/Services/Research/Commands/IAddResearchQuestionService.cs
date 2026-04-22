@@ -53,7 +53,7 @@ public class AddResearchQuestionService: IAddResearchQuestionService
             return ResultDto.Failed("خطا در ارسال اطلاعات");
 
         if (cycle.Research != null)
-            return ResultDto.Failed("شما این سوال را پردازش کرده اید و دوباره مجاز به پردازش نمی باشید");
+            return ResultDto.Failed("شما این سوال را تحقیق کرده اید و دوباره مجاز به تحقیق نمی باشید");
 
         string? aFile = null;
         if (dto.AnswerFile != null) {
