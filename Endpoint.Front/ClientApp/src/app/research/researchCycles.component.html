@@ -10,7 +10,7 @@
               <QuestionPopupComponent *swalPortal="undefined" [questionId]="req.questionId!"></QuestionPopupComponent>
             </swal>
 
-            <a [swal]="aa"   class="btn btn-warning m-1 float-end">مشاهده سوال</a>
+            <a [swal]="aa" class="btn btn-warning m-1 float-end">مشاهده سوال</a>
           </span>
         </div>
       </div>
@@ -23,7 +23,8 @@
           </div>
 
           <div class="col-md-12">
-            <label for="inputEmail4" class="form-label">فایل پاسخ سوال</label>
+            <label for="inputEmail4" class="form-label" *ngIf="add.answerFile1==null">فایل پاسخ سوال</label>
+            <label for="inputEmail4" class="form-label" *ngIf="add.answerFile1!=null">فایل پاسخ سوال (<a target="_blank" href="http://212.80.18.168:8082/{{add.answerFile1}}">دریافت فایل</a>)</label>
             <input type="file" multiple (change)="onFilechange($event)" class="form-control" placeholder="فایل پاسخ سوال" />
           </div>
 
@@ -35,7 +36,8 @@
           </div>
 
           <div class="col-md-12">
-            <label for="inputEmail4" class="form-label">فایل دلیل سوال</label>
+            <label for="inputEmail4" class="form-label" *ngIf="add.reasonFile1==null">فایل دلیل سوال</label>
+            <label for="inputEmail4" class="form-label" *ngIf="add.reasonFile1!=null">فایل دلیل سوال (<a target="_blank" href="http://212.80.18.168:8082/{{add.reasonFile1}}">دریافت فایل</a>)</label>
             <input type="file" multiple (change)="onFilechange1($event)" class="form-control" placeholder="فایل دلیل سوال" />
           </div>
 
@@ -45,7 +47,7 @@
           </div>
 
           <div class="col-12">
-            <button type="submit" class="btn btn-primary m-1" *ngIf="getAccess('AddResearchQuestion')"  (click)="Save()">ثبت</button>
+            <button type="submit" class="btn btn-primary m-1" *ngIf="getAccess('AddResearchQuestion')" (click)="Save()">ثبت</button>
           </div>
         </form>
       </div>
@@ -93,7 +95,7 @@
                 </td>
               </tr>
             </thead>
-            <tbody *ngIf="getAccess('AddResearchQuestion')" >
+            <tbody *ngIf="getAccess('AddResearchQuestion')">
               <tr *ngFor="let item of cycles">
                 <td>
                   {{item.name}}
@@ -112,8 +114,12 @@
                 </td>
                 <td>
                   <a class="btn btn-danger m-1" *ngIf="item.isAccept==null && getAccess('AcceptResearchQuestion')" (click)="showRejectDialog(item.id)">رد</a>
+                  <br />
                   <a class="btn btn-primary m-1" *ngIf="item.isAccept==null && getAccess('AcceptResearchQuestion')" (click)="showReferenceDialog(item.id)">ارجاع به ویراستار</a>
-                  <a class="btn btn-warning m-1" *ngIf="item.researchId!=null && item.isAccept==null && getAccess('AddSession')" [routerLink]="['/addsession',item.researchId,req.questionId]">ایجاد جلسه</a> 
+                  <br />
+                  <a class="btn btn-info m-1" *ngIf="item.researchId!=null && item.isAccept==null && getAccess('AddSession')" [routerLink]="['/addsession',item.researchId,req.questionId]">ایجاد جلسه</a>
+                  <a class="btn btn-warning m-1" *ngIf="item.isAccept==null && getAccess('FromToCycle')" (click)="showReturnDialog(item.id)">بازگشت سوال</a>
+                  <a class="btn btn-primary m-1" *ngIf="item.isAccept!=null" (click)="copy(item.pDescription!,item.answerText!,item.reasonText!,item.answerFile!,item.reasonFile!)">کپی</a>
                 </td>
               </tr>
             </tbody>
@@ -192,4 +198,47 @@
   </div>
 </div>
 <div *ngIf="referenceDialog==true" class="modal-backdrop fade show"></div>
+
+<div class="modal fade" [class.show]="returnDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="returnDialog==true ? 'block' : null" style="padding-left: 0px;">
+  <div class="modal-dialog model-sm">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h1 class="modal-title fs-5" id="exampleModalLiveLabel">بازگشت به مرحله!</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="showReturnDialog()"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3">
+          <div class="col-md-12">
+            <label for="inputEmail4" class="form-label">توضیحات</label>
+            <textarea class="form-control" [(ngModel)]="fromToCycle.description" name="fromToCycle.description" placeholder="توضیحات" rows="8" cols="100"></textarea>
+          </div>
+          <div class="col-md-12">
+            <label for="inputEmail4" class="form-label">مرحله</label>
+            <select class="form-select" #tostep [(ngModel)]="fromToCycle.toStep" name="fromToCycle.toStep" (change)="getUsers(tostep.value)">
+              <option value="1">
+                ثبت سوال
+              </option>
+              <option value="2">
+                پیش پردازش سوال
+              </option>
+            </select>
+          </div>
+          <div class="col-md-12">
+            <label for="inputEmail4" class="form-label">کاربر</label>
+            <select class="form-select" [(ngModel)]="fromToCycle.toUser" name="fromToCycle.toUser">
+              <option *ngFor="let a of returnUsers" value="{{a.key}}">
+                {{a.value}}
+              </option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="showReturnDialog()">انصراف</button>
+        <button type="button" class="btn btn-primary" (click)="toCycle()">ثبت</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="returnDialog==true" class="modal-backdrop fade show"></div>
 

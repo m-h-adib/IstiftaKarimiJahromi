@@ -51,7 +51,11 @@ public class DeleteSessionService : IDeleteSessionService
                 item.IsRemoved = true;
                 item.RemovedAt = DateTime.Now;
 
-                await _sendMessageService.ExecuteAsync(item.UserId!.Value, "با سلام" + Environment.NewLine + "جلسه شما در تاریخ " + res.Date!.Value.ToPersianWithoutTime() + " و ساعت" + res.Time + " با موضوع " + res.Title + " لغو شد." + Environment.NewLine + "با تشکر از همکاری شما." + Environment.NewLine + "http://185.142.157.171:8082/");
+                try
+                {
+                    await _sendMessageService.ExecuteAsync(item.UserId!.Value, "با سلام" + Environment.NewLine + "جلسه شما در تاریخ " + res.Date!.Value.ToPersianWithoutTime() + " و ساعت" + res.Time + " با موضوع " + res.Title + " لغو شد." + Environment.NewLine + "با تشکر از همکاری شما." + Environment.NewLine + "http://185.142.157.171:8082/");
+                }
+                catch (Exception ex) { }
             }
         }
 

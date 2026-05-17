@@ -12,6 +12,8 @@ import { AcceptOrRejectProcessDto } from '../_models/process/acceptOrRejectProce
 import { AcceptOrRejectProcessService } from '../_services/process/acceptOrRejectProcessService';
 import { KeyValueType } from '../_models/common/keyValueType';
 import { GetUsersByRolesService } from '../_services/user/getUsersByRolesService';
+import { FromToCycleDto } from '../_models/common/fromToCycleDto';
+import { FromToCycleService } from '../_services/common/fromToCycleService';
 
 @Component({
     templateUrl: './processCycles.component.html',
@@ -24,14 +26,17 @@ import { GetUsersByRolesService } from '../_services/user/getUsersByRolesService
 
   rejectDialog?: boolean = false;
   referenceDialog?: boolean = false;
+  returnDialog?: boolean = false;
   
   refrenceUsers: KeyValueType[] = [];
   refrenceUsers1: KeyValueType[] = [];
+  returnUsers: KeyValueType[] = [];
     req: GetProcessCycleRequestDto = {};
     add:AddProcessQuestionDto={};
   cycles?: GetProcessCyclesDto[] = [];
   searchReq: SearchQuestionRequestDto = {};
   acceptOrRejectProcess: AcceptOrRejectProcessDto = {};
+  fromToCycle: FromToCycleDto = {};
     
     qName?:string ='بدون سوال تکراری';
   searchDialog?: boolean = false;
@@ -40,6 +45,7 @@ import { GetUsersByRolesService } from '../_services/user/getUsersByRolesService
     private _addProccessQuestionService: AddProcessQuestionService,
     private _acceptOrRejectProcessService: AcceptOrRejectProcessService,
     private _getUsersByRolesService: GetUsersByRolesService,
+    private _fromToCycleService: FromToCycleService,
     private router: Router,
         private route:ActivatedRoute) { }
   
@@ -56,6 +62,15 @@ import { GetUsersByRolesService } from '../_services/user/getUsersByRolesService
       this.getData();
     }
 
+  copy(pDes: string, duplicateId: number, duplicate: string) {
+    this.add.description = pDes;
+    
+    if (duplicateId != null) {
+      this.add.duplicateId = duplicateId;
+      this.qName = duplicate;
+    }
+    
+  }
 
   getData() {
 
@@ -79,7 +94,13 @@ import { GetUsersByRolesService } from '../_services/user/getUsersByRolesService
       //   this.myTree = p.data;
       // })
     }
-  
+
+  getUsers(value: string) {
+    this._getUsersByRolesService.GetUsers([1, 2, Number.parseInt(value)]).subscribe(p => {
+      this.returnUsers = p.data;
+      console.log(this.refrenceUsers);
+    })
+  }
     
     getAccess(id: string): boolean {
       if (JSON.parse(localStorage.getItem("access")!).find((p: string) => p == id) != undefined)
@@ -102,9 +123,13 @@ import { GetUsersByRolesService } from '../_services/user/getUsersByRolesService
     this.referenceDialog = !this.referenceDialog;
     this.acceptOrRejectProcess.cycleId = id;
   }
+
+  showReturnDialog(id?: number) {
+    this.returnDialog = !this.returnDialog;
+    this.fromToCycle.cycleId = id;
+  }
   reject() {
     this.acceptOrRejectProcess.isAccept = false;
-    
     this._acceptOrRejectProcessService.AddProcess(this.acceptOrRejectProcess).subscribe(p => {
       if (p.isSuccess) {
         this.router.navigate(["/processQuestions"]);
@@ -141,6 +166,16 @@ import { GetUsersByRolesService } from '../_services/user/getUsersByRolesService
         alert(Errors);
       })
     }
+  }
+
+  toCycle() {
+    this._fromToCycleService.FromToCycle(this.fromToCycle).subscribe(p => {
+      if (p.isSuccess) {
+        this.router.navigate(["/processQuestions"]);
+      }
+    }, (error) => {
+      alert(error.error.message);
+    })
   }
 
   selectQues(a: KeyValueType) {

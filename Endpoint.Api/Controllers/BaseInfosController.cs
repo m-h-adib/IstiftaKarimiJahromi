@@ -43,6 +43,7 @@ public class BaseInfosController : ControllerBase
 	private readonly IGetOneProvinceService _getOneProvinceService;
 	private readonly IGetUsersByRolesService _getUsersByRolesService;
 	private readonly ISendMessageService _sendMessageService;
+	private readonly IFromToCycleService _fromToCycleService;
 	#endregion
 	#region ctors
 	public BaseInfosController(IGetLanguagesService getLanguagesService,
@@ -75,7 +76,8 @@ public class BaseInfosController : ControllerBase
 		IGetOneMethodOfRecieveQuestionService getOneMethodOfRecieveQuestionService,
 		IGetOneProvinceService getOneProvinceService,
 		IGetUsersByRolesService getUsersByRolesService,
-		ISendMessageService sendMessageService)
+		ISendMessageService sendMessageService,
+		IFromToCycleService fromToCycleService)
     {
         _getCountriesService = getCountriesService;
         _getJobCategoriesService = getJobCategoriesService;
@@ -108,6 +110,7 @@ public class BaseInfosController : ControllerBase
 		_getOneProvinceService = getOneProvinceService;
 		_getUsersByRolesService = getUsersByRolesService;
 		_sendMessageService=sendMessageService;
+		_fromToCycleService= fromToCycleService;
     }
     #endregion
 
@@ -245,6 +248,14 @@ public class BaseInfosController : ControllerBase
         var res = await _sendMessageService.ExecuteAsync(userId,message);
         return StatusCode(res.StatusCode, res);
     }
+
+    [HttpPost]
+    public async Task<IActionResult> FromToCycle([FromBody] FromToCycleDto dto)
+    {
+        var res = await _fromToCycleService.ExecuteAsync(dto);
+        return StatusCode(res.StatusCode, res);
+    }
+
 
 
     [HttpPut]

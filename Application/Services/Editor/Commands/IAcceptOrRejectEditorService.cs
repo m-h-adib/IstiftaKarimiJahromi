@@ -94,7 +94,11 @@ public class AcceptOrRejectEditorService : IAcceptOrRejectEditorService
 
             cycle.Question!.Step = Domain.Enums.QuestionStepType.Archive;
 
-            await _sendMessageService.ExecuteAsync(cycle.ToUserId!.Value, "با سلام" + Environment.NewLine + "ویراستار عزیز ویراستاری سوال شما با عنوان " + cycle.Question.Title + " تایید شد." + Environment.NewLine + "با تشکر از همکاری شما." + Environment.NewLine + "http://185.142.157.171:8082/");
+            try
+            {
+                await _sendMessageService.ExecuteAsync(cycle.ToUserId!.Value, "با سلام" + Environment.NewLine + "ویراستار عزیز ویراستاری سوال شما با عنوان " + cycle.Question.Title + " تایید شد." + Environment.NewLine + "با تشکر از همکاری شما." + Environment.NewLine + "http://185.142.157.171:8082/");
+            }
+            catch (Exception ex) { }
         }
         else
         {
@@ -112,8 +116,11 @@ public class AcceptOrRejectEditorService : IAcceptOrRejectEditorService
                    IsActive = true,
                    IsRemoved = false
                });
-
-            await _sendMessageService.ExecuteAsync(dto.ToUser!.Value, "با سلام" + Environment.NewLine + "ویراستار عزیز ویراستاری سوال شما با عنوان " + cycle.Question.Title + " مورد تایید قرار نگرفت و جهت بازبینی مجدد ارجاع داده شد." + Environment.NewLine + "با تشکر از همکاری شما." + Environment.NewLine + "http://185.142.157.171:8082/");
+            try
+            {
+                await _sendMessageService.ExecuteAsync(dto.ToUser!.Value, "با سلام" + Environment.NewLine + "ویراستار عزیز ویراستاری سوال شما با عنوان " + cycle.Question.Title + " مورد تایید قرار نگرفت و جهت بازبینی مجدد ارجاع داده شد." + Environment.NewLine + "با تشکر از همکاری شما." + Environment.NewLine + "http://185.142.157.171:8082/");
+            }
+            catch (Exception ex) { }
         }
 
         await _context.SaveChangesAsync();

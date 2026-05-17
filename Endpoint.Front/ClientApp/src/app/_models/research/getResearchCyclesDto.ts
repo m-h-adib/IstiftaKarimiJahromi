@@ -7,5 +7,9 @@ export interface GetResearchCyclesDto{
     duplicate?:string;
     isAccept?:boolean;
     hasProccess?:boolean;
-    name?:string;
+  name?: string;
+  answerText?: string;
+  reasonText?: string;
+  answerFile?: string;
+  reasonFile?: string;
 }

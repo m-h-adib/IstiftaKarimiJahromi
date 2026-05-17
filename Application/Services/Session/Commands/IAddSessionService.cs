@@ -69,7 +69,11 @@ public class AddSessionService: IAddSessionService
         {
             foreach (var item in res.Entity.SessionUsers!)
             {
-                await _sendMessageService.ExecuteAsync(item.UserId!.Value, "با سلام" + Environment.NewLine + "جلسه ای برای شما در تاریخ " + dto.Date + " و ساعت" + dto.Time + " با موضوع " + dto.Title + " برقرار شده است." + Environment.NewLine + "لطفا در زمان تایین شده در جلسه شرکت نمایید." + Environment.NewLine + "با تشکر از همکاری شما." + Environment.NewLine + "http://185.142.157.171:8082/");
+                try
+                {
+                    await _sendMessageService.ExecuteAsync(item.UserId!.Value, "با سلام" + Environment.NewLine + "جلسه ای برای شما در تاریخ " + dto.Date + " و ساعت" + dto.Time + " با موضوع " + dto.Title + " برقرار شده است." + Environment.NewLine + "لطفا در زمان تایین شده در جلسه شرکت نمایید." + Environment.NewLine + "با تشکر از همکاری شما." + Environment.NewLine + "http://185.142.157.171:8082/");
+                }
+                catch (Exception ex) { }
             }
         }
 

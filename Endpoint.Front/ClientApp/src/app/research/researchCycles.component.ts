@@ -19,6 +19,8 @@ import { AcceptOrRejectResearchDto } from '../_models/research/acceptOrRejectRes
 import { GetResearchCyclesService } from '../_services/research/getResearchCyclesService';
 import { AddResearchQuestionService } from '../_services/research/addResearchQuestionService';
 import { AcceptOrRejectResearchService } from '../_services/research/acceptOrRejectResearchService';
+import { FromToCycleService } from '../_services/common/fromToCycleService';
+import { FromToCycleDto } from '../_models/common/fromToCycleDto';
 
 @Component({
     templateUrl: './researchCycles.component.html',
@@ -29,9 +31,11 @@ export class ResearchCyclesComponent implements OnInit {
   
   rejectDialog?: boolean = false;
   referenceDialog?: boolean = false;
+  returnDialog?: boolean = false;
   access: string[] = [];
   refrenceUsers: KeyValueType[] = [];
   refrenceUsers1: KeyValueType[] = [];
+  returnUsers: KeyValueType[] = [];
     req: GetResearchCycleRequestDto = {};
   add: AddResearchQuestionDto = {
     description:"",
@@ -43,6 +47,7 @@ export class ResearchCyclesComponent implements OnInit {
   cycles?: GetResearchCyclesDto[] = [];
  
   acceptOrRejectResearch: AcceptOrRejectResearchDto = {};
+  fromToCycle: FromToCycleDto = {};
     
 
   constructor(private router: Router,
@@ -50,6 +55,7 @@ export class ResearchCyclesComponent implements OnInit {
     private _addResearchQuestionService: AddResearchQuestionService,
     private _acceptOrRejectResearchService: AcceptOrRejectResearchService,
     private _getUsersByRolesService: GetUsersByRolesService,
+    private _fromToCycleService: FromToCycleService,
         private route:ActivatedRoute) { }
   
     ngOnInit(): void {
@@ -62,7 +68,16 @@ export class ResearchCyclesComponent implements OnInit {
   
       this.getData();
     }
-  
+
+  copy(pDes: string, answerText: string, reasonText: string, answerFile: string, reasonFile: string) {
+    this.add.description = pDes;
+    this.add.answerText = answerText;
+    this.add.reasonText = reasonText;
+    this.add.answerFile1 = answerFile;
+    this.add.reasonFile1 = reasonFile;
+  }
+
+
   getData() {
 
     this._getUsersByRolesService.GetUsers([1, 2, 5]).subscribe(p => {
@@ -85,7 +100,13 @@ export class ResearchCyclesComponent implements OnInit {
       //   this.myTree = p.data;
       // })
     }
-  
+
+  getUsers(value: string) {
+    this._getUsersByRolesService.GetUsers([1, 2, Number.parseInt(value)]).subscribe(p => {
+      this.returnUsers = p.data;
+      console.log(this.refrenceUsers);
+    })
+  }
     
     getAccess(id: string): boolean {
       if (JSON.parse(localStorage.getItem("access")!).find((p: string) => p == id) != undefined)
@@ -105,6 +126,11 @@ export class ResearchCyclesComponent implements OnInit {
     this.referenceDialog = !this.referenceDialog;
     this.acceptOrRejectResearch.cycleId = id;
   }
+  showReturnDialog(id?: number) {
+    this.returnDialog = !this.returnDialog;
+    this.fromToCycle.cycleId = id;
+  }
+
   reject() {
     this.acceptOrRejectResearch.isAccept = false;
     
@@ -152,6 +178,16 @@ export class ResearchCyclesComponent implements OnInit {
         alert(Errors);
       })
     }
+  }
+
+  toCycle() {
+    this._fromToCycleService.FromToCycle(this.fromToCycle).subscribe(p => {
+      if (p.isSuccess) {
+        this.router.navigate(["/researchQuestions"]);
+      }
+    }, (error) => {
+      alert(error.error.message);
+    })
   }
 
   onFilechange(event: any) {

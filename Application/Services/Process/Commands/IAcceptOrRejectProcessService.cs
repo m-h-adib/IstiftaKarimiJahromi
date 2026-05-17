@@ -99,9 +99,13 @@ public class AcceptOrRejectProcessService : IAcceptOrRejectProcessService
 			if(proccess.DuplicateId!=null)
 				cycle.Question.DuplicateId = proccess.DuplicateId;
 
-            await _sendMessageService.ExecuteAsync(cycle.ToUserId!.Value, "با سلام" + Environment.NewLine + "پردازشگر عزیز پردازش سوال شما با عنوان "+cycle.Question.Title+" تایید شد." + Environment.NewLine + "با تشکر از همکاری شما." + Environment.NewLine + "http://185.142.157.171:8082/");
-            await _sendMessageService.ExecuteAsync(dto.ToUser!.Value, "با سلام" + Environment.NewLine + "محقق عزیز یک سوال جهت تحقیق به پنل شما اضافه گردید." + Environment.NewLine + "لطفا در اسرع وقت رسیدگی نمایید." + Environment.NewLine + "با تشکر از همکاری شما." + Environment.NewLine + "http://185.142.157.171:8082/");
 
+			try
+			{
+				await _sendMessageService.ExecuteAsync(cycle.ToUserId!.Value, "با سلام" + Environment.NewLine + "پردازشگر عزیز پردازش سوال شما با عنوان " + cycle.Question.Title + " تایید شد." + Environment.NewLine + "با تشکر از همکاری شما." + Environment.NewLine + "http://185.142.157.171:8082/");
+				await _sendMessageService.ExecuteAsync(dto.ToUser!.Value, "با سلام" + Environment.NewLine + "محقق عزیز یک سوال جهت تحقیق به پنل شما اضافه گردید." + Environment.NewLine + "لطفا در اسرع وقت رسیدگی نمایید." + Environment.NewLine + "با تشکر از همکاری شما." + Environment.NewLine + "http://185.142.157.171:8082/");
+			}
+			catch (Exception ex) { }
 
         }
         else
@@ -121,8 +125,11 @@ public class AcceptOrRejectProcessService : IAcceptOrRejectProcessService
 				   IsRemoved = false
 			   });
 
-            await _sendMessageService.ExecuteAsync(cycle.ToUserId!.Value, "با سلام" + Environment.NewLine + "پردازشگر عزیز پردازش سوال شما با عنوان " + cycle.Question.Title + " مورد تایید قرار نگرفت و جهت بازبینی مجدد ارجاع یافت." + Environment.NewLine + "با تشکر از همکاری شما." + Environment.NewLine + "http://185.142.157.171:8082/");
-
+			try
+			{
+				await _sendMessageService.ExecuteAsync(cycle.ToUserId!.Value, "با سلام" + Environment.NewLine + "پردازشگر عزیز پردازش سوال شما با عنوان " + cycle.Question.Title + " مورد تایید قرار نگرفت و جهت بازبینی مجدد ارجاع یافت." + Environment.NewLine + "با تشکر از همکاری شما." + Environment.NewLine + "http://185.142.157.171:8082/");
+			}
+			catch (Exception ex) { }
         }
 
         await _context.SaveChangesAsync();

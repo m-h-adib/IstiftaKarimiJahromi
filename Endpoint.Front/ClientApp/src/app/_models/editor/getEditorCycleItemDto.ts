@@ -3,5 +3,6 @@ export interface GetEditorCycleItemDto{
     reasonText?:string;
     isAccept?:boolean;
     description?:string;
-    language?:string;
+  language?: string;
+  languageId?: number;
 }

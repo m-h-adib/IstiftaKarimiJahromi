@@ -11,7 +11,7 @@
             <QuestionPopupComponent *swalPortal="undefined" [questionId]="req.questionId!"></QuestionPopupComponent>
           </swal>
 
-          <a [swal]="aa"   class="btn btn-warning m-1 float-end">مشاهده سوال</a>
+          <a [swal]="aa" class="btn btn-warning m-1 float-end">مشاهده سوال</a>
         </div>
       </div>
       <div class="card-body">
@@ -27,7 +27,7 @@
             <textarea type="text" class="form-control" [(ngModel)]="add.description" name="add.description" rows="8" cols="100" placeholder="توضیحات"></textarea>
           </div>
           <div class="col-12">
-            <button type="submit" class="btn btn-primary m-1" *ngIf="getAccess('AddProcessQuestion')"  (click)="Save()">ثبت</button>
+            <button type="submit" class="btn btn-primary m-1" *ngIf="getAccess('AddProcessQuestion')" (click)="Save()">ثبت</button>
           </div>
         </form>
       </div>
@@ -75,7 +75,7 @@
                 </td>
               </tr>
             </thead>
-            <tbody *ngIf="getAccess('AddProcessQuestion')" >
+            <tbody *ngIf="getAccess('AddProcessQuestion')">
               <tr *ngFor="let item of cycles">
                 <td>
                   {{item.name}}
@@ -94,7 +94,11 @@
                 </td>
                 <td>
                   <a class="btn btn-danger m-1" *ngIf="item.isAccept==null && getAccess('AcceptProcessQuestion')" (click)="showRejectDialog(item.id)">رد</a>
+                  <br />
                   <a class="btn btn-primary m-1" *ngIf="item.isAccept==null && getAccess('AcceptProcessQuestion')" (click)="showReferenceDialog(item.id)">ارجاع به محقق</a>
+                  <br />
+                  <a class="btn btn-warning m-1" *ngIf="item.isAccept==null && getAccess('FromToCycle')" (click)="showReturnDialog(item.id)">بازگشت سوال</a>
+                  <a class="btn btn-primary m-1" *ngIf="item.isAccept!=null" (click)="copy(item.pDescription!,item.duplicateId!,item.duplicate!)">کپی</a>
                 </td>
               </tr>
             </tbody>
@@ -144,7 +148,7 @@
           <div class="col-md-12">
             <label for="inputEmail4" class="form-label">پردازشگر</label>
             <select class="form-select" [(ngModel)]="acceptOrRejectProcess.toUser" name="acceptOrRejectProcess.toUser">
-              <option *ngFor="let a of refrenceUsers" value="{{a.key}}">
+              <option *ngFor="let a of refrenceUsers" [ngValue]="a.key">
                 {{a.value}}
               </option>
             </select>
@@ -176,7 +180,8 @@
           <div class="col-md-12">
             <label for="inputEmail4" class="form-label">محقق</label>
             <select class="form-select" [(ngModel)]="acceptOrRejectProcess.toUser" name="acceptOrRejectProcess.toUser">
-              <option *ngFor="let a of refrenceUsers1" value="{{a.key}}">
+              <option *ngFor="let a of refrenceUsers1"
+                      [ngValue]="a.key">
                 {{a.value}}
               </option>
             </select>
@@ -191,4 +196,45 @@
   </div>
 </div>
 <div *ngIf="referenceDialog==true" class="modal-backdrop fade show"></div>
+
+
+<div class="modal fade" [class.show]="returnDialog==true" id="exampleModalLive" aria-labelledby="exampleModalLiveLabel" aria-hidden="true" tabindex="-1" [style.display]="returnDialog==true ? 'block' : null" style="padding-left: 0px;">
+  <div class="modal-dialog model-sm">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h1 class="modal-title fs-5" id="exampleModalLiveLabel">بازگشت به مرحله!</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="showReturnDialog()"></button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3">
+          <div class="col-md-12">
+            <label for="inputEmail4" class="form-label">توضیحات</label>
+            <textarea class="form-control" [(ngModel)]="fromToCycle.description" name="fromToCycle.description" placeholder="توضیحات" rows="8" cols="100"></textarea>
+          </div>
+          <div class="col-md-12">
+            <label for="inputEmail4" class="form-label">مرحله</label>
+            <select class="form-select" #tostep [(ngModel)]="fromToCycle.toStep" name="fromToCycle.toStep" (change)="getUsers(tostep.value)">
+              <option value="1">
+                ثبت سوال
+              </option>
+            </select>
+          </div>
+          <div class="col-md-12">
+            <label for="inputEmail4" class="form-label">کاربر</label>
+            <select class="form-select" [(ngModel)]="fromToCycle.toUser" name="fromToCycle.toUser">
+              <option *ngFor="let a of returnUsers" [ngValue]="a.key">
+                {{a.value}}
+              </option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="showReturnDialog()">انصراف</button>
+        <button type="button" class="btn btn-primary" (click)="toCycle()">ثبت</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="returnDialog==true" class="modal-backdrop fade show"></div>
 

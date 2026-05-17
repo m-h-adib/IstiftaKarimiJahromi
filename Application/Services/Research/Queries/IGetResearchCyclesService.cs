@@ -59,7 +59,11 @@ public class GetResearchCyclesService: IGetResearchCyclesService
                 QDesctiption = p.Description,
                 PDescription = p.Research != null ? p.Research.Description : null,
                 HasProccess = p.Research != null ? true : false,
-                Name=p.ToUserId!=null ? p.ToUser!.Name : ""
+                Name=p.ToUserId!=null ? p.ToUser!.Name : "",
+                AnswerText=p.Research!=null ? p.Research.AnswerText : null,
+                ReasonText=p.Research!=null ? p.Research.ReasonText : null,
+                AnswerFile=p.Research!=null && p.Research.AnswerFile!=null ? p.Research.AnswerFile : null,
+                ReasonFile = p.Research != null && p.Research.ReasonFile != null ? p.Research.ReasonFile : null
             }).ToListAsync();
 
         return ResultDto<List<GetResearchCycleDto>>.Succeeded("ok", res);
@@ -81,5 +85,9 @@ public class GetResearchCycleDto
     public bool? IsAccept { get; set; }
     public bool HasProccess { get; set; }
     public string? Name { get; set; }
+    public string? AnswerText { get; set; }
+    public string? ReasonText { get; set; }
+    public string? AnswerFile { get; set; }
+    public string? ReasonFile { get; set; }
 }
 #endregion

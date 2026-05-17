@@ -40,6 +40,7 @@
     <None Remove="ClientApp\src\app\questions\editQuestion.component.ts" />
     <None Remove="ClientApp\src\app\questions\questions.component.ts" />
     <None Remove="ClientApp\src\app\reports\reports.component.ts" />
+    <None Remove="ClientApp\src\app\_models\common\fromToCycleDto.ts" />
     <None Remove="ClientApp\src\app\_models\common\keyValueType.ts" />
     <None Remove="ClientApp\src\app\_models\methodRecieveQuestion\AddMethodOfRecieveQuestionDto.ts" />
     <None Remove="ClientApp\src\app\_models\methodRecieveQuestion\GetMethodOfRecieveQuestionDto.ts" />
@@ -72,6 +73,7 @@
     <None Remove="ClientApp\src\app\_models\report\GetUserQueryResponseDto.ts" />
     <None Remove="ClientApp\src\app\_models\research\acceptOrRejectResearchDto.ts" />
     <None Remove="ClientApp\src\app\_services\archive\deleteArchiveQuestionService.ts" />
+    <None Remove="ClientApp\src\app\_services\common\fromToCycleService.ts" />
     <None Remove="ClientApp\src\app\_services\methodOfRecieveQuestion\addMethodOfRecieveQuestionService.ts" />
     <None Remove="ClientApp\src\app\_services\methodOfRecieveQuestion\deleteMethodOfRecieveQuestionService.ts" />
     <None Remove="ClientApp\src\app\_services\language\addLanguageService.ts" />
@@ -137,6 +139,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\questions\addQuestion.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\questions\questions.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\reports\reports.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\_models\common\fromToCycleDto.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_models\common\keyValueType.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_models\methodRecieveQuestion\AddMethodOfRecieveQuestionDto.ts">
       <SubType>Code</SubType>
@@ -197,6 +200,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\_services\archive\deleteArchiveQuestionService.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\_services\common\fromToCycleService.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\_services\methodOfRecieveQuestion\addMethodOfRecieveQuestionService.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

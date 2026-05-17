@@ -69,6 +69,7 @@ public class GetEditorCyclesService : IGetEditorCyclesService
                     Description = u.Description,
                     IsAccept=u.IsAccept,
                     Language=u.Language!.Title,
+                    LanguageId=u.LanguageId,
                     ReasonText=u.ReasonText,
 					Name = p.FromUserId != null ? p.FromUser!.Name : ""
 				}).ToList() : null
@@ -100,6 +101,7 @@ public class GetEditorCycleItemDto
 	public bool? IsAccept { get; set; }
 	public string? Description { get; set; }
     public string? Language { get; set; }
+    public long? LanguageId { get; set; }
     public string? Name { get; set; }
 }
 #endregion

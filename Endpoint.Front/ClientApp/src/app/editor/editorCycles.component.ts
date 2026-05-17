@@ -28,6 +28,8 @@ import { AddEditorQuestionService } from '../_services/editor/addResearchQuestio
 import { AcceptOrRejectEditorService } from '../_services/editor/acceptOrRejectResearchService';
 import { GetLanguageDto } from '../_models/language/GetLanguageDto';
 import { GetLanguagesService } from '../_services/language/getLanguagesService';
+import { FromToCycleDto } from '../_models/common/fromToCycleDto';
+import { FromToCycleService } from '../_services/common/fromToCycleService';
 
 @Component({
     templateUrl: './editorCycles.component.html',
@@ -38,16 +40,21 @@ export class EditorCyclesComponent implements OnInit {
   
   rejectDialog?: boolean = false;
   referenceDialog?: boolean = false;
+  returnDialog?: boolean = false;
+
   access: string[] = [];
   langs:GetLanguageDto[]=[];
   refrenceUsers: KeyValueType[] = [];
   refrenceUsers1: KeyValueType[] = [];
+  returnUsers: KeyValueType[] = [];
+
     req: GetEditorCycleRequestDto = {};
   add: AddEditorQuestionDto = {
   };
   cycles?: GetEditorCycleDto[] = [];
  
   acceptOrRejectEditor: AcceptOrRejectEditorDto = {};
+  fromToCycle: FromToCycleDto = {};
     
 
   constructor(private router: Router,
@@ -55,7 +62,8 @@ export class EditorCyclesComponent implements OnInit {
     private _addEditorQuestionService: AddEditorQuestionService,
     private _acceptOrRejectEditorService: AcceptOrRejectEditorService,
     private _getUsersByRolesService: GetUsersByRolesService,
-    private _getLanguagesService:GetLanguagesService,
+    private _getLanguagesService: GetLanguagesService,
+    private _fromToCycleService: FromToCycleService,
         private route:ActivatedRoute) { }
   
     ngOnInit(): void {
@@ -67,7 +75,15 @@ export class EditorCyclesComponent implements OnInit {
       this.access = JSON.parse(localStorage.getItem("access")!);
   
       this.getData();
-    }
+  }
+
+  copy(pDes: string, languageId: number, answerText: string, reasonText: string) {
+    this.add.description = pDes;
+
+    this.add.reasonText = reasonText;
+    this.add.answerText = answerText;
+    this.add.languageId = languageId;
+  }
   
   getData() {
 
@@ -94,7 +110,14 @@ export class EditorCyclesComponent implements OnInit {
       //   this.myTree = p.data;
       // })
     }
-  
+
+  getUsers(value: string) {
+    this._getUsersByRolesService.GetUsers([1, 2, Number.parseInt(value)]).subscribe(p => {
+      this.returnUsers = p.data;
+      console.log(this.refrenceUsers);
+    })
+  }
+
     
     getAccess(id: string): boolean {
       if (JSON.parse(localStorage.getItem("access")!).find((p: string) => p == id) != undefined)
@@ -114,6 +137,11 @@ export class EditorCyclesComponent implements OnInit {
     this.referenceDialog = !this.referenceDialog;
     this.acceptOrRejectEditor.cycleId = id;
   }
+  showReturnDialog(id?: number) {
+    this.returnDialog = !this.returnDialog;
+    this.fromToCycle.cycleId = id;
+  }
+
   reject() {
     this.acceptOrRejectEditor.isAccept = false;
     
@@ -166,6 +194,17 @@ export class EditorCyclesComponent implements OnInit {
       })
     }
   }
+
+  toCycle() {
+    this._fromToCycleService.FromToCycle(this.fromToCycle).subscribe(p => {
+      if (p.isSuccess) {
+        this.router.navigate(["/editors"]);
+      }
+    }, (error) => {
+      alert(error.error.message);
+    })
+  }
+
 
   
 

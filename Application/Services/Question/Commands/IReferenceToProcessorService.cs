@@ -49,7 +49,7 @@ public class ReferenceToProcessorService : IReferenceToProcessorService
 			return ResultDto.Failed("سوالی یافت نشد", 404);
 
 		var cycle = await _context.QuestionCycles
-			.Where(p => p.QuestionId == dto.QuestionId && p.IsAccept == null)
+			.Where(p => p.QuestionId == dto.QuestionId && p.IsAccept == null && p.ToStep== Domain.Enums.QuestionStepType.Add)
 			.FirstOrDefaultAsync();
 
 		if (cycle == null)
@@ -78,7 +78,11 @@ public class ReferenceToProcessorService : IReferenceToProcessorService
 
 		await _context.SaveChangesAsync();
 
-		await _sendMessageService.ExecuteAsync(dto.ToUser!.Value, "با سلام"+Environment.NewLine+"پردازشگر عزیز یک سوال جهت پردازش به پنل شما اضافه گردید."+Environment.NewLine+"لطفا در اسرع وقت رسیدگی نمایید."+Environment.NewLine+"با تشکر از همکاری شما."+Environment.NewLine+ "http://185.142.157.171:8082/");
+		try
+		{
+			await _sendMessageService.ExecuteAsync(dto.ToUser!.Value, "با سلام" + Environment.NewLine + "پردازشگر عزیز یک سوال جهت پردازش به پنل شما اضافه گردید." + Environment.NewLine + "لطفا در اسرع وقت رسیدگی نمایید." + Environment.NewLine + "با تشکر از همکاری شما." + Environment.NewLine + "http://185.142.157.171:8082/");
+		}
+		catch (Exception ex) { }
 
 		return ResultDto.Succeeded("ارجاع به پردازشگر سوال انجام شد");
 	}

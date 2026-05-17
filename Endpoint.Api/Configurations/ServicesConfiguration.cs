@@ -172,6 +172,7 @@ namespace EndPoint.Api.Configurations
 			services.AddScoped<IGetOneProvinceService, GetOneProvinceService>();
 			services.AddScoped<IGetUsersByRolesService,GetUsersByRolesService>();
 			services.AddScoped<ISendMessageService, SendMessageService>();
+			services.AddScoped<IFromToCycleService, FromToCycleService>();
 			#endregion
 
 			#region authentications
