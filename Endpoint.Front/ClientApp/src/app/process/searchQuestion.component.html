@@ -68,6 +68,9 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="showCatDialog()"></button>
         </div>
         <div class="modal-body">
+          <input type="text"
+                 (input)="onSearchChange($event)"
+                 placeholder="جستجو..." />
           <question-view [tree]="myTree" [showEditDelete]="false" (newItemEvent)="selectCat($event)"></question-view>
         </div>
         <div class="modal-footer">

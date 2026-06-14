@@ -43,6 +43,7 @@ export class ArchivesComponent implements OnInit{
     stepDialog:boolean=false;
     resultDialog:boolean=false;
     myTree: GetQuestionCategoryDto[] = [];
+    myFilterTree: GetQuestionCategoryDto[] = [];
     catId?: number;
     dateValue = new FormControl();
     dateValue2 = new FormControl();
@@ -116,14 +117,21 @@ export class ArchivesComponent implements OnInit{
       return false;
   }
 
+  onSearchChange(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    console.log(value);
+    this.myFilterTree = this.searchTree(this.myTree, value);
+  }
+
   ngOnInit(): void {
     this.access = JSON.parse(localStorage.getItem("access")!);
 
         this._GetQuestionCategoriesService.GetQuestionCategories().subscribe(p => {
-            this.myTree = p.data;
+          this.myTree = p.data;
+          this.myFilterTree = p.data;
+        })
 
-          })
-
+  
        this.getData();
           this._GetCountriesService.GetUsers().subscribe(p=>{
             this.Countries=p.data;
@@ -234,5 +242,49 @@ export class ArchivesComponent implements OnInit{
     else{
       this.resultDialog=!this.resultDialog;
     }
+  }
+
+
+  searchTree(
+    tree: GetQuestionCategoryDto[],
+    search: string
+  ): GetQuestionCategoryDto[] {
+
+    const term = search.trim().toLowerCase();
+
+    // اگر سرچ خالی بود همون کل درخت رو بده
+    if (!term) return tree;
+
+    const filterNode = (
+      node: GetQuestionCategoryDto
+    ): GetQuestionCategoryDto | null => {
+
+      const title = node.title?.toLowerCase() ?? "";
+
+      const selfMatch = title.includes(term);
+
+      const filteredChildren =
+        (node.childs ?? [])
+          .map(child => filterNode(child))
+          .filter((x): x is GetQuestionCategoryDto => x !== null);
+
+      const hasChildMatch = filteredChildren.length > 0;
+
+      // اگر خود node یا بچه‌ها match داشت
+      if (selfMatch || hasChildMatch) {
+        return {
+          ...node,
+          // فقط اگر بچه دارد expand کن
+          expand: hasChildMatch,
+          childs: filteredChildren
+        };
+      }
+
+      return null;
+    };
+
+    return tree
+      .map(node => filterNode(node))
+      .filter((x): x is GetQuestionCategoryDto => x !== null);
   }
 }

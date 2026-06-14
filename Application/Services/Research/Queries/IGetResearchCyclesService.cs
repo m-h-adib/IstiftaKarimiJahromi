@@ -63,7 +63,8 @@ public class GetResearchCyclesService: IGetResearchCyclesService
                 AnswerText=p.Research!=null ? p.Research.AnswerText : null,
                 ReasonText=p.Research!=null ? p.Research.ReasonText : null,
                 AnswerFile=p.Research!=null && p.Research.AnswerFile!=null ? p.Research.AnswerFile : null,
-                ReasonFile = p.Research != null && p.Research.ReasonFile != null ? p.Research.ReasonFile : null
+                ReasonFile = p.Research != null && p.Research.ReasonFile != null ? p.Research.ReasonFile : null,
+                HasSession=p.Research.Sessions.Any()
             }).ToListAsync();
 
         return ResultDto<List<GetResearchCycleDto>>.Succeeded("ok", res);
@@ -89,5 +90,6 @@ public class GetResearchCycleDto
     public string? ReasonText { get; set; }
     public string? AnswerFile { get; set; }
     public string? ReasonFile { get; set; }
+	public bool? HasSession { get; set; }
 }
 #endregion

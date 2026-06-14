@@ -70,7 +70,11 @@ public class SearchQuestionService : ISearchQuestionService
 		}
 
 		if (dto.Category != null)
-			items = items.Where(p => p.QuestionCategoryId == dto.Category);
+		{
+			var categoryIds = await GetDescendantIds(dto.Category.Value);
+
+			items = items.Where(p => categoryIds.Contains(p.QuestionCategoryId.Value));
+		}
 
 		var res = await items
 			.Select(p => new SearchQuestionDto
@@ -85,6 +89,30 @@ public class SearchQuestionService : ISearchQuestionService
 
 		return ResultDto<List<SearchQuestionDto>>.Succeeded("ok", res);
 
+	}
+
+	private async Task<List<long>> GetDescendantIds(long categoryId)
+	{
+		var categories = await _context.QuestionCategories.ToListAsync();
+
+		var result = new List<long> { categoryId };
+
+		void AddChildren(long parentId)
+		{
+			var children = categories
+				.Where(x => x.ParentId == parentId)
+				.Select(x => x.Id);
+
+			foreach (var child in children)
+			{
+				result.Add(child);
+				AddChildren(child);
+			}
+		}
+
+		AddChildren(categoryId);
+
+		return result;
 	}
 }
 

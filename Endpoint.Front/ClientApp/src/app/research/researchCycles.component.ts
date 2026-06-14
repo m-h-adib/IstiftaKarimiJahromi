@@ -45,6 +45,7 @@ export class ResearchCyclesComponent implements OnInit {
     reasonFile:[]
   };
   cycles?: GetResearchCyclesDto[] = [];
+  hasSession?: boolean = false;
  
   acceptOrRejectResearch: AcceptOrRejectResearchDto = {};
   fromToCycle: FromToCycleDto = {};
@@ -122,9 +123,15 @@ export class ResearchCyclesComponent implements OnInit {
     this.rejectDialog = !this.rejectDialog;
     this.acceptOrRejectResearch.cycleId = id;
   }
-  showReferenceDialog(id?:number) {
+  showReferenceDialog(id?: number, hasSession?: boolean) {
+    if (!this.referenceDialog)
+      this.hasSession = false;
+    else
+      this.hasSession = hasSession;
+
     this.referenceDialog = !this.referenceDialog;
     this.acceptOrRejectResearch.cycleId = id;
+    
   }
   showReturnDialog(id?: number) {
     this.returnDialog = !this.returnDialog;
@@ -151,6 +158,7 @@ export class ResearchCyclesComponent implements OnInit {
       }
     }, (error) => {
       alert(error.error.message);
+      this.hasSession = false;
     })
   }
 

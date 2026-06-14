@@ -6,5 +6,5 @@ export interface GetSessionDto{
   question?: string;
   questionId?: number;
     users?:string[];
-    description?:string;
+  description?:string;
 }

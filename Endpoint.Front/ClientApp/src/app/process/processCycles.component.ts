@@ -48,7 +48,8 @@ import { FromToCycleService } from '../_services/common/fromToCycleService';
     private _fromToCycleService: FromToCycleService,
     private router: Router,
         private route:ActivatedRoute) { }
-  
+
+
     ngOnInit(): void {
       this.access = JSON.parse(localStorage.getItem("access")!);
 

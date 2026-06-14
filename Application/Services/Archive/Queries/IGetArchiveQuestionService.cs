@@ -95,7 +95,10 @@ public class GetArchiveQuestionService: IGetArchiveQuestionService
 			items = items.Where(p => p.QuestionDate <= request.ToDate.ToMiladi());
 
         if (request.QuestionCategoryId != null)
-            items = items.Where(p => p.QuestionCategoryId == request.QuestionCategoryId);
+        {
+			var categoryIds = await GetDescendantIds(request.QuestionCategoryId.Value);
+			items = items.Where(p => categoryIds.Contains(p.QuestionCategoryId.Value));
+        }
 
         if (request.JobCategoryId != request.JobCategoryId)
             items = items.Where(p => p.JobCategoryId == request.JobCategoryId);
@@ -137,7 +140,31 @@ public class GetArchiveQuestionService: IGetArchiveQuestionService
         };
 
         return ResultDto<ResultOfList<GetArchiveQuestionDto>>.Succeeded("ok", result);
-	}    
+	}
+
+	private async Task<List<long>> GetDescendantIds(long categoryId)
+	{
+		var categories = await _context.QuestionCategories.ToListAsync();
+
+		var result = new List<long> { categoryId };
+
+		void AddChildren(long parentId)
+		{
+			var children = categories
+				.Where(x => x.ParentId == parentId)
+				.Select(x => x.Id);
+
+			foreach (var child in children)
+			{
+				result.Add(child);
+				AddChildren(child);
+			}
+		}
+
+		AddChildren(categoryId);
+
+		return result;
+	}
 }
 
 #region dtos

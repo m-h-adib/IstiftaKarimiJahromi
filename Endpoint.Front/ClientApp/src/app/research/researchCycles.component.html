@@ -24,7 +24,7 @@
 
           <div class="col-md-12">
             <label for="inputEmail4" class="form-label" *ngIf="add.answerFile1==null">فایل پاسخ سوال</label>
-            <label for="inputEmail4" class="form-label" *ngIf="add.answerFile1!=null">فایل پاسخ سوال (<a target="_blank" href="http://212.80.18.168:8082/{{add.answerFile1}}">دریافت فایل</a>)</label>
+            <label for="inputEmail4" class="form-label" *ngIf="add.answerFile1!=null">فایل پاسخ سوال (<a target="_blank" href="http://212.80.18.168:8081/{{add.answerFile1}}">دریافت فایل</a>)</label>
             <input type="file" multiple (change)="onFilechange($event)" class="form-control" placeholder="فایل پاسخ سوال" />
           </div>
 
@@ -37,7 +37,7 @@
 
           <div class="col-md-12">
             <label for="inputEmail4" class="form-label" *ngIf="add.reasonFile1==null">فایل دلیل سوال</label>
-            <label for="inputEmail4" class="form-label" *ngIf="add.reasonFile1!=null">فایل دلیل سوال (<a target="_blank" href="http://212.80.18.168:8082/{{add.reasonFile1}}">دریافت فایل</a>)</label>
+            <label for="inputEmail4" class="form-label" *ngIf="add.reasonFile1!=null">فایل دلیل سوال (<a target="_blank" href="http://212.80.18.168:8081/{{add.reasonFile1}}">دریافت فایل</a>)</label>
             <input type="file" multiple (change)="onFilechange1($event)" class="form-control" placeholder="فایل دلیل سوال" />
           </div>
 
@@ -192,7 +192,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="showReferenceDialog()">انصراف</button>
-        <button type="button" class="btn btn-primary" (click)="reference()">ثبت</button>
+        <button type="button" class="btn btn-primary" *ngIf="hasSession==true" (click)="reference()">ثبت</button>
+        <button type="button" class="btn btn-primary" *ngIf="hasSession==false" onclick="return confirm('شما جلسه مشورتی ایجاد نکرده اید. ادامه می دهید؟');" (click)="reference()">ثبت</button>
       </div>
     </div>
   </div>
