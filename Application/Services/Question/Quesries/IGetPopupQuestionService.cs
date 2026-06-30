@@ -46,11 +46,15 @@ public class GetPopupQuestionService: IGetPopupQuestionService
                 p.QuestionCycles.Where(u => u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research).Select(u=>u.Research).OrderBy(u=>u.Id).LastOrDefault().AnswerText : "",
                 AnswerFile = p.QuestionCycles.Any(u => u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research) ?
                 p.QuestionCycles.Where(u => u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research).Select(u => u.Research).OrderBy(u => u.Id).LastOrDefault().AnswerFile : "",
-                Reason = p.QuestionCycles.Any(u => u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research) ?
+				AnswerFile2 = p.QuestionCycles.Any(u => u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research) ?
+				p.QuestionCycles.Where(u => u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research).Select(u => u.Research).OrderBy(u => u.Id).LastOrDefault().AnswerFile2 : "",
+				Reason = p.QuestionCycles.Any(u => u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research) ?
                 p.QuestionCycles.Where(u => u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research).Select(u => u.Research).OrderBy(u => u.Id).LastOrDefault().ReasonText : "",
                 ReasonFile = p.QuestionCycles.Any(u => u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research) ?
-                p.QuestionCycles.Where(u => u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research).Select(u => u.Research).OrderBy(u => u.Id).LastOrDefault().ReasonFile : ""
-            })
+                p.QuestionCycles.Where(u => u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research).Select(u => u.Research).OrderBy(u => u.Id).LastOrDefault().ReasonFile : "",
+				ReasonFile2 = p.QuestionCycles.Any(u => u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research) ?
+				p.QuestionCycles.Where(u => u.Research != null && u.ToStep == Domain.Enums.QuestionStepType.Research).Select(u => u.Research).OrderBy(u => u.Id).LastOrDefault().ReasonFile2 : ""
+			})
             .FirstOrDefaultAsync();
 
         if (question == null)
@@ -71,8 +75,10 @@ public class GetPopupQuestionDto
     public string? QuestionFile { get; set; }
     public string? Answer { get; set; }
     public string? AnswerFile { get; set; }
-    public string? Reason { get; set; }
+	public string? AnswerFile2 { get; set; }
+	public string? Reason { get; set; }
     public string? ReasonFile { get; set; }
-    public List<string>? Attach { get; set; }
+	public string? ReasonFile2 { get; set; }
+	public List<string>? Attach { get; set; }
 }
 #endregion

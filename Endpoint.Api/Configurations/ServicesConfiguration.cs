@@ -233,6 +233,7 @@ namespace EndPoint.Api.Configurations
 			services.AddScoped<IGetQuestionStepsService,GetQuestionStepsService>();
 			services.AddScoped<IGetQuestionResultService, GetQuestionResultService>();
 			services.AddScoped<IDeleteArchiveQuestionService, DeleteArchiveQuestionService>();
+			services.AddScoped<ISendAnswerDateService,SendAnswerDateService>();
 			#endregion
 
 			#region sessions

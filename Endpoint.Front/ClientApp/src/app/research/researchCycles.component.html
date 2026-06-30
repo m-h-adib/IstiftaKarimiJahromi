@@ -28,7 +28,11 @@
             <input type="file" multiple (change)="onFilechange($event)" class="form-control" placeholder="فایل پاسخ سوال" />
           </div>
 
-
+          <div class="col-md-12">
+            <label for="inputEmail4" class="form-label" *ngIf="add.answerFile1==null">فایل 2 پاسخ سوال</label>
+            <label for="inputEmail4" class="form-label" *ngIf="add.answerFile1!=null">فایل 2 پاسخ سوال (<a target="_blank" href="http://212.80.18.168:8081/{{add.answerFile21}}">دریافت فایل</a>)</label>
+            <input type="file" multiple (change)="onFilechange2($event)" class="form-control" placeholder="فایل 2 پاسخ سوال" />
+          </div>
 
           <div class="col-md-12">
             <label for="inputEmail4" class="form-label">دلیل سوال</label>
@@ -39,6 +43,12 @@
             <label for="inputEmail4" class="form-label" *ngIf="add.reasonFile1==null">فایل دلیل سوال</label>
             <label for="inputEmail4" class="form-label" *ngIf="add.reasonFile1!=null">فایل دلیل سوال (<a target="_blank" href="http://212.80.18.168:8081/{{add.reasonFile1}}">دریافت فایل</a>)</label>
             <input type="file" multiple (change)="onFilechange1($event)" class="form-control" placeholder="فایل دلیل سوال" />
+          </div>
+
+          <div class="col-md-12">
+            <label for="inputEmail4" class="form-label" *ngIf="add.reasonFile1==null">فایل 2 دلیل سوال</label>
+            <label for="inputEmail4" class="form-label" *ngIf="add.reasonFile1!=null">فایل 2 دلیل سوال (<a target="_blank" href="http://212.80.18.168:8081/{{add.reasonFile21}}">دریافت فایل</a>)</label>
+            <input type="file" multiple (change)="onFilechange21($event)" class="form-control" placeholder="فایل 2 دلیل سوال" />
           </div>
 
           <div class="col-md-12">
@@ -119,7 +129,7 @@
                   <br />
                   <a class="btn btn-info m-1" *ngIf="item.researchId!=null && item.isAccept==null && getAccess('AddSession')" [routerLink]="['/addsession',item.researchId,req.questionId]">ایجاد جلسه</a>
                   <a class="btn btn-warning m-1" *ngIf="item.isAccept==null && getAccess('FromToCycle')" (click)="showReturnDialog(item.id)">بازگشت سوال</a>
-                  <a class="btn btn-primary m-1" *ngIf="item.isAccept!=null" (click)="copy(item.pDescription!,item.answerText!,item.reasonText!,item.answerFile!,item.reasonFile!)">کپی</a>
+                  <a class="btn btn-primary m-1" *ngIf="item.isAccept!=null" (click)="copy(item.pDescription!,item.answerText!,item.reasonText!,item.answerFile!,item.reasonFile!,item.answerFile2!,item.reasonFile2!)">کپی</a>
                 </td>
               </tr>
             </tbody>

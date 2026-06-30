@@ -24,10 +24,11 @@ import { DeleteArchiveQuestionService } from '../_services/archive/deleteArchive
     selector: 'AdminsComponent'
 })
 export class ArchivesComponent implements OnInit{
-   
+  countItem: number = 0;
     Filter: GetArchiveQuestionRequestDto = {
         PageNumber:1,
-        PageSize:15,
+        PageSize: 15,
+        Id:"",
         Title:"",
         City:"",
         FirstName:"",
@@ -67,7 +68,7 @@ export class ArchivesComponent implements OnInit{
       name:"",
       province:"",
       questionCategory:"",
-      questionDate:"",
+      questionDate: "",
       id:1
     };
     Steps:GetArchiveStepDto[]=[];
@@ -148,7 +149,8 @@ export class ArchivesComponent implements OnInit{
 
     getData() {
       this._GetArchivesService.GetArchives(this.Filter!).subscribe(p=>{
-        this.Questions=p.data.items;
+        this.Questions = p.data.items;
+        this.countItem = p.data.paging.totalItems;
         this.pageCount = Math.floor((p.data.paging.totalItems % this.Filter.PageSize!) == 0 ? (p.data.paging.totalItems / this.Filter.PageSize!) : (p.data.paging.totalItems / this.Filter.PageSize!) + 1)
     })
     }

@@ -1,6 +1,7 @@
 
 
 export interface GetArchiveQuestionRequestDto{
+    
     PageNumber:number;
     PageSize:number;
     Title?:string;
@@ -18,5 +19,6 @@ export interface GetArchiveQuestionRequestDto{
     JobCategoryId?:number;
     Mobile?:string;
     MethodOfReceiveQuestionId?:number;
-    QuestionCategoryId?:number;
+  QuestionCategoryId?: number;
+  Id?: string;
 }

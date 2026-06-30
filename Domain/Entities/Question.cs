@@ -25,6 +25,7 @@ public class Question:BaseEntity<long>
     public string? QuestionText { get; set; }
     public Guid? QuestionCode { get; set; }
     public QuestionStepType? Step { get; set; }
+	public DateTime? SendAnswerDate { get; set; }
 
 
 

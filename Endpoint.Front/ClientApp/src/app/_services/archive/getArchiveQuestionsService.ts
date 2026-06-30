@@ -40,7 +40,8 @@ export class GetArchiveQuestionService {
       "&Mobile="+dto?.Mobile+
       "&ProvinceId="+dto?.ProvinceId+
       "&QuestionCategoryId="+dto?.QuestionCategoryId+
-      "&Title="+dto?.Title+
+      "&Title=" + dto?.Title +
+      "&Id=" + dto?.Id+
       "&ToAge="+dto?.ToAge+
       "&ToDate="+dto?.ToDate , { headers: this.header }).pipe(
       map(p => {

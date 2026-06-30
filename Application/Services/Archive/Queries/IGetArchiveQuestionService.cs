@@ -1,6 +1,8 @@
 ﻿using Application.Common;
 using Application.Interfaces.Contexts;
+using Application.Services.Authentication.Methods;
 using Domain.Enums;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,20 +20,31 @@ public class GetArchiveQuestionService: IGetArchiveQuestionService
 {
 	#region members
 	private readonly IDatabaseContext _context;
-    #endregion
-    #region ctors
-    public GetArchiveQuestionService(IDatabaseContext context)
+	private readonly ITokenContents _tokenContents;
+	private readonly IHttpContextAccessor _httpContextAccessor;
+	#endregion
+	#region ctors
+	public GetArchiveQuestionService(IDatabaseContext context,
+		ITokenContents tokenContents,
+		IHttpContextAccessor httpContextAccessor)
+	{
+		_context = context;
+		_tokenContents = tokenContents;
+		_httpContextAccessor = httpContextAccessor;
+	}
+	#endregion
+	public async Task<ResultDto<ResultOfList<GetArchiveQuestionDto>>> ExecuteAsync(GetArchiveQuestionRequestDto request)
     {
-        _context = context;
-    }
-    #endregion
+		long userid = _tokenContents.GetUserId(_httpContextAccessor.HttpContext!.User);
 
-    public async Task<ResultDto<ResultOfList<GetArchiveQuestionDto>>> ExecuteAsync(GetArchiveQuestionRequestDto request)
-    {
-      
-        var items = _context
+		if (!await _context.AdminSectionAccesses.AnyAsync(p => p.UserId == userid && !p.IsRemoved && p.AdminSection!.Name == "Archives"))
+			return ResultDto<ResultOfList<GetArchiveQuestionDto>>.Failed("NOT ACCESS", 403);
+
+        var show_all_access = await _context.AdminSectionAccesses.AnyAsync(p => p.UserId == userid && !p.IsRemoved && p.AdminSection!.Name == "ShowAllArchive");
+
+		var items = _context
             .Questions
-            .Where(p => !p.IsRemoved && p.Step == QuestionStepType.Archive);
+            .Where(p => !p.IsRemoved && (show_all_access==false ? p.Step == QuestionStepType.Archive : true));
 
       
         if (!string.IsNullOrEmpty(request.Title))
@@ -106,6 +119,9 @@ public class GetArchiveQuestionService: IGetArchiveQuestionService
         if (request.MethodOfReceiveQuestionId != null)
             items = items.Where(p => p.MethodOfReceiveQuestionId == request.MethodOfReceiveQuestionId);
 
+        if(request.Id != null)
+            items=items.Where(p=>p.Id == request.Id);
+
       
         var res = await items
             .OrderByDescending(p=>p.CreatedAt)
@@ -129,7 +145,9 @@ public class GetArchiveQuestionService: IGetArchiveQuestionService
                 Name = p.FirstName + " " + p.LastName,
                 Province = p.ProvinceId != null ? p.Province!.Title : null,
                 QuestionCategory = p.QuestionCategoryId != null ? p.QuestionCategory!.Title : null,
-                QuestionDate = p.QuestionDate != null ? p.QuestionDate.Value.ToPersianWithoutTime() : null
+                QuestionDate = p.QuestionDate != null ? p.QuestionDate.Value.ToPersianWithoutTime() : null,
+                State=p.Step!=null ? p.Step.GetDisplayName() : null,
+                AnswerDate=p.SendAnswerDate!=null ? p.SendAnswerDate.Value.ToPersianWithoutTime(): null,
             })
             .ToListAsync();
 
@@ -188,6 +206,7 @@ public class GetArchiveQuestionRequestDto
     public string? Mobile { get; set; }
 	public long? MethodOfReceiveQuestionId { get; set; }
 	public long? QuestionCategoryId { get; set; }
+	public long? Id { get; set; }
 }
 
 public class GetArchiveQuestionDto
@@ -210,5 +229,7 @@ public class GetArchiveQuestionDto
     public string? JobCategory { get; set; }
 	public string? MethodOfReceiveQuestion { get; set; }
 	public string? QuestionCategory { get;set; }
+	public string? State { get; set; }
+	public string? AnswerDate { get; set; }
 }
 #endregion

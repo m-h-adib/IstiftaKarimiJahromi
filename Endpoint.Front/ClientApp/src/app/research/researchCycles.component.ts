@@ -42,7 +42,9 @@ export class ResearchCyclesComponent implements OnInit {
     answerText:"",
     reasonText:"",
     answerFile: [],
-    reasonFile:[]
+    reasonFile: [],
+    answerFile2: [],
+    reasonFile2: []
   };
   cycles?: GetResearchCyclesDto[] = [];
   hasSession?: boolean = false;
@@ -70,12 +72,14 @@ export class ResearchCyclesComponent implements OnInit {
       this.getData();
     }
 
-  copy(pDes: string, answerText: string, reasonText: string, answerFile: string, reasonFile: string) {
+  copy(pDes: string, answerText: string, reasonText: string, answerFile: string, reasonFile: string, answerFile2: string, reasonFile2: string) {
     this.add.description = pDes;
     this.add.answerText = answerText;
     this.add.reasonText = reasonText;
     this.add.answerFile1 = answerFile;
     this.add.reasonFile1 = reasonFile;
+    this.add.answerFile21 = answerFile2;
+    this.add.reasonFile21 = reasonFile2;
   }
 
 
@@ -203,10 +207,21 @@ export class ResearchCyclesComponent implements OnInit {
     this.add.answerFile?.push(event.target.files[0]);
 
   }
+  onFilechange2(event: any) {
+    console.log(event.target.files[0])
+    this.add.answerFile2?.push(event.target.files[0]);
+
+  }
 
   onFilechange1(event: any) {
     console.log(event.target.files[0])
     this.add.reasonFile?.push(event.target.files[0]);
+
+  }
+
+  onFilechange21(event: any) {
+    console.log(event.target.files[0])
+    this.add.reasonFile2?.push(event.target.files[0]);
 
   }
 

@@ -16,5 +16,7 @@ export interface GetArchiveQuestionDto{
     province?:string;
     jobCategory?:string;
     methodOfReceiveQuestion?:string;
-    questionCategory?:string;
+  questionCategory?: string;
+  state?: string;
+  answerDate?: string;
 }

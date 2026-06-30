@@ -1,4 +1,5 @@
-﻿using Application.Services.Editor.Commands;
+﻿using Application.Services.Archive.Queries;
+using Application.Services.Editor.Commands;
 using Application.Services.Editor.Queries;
 using Application.Services.Research.Commands;
 using Application.Services.Research.Queries;
@@ -18,6 +19,7 @@ namespace Endpoint.Api.Controllers
 		private readonly IGetEditorCyclesService _editorCyclesService;
 		private readonly IAddEditorQuestionService _addEditorQuestionService;
 		private readonly IAcceptOrRejectEditorService _acceptOrRejectEditorService;
+		
 		#endregion
 		#region ctors
 		public EditorsController(IGetEditorQuestionsService getEditorQuestionsService,
@@ -62,5 +64,7 @@ namespace Endpoint.Api.Controllers
 			var res = await _acceptOrRejectEditorService.ExecuteAsync(dto);
 			return StatusCode(res.StatusCode, res);
 		}
+
+		
 	}
 }

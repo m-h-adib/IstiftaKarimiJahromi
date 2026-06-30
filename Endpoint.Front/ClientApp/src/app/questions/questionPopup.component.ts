@@ -12,12 +12,14 @@ export class QuestionPopupComponent implements OnInit{
     @Input() questionId!:number;
     AddDto:GetPopupQuestionDto={
         answer:"",
-        answerFile:"",
+      answerFile: "",
+      answerFile2: "",
         attach:"",
         category:"",
         question:"",
         reason:"",
-        reasonFile:"",
+      reasonFile: "",
+      reasonFile2: "",
         title:""
     };
 

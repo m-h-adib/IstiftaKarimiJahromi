@@ -464,6 +464,9 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime?>("RemovedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("SendAnswerDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int?>("Step")
                         .HasColumnType("int");
 
@@ -641,6 +644,9 @@ namespace Infrastructure.Migrations
                     b.Property<string>("AnswerFile")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("AnswerFile2")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("AnswerText")
                         .HasColumnType("nvarchar(max)");
 
@@ -663,6 +669,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("ReasonFile")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReasonFile2")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ReasonText")
@@ -816,11 +825,11 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1L,
-                            CreatedAt = new DateTime(2024, 11, 11, 14, 2, 49, 989, DateTimeKind.Local).AddTicks(5979),
+                            CreatedAt = new DateTime(2026, 6, 30, 18, 39, 45, 692, DateTimeKind.Local).AddTicks(6280),
                             IsActive = true,
                             IsRemoved = false,
                             Name = "محمدحسین ادیب",
-                            Password = "ACb9pGqtoerp+7ECniIH2M9Yrdrc1Gm4acnPNXf1WP8pG+1LfMLHUCjgtRAwc0ugjw==",
+                            Password = "ADH35/RmfEpeJqmv+U6aTPOB/zD76uIzKb22BFMf+JJzcar2OzgirYhGuxSVHjWP+g==",
                             Role = 2,
                             Username = "m-h-adib"
                         });

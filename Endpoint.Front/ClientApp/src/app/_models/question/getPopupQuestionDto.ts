@@ -7,6 +7,8 @@ export interface GetPopupQuestionDto {
   category?: string;
   answer?: string;
   answerFile?: string;
+  answerFile2?: string;
   reason?: string;
   reasonFile?: string;
+  reasonFile2?: string;
 }

@@ -9,13 +9,13 @@
         <div class="col-md-4">
           <label for="inputEmail4" class="form-label">عنوان</label>
           <p class="text-success">{{ques?.title}}</p>
-          
+
         </div>
         <div class="col-md-4">
           <label for="inputEmail4" class="form-label">نام</label>
           <p class="text-success">{{ques?.name}}</p>
         </div>
-       
+
         <div class="col-md-4">
           <label for="inputEmail4" class="form-label">شماره همراه</label>
           <p class="text-success">{{ques?.mobile}}</p>
@@ -36,70 +36,80 @@
           <label for="inputEmail4" class="form-label">ایمیل</label>
           <p class="text-success">{{ques?.email}}</p>
         </div>
-  
+
         <div class="col-md-4">
           <label for="inputEmail4" class="form-label">کشور</label>
           <p class="text-success">{{ques?.country}}</p>
         </div>
-  
+
         <div class="col-md-4">
           <label for="inputEmail4" class="form-label">استان</label>
           <p class="text-success">{{ques?.province}}</p>
         </div>
-  
+
         <div class="col-md-4">
           <label for="inputEmail4" class="form-label">شهر</label>
           <p class="text-success">{{ques?.city}}</p>
         </div>
-  
+
         <div class="col-md-4">
           <label for="inputEmail4" class="form-label">آدرس</label>
           <p class="text-success">{{ques?.address}}</p>
         </div>
-  
+
         <div class="col-md-4">
           <label for="inputEmail4" class="form-label">دسته شغلی</label>
           <p class="text-success">{{ques?.jobCategory}}</p>
-         
+
         </div>
-  
+
         <div class="col-md-4">
           <label for="inputEmail4" class="form-label">شغل</label>
           <p class="text-success">{{ques?.job}}</p>
-         
+
         </div>
-  
+
         <div class="col-md-4">
           <label for="inputEmail4" class="form-label">دسته سوال</label>
           <p class="text-success">{{ques?.questionCategory}}</p>
-        
+
         </div>
-  
+
         <div class="col-md-4">
           <label for="inputEmail4" class="form-label">شیوه دریافت سوال</label>
           <p class="text-success">{{ques?.methodOfReceiveQuestion}}</p>
-      
+
         </div>
-  
+
         <div class="col-md-4">
           <label for="inputEmail4" class="form-label">تاریخ ثبت سوال</label>
           <p class="text-success">{{ques?.questionDate}}</p>
-          
+
         </div>
-  
-        <!-- <div class="col-md-6">
-          <label for="inputEmail4" class="form-label">متن سوال</label>
-          <input type="text" class="form-control" [(ngModel)]="ques.questionText" name="ques.questionText" placeholder="متن سوال" />
+        <div class="col-md-6">
+          <label for="inputEmail4" class="form-label">تاریخ ارسال سوال - {{ques?.answerDate}}</label>
+          <p class="text-success">
+            <ng-persian-datepicker [dateInitValue]="false">
+              <input type="text" [formControl]="dateValue" [(ngModel)]="AddDto.answerDate" name="answerDate" required class="form-control" placeholder="تاریخ ارسال سوال" />
+            </ng-persian-datepicker>
+          </p>
+
         </div>
-   -->
-  
+        <div class="col-md-2">
+          <button type="button" class="btn btn-success" (click)="selectDate()">ثبت تاریخ</button>
+        </div>
+        <div class="row col-md-12 mt-3">
+          <div class="alert alert-danger" *ngFor="let a of Errors">
+            {{a}}
+          </div>
+        </div>
         <!-- <div class="col-md-6">
-          <label for="inputEmail4" class="form-label">فایل های پیوست سوال</label>
-          <input type="file" multiple (change)="onFilechange($event)" class="form-control" placeholder="فایل های پیوست سوال" />
-        </div> -->
-  
+    <label for="inputEmail4" class="form-label">فایل های پیوست سوال</label>
+    <input type="file" multiple (change)="onFilechange($event)" class="form-control" placeholder="فایل های پیوست سوال" />
+  </div> -->
+
         <hr class="mt-4 border border-1 border-primary" />
-       
+
       </form>
     </div>
   </div>

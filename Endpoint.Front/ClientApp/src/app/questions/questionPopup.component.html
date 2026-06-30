@@ -25,16 +25,19 @@
         </div>
   
         <div class="col-md-12">
-            <label for="inputEmail4" class="form-label">پاسخ سوال</label>
-            <textarea class="form-control" [(ngModel)]="AddDto.answer" name="AddDto.answer" rows="8" cols="100" placeholder="پاسخ سوال"></textarea>
-            <a *ngIf="AddDto.answerFile!='' && AddDto.answerFile!=null" href="http://185.142.157.171:8081/{{AddDto.answerFile}}" target="_blank" class="btn btn-primary">فایل پاسخ</a>
-          </div>
+          <label for="inputEmail4" class="form-label">پاسخ سوال</label>
+          <textarea class="form-control" [(ngModel)]="AddDto.answer" name="AddDto.answer" rows="8" cols="100" placeholder="پاسخ سوال"></textarea>
+          <a *ngIf="AddDto.answerFile!='' && AddDto.answerFile!=null" href="http://185.142.157.171:8081/{{AddDto.answerFile}}" target="_blank" class="btn btn-primary">فایل پاسخ</a>
+          <br />
+          <a *ngIf="AddDto.answerFile2!='' && AddDto.answerFile2!=null" href="http://185.142.157.171:8081/{{AddDto.answerFile2}}" target="_blank" class="btn btn-primary">فایل 2 پاسخ</a>
+        </div>
 
-          <div class="col-md-12">
-            <label for="inputEmail4" class="form-label">دلیل سوال</label>
-            <textarea class="form-control" [(ngModel)]="AddDto.reason" name="AddDto.reason" rows="8" cols="100" placeholder="دلیل سوال"></textarea>
-            <a *ngIf="AddDto.reasonFile!='' && AddDto.reasonFile!=null" href="http://185.142.157.171:8081/{{AddDto.reasonFile}}" target="_blank" class="btn btn-primary">فایل دلیل</a>
-          </div>
+        <div class="col-md-12">
+          <label for="inputEmail4" class="form-label">دلیل سوال</label>
+          <textarea class="form-control" [(ngModel)]="AddDto.reason" name="AddDto.reason" rows="8" cols="100" placeholder="دلیل سوال"></textarea>
+          <a *ngIf="AddDto.reasonFile!='' && AddDto.reasonFile!=null" href="http://185.142.157.171:8081/{{AddDto.reasonFile}}" target="_blank" class="btn btn-primary">فایل دلیل</a><br />
+          <a *ngIf="AddDto.reasonFile2!='' && AddDto.reasonFile2!=null" href="http://185.142.157.171:8081/{{AddDto.reasonFile2}}" target="_blank" class="btn btn-primary">فایل 2 دلیل</a>
+        </div>
 
 
       </form>

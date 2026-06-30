@@ -28,9 +28,12 @@ export class AddQuestionComponent implements OnInit {
   provinces: GetProvinceDto[] = [];
   jobs: GetJobCategoryDto[] = [];
   methods: GetMethodOfRecieveQuestionDto[] = [];
+ 
   dateValue = new FormControl();
   catDialog: boolean = false;
   myTree: GetQuestionCategoryDto[] = [];
+  myFilterTree: GetQuestionCategoryDto[] = [];
+
   catName: string = "دسته سوال";
   catId?: number;
 
@@ -58,6 +61,7 @@ export class AddQuestionComponent implements OnInit {
 
     this._GetQuestionCategoriesService.GetQuestionCategories().subscribe(p => {
       this.myTree = p.data;
+      this.myFilterTree = p.data;
     })
   }
 
@@ -73,7 +77,54 @@ export class AddQuestionComponent implements OnInit {
     }
   }
 
- 
+  onSearchChange(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    console.log(value);
+    this.myFilterTree = this.searchTree(this.myTree, value);
+  }
+  searchTree(
+    tree: GetQuestionCategoryDto[],
+    search: string
+  ): GetQuestionCategoryDto[] {
+
+    const term = search.trim().toLowerCase();
+
+    // اگر سرچ خالی بود همون کل درخت رو بده
+    if (!term) return tree;
+
+    const filterNode = (
+      node: GetQuestionCategoryDto
+    ): GetQuestionCategoryDto | null => {
+
+      const title = node.title?.toLowerCase() ?? "";
+
+      const selfMatch = title.indexOf(term) !== -1;
+
+      const filteredChildren =
+        (node.childs ?? [])
+          .map(child => filterNode(child))
+          .filter((x): x is GetQuestionCategoryDto => x !== null);
+
+      const hasChildMatch = filteredChildren.length > 0;
+
+      // اگر خود node یا بچه‌ها match داشت
+      if (selfMatch || hasChildMatch) {
+        return {
+          ...node,
+          // فقط اگر بچه دارد expand کن
+          expand: hasChildMatch,
+          childs: filteredChildren
+        };
+      }
+
+      return null;
+    };
+
+    return tree
+      .map(node => filterNode(node))
+      .filter((x): x is GetQuestionCategoryDto => x !== null);
+  }
+
   showCatDialog() {
     this.catDialog = !this.catDialog;
   }

@@ -160,7 +160,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="showCatDialog()"></button>
       </div>
       <div class="modal-body">
-        <question-view [tree]="myTree" [showEditDelete]="false" (newItemEvent)="selectCat($event)"></question-view>
+        <input type="text"
+               (input)="onSearchChange($event)"
+               placeholder="جستجو..." />
+
+        <question-view [tree]="myFilterTree" [showEditDelete]="false" (newItemEvent)="selectCat($event)"></question-view>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="showCatDialog()">انصراف</button>

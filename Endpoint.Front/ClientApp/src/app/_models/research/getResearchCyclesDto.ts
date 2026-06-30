@@ -12,5 +12,7 @@ export interface GetResearchCyclesDto{
   reasonText?: string;
   answerFile?: string;
   reasonFile?: string;
+  answerFile2?: string;
+  reasonFile2?: string;
   hasSession?: boolean;
 }

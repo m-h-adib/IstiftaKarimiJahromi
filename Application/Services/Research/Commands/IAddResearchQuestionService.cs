@@ -66,9 +66,21 @@ public class AddResearchQuestionService: IAddResearchQuestionService
             UploadFileToDirectory upload = new UploadFileToDirectory(_environment);
             rFile = upload.Upload(dto.ReasonFile[0], "Researches").FileNameAddress;
         }
+		string? aFile2 = null;
+		if (dto.AnswerFile2 != null)
+		{
+			UploadFileToDirectory upload = new UploadFileToDirectory(_environment);
+			aFile2 = upload.Upload(dto.AnswerFile2[0], "Researches").FileNameAddress;
+		}
+		string? rFile2 = null;
+		if (dto.ReasonFile2 != null)
+		{
+			UploadFileToDirectory upload = new UploadFileToDirectory(_environment);
+			rFile2 = upload.Upload(dto.ReasonFile2[0], "Researches").FileNameAddress;
+		}
 
 
-        await _context.Researchs.AddAsync(new Domain.Entities.Research
+		await _context.Researchs.AddAsync(new Domain.Entities.Research
         {
             CreatedAt = DateTime.Now,
             AnswerText=dto.AnswerText,
@@ -76,7 +88,9 @@ public class AddResearchQuestionService: IAddResearchQuestionService
             Description = dto.Description,
             AnswerFile=aFile,
             ReasonFile=rFile,
-            IsActive = true,
+			AnswerFile2 = aFile2,
+			ReasonFile2 = rFile2,
+			IsActive = true,
             IsRemoved = false,
             QuestionCycleId = cycle.Id
         });
@@ -95,5 +109,7 @@ public class AddResearchQuestionDto
     public string? ReasonText { get;set; }
 	public List<IFormFile>? AnswerFile { get; set; }
     public List<IFormFile>? ReasonFile { get; set; }
+	public List<IFormFile>? AnswerFile2 { get; set; }
+	public List<IFormFile>? ReasonFile2 { get; set; }
 }
 #endregion

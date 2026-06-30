@@ -37,6 +37,12 @@ export class AddResearchQuestionService {
       body.append("reasonFile", obj);
     })
 
+    dto.answerFile2?.forEach((obj) => {
+      body.append("answerFile2", obj);
+    })
+    dto.reasonFile2?.forEach((obj) => {
+      body.append("reasonFile2", obj);
+    })
 
     console.log(body);
     return this.http.post<any>(this.url, body, { headers: this.header }).pipe(

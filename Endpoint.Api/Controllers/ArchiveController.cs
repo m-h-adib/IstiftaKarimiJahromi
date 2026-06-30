@@ -15,15 +15,18 @@ namespace Endpoint.Api.Controllers
         private readonly IGetQuestionStepsService _getQuestionStepsService;
         private readonly IGetQuestionResultService _getQuestionResultService;
         private readonly IDeleteArchiveQuestionService _deleteArchiveQuestionService;
-        public ArchiveController(IGetArchiveQuestionService getArchiveQuestionService,
+		private readonly ISendAnswerDateService _sendAnswerDateService;
+		public ArchiveController(IGetArchiveQuestionService getArchiveQuestionService,
             IGetQuestionResultService getQuestionResultService,
             IGetQuestionStepsService getQuestionStepsService,
-            IDeleteArchiveQuestionService deleteArchiveQuestionService)
+            IDeleteArchiveQuestionService deleteArchiveQuestionService,
+			ISendAnswerDateService sendAnswerDateService)
         {
             _getArchiveQuestionService = getArchiveQuestionService;
             _getQuestionResultService = getQuestionResultService;
             _getQuestionStepsService = getQuestionStepsService;
-            _deleteArchiveQuestionService = deleteArchiveQuestionService;
+			_sendAnswerDateService = sendAnswerDateService;
+			_deleteArchiveQuestionService = deleteArchiveQuestionService;
         }
 
 
@@ -49,8 +52,14 @@ namespace Endpoint.Api.Controllers
         }
 
 
+		[HttpPost]
+		public async Task<IActionResult> SendAnswerDate([FromBody] SendAnswerDateDto dto)
+		{
+			var res = await _sendAnswerDateService.ExecuteAsync(dto);
+			return StatusCode(res.StatusCode, res);
+		}
 
-        [HttpDelete]
+		[HttpDelete]
         public async Task<IActionResult> DeleteArchiveQuestion([FromQuery] long? QuestionId)
         {
             var res = await _deleteArchiveQuestionService.ExecuteAsync(QuestionId);

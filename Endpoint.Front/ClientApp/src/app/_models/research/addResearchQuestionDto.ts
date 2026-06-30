@@ -7,4 +7,8 @@ export interface AddResearchQuestionDto{
   reasonFile?: File[];
   answerFile1?: string;
   reasonFile1?: string;
+  answerFile2?: File[];
+  reasonFile2?: File[];
+  answerFile21?: string;
+  reasonFile21?: string;
 }

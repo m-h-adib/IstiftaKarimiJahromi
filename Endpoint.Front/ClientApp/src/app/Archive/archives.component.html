@@ -137,6 +137,13 @@
                   </select>
                 </div>
               </div>
+              <div class="row" style="margin-top: 10px;">
+                <div class="col">
+                  <label for="Id" class="form-label">کد سوال</label>
+                  <input type="text" class="form-control" id="Id" placeholder="کد سوال را وارد نمایید" aria-label="First name" [(ngModel)]="Filter.Id" name="Filter.Id">
+                </div>
+                
+              </div>
               <div class="col-12" style="margin-top: 10px;">
                 <button class="btn btn-primary" (click)="search()">جستجو</button>
               </div>
@@ -149,11 +156,14 @@
         <div class="card">
           <div class="card-body">
             <div class="table-responsive">
-
+              <p class="text-success">تعداد کل: {{countItem}}</p>
               <table class="table align-middle table-bordered text-center table-striped">
                 <thead class="fw-bold table-success">
                   <tr>
                     <td>#</td>
+                    <td>
+                      کد سوال
+                    </td>
                     <td>
                       عنوان سوال
                     </td>
@@ -167,6 +177,12 @@
                       دسته سوال
                     </td>
                     <td>
+                      مرحله سوال
+                    </td>
+                    <td>
+                      تاریخ ارسال
+                    </td>
+                    <td>
                     </td>
                   </tr>
                 </thead>
@@ -174,6 +190,9 @@
                   <tr *ngFor="let item of Questions; index as i" >
                     <td [style.color]="(item.duplicateId!=null && item.duplicateId!=undefined) ? '#dc3545' : null">
                       {{((Filter.PageNumber!-1)*Filter.PageSize!)+i+1}}
+                    </td>
+                    <td [style.color]="(item.duplicateId!=null && item.duplicateId!=undefined) ? '#dc3545' : null">
+                      {{item.id.toString().padStart(8, '0')}}
                     </td>
                     <td [style.color]="(item.duplicateId!=null && item.duplicateId!=undefined) ? '#dc3545' : null">
                       {{item.title}}
@@ -187,7 +206,12 @@
                     <td [style.color]="(item.duplicateId!=null && item.duplicateId!=undefined) ? '#dc3545' : null">
                       {{item.questionCategory}}
                     </td>
-
+                    <td [style.color]="(item.duplicateId!=null && item.duplicateId!=undefined) ? '#dc3545' : null">
+                      {{item.state}}
+                    </td>
+                    <td [style.color]="(item.duplicateId!=null && item.duplicateId!=undefined) ? '#dc3545' : null">
+                      {{item.answerDate}}
+                    </td>
                     <td>
                       <!--<a class="btn btn-info m-1" *ngIf="getAccess('ReferenceToProcessor')" (click)="showRefrenceDialog(item.id)">ارجاع به پردازشگر</a>
   <a class="btn btn-warning m-1" *ngIf="getAccess('UpdateQuestion')" [routerLink]="['/editquestion',item.id]">ویرایش</a>
