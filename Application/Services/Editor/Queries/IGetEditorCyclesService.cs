@@ -61,7 +61,7 @@ public class GetEditorCyclesService : IGetEditorCyclesService
                 Duplicate = _context.PreProccesses.Any(u => u.DuplicateId != null && u.QuestionCycle.QuestionId == p.QuestionId && !u.IsRemoved && !u.QuestionCycle.IsRemoved) ? _context.PreProccesses.OrderBy(u => u.Id).Where(u => u.DuplicateId != null && u.QuestionCycle.QuestionId == p.QuestionId && !u.IsRemoved && !u.QuestionCycle.IsRemoved).Select(u => u.Duplicate.Title).LastOrDefault() : null,//p.PreProccess != null && p.PreProccess.DuplicateId != null ? p.PreProccess.Duplicate!.Title : null,
                 IsAccept = p.IsAccept,
                 QDesctiption = p.Description,
-                HasProccess = p.Editors!=null && p.Editors.Any() ? true : false,
+				HasProccess = p.Editors!=null && p.Editors.Any() ? true : false,
                 Name=p.ToUserId!=null ? p.ToUser!.Name : "",
                 Items=p.Editors!=null && p.Editors.Any() ? p.Editors!.Select(u=>new GetEditorCycleItemDto
                 {
@@ -89,7 +89,7 @@ public class GetEditorCycleDto
     public long? DuplicateId { get; set; }
     public string? Duplicate { get; set; }
     public string? QDesctiption { get; set; }
-    public bool HasProccess { get; set; }
+	public bool HasProccess { get; set; }
 	public bool? IsAccept { get; set; }
     public string? Name { get; set; }
     public ICollection<GetEditorCycleItemDto>? Items { get; set; }

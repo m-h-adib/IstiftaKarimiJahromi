@@ -120,7 +120,7 @@
                   {{item.duplicate}}
                 </td>
                 <td>
-                  {{item.isAccept==true ? "تاید شده" :  item.isAccept==false ? item.researchId!=null ? "رد شده" : "در انتظار محقق" :"در انتظار مدیر"}}
+                  {{item.isAccept==true ? "تایید شده" :  item.isAccept==false ? item.researchId!=null ? "رد شده" : "در انتظار محقق" :"در انتظار"}}
                 </td>
                 <td>
                   <a class="btn btn-danger m-1" *ngIf="item.isAccept==null && getAccess('AcceptResearchQuestion')" (click)="showRejectDialog(item.id)">رد</a>
@@ -203,7 +203,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="showReferenceDialog()">انصراف</button>
         <button type="button" class="btn btn-primary" *ngIf="hasSession==true" (click)="reference()">ثبت</button>
-        <button type="button" class="btn btn-primary" *ngIf="hasSession==false" onclick="return confirm('شما جلسه مشورتی ایجاد نکرده اید. ادامه می دهید؟');" (click)="reference()">ثبت</button>
+        <button type="button" class="btn btn-primary" *ngIf="hasSession==false" (click)="reference2()">ثبت</button>
       </div>
     </div>
   </div>
@@ -225,7 +225,7 @@
           </div>
           <div class="col-md-12">
             <label for="inputEmail4" class="form-label">مرحله</label>
-            <select class="form-select" #tostep [(ngModel)]="fromToCycle.toStep" name="fromToCycle.toStep" (change)="getUsers(tostep.value)">
+            <select class="form-select" #tostep [(ngModel)]="fromToCycle.toStep" name="toStep" (change)="getUsers(tostep.value)">
               <option value="1">
                 ثبت سوال
               </option>

@@ -35,6 +35,7 @@ public class GetQuestionResultService: IGetQuestionResultService
             .Where(p => p.QuestionCycle!.QuestionId == questionId)
             .Where(p => p.IsActive)
             .Where(p => !p.IsRemoved)
+            .Where(p=>p.IsAccept==true)
             .Where(p => !p.QuestionCycle!.IsRemoved)
             .Where(p => !p.QuestionCycle!.Question!.IsRemoved)
             .Select(p => new GetQuestionResultDto

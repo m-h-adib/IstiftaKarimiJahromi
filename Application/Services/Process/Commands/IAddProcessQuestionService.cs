@@ -44,6 +44,7 @@ public class AddProcessQuestionService: IAddProcessQuestionService
 
 		var cycle = await _context.QuestionCycles
 			.Include(p=>p.PreProccess)
+			.Include(p=>p.Question)
 			.FirstOrDefaultAsync(p => p.QuestionId == dto.QuestionId && !p.IsRemoved && p.IsAccept==null);
 
 
@@ -63,6 +64,8 @@ public class AddProcessQuestionService: IAddProcessQuestionService
 			IsRemoved = false,
 			QuestionCycleId = cycle.Id
 		});
+
+		cycle.Question.DuplicateId=dto.DuplicateId;
 
 		await _context.SaveChangesAsync();
 

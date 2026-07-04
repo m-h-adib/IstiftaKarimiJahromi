@@ -107,7 +107,7 @@ export class ResearchCyclesComponent implements OnInit {
     }
 
   getUsers(value: string) {
-    this._getUsersByRolesService.GetUsers([1, 2, Number.parseInt(value)]).subscribe(p => {
+    this._getUsersByRolesService.GetUsers([1, 2, Number.parseInt(value)+2]).subscribe(p => {
       this.returnUsers = p.data;
       console.log(this.refrenceUsers);
     })
@@ -154,18 +154,32 @@ export class ResearchCyclesComponent implements OnInit {
     })
   }
   reference() {
-    this.acceptOrRejectResearch.isAccept = true;
+    if (confirm('شما جلسه مشورتی ایجاد نکرده اید. ادامه می دهید؟')) {
+      this.acceptOrRejectResearch.isAccept = true;
 
-    this._acceptOrRejectResearchService.AddProcess(this.acceptOrRejectResearch).subscribe(p => {
-      if (p.isSuccess) {
-        this.router.navigate(["/researchQuestions"]);
-      }
-    }, (error) => {
-      alert(error.error.message);
-      this.hasSession = false;
-    })
+      this._acceptOrRejectResearchService.AddProcess(this.acceptOrRejectResearch).subscribe(p => {
+        if (p.isSuccess) {
+          this.router.navigate(["/researchQuestions"]);
+        }
+      }, (error) => {
+        alert(error.error.message);
+        this.hasSession = false;
+      })
+    }
   }
+  reference2() {
 
+      this.acceptOrRejectResearch.isAccept = true;
+
+      this._acceptOrRejectResearchService.AddProcess(this.acceptOrRejectResearch).subscribe(p => {
+        if (p.isSuccess) {
+          this.router.navigate(["/researchQuestions"]);
+        }
+      }, (error) => {
+        alert(error.error.message);
+        this.hasSession = false;
+      })
+  }
   Save() {
     if (this.add.description == null || this.add.description == "") {
       alert("لطفا توضیحات را بنویسید");

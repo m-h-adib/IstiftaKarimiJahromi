@@ -97,7 +97,7 @@ import { FromToCycleService } from '../_services/common/fromToCycleService';
     }
 
   getUsers(value: string) {
-    this._getUsersByRolesService.GetUsers([1, 2, Number.parseInt(value)]).subscribe(p => {
+    this._getUsersByRolesService.GetUsers([1, 2, Number.parseInt(value)+2]).subscribe(p => {
       this.returnUsers = p.data;
       console.log(this.refrenceUsers);
     })
