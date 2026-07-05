@@ -74,6 +74,8 @@ public class AcceptOrRejectEditorService : IAcceptOrRejectEditorService
 
 		cycle.IsAccept = dto.IsAccept;
         cycle.UpdatedAt = DateTime.Now;
+        editor.IsAccept = dto.IsAccept;
+        editor.UpdatedAt = DateTime.Now;
 
         if (dto.IsAccept == true)
         {

@@ -77,6 +77,7 @@ public class AcceptOrRejectProcessService : IAcceptOrRejectProcessService
 
 		cycle.IsAccept = dto.IsAccept;
 		cycle.UpdatedAt = DateTime.Now;
+	
 
 		if (dto.IsAccept == true)
 		{

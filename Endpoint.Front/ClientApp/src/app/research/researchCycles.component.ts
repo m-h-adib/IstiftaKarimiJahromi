@@ -128,14 +128,11 @@ export class ResearchCyclesComponent implements OnInit {
     this.acceptOrRejectResearch.cycleId = id;
   }
   showReferenceDialog(id?: number, hasSession?: boolean) {
-    if (!this.referenceDialog)
-      this.hasSession = false;
-    else
-      this.hasSession = hasSession;
+    this.hasSession = hasSession;
 
     this.referenceDialog = !this.referenceDialog;
     this.acceptOrRejectResearch.cycleId = id;
-    
+    console.log("aaaa:" + this.hasSession);
   }
   showReturnDialog(id?: number) {
     this.returnDialog = !this.returnDialog;
@@ -154,12 +151,30 @@ export class ResearchCyclesComponent implements OnInit {
     })
   }
   reference() {
-    if (confirm('شما جلسه مشورتی ایجاد نکرده اید. ادامه می دهید؟')) {
+    if (this.hasSession == false) {
+      console.log("bbbb:" + this.hasSession);
+      if (confirm('شما جلسه مشورتی ایجاد نکرده اید. ادامه می دهید؟')) {
+        this.acceptOrRejectResearch.isAccept = true;
+
+        this._acceptOrRejectResearchService.AddProcess(this.acceptOrRejectResearch).subscribe(p => {
+          if (p.isSuccess) {
+            this.router.navigate(["/researchQuestions"]);
+            this.hasSession = false;
+          }
+        }, (error) => {
+          alert(error.error.message);
+          this.hasSession = false;
+        })
+      }
+    }
+    else {
+      console.log("cccc:" + this.hasSession);
       this.acceptOrRejectResearch.isAccept = true;
 
       this._acceptOrRejectResearchService.AddProcess(this.acceptOrRejectResearch).subscribe(p => {
         if (p.isSuccess) {
           this.router.navigate(["/researchQuestions"]);
+          this.hasSession = false;
         }
       }, (error) => {
         alert(error.error.message);
@@ -167,19 +182,7 @@ export class ResearchCyclesComponent implements OnInit {
       })
     }
   }
-  reference2() {
 
-      this.acceptOrRejectResearch.isAccept = true;
-
-      this._acceptOrRejectResearchService.AddProcess(this.acceptOrRejectResearch).subscribe(p => {
-        if (p.isSuccess) {
-          this.router.navigate(["/researchQuestions"]);
-        }
-      }, (error) => {
-        alert(error.error.message);
-        this.hasSession = false;
-      })
-  }
   Save() {
     if (this.add.description == null || this.add.description == "") {
       alert("لطفا توضیحات را بنویسید");

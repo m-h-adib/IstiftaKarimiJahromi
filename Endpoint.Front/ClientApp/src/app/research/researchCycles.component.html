@@ -125,7 +125,7 @@
                 <td>
                   <a class="btn btn-danger m-1" *ngIf="item.isAccept==null && getAccess('AcceptResearchQuestion')" (click)="showRejectDialog(item.id)">رد</a>
                   <br />
-                  <a class="btn btn-primary m-1" *ngIf="item.isAccept==null && getAccess('AcceptResearchQuestion')" (click)="showReferenceDialog(item.id)">ارجاع به ویراستار</a>
+                  <a class="btn btn-primary m-1" *ngIf="item.isAccept==null && getAccess('AcceptResearchQuestion')" (click)="showReferenceDialog(item.id,item.hasSession)">ارجاع به ویراستار</a>
                   <br />
                   <a class="btn btn-info m-1" *ngIf="item.researchId!=null && item.isAccept==null && getAccess('AddSession')" [routerLink]="['/addsession',item.researchId,req.questionId]">ایجاد جلسه</a>
                   <a class="btn btn-warning m-1" *ngIf="item.isAccept==null && getAccess('FromToCycle')" (click)="showReturnDialog(item.id)">بازگشت سوال</a>
@@ -202,8 +202,11 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="showReferenceDialog()">انصراف</button>
-        <button type="button" class="btn btn-primary" *ngIf="hasSession==true" (click)="reference()">ثبت</button>
-        <button type="button" class="btn btn-primary" *ngIf="hasSession==false" (click)="reference2()">ثبت</button>
+        <button type="button"
+                class="btn btn-primary"
+                (click)="reference()">
+          ثبت
+        </button>
       </div>
     </div>
   </div>

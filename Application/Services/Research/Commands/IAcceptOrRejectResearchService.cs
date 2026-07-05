@@ -80,6 +80,8 @@ public class AcceptOrRejectResearchService: IAcceptOrRejectResearchService
 
         cycle.IsAccept = dto.IsAccept;
         cycle.UpdatedAt = DateTime.Now;
+        research.IsAccept = dto.IsAccept;
+        research.UpdatedAt = DateTime.Now;  
 
         if (dto.IsAccept == true)
         {
