@@ -57,9 +57,9 @@ public class GetEditorCyclesService : IGetEditorCyclesService
 			.Select(p => new GetEditorCycleDto
 			{
                 Id = p.Id,
-                DuplicateId = _context.PreProccesses.Any(u => u.DuplicateId != null && u.QuestionCycle.QuestionId == p.QuestionId && !u.IsRemoved && !u.QuestionCycle.IsRemoved && u.QuestionCycle.IsAccept == true) ? _context.PreProccesses.OrderBy(u => u.Id).Where(u => u.DuplicateId != null && u.QuestionCycle.QuestionId == p.QuestionId && !u.IsRemoved && !u.QuestionCycle.IsRemoved && u.QuestionCycle.IsAccept == true).LastOrDefault().DuplicateId : null,
-                Duplicate = _context.PreProccesses.Any(u => u.DuplicateId != null && u.QuestionCycle.QuestionId == p.QuestionId && !u.IsRemoved && !u.QuestionCycle.IsRemoved && u.QuestionCycle.IsAccept == true) ? _context.PreProccesses.OrderBy(u => u.Id).Where(u => u.DuplicateId != null && u.QuestionCycle.QuestionId == p.QuestionId && !u.IsRemoved && !u.QuestionCycle.IsRemoved && u.QuestionCycle.IsAccept == true).Select(u => u.Duplicate.Title).LastOrDefault() : null,//p.PreProccess != null && p.PreProccess.DuplicateId != null ? p.PreProccess.Duplicate!.Title : null,
-                IsAccept = p.IsAccept,
+				DuplicateId = _context.PreProccesses.Any(u => u.DuplicateId != null && u.QuestionCycle.QuestionId == p.QuestionId && !u.IsRemoved && !u.QuestionCycle.IsRemoved && u.QuestionCycle.IsAccept == true) ? _context.PreProccesses.OrderBy(u => u.Id).Where(u => u.DuplicateId != null && u.QuestionCycle.QuestionId == p.QuestionId && !u.IsRemoved && !u.QuestionCycle.IsRemoved && u.QuestionCycle.IsAccept==true).LastOrDefault().DuplicateId : null,
+				Duplicate =  _context.PreProccesses.Any(u=>u.DuplicateId!=null && u.QuestionCycle.QuestionId==p.QuestionId && !u.IsRemoved && !u.QuestionCycle.IsRemoved && u.QuestionCycle.IsAccept == true) ? _context.PreProccesses.OrderBy(u=>u.Id).Where(u => u.DuplicateId != null && u.QuestionCycle.QuestionId == p.QuestionId && !u.IsRemoved && !u.QuestionCycle.IsRemoved && u.QuestionCycle.IsAccept == true).Select(u => u.Duplicate.Title).LastOrDefault() : null,//p.PreProccess != null && p.PreProccess.DuplicateId != null ? p.PreProccess.Duplicate!.Title : null,
+				IsAccept = p.IsAccept,
                 QDesctiption = p.Description,
 				HasProccess = p.Editors!=null && p.Editors.Any() ? true : false,
                 Name=p.ToUserId!=null ? p.ToUser!.Name : "",
