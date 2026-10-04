@@ -18,6 +18,7 @@ import { GetArchiveStepDto } from '../_models/archive/getArchiveStepDto';
 import { GetArchiveResultService } from '../_services/archive/getArchiveResultService';
 import { GetArchiveResultDto } from '../_models/archive/getArchiveResultDto';
 import { DeleteArchiveQuestionService } from '../_services/archive/deleteArchiveQuestionService';
+import { Router } from '@angular/router';
 
 @Component({
     templateUrl:'./archives.component.html',
@@ -86,11 +87,18 @@ export class ArchivesComponent implements OnInit{
         private _GetMethodsService:GetMethodOfRecieveQuestionsService,
         private _GetArchiveSteps:GetArchiveStepsService,
       private _GetArchiveResults: GetArchiveResultService,
-      private _DeleteArchiveQuestion: DeleteArchiveQuestionService) {
+      private _DeleteArchiveQuestion: DeleteArchiveQuestionService,
+      private router: Router) {
 
     }
 
-    deleteCat(){
+    printArchive(id?: number): void {
+    if (id != null) {
+      this.router.navigate(['/archives/print', id]);
+    }
+  }
+
+  deleteCat(){
       this.catId=undefined;
       this.catName = "دسته سوال";
       this.Filter.QuestionCategoryId = undefined;
