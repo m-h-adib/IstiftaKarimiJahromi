@@ -1,0 +1,78 @@
+<div class="archive-print-page" [class.a4]="format === 'A4'">
+  <div class="archive-print-toolbar">
+    <div>
+      <strong>چاپ استفتاء</strong>
+    </div>
+
+    <div class="d-flex align-items-center gap-2">
+      <label class="mb-0">اندازه کاغذ:</label>
+      <select class="form-select" style="width: 110px;" [ngModel]="format" (ngModelChange)="setFormat($event)">
+        <option value="A5">A5</option>
+        <option value="A4">A4</option>
+      </select>
+
+      <button type="button" class="btn btn-primary" (click)="print()">🖨 چاپ</button>
+      <button type="button" class="btn btn-secondary archive-print-back" (click)="goBack()">بازگشت</button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="archive-print-loading">
+    در حال دریافت اطلاعات...
+  </div>
+
+  <div *ngIf="!loading && error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <article *ngIf="!loading && question" class="archive-print-paper">
+    <header class="archive-print-header">
+      <h1 class="archive-print-title">استفتاء</h1>
+      <div *ngIf="question.code" class="archive-print-code">
+        کد سوال: {{ question.code }}
+      </div>
+    </header>
+
+    <section class="archive-print-meta">
+      <div><strong>عنوان:</strong> {{ question.title || "-" }}</div>
+      <div><strong>تاریخ ثبت:</strong> {{ question.questionDate || "-" }}</div>
+      <div><strong>نام:</strong> {{ question.name || "-" }}</div>
+      <div><strong>شماره همراه:</strong> {{ question.mobile || "-" }}</div>
+      <div><strong>دسته سوال:</strong> {{ question.questionCategory || "-" }}</div>
+      <div><strong>تاریخ پاسخ:</strong> {{ question.answerDate || "-" }}</div>
+      <div *ngIf="question.address" style="grid-column: 1 / -1;">
+        <strong>آدرس:</strong> {{ question.address }}
+      </div>
+    </section>
+
+    <section class="archive-print-section">
+      <div class="archive-print-section-title">متن استفتاء</div>
+      <div class="archive-print-text">{{ question.questionText || "-" }}</div>
+    </section>
+
+    <section class="archive-print-section" *ngIf="question.answers?.length">
+      <div class="archive-print-section-title">پاسخ</div>
+
+      <div class="archive-print-answer" *ngFor="let answer of question.answers">
+        <div class="archive-print-answer-meta">
+          <span *ngIf="answer.language"><strong>زبان:</strong> {{ answer.language }}</span>
+          <span *ngIf="answer.editorUser"> &nbsp; | &nbsp; <strong>تنظیم‌کننده:</strong> {{ answer.editorUser }}</span>
+          <span *ngIf="answer.date"> &nbsp; | &nbsp; {{ answer.date }}</span>
+        </div>
+
+        <div class="archive-print-text">{{ answer.answer || "-" }}</div>
+
+        <div *ngIf="answer.reason" class="archive-print-text mt-2">
+          <strong>دلیل:</strong> {{ answer.reason }}
+        </div>
+
+        <div *ngIf="answer.description" class="archive-print-text mt-2">
+          <strong>توضیحات:</strong> {{ answer.description }}
+        </div>
+      </div>
+    </section>
+
+    <div class="archive-print-stamp">
+      <img src="/images/istifta-stamp.svg" alt="مهر" />
+    </div>
+  </article>
+</div>
