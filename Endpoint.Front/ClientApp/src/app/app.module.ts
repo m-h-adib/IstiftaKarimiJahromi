@@ -59,6 +59,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { QuestionPopupComponent } from './questions/questionPopup.component';
 import { UpdateAdminComponent } from './users/updateAdmin.component';
 import { ReportsComponent } from './reports/reports.component';
+import { ArchivesPrintComponent } from './Archive/archives-print.component';
 
 
 
@@ -107,7 +108,8 @@ import { ReportsComponent } from './reports/reports.component';
     UpdateSessionComponent,
     QuestionPopupComponent,
     UpdateAdminComponent,
-    ReportsComponent
+    ReportsComponent,
+    ArchivesPrintComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -156,6 +158,7 @@ import { ReportsComponent } from './reports/reports.component';
       { path: 'editors', component: EditorQuestionsComponent, canActivate: [AuthGuard] },
       { path: 'editorCycles/:questionId', component: EditorCyclesComponent, canActivate: [AuthGuard] },
       { path: 'archives', component: ArchivesComponent, canActivate: [AuthGuard] },
+      { path: 'archives/print/:id', component: ArchivesPrintComponent, canActivate: [AuthGuard] },
       { path: 'sessions', component: SessionsComponent, canActivate: [AuthGuard] },
       { path: 'addsession/:researchid/:questionid', component: AddSessionComponent, canActivate: [AuthGuard] },
       { path: 'updatesession/:id', component: UpdateSessionComponent, canActivate: [AuthGuard] },
