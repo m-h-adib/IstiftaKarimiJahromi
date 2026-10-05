@@ -15,64 +15,91 @@ public class QuestionPrintPdfService : IQuestionPrintPdfService
     {
         var isA4 = string.Equals(format, "A4", StringComparison.OrdinalIgnoreCase);
         var pageSize = isA4 ? PageSizes.A4 : PageSizes.A5;
-        var margin = isA4 ? 40 : 34;
 
         var document = Document.Create(document =>
         {
             document.Page(page =>
             {
                 page.Size(pageSize.Portrait());
-                page.Margin(margin);
+                page.MarginHorizontal(isA4 ? 40 : 28);
+                page.MarginTop(isA4 ? 18 : 14);
+                page.MarginBottom(isA4 ? 22 : 18);
                 page.PageColor(Colors.White);
                 page.ContentFromRightToLeft();
+
                 page.DefaultTextStyle(x => x
                     .FontFamily("Tahoma", "Arial")
-                    .FontSize(9.5f)
+                    .FontSize(isA4 ? 10 : 8.5f)
                     .FontColor(Colors.Black));
 
-                page.Content().Column(column =>
+                page.Header().Column(header =>
                 {
-                    column.Spacing(12);
+                    header.Item()
+                        .Background("#C8A16E")
+                        .Height(isA4 ? 32 : 25)
+                        .AlignCenter()
+                        .AlignMiddle()
+                        .Text("واحد پاسخ به مسائل شرعی")
+                        .Bold()
+                        .FontSize(isA4 ? 13 : 10.5f);
 
-                    column.Item()
-                        .BorderBottom(1)
-                        .PaddingBottom(8)
-                        .Column(header =>
+                    header.Item()
+                        .PaddingTop(isA4 ? 8 : 6)
+                        .PaddingBottom(isA4 ? 7 : 5)
+                        .Row(row =>
                         {
-                            header.Item()
-                                .Text("استفتاء")
-                                .FontSize(17)
-                                .Bold()
-                                .AlignCenter();
+                            row.RelativeItem().AlignRight().Column(meta =>
+                            {
+                                MetaRow(meta, "شماره استفتاء", question.Id.ToString("D8"));
+                                MetaRow(meta, "تاریخ وصول", question.QuestionDate);
+                                MetaRow(meta, "نام و نام خانوادگی", question.Name);
+                            });
 
-                            header.Item()
-                                .PaddingTop(2)
-                                .Text($"کد سوال: {question.Id:D8}")
-                                .FontSize(9)
-                                .AlignCenter();
+                            row.ConstantItem(isA4 ? 175 : 125)
+                                .AlignRight()
+                                .Column(logo =>
+                                {
+                                    logo.Item()
+                                        .AlignRight()
+                                        .Width(isA4 ? 150 : 108)
+                                        .Height(isA4 ? 42 : 31)
+                                        .Background("#006B3C")
+                                        .CornerRadius(9)
+                                        .AlignCenter()
+                                        .AlignMiddle()
+                                        .Text("بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ")
+                                        .FontColor("#C99B57")
+                                        .FontSize(isA4 ? 9 : 6.5f)
+                                        .Bold();
+
+                                    logo.Item()
+                                        .PaddingTop(3)
+                                        .AlignRight()
+                                        .Text("✺")
+                                        .FontColor("#006B3C")
+                                        .FontSize(isA4 ? 16 : 12);
+                                });
                         });
 
-                    column.Item().Column(meta =>
+                    header.Item()
+                        .BorderBottom(0.8f)
+                        .BorderColor("#C8A16E");
+                });
+
+                page.Content().PaddingTop(10).Column(column =>
+                {
+                    column.Spacing(isA4 ? 12 : 8);
+
+                    column.Item().Column(section =>
                     {
-                        MetaRow(meta, "عنوان", question.Title);
-                        MetaRow(meta, "تاریخ ثبت", question.QuestionDate);
-                        MetaRow(meta, "نام", question.Name);
-                        MetaRow(meta, "شماره همراه", question.Mobile);
-                        MetaRow(meta, "دسته سوال", question.QuestionCategory);
-                        MetaRow(meta, "تاریخ پاسخ", question.AnswerDate);
+                        SectionTitle(section, "متن استفتاء");
 
-                        if (!string.IsNullOrWhiteSpace(question.Address))
-                            MetaRow(meta, "آدرس", question.Address);
+                        section.Item()
+                            .PaddingTop(5)
+                            .Text(question.QuestionText ?? "-")
+                            .LineHeight(1.7f)
+                            .Justify();
                     });
-
-                    column.Item()
-                        .Column(section =>
-                        {
-                            SectionTitle(section, "متن استفتاء");
-                            section.Item()
-                                .Text(question.QuestionText ?? "-")
-                                .Justify();
-                        });
 
                     if (question.Answers.Count > 0)
                     {
@@ -83,32 +110,12 @@ public class QuestionPrintPdfService : IQuestionPrintPdfService
                             foreach (var answer in question.Answers)
                             {
                                 section.Item()
-                                    .Border(1)
-                                    .BorderColor(Colors.Grey.Medium)
-                                    .CornerRadius(3)
-                                    .Padding(8)
+                                    .PaddingTop(5)
                                     .Column(answerColumn =>
                                     {
-                                        var metaText = string.Join(
-                                            " | ",
-                                            new[]
-                                            {
-                                                string.IsNullOrWhiteSpace(answer.Language) ? null : $"زبان: {answer.Language}",
-                                                string.IsNullOrWhiteSpace(answer.EditorUser) ? null : $"تنظیم‌کننده: {answer.EditorUser}",
-                                                string.IsNullOrWhiteSpace(answer.Date) ? null : answer.Date
-                                            }.Where(x => x != null));
-
-                                        if (!string.IsNullOrWhiteSpace(metaText))
-                                        {
-                                            answerColumn.Item()
-                                                .Text(metaText)
-                                                .FontSize(7.5f)
-                                                .FontColor(Colors.Grey.Darken2);
-                                        }
-
                                         answerColumn.Item()
-                                            .PaddingTop(4)
                                             .Text(answer.Answer ?? "-")
+                                            .LineHeight(1.7f)
                                             .Justify();
 
                                         if (!string.IsNullOrWhiteSpace(answer.Reason))
@@ -120,6 +127,7 @@ public class QuestionPrintPdfService : IQuestionPrintPdfService
                                                     text.Span("دلیل: ").Bold();
                                                     text.Span(answer.Reason);
                                                 })
+                                                .LineHeight(1.6f)
                                                 .Justify();
                                         }
 
@@ -132,6 +140,7 @@ public class QuestionPrintPdfService : IQuestionPrintPdfService
                                                     text.Span("توضیحات: ").Bold();
                                                     text.Span(answer.Description);
                                                 })
+                                                .LineHeight(1.6f)
                                                 .Justify();
                                         }
                                     });
@@ -142,13 +151,22 @@ public class QuestionPrintPdfService : IQuestionPrintPdfService
                     if (!string.IsNullOrWhiteSpace(stampSvg))
                     {
                         column.Item()
-                            .PaddingTop(10)
+                            .PaddingTop(12)
                             .AlignLeft()
-                            .Width(90)
+                            .Width(isA4 ? 90 : 70)
                             .Svg(stampSvg)
                             .FitWidth();
                     }
                 });
+
+                page.Footer()
+                    .PaddingTop(5)
+                    .BorderTop(0.5f)
+                    .BorderColor("#C8A16E")
+                    .AlignCenter()
+                    .Text("karimijahromi.ir")
+                    .FontColor("#006B3C")
+                    .FontSize(isA4 ? 8 : 6.5f);
             });
         });
 
@@ -170,6 +188,7 @@ public class QuestionPrintPdfService : IQuestionPrintPdfService
     {
         column.Item()
             .BorderBottom(0.7f)
+            .BorderColor("#C8A16E")
             .PaddingBottom(3)
             .Text(title)
             .Bold()
