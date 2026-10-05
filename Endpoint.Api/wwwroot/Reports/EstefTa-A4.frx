@@ -16,34 +16,34 @@
   <ReportPage Name="Page1" PaperWidth="210.00" PaperHeight="297.00" LeftMargin="0" TopMargin="0" RightMargin="0" BottomMargin="0" Watermark.Font="Arial, 60pt">
     <ReportTitleBand Name="ReportTitle1" Width="793.70" Height="215.00" CanGrow="true">
       <ShapeObject Name="TopBand" Left="0" Top="0" Width="793.70" Height="60.00" Shape="Rectangle" Fill.Color="197, 158, 107" Border.Lines="None"/>
-      <TextObject Name="Title" Left="0" Top="10.00" Width="793.70" Height="40.00" Text="واحد پاسخ به مسائل شرعی" HorzAlign="Center" VertAlign="Center" RightToLeft="true" Font="Vazir, 13pt, style=Bold" TextFill.Color="23, 18, 13"/>
+      <TextObject Name="Title" Left="0" Top="10.00" Width="793.70" Height="40.00" Text="واحد پاسخ به مسائل شرعی" HorzAlign="Center" VertAlign="Center" RightToLeft="true" Font="B Nazanin, 13pt, style=Bold" TextFill.Color="23, 18, 13"/>
 
       <ShapeObject Name="BismillahOuter" Left="405.00" Top="70.00" Width="170.00" Height="48.00" Shape="RoundRectangle" Curve="10" Fill.Color="0, 112, 63" Border.Color="197, 154, 89" Border.Width="1"/>
-      <TextObject Name="Bismillah" Left="410.00" Top="78.00" Width="160.00" Height="32.00" Text="بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ" HorzAlign="Center" VertAlign="Center" RightToLeft="true" Font="Vazir, 10pt, style=Bold" TextFill.Color="197, 154, 89"/>
+      <TextObject Name="Bismillah" Left="410.00" Top="78.00" Width="160.00" Height="32.00" Text="بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ" HorzAlign="Center" VertAlign="Center" RightToLeft="true" Font="B Nazanin, 10pt, style=Bold" TextFill.Color="197, 154, 89"/>
 
       <ShapeObject Name="Medallion" Left="680.00" Top="62.00" Width="62.00" Height="62.00" Shape="Ellipse" Fill.Color="0, 112, 63" Border.Color="197, 154, 89" Border.Width="2"/>
       <ShapeObject Name="MedallionInner" Left="687.00" Top="69.00" Width="48.00" Height="48.00" Shape="Ellipse" Fill.Color="Transparent" Border.Color="197, 154, 89" Border.Width="1"/>
 
-      <TextObject Name="LabelId" Left="290.00" Top="86.00" Width="150.00" Height="22.00" Text="شماره استفتاء:" HorzAlign="Right" VertAlign="Center" RightToLeft="true" Font="Vazir, 10pt" TextFill.Color="21,21,21"/>
-      <TextObject Name="ValueId" Left="70.00" Top="86.00" Width="150.00" Height="22.00" Text="[QuestionId]" HorzAlign="Right" VertAlign="Center" RightToLeft="true" Font="Vazir, 10pt" TextFill.Color="21,21,21"/>
+      <TextObject Name="LabelId" Left="290.00" Top="86.00" Width="150.00" Height="22.00" Text="شماره استفتاء:" HorzAlign="Right" VertAlign="Center" RightToLeft="true" Font="B Nazanin, 10pt" TextFill.Color="21,21,21"/>
+      <TextObject Name="ValueId" Left="70.00" Top="86.00" Width="150.00" Height="22.00" Text="[QuestionId]" HorzAlign="Right" VertAlign="Center" RightToLeft="true" Font="B Nazanin, 10pt" TextFill.Color="21,21,21"/>
 
-      <TextObject Name="LabelDate" Left="290.00" Top="108.00" Width="150.00" Height="22.00" Text="تاریخ وصول:" HorzAlign="Right" VertAlign="Center" RightToLeft="true" Font="Vazir, 10pt" TextFill.Color="21,21,21"/>
-      <TextObject Name="ValueDate" Left="70.00" Top="108.00" Width="150.00" Height="22.00" Text="[QuestionDate]" HorzAlign="Right" VertAlign="Center" RightToLeft="true" Font="Vazir, 10pt" TextFill.Color="21,21,21"/>
+      <TextObject Name="LabelDate" Left="290.00" Top="108.00" Width="150.00" Height="22.00" Text="تاریخ وصول:" HorzAlign="Right" VertAlign="Center" RightToLeft="true" Font="B Nazanin, 10pt" TextFill.Color="21,21,21"/>
+      <TextObject Name="ValueDate" Left="70.00" Top="108.00" Width="150.00" Height="22.00" Text="[QuestionDate]" HorzAlign="Right" VertAlign="Center" RightToLeft="true" Font="B Nazanin, 10pt" TextFill.Color="21,21,21"/>
 
-      <TextObject Name="LabelName" Left="290.00" Top="130.00" Width="150.00" Height="22.00" Text="نام و نام خانوادگی:" HorzAlign="Right" VertAlign="Center" RightToLeft="true" Font="Vazir, 10pt" TextFill.Color="21,21,21"/>
-      <TextObject Name="ValueName" Left="70.00" Top="130.00" Width="190.00" Height="22.00" Text="[Name]" HorzAlign="Right" VertAlign="Center" RightToLeft="true" Font="Vazir, 10pt" TextFill.Color="21,21,21"/>
+      <TextObject Name="LabelName" Left="290.00" Top="130.00" Width="150.00" Height="22.00" Text="نام و نام خانوادگی:" HorzAlign="Right" VertAlign="Center" RightToLeft="true" Font="B Nazanin, 10pt" TextFill.Color="21,21,21"/>
+      <TextObject Name="ValueName" Left="70.00" Top="130.00" Width="190.00" Height="22.00" Text="[Name]" HorzAlign="Right" VertAlign="Center" RightToLeft="true" Font="B Nazanin, 10pt" TextFill.Color="21,21,21"/>
 
-      <TextObject Name="Question" Left="65.00" Top="155.00" Width="663.00" Height="70.00" CanGrow="true" CanBreak="true" Wysiwyg="true" Text="[QuestionText]" HorzAlign="Justify" VertAlign="Top" RightToLeft="true" LineHeight="20.00" Font="Vazir, 11pt" TextFill.Color="20,20,20"/>
+      <TextObject Name="Question" Left="65.00" Top="155.00" Width="663.00" Height="70.00" CanGrow="true" CanBreak="true" Wysiwyg="true" Text="[QuestionText]" HorzAlign="Justify" VertAlign="Top" RightToLeft="true" LineHeight="23.00" Font="B Nazanin, 11pt" TextFill.Color="20,20,20"/>
     </ReportTitleBand>
 
     <DataBand Name="AnswersBand" Top="237.00" Width="793.70" Height="125.00" CanGrow="true" DataSource="Answers">
-      <TextObject Name="AnswerText" Left="65.00" Top="0" Width="663.00" Height="45.00" CanGrow="true" CanBreak="true" Wysiwyg="true" Text="[Answers.Answer]" HorzAlign="Justify" VertAlign="Top" RightToLeft="true" LineHeight="20.00" Font="Vazir, 11pt" TextFill.Color="20,20,20"/>
-      <TextObject Name="ReasonText" Left="65.00" Top="52.00" Width="663.00" Height="35.00" CanGrow="true" CanBreak="true" ShiftMode="Always" Wysiwyg="true" Text="[Answers.Reason]" HorzAlign="Justify" VertAlign="Top" RightToLeft="true" LineHeight="18.00" Font="Vazir, 10pt" TextFill.Color="45,45,45"/>
-      <TextObject Name="DescriptionText" Left="65.00" Top="95.00" Width="663.00" Height="35.00" CanGrow="true" CanBreak="true" ShiftMode="Always" Wysiwyg="true" Text="[Answers.Description]" HorzAlign="Justify" VertAlign="Top" RightToLeft="true" LineHeight="18.00" Font="Vazir, 10pt" TextFill.Color="45,45,45"/>
+      <TextObject Name="AnswerText" Left="65.00" Top="0" Width="663.00" Height="45.00" CanGrow="true" CanBreak="true" Wysiwyg="true" Text="[Answers.Answer]" HorzAlign="Justify" VertAlign="Top" RightToLeft="true" LineHeight="23.00" Font="B Nazanin, 11pt" TextFill.Color="20,20,20"/>
+      <TextObject Name="ReasonText" Left="65.00" Top="52.00" Width="663.00" Height="35.00" CanGrow="true" CanBreak="true" ShiftMode="Always" Wysiwyg="true" Text="[Answers.Reason]" HorzAlign="Justify" VertAlign="Top" RightToLeft="true" LineHeight="21.00" Font="B Nazanin, 10pt" TextFill.Color="45,45,45"/>
+      <TextObject Name="DescriptionText" Left="65.00" Top="95.00" Width="663.00" Height="35.00" CanGrow="true" CanBreak="true" ShiftMode="Always" Wysiwyg="true" Text="[Answers.Description]" HorzAlign="Justify" VertAlign="Top" RightToLeft="true" LineHeight="21.00" Font="B Nazanin, 10pt" TextFill.Color="45,45,45"/>
     </DataBand>
 
     <PageFooterBand Name="PageFooter1" Top="1080.00" Width="793.70" Height="25.00">
-      <TextObject Name="Footer" Left="0" Top="0" Width="793.70" Height="25.00" Text="سامانه پیام کوتاه: ۳۰۰۰۷۴۲۸۴  |  تلفن: ۰۲۵۳۷۷۲۴۷۶۸  |  شبکه‌های اجتماعی: karimijahromi.ir" HorzAlign="Center" VertAlign="Center" RightToLeft="true" Font="Vazir, 8pt" TextFill.Color="0,112,63"/>
+      <TextObject Name="Footer" Left="0" Top="0" Width="793.70" Height="25.00" Text="سامانه پیام کوتاه: ۳۰۰۰۷۴۲۸۴  |  تلفن: ۰۲۵۳۷۷۲۴۷۶۸  |  شبکه‌های اجتماعی: karimijahromi.ir" HorzAlign="Center" VertAlign="Center" RightToLeft="true" Font="B Nazanin, 8pt" TextFill.Color="0,112,63"/>
     </PageFooterBand>
   </ReportPage>
 </Report>
