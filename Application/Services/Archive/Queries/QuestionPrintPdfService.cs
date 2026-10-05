@@ -12,6 +12,8 @@ public interface IQuestionPrintPdfService
 
 public class QuestionPrintPdfService : IQuestionPrintPdfService
 {
+    private static readonly object FontLock = new();
+    private static bool _fontReady;
     public byte[] Generate(
         GetQuestionPrintDto question,
         string format,
@@ -32,10 +34,9 @@ public class QuestionPrintPdfService : IQuestionPrintPdfService
             "BNAZANIN.TTF");
 
         if (!File.Exists(fontPath))
-            throw new FileNotFoundException("فونت Vazir یافت نشد.", fontPath);
+            throw new FileNotFoundException("فونت B Nazanin یافت نشد.", fontPath);
 
-        if (!FontManager.AddFont(fontPath))
-            throw new InvalidOperationException("ثبت فونت Vazir در FastReport با خطا مواجه شد.");
+        EnsureFontRegistered(fontPath);
 
         using var report = new FastReport.Report();
 
@@ -64,6 +65,33 @@ public class QuestionPrintPdfService : IQuestionPrintPdfService
         report.Export(pdfExport, stream);
 
         return stream.ToArray();
+    }
+
+    private static void EnsureFontRegistered(string fontPath)
+    {
+        if (_fontReady)
+            return;
+
+        lock (FontLock)
+        {
+            if (_fontReady)
+                return;
+
+            FontManager.AddFont(fontPath);
+
+            var nazaninFamily = FontManager.AllFamilies
+                .FirstOrDefault(f =>
+                    string.Equals(f.Name, "B Nazanin", StringComparison.OrdinalIgnoreCase) ||
+                    f.Name.Contains("Nazanin", StringComparison.OrdinalIgnoreCase));
+
+            if (nazaninFamily == null)
+            {
+                throw new InvalidOperationException(
+                    $"فونت B Nazanin در FastReport ثبت نشد. مسیر فونت: {fontPath}");
+            }
+
+            _fontReady = true;
+        }
     }
 
     private static DataSet BuildDataSet(GetQuestionPrintDto question)
