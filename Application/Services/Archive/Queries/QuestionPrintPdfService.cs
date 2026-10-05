@@ -124,11 +124,11 @@ public class QuestionPrintPdfService : IQuestionPrintPdfService
                                                 .PaddingTop(5)
                                                 .Text(text =>
                                                 {
+                                                    text.DefaultTextStyle(x => x.LineHeight(1.6f));
+                                                    text.Justify();
                                                     text.Span("دلیل: ").Bold();
                                                     text.Span(answer.Reason);
-                                                })
-                                                .LineHeight(1.6f)
-                                                .Justify();
+                                                });
                                         }
 
                                         if (!string.IsNullOrWhiteSpace(answer.Description))
@@ -137,11 +137,11 @@ public class QuestionPrintPdfService : IQuestionPrintPdfService
                                                 .PaddingTop(5)
                                                 .Text(text =>
                                                 {
+                                                    text.DefaultTextStyle(x => x.LineHeight(1.6f));
+                                                    text.Justify();
                                                     text.Span("توضیحات: ").Bold();
                                                     text.Span(answer.Description);
-                                                })
-                                                .LineHeight(1.6f)
-                                                .Justify();
+                                                });
                                         }
                                     });
                             }
