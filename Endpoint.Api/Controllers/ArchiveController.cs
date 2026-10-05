@@ -65,6 +65,40 @@ namespace Endpoint.Api.Controllers
             return StatusCode(res.StatusCode, res);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetQuestionPrintPdf(
+            [FromQuery] long? QuestionId,
+            [FromQuery] string format = "A5")
+        {
+            var res = await _getQuestionPrintService.ExecuteAsync(QuestionId);
+
+            if (!res.IsSuccess || res.Data == null)
+                return StatusCode(res.StatusCode, res);
+
+            if (!string.Equals(format, "A4", StringComparison.OrdinalIgnoreCase) &&
+                !string.Equals(format, "A5", StringComparison.OrdinalIgnoreCase))
+            {
+                return BadRequest("فرمت چاپ باید A4 یا A5 باشد.");
+            }
+
+            var stampPath = Path.Combine(
+                Directory.GetCurrentDirectory(),
+                "wwwroot",
+                "Files",
+                "istifta-stamp.svg");
+
+            var stampSvg = System.IO.File.Exists(stampPath)
+                ? await System.IO.File.ReadAllTextAsync(stampPath)
+                : null;
+
+            var pdf = _questionPrintPdfService.Generate(res.Data, format, stampSvg);
+
+            return File(
+                pdf,
+                "application/pdf",
+                $"istifta-{res.Data.Id:D8}-{format.ToUpperInvariant()}.pdf");
+        }
+
 [HttpPost]
 		public async Task<IActionResult> SendAnswerDate([FromBody] SendAnswerDateDto dto)
 		{
