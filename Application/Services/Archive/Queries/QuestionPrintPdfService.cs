@@ -25,7 +25,7 @@ public class QuestionPrintPdfService : IQuestionPrintPdfService
         if (!File.Exists(reportPath))
             throw new FileNotFoundException("قالب گزارش استفتاء یافت نشد.", reportPath);
 
-        using var report = new Report();
+        using var report = new FastReport.Report();
 
         report.Load(reportPath);
 

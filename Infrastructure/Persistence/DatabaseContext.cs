@@ -41,7 +41,7 @@ public class DatabaseContext: DbContext, IDatabaseContext
     public DbSet<AdminSection> AdminSections { get; set; }
     public DbSet<AdminSectionAccess> AdminSectionAccesses { get; set; }
     public DbSet<Country> Countries { get; set; }
-    public DbSet<Editor> Editors { get; set; }
+    public DbSet<Domain.Entities.Editor> Editors { get; set; }
     public DbSet<JobCategory> JobCategories { get; set; }
 	public DbSet<Language> Languages { get; set; }
 	public DbSet<Province> Provinces { get; set; }

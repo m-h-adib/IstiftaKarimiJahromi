@@ -16,7 +16,7 @@ public interface IDatabaseContext
 	DbSet<AdminSection> AdminSections { get; set; }
 	DbSet<AdminSectionAccess> AdminSectionAccesses { get; set; }
 	DbSet<Country> Countries { get; set; }
-	DbSet<Editor> Editors { get; set; }
+	DbSet<Domain.Entities.Editor> Editors { get; set; }
 	DbSet<JobCategory> JobCategories { get; set; }
 	DbSet<Language> Languages { get; set; }
 	DbSet<Province> Provinces { get; set; }
