@@ -1,6 +1,7 @@
 using System.Data;
 using FastReport;
 using FastReport.Export.PdfSimple;
+using FastReport.Utils;
 
 namespace Application.Services.Archive.Queries;
 
@@ -25,6 +26,17 @@ public class QuestionPrintPdfService : IQuestionPrintPdfService
         if (!File.Exists(reportPath))
             throw new FileNotFoundException("قالب گزارش استفتاء یافت نشد.", reportPath);
 
+        var fontPath = Path.Combine(
+            Directory.GetParent(reportsDirectory)?.FullName ?? reportsDirectory,
+            "Fonts",
+            "Vazir.ttf");
+
+        if (!File.Exists(fontPath))
+            throw new FileNotFoundException("فونت Vazir یافت نشد.", fontPath);
+
+        if (!FontManager.AddFont(fontPath))
+            throw new InvalidOperationException("ثبت فونت Vazir در FastReport با خطا مواجه شد.");
+
         using var report = new FastReport.Report();
 
         report.Load(reportPath);
@@ -45,6 +57,7 @@ public class QuestionPrintPdfService : IQuestionPrintPdfService
         {
             ImageDpi = 300,
             JpegQuality = 95,
+            EmbeddingFonts = true,
             Title = $"استفتاء {question.Id:D8}",
             Subject = "نسخه چاپی استفتاء"
         };
