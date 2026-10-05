@@ -57,7 +57,6 @@ public class QuestionPrintPdfService : IQuestionPrintPdfService
         {
             ImageDpi = 300,
             JpegQuality = 95,
-            EmbeddingFonts = true,
             Title = $"استفتاء {question.Id:D8}",
             Subject = "نسخه چاپی استفتاء"
         };
