@@ -53,7 +53,14 @@ public class QuestionPrintPdfService : IQuestionPrintPdfService
                                 .Height(82 * scale)
                                 .Row(row =>
                                 {
-                                    row.ContentFromLeftToRight();
+                                    // The page is RTL, so the first row item is placed on the right.
+                                    // Keep the logo first and metadata second to match the reference.
+                                    row.RelativeItem()
+                                        .PaddingTop(7 * scale)
+                                        .PaddingRight(35 * scale)
+                                        .Height(62 * scale)
+                                        .AlignRight()
+                                        .Svg(CreateHeaderLogoSvg());
 
                                     row.ConstantItem(235 * scale)
                                         .PaddingTop(17 * scale)
@@ -65,13 +72,6 @@ public class QuestionPrintPdfService : IQuestionPrintPdfService
                                             MetaRow(meta, "تاریخ وصول", question.QuestionDate, scale);
                                             MetaRow(meta, "نام و نام خانوادگی", question.Name, scale);
                                         });
-
-                                    row.RelativeItem()
-                                        .PaddingTop(7 * scale)
-                                        .PaddingRight(35 * scale)
-                                        .Height(62 * scale)
-                                        .AlignRight()
-                                        .Svg(CreateHeaderLogoSvg());
                                 });
                         });
 
