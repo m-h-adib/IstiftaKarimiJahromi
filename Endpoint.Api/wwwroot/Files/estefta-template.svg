@@ -1,42 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="595.276pt" height="841.89pt" viewBox="0 0 595.276 841.89">
   <rect width="595.276" height="841.89" fill="#ffffff"/>
-  <rect x="0" y="0" width="595.276" height="45" fill="#c49b69"/>
+  <rect x="0" y="0" width="595.276" height="45" fill="#c59e6b"/>
   <text x="297.638" y="29" text-anchor="middle" direction="rtl"
         font-family="Tahoma, Arial" font-size="12.5" font-weight="bold" fill="#17120d">واحد پاسخ به مسائل شرعی</text>
 
-  <!-- exact-layout inspired ornamental header -->
-  <g transform="translate(430 58)">
-    <path d="M10 18 C4 14 4 8 10 5 C16 2 24 4 30 8 C36 4 44 2 50 5 C56 8 56 14 50 18 C56 22 56 28 50 31 C44 34 36 32 30 28 C24 32 16 34 10 31 C4 28 4 22 10 18Z" fill="#006b3f"/>
-    <path d="M18 18 C13 15 13 10 18 8 C23 6 27 9 30 12 C33 9 37 6 42 8 C47 10 47 15 42 18 C47 21 47 26 42 28 C37 30 33 27 30 24 C27 27 23 30 18 28 C13 26 13 21 18 18Z" fill="none" stroke="#c59a59" stroke-width="1.2"/>
-    <text x="30" y="21.5" text-anchor="middle" direction="rtl" font-family="Tahoma, Arial" font-size="9.5" font-weight="bold" fill="#c59a59">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</text>
-  </g>
-  <g transform="translate(518 52)">
-    <circle cx="24" cy="24" r="24" fill="#006b3f"/>
-    <circle cx="24" cy="24" r="20" fill="none" stroke="#c59a59" stroke-width="1.5"/>
-    <g fill="#c59a59">
-      <circle cx="24" cy="5" r="1.5"/><circle cx="24" cy="43" r="1.5"/>
-      <circle cx="5" cy="24" r="1.5"/><circle cx="43" cy="24" r="1.5"/>
-      <circle cx="10.5" cy="10.5" r="1.2"/><circle cx="37.5" cy="10.5" r="1.2"/>
-      <circle cx="10.5" cy="37.5" r="1.2"/><circle cx="37.5" cy="37.5" r="1.2"/>
-      <circle cx="16" cy="6.8" r="1"/><circle cx="32" cy="6.8" r="1"/>
-      <circle cx="16" cy="41.2" r="1"/><circle cx="32" cy="41.2" r="1"/>
-      <circle cx="6.8" cy="16" r="1"/><circle cx="41.2" cy="16" r="1"/>
-      <circle cx="6.8" cy="32" r="1"/><circle cx="41.2" cy="32" r="1"/>
-    </g>
-    <path d="M24 8 C30 15 34 18 40 24 C34 30 30 33 24 40 C18 33 14 30 8 24 C14 18 18 15 24 8Z" fill="none" stroke="#c59a59" stroke-width="1"/>
+  <!-- Reference-style green/gold Bismillah plaque -->
+  <g transform="translate(305 57)">
+    <path d="M10 9 C4 9 1 14 5 19 C1 24 4 29 10 29
+             C17 29 21 25 25 22 C29 25 33 29 40 29
+             C46 29 49 24 45 19 C49 14 46 9 40 9
+             C33 9 29 13 25 16 C21 13 17 9 10 9Z"
+          fill="#00703f"/>
+    <path d="M15 12 C10 12 8 15 11 19 C8 22 10 26 15 26
+             C20 26 23 22 25 20 C27 22 30 26 35 26
+             C40 26 42 22 39 19 C42 15 40 12 35 12
+             C30 12 27 16 25 18 C23 16 20 12 15 12Z"
+          fill="none" stroke="#c59a59" stroke-width="1.1"/>
+    <text x="25" y="22" text-anchor="middle" direction="rtl"
+          font-family="Tahoma, Arial" font-size="8.7" font-weight="bold"
+          fill="#c59a59">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</text>
   </g>
 
-  <!-- fixed labels from the reference template -->
+  <!-- Reference-style circular ornamental medallion -->
+  <g transform="translate(506 51)">
+    <circle cx="27" cy="27" r="26" fill="#00703f"/>
+    <circle cx="27" cy="27" r="22" fill="none" stroke="#c59a59" stroke-width="1.5"/>
+    <circle cx="27" cy="27" r="18" fill="none" stroke="#c59a59" stroke-width="0.7"/>
+    <g fill="#c59a59">
+      <circle cx="27" cy="6" r="1.6"/><circle cx="27" cy="48" r="1.6"/>
+      <circle cx="6" cy="27" r="1.6"/><circle cx="48" cy="27" r="1.6"/>
+      <circle cx="12" cy="12" r="1.3"/><circle cx="42" cy="12" r="1.3"/>
+      <circle cx="12" cy="42" r="1.3"/><circle cx="42" cy="42" r="1.3"/>
+    </g>
+    <g fill="none" stroke="#c59a59" stroke-width="0.8">
+      <path d="M27 9 C32 14 37 18 45 27 C37 36 32 40 27 45
+               C22 40 17 36 9 27 C17 18 22 14 27 9Z"/>
+      <path d="M13 27 C18 22 22 17 27 11 C32 17 36 22 41 27
+               C36 32 32 37 27 43 C22 37 18 32 13 27Z"/>
+      <path d="M18 18 C22 20 25 23 27 27 C29 23 32 20 36 18
+               C34 23 31 26 27 29 C23 26 20 23 18 18Z"/>
+      <path d="M18 36 C22 34 25 31 27 27 C29 31 32 34 36 36
+               C32 31 29 29 27 25 C25 29 22 31 18 36Z"/>
+    </g>
+  </g>
+
+  <!-- Metadata labels exactly in the reference structure.
+       Answer/send date is intentionally omitted. -->
   <g direction="rtl" font-family="Tahoma, Arial" font-size="10.5" fill="#151515" text-anchor="end">
     <text x="220" y="69">شماره استفتاء:</text>
     <text x="220" y="91">تاریخ وصول:</text>
     <text x="220" y="113">نام و نام خانوادگی:</text>
   </g>
 
-  <!-- footer -->
-  <g direction="rtl" font-family="Tahoma, Arial" font-size="8.2" fill="#006b3f" text-anchor="middle">
-    <text x="297.638" y="805">آدرس: قم، خیابان ارم، کوی ۱۷، پلاک ۱۵  |  کدپستی: ۳۷۱۷۳۸۵۸۹۷</text>
+  <!-- Reference footer, with postal address intentionally omitted. -->
+  <g direction="rtl" font-family="Tahoma, Arial" font-size="8.2" fill="#00703f" text-anchor="middle">
     <text x="297.638" y="822">سامانه پیام کوتاه: ۳۰۰۰۷۴۲۸۴  |  تلفن: ۰۲۵۳۷۷۲۴۷۶۸  |  شبکه‌های اجتماعی: karimijahromi.ir</text>
   </g>
 </svg>
