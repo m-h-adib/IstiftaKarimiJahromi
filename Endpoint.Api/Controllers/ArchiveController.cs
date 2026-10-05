@@ -16,13 +16,15 @@ namespace Endpoint.Api.Controllers
         private readonly IGetQuestionResultService _getQuestionResultService;
         private readonly IDeleteArchiveQuestionService _deleteArchiveQuestionService;
         private readonly IGetQuestionPrintService _getQuestionPrintService;
+        private readonly IQuestionPrintPdfService _questionPrintPdfService;
 		private readonly ISendAnswerDateService _sendAnswerDateService;
 		public ArchiveController(IGetArchiveQuestionService getArchiveQuestionService,
             IGetQuestionResultService getQuestionResultService,
             IGetQuestionStepsService getQuestionStepsService,
             IDeleteArchiveQuestionService deleteArchiveQuestionService,
 			ISendAnswerDateService sendAnswerDateService,
-            IGetQuestionPrintService getQuestionPrintService)
+            IGetQuestionPrintService getQuestionPrintService,
+            IQuestionPrintPdfService questionPrintPdfService)
         {
             _getArchiveQuestionService = getArchiveQuestionService;
             _getQuestionResultService = getQuestionResultService;
@@ -30,6 +32,7 @@ namespace Endpoint.Api.Controllers
 			_sendAnswerDateService = sendAnswerDateService;
 			_deleteArchiveQuestionService = deleteArchiveQuestionService;
             _getQuestionPrintService = getQuestionPrintService;
+            _questionPrintPdfService = questionPrintPdfService;
         }
 
 
