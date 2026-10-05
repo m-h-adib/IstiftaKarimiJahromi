@@ -1,4 +1,7 @@
 using EndPoint.Api.Configurations;
+using QuestPDF.Infrastructure;
+
+QuestPDF.Settings.License = LicenseType.Community;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.Config(builder.Configuration);
