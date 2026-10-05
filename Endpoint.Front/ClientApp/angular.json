@@ -134,5 +134,8 @@
       }
     }
   },
-  "defaultProject": "Endpoint.Front"
+  "defaultProject": "Endpoint.Front",
+  "cli": {
+    "analytics": "9ee3e7ee-41f2-4474-8444-446ab4cc98d5"
+  }
 }

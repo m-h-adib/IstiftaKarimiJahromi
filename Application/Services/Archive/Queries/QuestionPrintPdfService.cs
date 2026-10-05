@@ -119,8 +119,8 @@ public class QuestionPrintPdfService : IQuestionPrintPdfService
                                                 {
                                                     text.Span("دلیل: ").Bold();
                                                     text.Span(answer.Reason);
-                                                })
-                                                .Justify();
+                                                });
+                                               // .Justify();
                                         }
 
                                         if (!string.IsNullOrWhiteSpace(answer.Description))
@@ -131,8 +131,8 @@ public class QuestionPrintPdfService : IQuestionPrintPdfService
                                                 {
                                                     text.Span("توضیحات: ").Bold();
                                                     text.Span(answer.Description);
-                                                })
-                                                .Justify();
+                                                });
+                                                //.Justify();
                                         }
                                     });
                             }
