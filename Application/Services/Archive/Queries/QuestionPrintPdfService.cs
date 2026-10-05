@@ -50,14 +50,28 @@ public class QuestionPrintPdfService : IQuestionPrintPdfService
                                 .FontSize(13 * scale);
 
                             top.Item()
-                                .PaddingTop(17 * scale)
-                                .PaddingLeft(75 * scale)
-                                .Width(150 * scale)
-                                .Column(meta =>
+                                .Height(82 * scale)
+                                .Row(row =>
                                 {
-                                    MetaRow(meta, "شماره استفتاء", question.Id.ToString("D8"), scale);
-                                    MetaRow(meta, "تاریخ وصول", question.QuestionDate, scale);
-                                    MetaRow(meta, "نام و نام خانوادگی", question.Name, scale);
+                                    row.ContentFromLeftToRight();
+
+                                    row.ConstantItem(235 * scale)
+                                        .PaddingTop(17 * scale)
+                                        .PaddingLeft(75 * scale)
+                                        .Width(150 * scale)
+                                        .Column(meta =>
+                                        {
+                                            MetaRow(meta, "شماره استفتاء", question.Id.ToString("D8"), scale);
+                                            MetaRow(meta, "تاریخ وصول", question.QuestionDate, scale);
+                                            MetaRow(meta, "نام و نام خانوادگی", question.Name, scale);
+                                        });
+
+                                    row.RelativeItem()
+                                        .PaddingTop(7 * scale)
+                                        .PaddingRight(35 * scale)
+                                        .Height(62 * scale)
+                                        .AlignRight()
+                                        .Svg(CreateHeaderLogoSvg());
                                 });
                         });
 
@@ -137,6 +151,34 @@ public class QuestionPrintPdfService : IQuestionPrintPdfService
         });
 
         return document.GeneratePdf();
+    }
+
+    private static string CreateHeaderLogoSvg()
+    {
+        return """
+        <svg xmlns="http://www.w3.org/2000/svg" width="230" height="62" viewBox="0 0 230 62">
+          <rect width="230" height="62" fill="white"/>
+          <circle cx="207" cy="31" r="25" fill="#006B3C"/>
+          <circle cx="207" cy="31" r="20" fill="none" stroke="#C99B57" stroke-width="2"/>
+          <g fill="#C99B57">
+            <circle cx="207" cy="14" r="2.2"/>
+            <circle cx="207" cy="48" r="2.2"/>
+            <circle cx="190" cy="31" r="2.2"/>
+            <circle cx="224" cy="31" r="2.2"/>
+            <circle cx="195" cy="19" r="1.8"/>
+            <circle cx="219" cy="19" r="1.8"/>
+            <circle cx="195" cy="43" r="1.8"/>
+            <circle cx="219" cy="43" r="1.8"/>
+          </g>
+          <rect x="18" y="8" width="164" height="46" rx="10" fill="#006B3C"/>
+          <path d="M18 31 L8 31 L18 22 Z M18 31 L8 31 L18 40 Z M182 31 L192 31 L182 22 Z M182 31 L192 31 L182 40 Z" fill="#006B3C"/>
+          <text x="100" y="36" text-anchor="middle"
+                fill="#C99B57"
+                font-family="Tahoma, Arial"
+                font-size="13"
+                font-weight="bold">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</text>
+        </svg>
+        """;
     }
 
     private static void MetaRow(
