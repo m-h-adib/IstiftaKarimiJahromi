@@ -55,7 +55,14 @@ namespace Endpoint.Api.Controllers
         }
 
 
-		[HttpPost]
+		        [HttpGet]
+        public async Task<IActionResult> GetQuestionPrint([FromQuery] long? QuestionId)
+        {
+            var res = await _getQuestionPrintService.ExecuteAsync(QuestionId);
+            return StatusCode(res.StatusCode, res);
+        }
+
+[HttpPost]
 		public async Task<IActionResult> SendAnswerDate([FromBody] SendAnswerDateDto dto)
 		{
 			var res = await _sendAnswerDateService.ExecuteAsync(dto);
