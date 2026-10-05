@@ -118,6 +118,11 @@ import { GetQuestionPrintDto } from "../_models/archive/getQuestionPrintDto";
     @media print {
       body {
         background: #fff !important;
+        margin: 0 !important;
+      }
+
+      html, body {
+        padding: 0 !important;
       }
 
       app-nav-menu,
@@ -165,6 +170,12 @@ export class ArchivesPrintComponent implements OnInit {
   format: "A5" | "A4" = "A5";
   loading = true;
   error = "";
+
+  get questionCode(): string {
+    return this.question?.id != null
+      ? this.question.id.toString().padStart(8, "0")
+      : "00000000";
+  }
 
   constructor(
     private route: ActivatedRoute,
