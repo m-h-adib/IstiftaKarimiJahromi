@@ -50,6 +50,12 @@ public class QuestionPrintPdfService : IQuestionPrintPdfService
         var dataSet = BuildDataSet(question);
         report.RegisterData(dataSet, "Istifta", true);
 
+        var answersDataSource = report.GetDataSource("Answers");
+        if (answersDataSource == null)
+            throw new InvalidOperationException("منبع داده پاسخ‌های استفتاء در قالب FastReport یافت نشد.");
+
+        answersDataSource.Enabled = true;
+
         if (!report.Prepare())
             throw new InvalidOperationException("تهیه گزارش استفتاء با خطا مواجه شد.");
 
