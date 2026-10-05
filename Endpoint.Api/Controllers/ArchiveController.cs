@@ -17,29 +17,30 @@ namespace Endpoint.Api.Controllers
         private readonly IDeleteArchiveQuestionService _deleteArchiveQuestionService;
         private readonly IGetQuestionPrintService _getQuestionPrintService;
         private readonly IQuestionPrintPdfService _questionPrintPdfService;
-		private readonly ISendAnswerDateService _sendAnswerDateService;
-		public ArchiveController(IGetArchiveQuestionService getArchiveQuestionService,
+        private readonly ISendAnswerDateService _sendAnswerDateService;
+
+        public ArchiveController(
+            IGetArchiveQuestionService getArchiveQuestionService,
             IGetQuestionResultService getQuestionResultService,
             IGetQuestionStepsService getQuestionStepsService,
             IDeleteArchiveQuestionService deleteArchiveQuestionService,
-			ISendAnswerDateService sendAnswerDateService,
+            ISendAnswerDateService sendAnswerDateService,
             IGetQuestionPrintService getQuestionPrintService,
             IQuestionPrintPdfService questionPrintPdfService)
         {
             _getArchiveQuestionService = getArchiveQuestionService;
             _getQuestionResultService = getQuestionResultService;
             _getQuestionStepsService = getQuestionStepsService;
-			_sendAnswerDateService = sendAnswerDateService;
-			_deleteArchiveQuestionService = deleteArchiveQuestionService;
+            _sendAnswerDateService = sendAnswerDateService;
+            _deleteArchiveQuestionService = deleteArchiveQuestionService;
             _getQuestionPrintService = getQuestionPrintService;
             _questionPrintPdfService = questionPrintPdfService;
         }
 
-
         [HttpGet]
-        public async Task<IActionResult> GetArchiveQuestions([FromQuery]GetArchiveQuestionRequestDto dto)
+        public async Task<IActionResult> GetArchiveQuestions([FromQuery] GetArchiveQuestionRequestDto dto)
         {
-            var res=await _getArchiveQuestionService.ExecuteAsync(dto);
+            var res = await _getArchiveQuestionService.ExecuteAsync(dto);
             return StatusCode(res.StatusCode, res);
         }
 
@@ -51,14 +52,13 @@ namespace Endpoint.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetQuestionResults([FromQuery]long? QuestionId)
+        public async Task<IActionResult> GetQuestionResults([FromQuery] long? QuestionId)
         {
             var res = await _getQuestionResultService.ExecuteAsync(QuestionId);
             return StatusCode(res.StatusCode, res);
         }
 
-
-		        [HttpGet]
+        [HttpGet]
         public async Task<IActionResult> GetQuestionPrint([FromQuery] long? QuestionId)
         {
             var res = await _getQuestionPrintService.ExecuteAsync(QuestionId);
@@ -81,17 +81,7 @@ namespace Endpoint.Api.Controllers
                 return BadRequest("فرمت چاپ باید A4 یا A5 باشد.");
             }
 
-            var stampPath = Path.Combine(
-                Directory.GetCurrentDirectory(),
-                "wwwroot",
-                "Files",
-                "istifta-stamp.svg");
-
-            var stampSvg = System.IO.File.Exists(stampPath)
-                ? await System.IO.File.ReadAllTextAsync(stampPath)
-                : null;
-
-            var pdf = _questionPrintPdfService.Generate(res.Data, format, stampSvg);
+            var pdf = _questionPrintPdfService.Generate(res.Data, format);
 
             return File(
                 pdf,
@@ -99,14 +89,14 @@ namespace Endpoint.Api.Controllers
                 $"istifta-{res.Data.Id:D8}-{format.ToUpperInvariant()}.pdf");
         }
 
-[HttpPost]
-		public async Task<IActionResult> SendAnswerDate([FromBody] SendAnswerDateDto dto)
-		{
-			var res = await _sendAnswerDateService.ExecuteAsync(dto);
-			return StatusCode(res.StatusCode, res);
-		}
+        [HttpPost]
+        public async Task<IActionResult> SendAnswerDate([FromBody] SendAnswerDateDto dto)
+        {
+            var res = await _sendAnswerDateService.ExecuteAsync(dto);
+            return StatusCode(res.StatusCode, res);
+        }
 
-		[HttpDelete]
+        [HttpDelete]
         public async Task<IActionResult> DeleteArchiveQuestion([FromQuery] long? QuestionId)
         {
             var res = await _deleteArchiveQuestionService.ExecuteAsync(QuestionId);
