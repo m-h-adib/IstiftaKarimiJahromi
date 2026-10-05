@@ -81,21 +81,15 @@ namespace Endpoint.Api.Controllers
                 return BadRequest("فرمت چاپ باید A4 یا A5 باشد.");
             }
 
-            var templatePath = Path.Combine(
+            var reportsDirectory = Path.Combine(
                 Directory.GetCurrentDirectory(),
                 "wwwroot",
-                "Files",
-                "estefta-template.svg");
-
-            if (!System.IO.File.Exists(templatePath))
-                return StatusCode(500, "قالب چاپ استفتاء یافت نشد.");
-
-            var templateSvg = await System.IO.File.ReadAllTextAsync(templatePath);
+                "Reports");
 
             var pdf = _questionPrintPdfService.Generate(
                 res.Data,
                 format,
-                templateSvg);
+                reportsDirectory);
 
             return File(
                 pdf,
