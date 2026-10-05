@@ -29,7 +29,7 @@ public class QuestionPrintPdfService : IQuestionPrintPdfService
         var fontPath = Path.Combine(
             Directory.GetParent(reportsDirectory)?.FullName ?? reportsDirectory,
             "Fonts",
-            "Vazir.ttf");
+            "BNAZANIN.TTF");
 
         if (!File.Exists(fontPath))
             throw new FileNotFoundException("فونت Vazir یافت نشد.", fontPath);
