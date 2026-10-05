@@ -1,12 +1,12 @@
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
+using System.Data;
+using FastReport;
+using FastReport.Export.PdfSimple;
 
 namespace Application.Services.Archive.Queries;
 
 public interface IQuestionPrintPdfService
 {
-    byte[] Generate(GetQuestionPrintDto question, string format, string templateSvg);
+    byte[] Generate(GetQuestionPrintDto question, string format, string reportsDirectory);
 }
 
 public class QuestionPrintPdfService : IQuestionPrintPdfService
@@ -14,143 +14,67 @@ public class QuestionPrintPdfService : IQuestionPrintPdfService
     public byte[] Generate(
         GetQuestionPrintDto question,
         string format,
-        string templateSvg)
+        string reportsDirectory)
     {
-        var isA4 = string.Equals(format, "A4", StringComparison.OrdinalIgnoreCase);
-        var scale = isA4 ? 1f : 0.7071f;
+        var reportFileName = string.Equals(format, "A4", StringComparison.OrdinalIgnoreCase)
+            ? "EstefTa-A4.frx"
+            : "EstefTa-A5.frx";
 
-        var pageWidth = isA4 ? PageSizes.A4.Width : PageSizes.A5.Width;
-        var pageHeight = isA4 ? PageSizes.A4.Height : PageSizes.A5.Height;
+        var reportPath = Path.Combine(reportsDirectory, reportFileName);
 
-        var document = Document.Create(document =>
+        if (!File.Exists(reportPath))
+            throw new FileNotFoundException("قالب گزارش استفتاء یافت نشد.", reportPath);
+
+        using var report = new Report();
+
+        report.Load(reportPath);
+
+        report.SetParameterValue("QuestionId", question.Id.ToString("D8"));
+        report.SetParameterValue("QuestionDate", question.QuestionDate ?? string.Empty);
+        report.SetParameterValue("Name", question.Name ?? string.Empty);
+        report.SetParameterValue("QuestionText", question.QuestionText ?? string.Empty);
+
+        var dataSet = BuildDataSet(question);
+        report.RegisterData(dataSet, "Istifta", true);
+
+        if (!report.Prepare())
+            throw new InvalidOperationException("تهیه گزارش استفتاء با خطا مواجه شد.");
+
+        using var stream = new MemoryStream();
+        using var pdfExport = new PDFSimpleExport
         {
-            document.Page(page =>
-            {
-                page.Size(pageWidth, pageHeight);
-                page.Margin(0);
-                page.PageColor(Colors.White);
-                page.ContentFromRightToLeft();
+            ImageDpi = 300,
+            JpegQuality = 95,
+            Title = $"استفتاء {question.Id:D8}",
+            Subject = "نسخه چاپی استفتاء"
+        };
 
-                page.Background()
-                    .Svg(templateSvg);
+        report.Export(pdfExport, stream);
 
-                page.DefaultTextStyle(x => x
-                    .FontFamily("Tahoma", "Arial")
-                    .FontSize(10.5f * scale)
-                    .FontColor(Colors.Black));
-
-                // Only dynamic values are drawn over the reference template.
-                // The template itself contains the title, ornaments, fixed labels and footer.
-                page.Foreground()
-                    .PaddingTop(51 * scale)
-                    .PaddingLeft(90 * scale)
-                    .PaddingRight(375 * scale)
-                    .Column(meta =>
-                    {
-                        MetaValue(meta, question.Id.ToString("D8"), scale);
-                        MetaValue(meta, question.QuestionDate, scale);
-                        MetaValue(meta, question.Name, scale);
-                    });
-
-                page.Content()
-                    .PaddingTop(151 * scale)
-                    .PaddingLeft(65 * scale)
-                    .PaddingRight(65 * scale)
-                    .PaddingBottom(70 * scale)
-                    .Column(column =>
-                    {
-                        column.Spacing(10 * scale);
-
-                        if (!string.IsNullOrWhiteSpace(question.QuestionText))
-                        {
-                            column.Item()
-                                .Text(text =>
-                                {
-                                    text.DefaultTextStyle(x => x
-                                        .FontFamily("Tahoma", "Arial")
-                                        .FontSize(11 * scale)
-                                        .LineHeight(1.8f));
-
-                                    text.Justify();
-                                    text.Span(question.QuestionText);
-                                });
-                        }
-
-                        foreach (var answer in question.Answers)
-                        {
-                            if (!string.IsNullOrWhiteSpace(answer.Answer))
-                            {
-                                column.Item()
-                                    .PaddingTop(6 * scale)
-                                    .Text(text =>
-                                    {
-                                        text.DefaultTextStyle(x => x
-                                            .FontFamily("Tahoma", "Arial")
-                                            .FontSize(11 * scale)
-                                            .LineHeight(1.8f));
-
-                                        text.Justify();
-                                        text.Span(answer.Answer);
-                                    });
-                            }
-
-                            if (!string.IsNullOrWhiteSpace(answer.Reason))
-                            {
-                                column.Item()
-                                    .PaddingTop(4 * scale)
-                                    .Text(text =>
-                                    {
-                                        text.DefaultTextStyle(x => x
-                                            .FontFamily("Tahoma", "Arial")
-                                            .FontSize(10.5f * scale)
-                                            .LineHeight(1.7f));
-
-                                        text.Justify();
-                                        text.Span("دلیل: ").Bold();
-                                        text.Span(answer.Reason);
-                                    });
-                            }
-
-                            if (!string.IsNullOrWhiteSpace(answer.Description))
-                            {
-                                column.Item()
-                                    .PaddingTop(4 * scale)
-                                    .Text(text =>
-                                    {
-                                        text.DefaultTextStyle(x => x
-                                            .FontFamily("Tahoma", "Arial")
-                                            .FontSize(10.5f * scale)
-                                            .LineHeight(1.7f));
-
-                                        text.Justify();
-                                        text.Span("توضیحات: ").Bold();
-                                        text.Span(answer.Description);
-                                    });
-                            }
-                        }
-                    });
-            });
-        });
-
-        return document.GeneratePdf();
+        return stream.ToArray();
     }
 
-    private static void MetaValue(
-        ColumnDescriptor column,
-        string? value,
-        float scale)
+    private static DataSet BuildDataSet(GetQuestionPrintDto question)
     {
-        column.Item()
-            .Height(22 * scale)
-            .AlignRight()
-            .Text(text =>
-            {
-                text.DefaultTextStyle(x => x
-                    .FontFamily("Tahoma", "Arial")
-                    .FontSize(10.2f * scale)
-                    .FontColor(Colors.Black));
+        var dataSet = new DataSet("Istifta");
 
-                text.Span(string.IsNullOrWhiteSpace(value) ? "-" : value);
-            });
+        var answers = new DataTable("Answers");
+        answers.Columns.Add("Language", typeof(string));
+        answers.Columns.Add("Answer", typeof(string));
+        answers.Columns.Add("Reason", typeof(string));
+        answers.Columns.Add("Description", typeof(string));
+
+        foreach (var answer in question.Answers)
+        {
+            answers.Rows.Add(
+                answer.Language ?? string.Empty,
+                answer.Answer ?? string.Empty,
+                answer.Reason ?? string.Empty,
+                answer.Description ?? string.Empty);
+        }
+
+        dataSet.Tables.Add(answers);
+
+        return dataSet;
     }
 }
