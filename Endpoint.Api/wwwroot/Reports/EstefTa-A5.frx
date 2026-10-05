@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Description="قالب چاپ استفتاء">
+  <Dictionary>
+    <Parameter Name="QuestionId" DataType="System.String"/>
+    <Parameter Name="QuestionDate" DataType="System.String"/>
+    <Parameter Name="Name" DataType="System.String"/>
+    <Parameter Name="QuestionText" DataType="System.String"/>
+    <TableDataSource Name="Answers" ReferenceName="Istifta.Answers" DataType="System.Int32" Enabled="true">
+      <Column Name="Language" DataType="System.String"/>
+      <Column Name="Answer" DataType="System.String"/>
+      <Column Name="Reason" DataType="System.String"/>
+      <Column Name="Description" DataType="System.String"/>
+    </TableDataSource>
+  </Dictionary>
+
+  <ReportPage Name="Page1" PaperWidth="148.49" PaperHeight="210.01" LeftMargin="0" TopMargin="0" RightMargin="0" BottomMargin="0" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Width="561.23" Height="152.03" CanGrow="true">
+      <ShapeObject Name="TopBand" Left="0" Top="0" Width="561.23" Height="42.43" Shape="Rectangle" Fill.Color="197, 158, 107" Border.Lines="None"/>
+      <TextObject Name="Title" Left="0" Top="7.07" Width="561.23" Height="28.28" Text="واحد پاسخ به مسائل شرعی" HorzAlign="Center" VertAlign="Center" RightToLeft="true" Font="Tahoma, 13pt, style=Bold" TextFill.Color="23, 18, 13"/>
+
+      <ShapeObject Name="BismillahOuter" Left="286.38" Top="49.50" Width="120.21" Height="33.94" Shape="RoundRectangle" Curve="10" Fill.Color="0, 112, 63" Border.Color="197, 154, 89" Border.Width="1"/>
+      <TextObject Name="Bismillah" Left="289.91" Top="55.15" Width="113.14" Height="22.63" Text="بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ" HorzAlign="Center" VertAlign="Center" RightToLeft="true" Font="Tahoma, 10pt, style=Bold" TextFill.Color="197, 154, 89"/>
+
+      <ShapeObject Name="Medallion" Left="480.83" Top="43.84" Width="43.84" Height="43.84" Shape="Ellipse" Fill.Color="0, 112, 63" Border.Color="197, 154, 89" Border.Width="2"/>
+      <ShapeObject Name="MedallionInner" Left="485.78" Top="48.79" Width="33.94" Height="33.94" Shape="Ellipse" Fill.Color="Transparent" Border.Color="197, 154, 89" Border.Width="1"/>
+
+      <TextObject Name="LabelId" Left="205.06" Top="60.81" Width="106.07" Height="15.56" Text="شماره استفتاء:" HorzAlign="Right" VertAlign="Center" RightToLeft="true" Font="Tahoma, 10pt" TextFill.Color="21,21,21"/>
+      <TextObject Name="ValueId" Left="49.50" Top="60.81" Width="106.07" Height="15.56" Text="[QuestionId]" HorzAlign="Right" VertAlign="Center" RightToLeft="true" Font="Tahoma, 10pt" TextFill.Color="21,21,21"/>
+
+      <TextObject Name="LabelDate" Left="205.06" Top="76.37" Width="106.07" Height="15.56" Text="تاریخ وصول:" HorzAlign="Right" VertAlign="Center" RightToLeft="true" Font="Tahoma, 10pt" TextFill.Color="21,21,21"/>
+      <TextObject Name="ValueDate" Left="49.50" Top="76.37" Width="106.07" Height="15.56" Text="[QuestionDate]" HorzAlign="Right" VertAlign="Center" RightToLeft="true" Font="Tahoma, 10pt" TextFill.Color="21,21,21"/>
+
+      <TextObject Name="LabelName" Left="205.06" Top="91.92" Width="106.07" Height="15.56" Text="نام و نام خانوادگی:" HorzAlign="Right" VertAlign="Center" RightToLeft="true" Font="Tahoma, 10pt" TextFill.Color="21,21,21"/>
+      <TextObject Name="ValueName" Left="49.50" Top="91.92" Width="134.35" Height="15.56" Text="[Name]" HorzAlign="Right" VertAlign="Center" RightToLeft="true" Font="Tahoma, 10pt" TextFill.Color="21,21,21"/>
+
+      <TextObject Name="Question" Left="45.96" Top="109.60" Width="468.81" Height="49.50" CanGrow="true" CanBreak="true" Wysiwyg="true" Text="[QuestionText]" HorzAlign="Justify" VertAlign="Top" RightToLeft="true" LineHeight="14.14" Font="Tahoma, 11pt" TextFill.Color="20,20,20"/>
+    </ReportTitleBand>
+
+    <DataBand Name="AnswersBand" Top="167.58" Width="561.23" Height="88.39" CanGrow="true" DataSource="Answers">
+      <TextObject Name="AnswerText" Left="45.96" Top="0" Width="468.81" Height="31.82" CanGrow="true" CanBreak="true" Wysiwyg="true" Text="[Answers.Answer]" HorzAlign="Justify" VertAlign="Top" RightToLeft="true" LineHeight="14.14" Font="Tahoma, 11pt" TextFill.Color="20,20,20"/>
+      <TextObject Name="ReasonText" Left="45.96" Top="36.77" Width="468.81" Height="24.75" CanGrow="true" CanBreak="true" ShiftMode="Always" Wysiwyg="true" Text="[Answers.Reason]" HorzAlign="Justify" VertAlign="Top" RightToLeft="true" LineHeight="12.73" Font="Tahoma, 10pt" TextFill.Color="45,45,45"/>
+      <TextObject Name="DescriptionText" Left="45.96" Top="67.18" Width="468.81" Height="24.75" CanGrow="true" CanBreak="true" ShiftMode="Always" Wysiwyg="true" Text="[Answers.Description]" HorzAlign="Justify" VertAlign="Top" RightToLeft="true" LineHeight="12.73" Font="Tahoma, 10pt" TextFill.Color="45,45,45"/>
+    </DataBand>
+
+    <PageFooterBand Name="PageFooter1" Top="763.68" Width="561.23" Height="17.68">
+      <TextObject Name="Footer" Left="0" Top="0" Width="561.23" Height="17.68" Text="سامانه پیام کوتاه: ۳۰۰۰۷۴۲۸۴  |  تلفن: ۰۲۵۳۷۷۲۴۷۶۸  |  شبکه‌های اجتماعی: karimijahromi.ir" HorzAlign="Center" VertAlign="Center" RightToLeft="true" Font="Tahoma, 8pt" TextFill.Color="0,112,63"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>
