@@ -209,18 +209,9 @@ export class ArchivesPrintComponent implements OnInit {
 
   setFormat(format: "A5" | "A4"): void {
     this.format = format;
-    this.applyPrintPageSize();
-  }
-
-  private applyPrintPageSize(): void {
-    document.body.style.page = this.format === "A4" ? "archive-a4" : "archive-a5";
   }
 
   print(): void {
-    this.applyPrintPageSize();
-
-    // Give the browser a moment to apply the selected page size
-    // before opening the native print dialog.
     setTimeout(() => window.print(), 50);
   }
 
