@@ -141,7 +141,7 @@ import { GetQuestionPrintDto } from "../_models/archive/getQuestionPrintDto";
       }
     }
 
-    @page {
+    @page archive-a5 {
       size: A5 portrait;
       margin: 12mm;
     }
@@ -149,6 +149,10 @@ import { GetQuestionPrintDto } from "../_models/archive/getQuestionPrintDto";
     @page archive-a4 {
       size: A4 portrait;
       margin: 14mm;
+    }
+
+    .archive-print-page {
+      page: archive-a5;
     }
 
     .archive-print-page.a4 {
@@ -194,10 +198,19 @@ export class ArchivesPrintComponent implements OnInit {
 
   setFormat(format: "A5" | "A4"): void {
     this.format = format;
+    this.applyPrintPageSize();
+  }
+
+  private applyPrintPageSize(): void {
+    document.body.style.page = this.format === "A4" ? "archive-a4" : "archive-a5";
   }
 
   print(): void {
-    window.print();
+    this.applyPrintPageSize();
+
+    // Give the browser a moment to apply the selected page size
+    // before opening the native print dialog.
+    setTimeout(() => window.print(), 50);
   }
 
   goBack(): void {
