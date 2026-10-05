@@ -195,85 +195,29 @@ export class ArchivesPrintComponent implements OnInit {
   }
 
   print(): void {
-    const paper = document.querySelector(".archive-print-paper") as HTMLElement | null;
+    const questionId = Number(this.route.snapshot.paramMap.get("id"));
 
-    if (!paper) {
+    if (!questionId) {
       return;
     }
 
-    // Print only the document itself in a clean window.
-    // This prevents the Angular application shell from creating an empty first page.
-    const printWindow = window.open("", "_blank", "width=900,height=900");
+    this.printService.GetPrintPdf(questionId, this.format).subscribe({
+      next: (blob) => {
+        const url = URL.createObjectURL(blob);
+        const printWindow = window.open(url, "_blank");
 
-    if (!printWindow) {
-      alert("پنجره چاپ توسط مرورگر مسدود شده است. لطفاً اجازه باز شدن پنجره را بدهید.");
-      return;
-    }
+        if (!printWindow) {
+          URL.revokeObjectURL(url);
+          alert("پنجره PDF توسط مرورگر مسدود شده است. لطفاً اجازه باز شدن پنجره را بدهید.");
+          return;
+        }
 
-    const pageSize = this.format === "A4" ? "A4" : "A5";
-    const pageMargin = this.format === "A4" ? "14mm" : "12mm";
-
-    const printHtml =
-      '<!doctype html>' +
-      '<html lang="fa" dir="rtl">' +
-      '<head>' +
-      '<meta charset="utf-8">' +
-      '<title>استفتاء</title>' +
-      '<style>' +
-      '@page { size: ' + pageSize + ' portrait; margin: ' + pageMargin + '; }' +
-      '* { box-sizing: border-box; }' +
-      'html, body { margin: 0; padding: 0; background: #fff; }' +
-      'body { direction: rtl; color: #111; font-family: Tahoma, Arial, sans-serif; font-size: 13px; line-height: 2; }' +
-      '.archive-print-paper { width: 100%; margin: 0; background: #fff; }' +
-      '.archive-print-header { text-align: center; border-bottom: 2px solid #222; padding-bottom: 10px; margin-bottom: 18px; }' +
-      '.archive-print-title { font-size: 20px; font-weight: 700; margin: 0; }' +
-      '.archive-print-code { font-size: 12px; margin-top: 4px; }' +
-      '.archive-print-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 7px 20px; margin-bottom: 18px; }' +
-      '.archive-print-section { margin-top: 18px; }' +
-      '.archive-print-section-title { font-weight: 700; border-bottom: 1px solid #777; padding-bottom: 4px; margin-bottom: 8px; }' +
-      '.archive-print-text { white-space: pre-wrap; overflow-wrap: anywhere; word-break: normal; text-align: justify; }' +
-      '.archive-print-answer { border: 1px solid #999; padding: 10px 12px; margin-top: 12px; border-radius: 4px; break-inside: avoid; page-break-inside: avoid; }' +
-      '.archive-print-answer-meta { font-size: 11px; color: #444; margin-bottom: 7px; }' +
-      '.archive-print-stamp { text-align: left; margin-top: 30px; break-inside: avoid; page-break-inside: avoid; }' +
-      '.archive-print-stamp img { width: 110px; height: auto; }' +
-      '</style>' +
-      '</head>' +
-      '<body>' +
-      paper.outerHTML +
-      '</body>' +
-      '</html>';
-
-    printWindow.document.open();
-    printWindow.document.write(printHtml);
-    printWindow.document.close();
-
-    const startPrint = () => {
-      setTimeout(() => {
-        printWindow.focus();
-        printWindow.print();
-        printWindow.close();
-      }, 150);
-    };
-
-    const images = Array.from(printWindow.document.images);
-
-    if (images.length === 0 || images.every(image => image.complete)) {
-      startPrint();
-    } else {
-      let remaining = images.length;
-
-      images.forEach(image => {
-        const done = () => {
-          remaining--;
-          if (remaining === 0) {
-            startPrint();
-          }
-        };
-
-        image.addEventListener("load", done, { once: true });
-        image.addEventListener("error", done, { once: true });
-      });
-    }
+        setTimeout(() => URL.revokeObjectURL(url), 60000);
+      },
+      error: () => {
+        alert("تولید فایل PDF چاپ با خطا مواجه شد.");
+      }
+    });
   }
 
   goBack(): void {
