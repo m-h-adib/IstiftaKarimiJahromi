@@ -27,8 +27,8 @@
   <article *ngIf="!loading && question" class="archive-print-paper">
     <header class="archive-print-header">
       <h1 class="archive-print-title">استفتاء</h1>
-      <div *ngIf="question.code" class="archive-print-code">
-        کد سوال: {{ question.code }}
+      <div class="archive-print-code">
+        کد سوال: {{ questionCode }}
       </div>
     </header>
 
