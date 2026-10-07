@@ -80,7 +80,7 @@ public class GetQuestionPrintService : IGetQuestionPrintService
             .Select(p => new GetQuestionPrintAnswerDto
             {
                 Language = p.Language != null ? p.Language.Title : null,
-                Answer = p.AnswerText,
+                AnswerText = p.AnswerText,
                 Reason = p.ReasonText,
                 Description = p.Description,
                 Date = p.CreatedAt.ToPersianWithoutTime(),
@@ -112,7 +112,7 @@ public class GetQuestionPrintDto
 public class GetQuestionPrintAnswerDto
 {
     public string? Language { get; set; }
-    public string? Answer { get; set; }
+    public string? AnswerText { get; set; }
     public string? Reason { get; set; }
     public string? Description { get; set; }
     public string? Date { get; set; }
