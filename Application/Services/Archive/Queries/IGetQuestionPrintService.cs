@@ -79,7 +79,7 @@ public class GetQuestionPrintService : IGetQuestionPrintService
                         p.Language.Title == "فارسی")
             .Select(p => new GetQuestionPrintAnswerDto
             {
-                AnswerText = p.AnswerText
+                AnswerText = p.ReasonText
             })
             .ToListAsync();
 

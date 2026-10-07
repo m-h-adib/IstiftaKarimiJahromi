@@ -1,6 +1,6 @@
 export interface GetQuestionPrintAnswerDto {
   language?: string;
-  answer?: string;
+  answerText?: string;
   reason?: string;
   description?: string;
   date?: string;

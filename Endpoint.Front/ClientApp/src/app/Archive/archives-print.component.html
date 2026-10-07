@@ -53,21 +53,21 @@
       <div class="archive-print-section-title">پاسخ</div>
 
       <div class="archive-print-answer" *ngFor="let answer of question.answers">
-        <div class="archive-print-answer-meta">
+        <!--<div class="archive-print-answer-meta">
           <span *ngIf="answer.language"><strong>زبان:</strong> {{ answer.language }}</span>
           <span *ngIf="answer.editorUser"> &nbsp; | &nbsp; <strong>تنظیم‌کننده:</strong> {{ answer.editorUser }}</span>
           <span *ngIf="answer.date"> &nbsp; | &nbsp; {{ answer.date }}</span>
-        </div>
+        </div>-->
 
-        <div class="archive-print-text">{{ answer.answer || "-" }}</div>
+        <div class="archive-print-text">{{ answer.answerText || "-" }}</div>
 
-        <div *ngIf="answer.reason" class="archive-print-text mt-2">
+        <!--<div *ngIf="answer.reason" class="archive-print-text mt-2">
           <strong>دلیل:</strong> {{ answer.reason }}
         </div>
 
         <div *ngIf="answer.description" class="archive-print-text mt-2">
           <strong>توضیحات:</strong> {{ answer.description }}
-        </div>
+        </div>-->
       </div>
     </section>
 
