@@ -6,10 +6,7 @@
     <Parameter Name="Name" DataType="System.String"/>
     <Parameter Name="QuestionText" DataType="System.String"/>
     <TableDataSource Name="Answers" ReferenceName="Istifta.Answers" DataType="System.Int32" Enabled="true">
-      <Column Name="Language" DataType="System.String"/>
       <Column Name="Answer" DataType="System.String"/>
-      <Column Name="Reason" DataType="System.String"/>
-      <Column Name="Description" DataType="System.String"/>
     </TableDataSource>
   </Dictionary>
 
@@ -36,10 +33,8 @@
       <TextObject Name="Question" Left="65.00" Top="155.00" Width="663.00" Height="70.00" CanGrow="true" CanBreak="true" Wysiwyg="true" Text="[QuestionText]" HorzAlign="Justify" VertAlign="Top" RightToLeft="true" LineHeight="23.00" Font="B Nazanin, 11pt" TextFill.Color="20,20,20"/>
     </ReportTitleBand>
 
-    <DataBand Name="AnswersBand" Top="237.00" Width="793.70" Height="125.00" CanGrow="true" DataSource="Answers">
-      <TextObject Name="AnswerText" Left="65.00" Top="0" Width="663.00" Height="45.00" CanGrow="true" CanBreak="true" Wysiwyg="true" Text="[Answers.Answer]" HorzAlign="Justify" VertAlign="Top" RightToLeft="true" LineHeight="23.00" Font="B Nazanin, 11pt" TextFill.Color="20,20,20"/>
-      <TextObject Name="ReasonText" Left="65.00" Top="52.00" Width="663.00" Height="35.00" CanGrow="true" CanBreak="true" ShiftMode="Always" Wysiwyg="true" Text="[Answers.Reason]" HorzAlign="Justify" VertAlign="Top" RightToLeft="true" LineHeight="21.00" Font="B Nazanin, 10pt" TextFill.Color="45,45,45"/>
-      <TextObject Name="DescriptionText" Left="65.00" Top="95.00" Width="663.00" Height="35.00" CanGrow="true" CanBreak="true" ShiftMode="Always" Wysiwyg="true" Text="[Answers.Description]" HorzAlign="Justify" VertAlign="Top" RightToLeft="true" LineHeight="21.00" Font="B Nazanin, 10pt" TextFill.Color="45,45,45"/>
+    <DataBand Name="AnswersBand" Top="237.00" Width="793.70" Height="70.00" CanGrow="true" DataSource="Answers">
+      <TextObject Name="AnswerText" Left="65.00" Top="0" Width="663.00" Height="70.00" CanGrow="true" CanBreak="true" Wysiwyg="true" Text="[Answers.Answer]" HorzAlign="Justify" VertAlign="Top" RightToLeft="true" LineHeight="23.00" Font="B Nazanin, 11pt" TextFill.Color="20,20,20"/>
     </DataBand>
 
     <PageFooterBand Name="PageFooter1" Top="1080.00" Width="793.70" Height="25.00">
