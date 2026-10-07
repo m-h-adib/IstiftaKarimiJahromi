@@ -106,7 +106,7 @@ public class QuestionPrintPdfService : IQuestionPrintPdfService
 
         var answers = new DataTable("Answers");
         answers.Columns.Add("Language", typeof(string));
-        answers.Columns.Add("Answer", typeof(string));
+        answers.Columns.Add("AnswerText", typeof(string));
         answers.Columns.Add("Reason", typeof(string));
         answers.Columns.Add("Description", typeof(string));
 
@@ -114,7 +114,7 @@ public class QuestionPrintPdfService : IQuestionPrintPdfService
         {
             answers.Rows.Add(
                 answer.Language ?? string.Empty,
-                answer.Answer ?? string.Empty,
+                answer.AnswerText ?? string.Empty,
                 answer.Reason ?? string.Empty,
                 answer.Description ?? string.Empty);
         }
