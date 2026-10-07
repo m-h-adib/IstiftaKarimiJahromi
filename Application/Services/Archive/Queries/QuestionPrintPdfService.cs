@@ -105,18 +105,12 @@ public class QuestionPrintPdfService : IQuestionPrintPdfService
         var dataSet = new DataSet("Istifta");
 
         var answers = new DataTable("Answers");
-        answers.Columns.Add("Language", typeof(string));
         answers.Columns.Add("AnswerText", typeof(string));
-        answers.Columns.Add("Reason", typeof(string));
-        answers.Columns.Add("Description", typeof(string));
 
         foreach (var answer in question.Answers)
         {
             answers.Rows.Add(
-                answer.Language ?? string.Empty,
-                answer.AnswerText ?? string.Empty,
-                answer.Reason ?? string.Empty,
-                answer.Description ?? string.Empty);
+                answer.AnswerText ?? string.Empty);
         }
 
         dataSet.Tables.Add(answers);
