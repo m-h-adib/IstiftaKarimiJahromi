@@ -6,7 +6,7 @@
     <Parameter Name="Name" DataType="System.String"/>
     <Parameter Name="QuestionText" DataType="System.String"/>
     <TableDataSource Name="Answers" ReferenceName="Istifta.Answers" DataType="System.Int32" Enabled="true">
-      <Column Name="Answer" DataType="System.String"/>
+      <Column Name="AnswerText" DataType="System.String"/>
     </TableDataSource>
   </Dictionary>
 
@@ -34,7 +34,7 @@
     </ReportTitleBand>
 
     <DataBand Name="AnswersBand" Top="237.00" Width="793.70" Height="70.00" CanGrow="true" DataSource="Answers">
-      <TextObject Name="AnswerText" Left="65.00" Top="0" Width="663.00" Height="70.00" CanGrow="true" CanBreak="true" Wysiwyg="true" Text="[Answers.Answer]" HorzAlign="Justify" VertAlign="Top" RightToLeft="true" LineHeight="23.00" Font="B Nazanin, 11pt" TextFill.Color="20,20,20"/>
+      <TextObject Name="AnswerText" Left="65.00" Top="0" Width="663.00" Height="70.00" CanGrow="true" CanBreak="true" Wysiwyg="true" Text="[Answers.AnswerText]" HorzAlign="Justify" VertAlign="Top" RightToLeft="true" LineHeight="23.00" Font="B Nazanin, 11pt" TextFill.Color="20,20,20"/>
     </DataBand>
 
     <PageFooterBand Name="PageFooter1" Top="1080.00" Width="793.70" Height="25.00">
