@@ -1,10 +1,5 @@
 export interface GetQuestionPrintAnswerDto {
-  language?: string;
-  answer?: string;
-  reason?: string;
-  description?: string;
-  date?: string;
-  editorUser?: string;
+  answerText?: string;
 }
 
 export interface GetQuestionPrintDto {
