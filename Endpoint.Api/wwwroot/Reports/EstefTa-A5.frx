@@ -2,7 +2,7 @@
 <Report ScriptLanguage="CSharp" ReportInfo.Description="قالب چاپ استفتاء" ReportInfo.Created="10/05/2026 12:17:14" ReportInfo.Modified="10/05/2026 13:02:24" ReportInfo.CreatorVersion="2026.2.0.0">
   <Dictionary>
     <TableDataSource Name="Answers" ReferenceName="Istifta.Answers" DataType="System.Int32" Enabled="true">
-      <Column Name="Answer" DataType="System.String"/>
+      <Column Name="AnswerText" DataType="System.String"/>
     </TableDataSource>
     <Parameter Name="QuestionId" DataType="System.String" AsString=""/>
     <Parameter Name="QuestionDate" DataType="System.String" AsString=""/>
@@ -18,7 +18,7 @@
       <TextObject Name="ValueName" Left="2.25" Top="101.37" Width="124.9" Height="15.56" Text="[Name]" HorzAlign="Right" VertAlign="Center" RightToLeft="true" Font="B Nazanin, 10pt" TextFill.Color="21, 21, 21"/>
     </ReportTitleBand>
     <DataBand Name="AnswersBand" Top="191.45" Width="561.29" Height="60.00" CanGrow="true" DataSource="Answers">
-      <TextObject Name="AnswerText" Left="45.96" Top="0" Width="468.81" Height="60.00" CanGrow="true" Text="[Answers.Answer]" HorzAlign="Justify" RightToLeft="true" Font="B Nazanin, 11pt" TextFill.Color="20, 20, 20" Wysiwyg="true" LineHeight="14.14"/>
+      <TextObject Name="AnswerText" Left="45.96" Top="0" Width="468.81" Height="60.00" CanGrow="true" Text="[Answers.AnswerText]" HorzAlign="Justify" RightToLeft="true" Font="B Nazanin, 11pt" TextFill.Color="20, 20, 20" Wysiwyg="true" LineHeight="14.14"/>
     </DataBand>
     <PageFooterBand Name="PageFooter1" Top="315.73" Width="561.29" Height="55.48">
       <TextObject Name="Footer" Top="37.8" Width="561.23" Height="17.68" Text="سامانه پیام کوتاه: ۳۰۰۰۷۴۲۸۴  |  تلفن: ۰۲۵۳۷۷۲۴۷۶۸  |  شبکه‌های اجتماعی: karimijahromi.ir" HorzAlign="Center" VertAlign="Center" RightToLeft="true" Font="B Nazanin, 8pt" TextFill.Color="0, 112, 63"/>
