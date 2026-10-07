@@ -74,7 +74,9 @@ public class GetQuestionPrintService : IGetQuestionPrintService
                         !p.IsRemoved &&
                         p.IsAccept == true &&
                         !p.QuestionCycle!.IsRemoved &&
-                        !p.QuestionCycle!.Question!.IsRemoved)
+                        !p.QuestionCycle!.Question!.IsRemoved &&
+                        p.Language != null &&
+                        p.Language.Title == "فارسی")
             .Select(p => new GetQuestionPrintAnswerDto
             {
                 Language = p.Language != null ? p.Language.Title : null,
