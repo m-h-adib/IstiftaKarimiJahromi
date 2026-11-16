@@ -35,6 +35,7 @@
         <thead class="fw-bold table-success">
           <tr>
             <td>#</td>
+            <td>کد سوال</td>
             <td>
               عنوان سوال
             </td>
@@ -62,6 +63,7 @@
             <td>
               {{((req.pageNumber!-1)*req.pageSize!)+i+1}}
             </td>
+            <td>{{item.id?.toString().padStart(8, '0')}}</td>
             <td>
               {{item.title}}
             </td>
