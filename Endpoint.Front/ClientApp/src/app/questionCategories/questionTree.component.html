@@ -9,7 +9,7 @@
                     <input type="button" value="ویرایش" class="btn btn-warning m-2" (click)="Update(node.id!)" />
                     <input type="button" value="انصراف" class="btn btn-danger m-2" (click)="hideEditDialog(node.id!)" />
                   </div>
-    <question-view [tree]="node.childs!"  [style.display]="(node.expand==undefined || node.expand==false) ? 'none' : 'block'" [showEditDelete]="showEditDelete" (newItemEvent)="change($event)" (renew)="GetData()"></question-view>
+    <question-view [tree]="node.childs!" [style.display]="(node.expand==undefined || node.expand==false) ? 'none' : 'block'" [style.margin-inline-start]="'2cm'" [showEditDelete]="showEditDelete" (newItemEvent)="change($event)" (renew)="GetData()"></question-view>
   </li>
 </ul>
 
