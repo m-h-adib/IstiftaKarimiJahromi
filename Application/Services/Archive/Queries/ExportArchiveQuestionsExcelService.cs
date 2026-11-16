@@ -297,7 +297,7 @@ public class ExportArchiveQuestionsExcelService : IExportArchiveQuestionsExcelSe
             body.Style.Border.BottomBorder = XLBorderStyleValues.Hair;
         }
 
-        sheet.SheetView.ShowGridLines = false;
+        //sheet.SheetView.ShowGridLines = false;
         sheet.Columns().AdjustToContents(1, 60);
         sheet.Column(1).Width = 14;
         if (lastColumn >= 4)

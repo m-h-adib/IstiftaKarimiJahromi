@@ -125,11 +125,11 @@
                             <span>زبان: </span>{{item1.language}}
                             <a class="btn btn-primary m-1" *ngIf="item.isAccept!=null" (click)="copy(item1.description!,item1.languageId!,item1.answerText!,item1.reasonText!)">کپی</a>
                             <hr />
-                            <span>متن سوال: </span>{{item1.answerText}}
+                            <span>متن سوال: </span><div class="text-content">{{item1.answerText}}</div>
                             <hr />
-                            <span>متن پاسخ: </span>{{item1.reasonText}}
+                            <span>متن پاسخ: </span><div class="text-content">{{item1.reasonText}}</div>
                             <hr />
-                            <span>توضیحات: </span>{{item1.description}}
+                            <span>توضیحات: </span><div class="text-content">{{item1.description}}</div>
                             <hr />
                           </div>
 

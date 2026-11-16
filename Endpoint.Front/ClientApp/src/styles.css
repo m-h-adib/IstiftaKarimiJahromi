@@ -108,3 +108,6 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+.text-content {
+  white-space: pre-line;
+}

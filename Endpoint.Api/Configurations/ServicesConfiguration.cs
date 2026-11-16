@@ -322,9 +322,7 @@ namespace EndPoint.Api.Configurations
 					Scheme = "Bearer",
 					BearerFormat = "JWT",
 					In = ParameterLocation.Header,
-					Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\r
-\r
-Example: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\"",
+					Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\r\rExample: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\"",
 				});
 				c.AddSecurityRequirement(new OpenApiSecurityRequirement
 			{

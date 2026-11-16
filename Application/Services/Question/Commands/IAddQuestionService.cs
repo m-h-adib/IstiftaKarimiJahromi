@@ -152,23 +152,23 @@ public class AddQuestionValidator : AbstractValidator<AddQuestionDto>
 	public AddQuestionValidator()
 	{
 		RuleFor(p => p.Title).NotNull().WithMessage("عنوان سوال الزامیست");
-		RuleFor(p => p.QuestionDate).NotNull().WithMessage("تاریخ دریافت سوال الزامیست")
-			.Must(p => p.Split("/").Length == 3).WithMessage("تاریخ را به درستی وارد نمایید"); ;
-		RuleFor(p => p.FirstName).NotNull().WithMessage("نام الزامیست");
-		RuleFor(p => p.LastName).NotNull().WithMessage("نام خانوادگی الزامیست");
-		RuleFor(p => p.Gender).NotNull().WithMessage("جنسیت الزامیست");
-		RuleFor(p => p.Age).NotNull().WithMessage("سن الزامیست");
-		RuleFor(p => p.CountryId).NotNull().WithMessage("کشور الزامیست");
-		RuleFor(p => p.ProvinceId).NotNull().WithMessage("استان الزامیست");
-		RuleFor(p => p.City).NotNull().WithMessage("شهر الزامیست");
-		RuleFor(p => p.Education).NotNull().WithMessage("تحصیلات الزامیست");
-		RuleFor(p => p.JobCategoryId).NotNull().WithMessage("دسته شغلی الزامیست");
-		RuleFor(p => p.Job).NotNull().WithMessage("شغل الزامیست");
-		RuleFor(p => p.Mobile).NotNull().WithMessage("شماره همراه الزامیست")
-			.Matches(new Regex(@"09(1[0-9]|3[1-9])?[0-9]{3}?[0-9]{4}")).WithMessage("شماره همراه را بدرستی و به صورت عدد لاتین 11 رقمی وارد نمایید")
-			.MinimumLength(11).WithMessage("شماره تماس باید 11 رقم باشد")
-			.MaximumLength(11).WithMessage("شماره تماس باید 11 رقم باشد");
-		RuleFor(p => p.MethodOfReceiveQuestionId).NotNull().WithMessage("شیوه دریافت سوال الزامیست");
+		//RuleFor(p => p.QuestionDate).NotNull().WithMessage("تاریخ دریافت سوال الزامیست")
+		//	.Must(p => p.Split("/").Length == 3).WithMessage("تاریخ را به درستی وارد نمایید"); ;
+		//RuleFor(p => p.FirstName).NotNull().WithMessage("نام الزامیست");
+		//RuleFor(p => p.LastName).NotNull().WithMessage("نام خانوادگی الزامیست");
+		//RuleFor(p => p.Gender).NotNull().WithMessage("جنسیت الزامیست");
+		//RuleFor(p => p.Age).NotNull().WithMessage("سن الزامیست");
+		//RuleFor(p => p.CountryId).NotNull().WithMessage("کشور الزامیست");
+		//RuleFor(p => p.ProvinceId).NotNull().WithMessage("استان الزامیست");
+		//RuleFor(p => p.City).NotNull().WithMessage("شهر الزامیست");
+		//RuleFor(p => p.Education).NotNull().WithMessage("تحصیلات الزامیست");
+		//RuleFor(p => p.JobCategoryId).NotNull().WithMessage("دسته شغلی الزامیست");
+		//RuleFor(p => p.Job).NotNull().WithMessage("شغل الزامیست");
+		//RuleFor(p => p.Mobile).NotNull().WithMessage("شماره همراه الزامیست")
+		//	.Matches(new Regex(@"09(1[0-9]|3[1-9])?[0-9]{3}?[0-9]{4}")).WithMessage("شماره همراه را بدرستی و به صورت عدد لاتین 11 رقمی وارد نمایید")
+		//	.MinimumLength(11).WithMessage("شماره تماس باید 11 رقم باشد")
+		//	.MaximumLength(11).WithMessage("شماره تماس باید 11 رقم باشد");
+		//RuleFor(p => p.MethodOfReceiveQuestionId).NotNull().WithMessage("شیوه دریافت سوال الزامیست");
 		RuleFor(p => p.QuestionCategoryId).NotNull().WithMessage("دسته سوال الزامیست");
 		RuleFor(p => p.QuestionText).NotNull().WithMessage("متن سوال الزامیست");
 	}
