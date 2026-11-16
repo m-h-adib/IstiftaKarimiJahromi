@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { DataResultDto, ListDataResultDto, PagingDataResultDto } from "../../_models/common/ResultDto";
 import { GetCountryDto } from "../../_models/country/GetCountryDto";
 import { Observable } from "rxjs/internal/Observable";
@@ -16,6 +16,25 @@ export class GetArchiveQuestionService {
   header: any;
 
   constructor(private http: HttpClient) { }
+
+  ExportExcel(dto: GetArchiveQuestionRequestDto): Observable<Blob> {
+    const headers = new HttpHeaders({
+      'authorization': 'bearer ' + localStorage.getItem('token')
+    });
+
+    let params = new HttpParams();
+    Object.entries(dto).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== '') {
+        params = params.set(key, value.toString());
+      }
+    });
+
+    return this.http.get(this.url.replace('GetArchiveQuestions', 'ExportArchiveQuestionsExcel'), {
+      headers,
+      params,
+      responseType: 'blob'
+    });
+  }
 
   GetArchives(dto?:GetArchiveQuestionRequestDto): Observable<PagingDataResultDto<GetArchiveQuestionDto>> {
     this.header = new HttpHeaders({

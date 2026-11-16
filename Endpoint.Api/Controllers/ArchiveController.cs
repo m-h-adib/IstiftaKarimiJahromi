@@ -11,7 +11,7 @@ namespace Endpoint.Api.Controllers
     [Authorize]
     public class ArchiveController : ControllerBase
     {
-        private readonly IGetArchiveQuestionService _getArchiveQuestionService;
+        private readonly IGetArchiveQuestionService _getArchiveQuestionService;\n        private readonly IExportArchiveQuestionsExcelService _exportArchiveQuestionsExcelService;
         private readonly IGetQuestionStepsService _getQuestionStepsService;
         private readonly IGetQuestionResultService _getQuestionResultService;
         private readonly IDeleteArchiveQuestionService _deleteArchiveQuestionService;
@@ -20,7 +20,7 @@ namespace Endpoint.Api.Controllers
         private readonly ISendAnswerDateService _sendAnswerDateService;
 
         public ArchiveController(
-            IGetArchiveQuestionService getArchiveQuestionService,
+            IGetArchiveQuestionService getArchiveQuestionService,\n            IExportArchiveQuestionsExcelService exportArchiveQuestionsExcelService,
             IGetQuestionResultService getQuestionResultService,
             IGetQuestionStepsService getQuestionStepsService,
             IDeleteArchiveQuestionService deleteArchiveQuestionService,
@@ -28,7 +28,7 @@ namespace Endpoint.Api.Controllers
             IGetQuestionPrintService getQuestionPrintService,
             IQuestionPrintPdfService questionPrintPdfService)
         {
-            _getArchiveQuestionService = getArchiveQuestionService;
+            _getArchiveQuestionService = getArchiveQuestionService;\n            _exportArchiveQuestionsExcelService = exportArchiveQuestionsExcelService;
             _getQuestionResultService = getQuestionResultService;
             _getQuestionStepsService = getQuestionStepsService;
             _sendAnswerDateService = sendAnswerDateService;
@@ -42,6 +42,19 @@ namespace Endpoint.Api.Controllers
         {
             var res = await _getArchiveQuestionService.ExecuteAsync(dto);
             return StatusCode(res.StatusCode, res);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ExportArchiveQuestionsExcel([FromQuery] GetArchiveQuestionRequestDto dto)
+        {
+            var result = await _exportArchiveQuestionsExcelService.ExecuteAsync(dto);
+            if (!result.IsSuccess || result.Data == null)
+                return StatusCode(result.StatusCode, result);
+
+            var fileName = $"ArchiveQuestions-{DateTime.Now:yyyyMMdd-HHmmss}.xlsx";
+            return File(result.Data,
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                fileName);
         }
 
         [HttpGet]

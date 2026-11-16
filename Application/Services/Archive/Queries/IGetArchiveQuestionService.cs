@@ -113,7 +113,7 @@ public class GetArchiveQuestionService: IGetArchiveQuestionService
 			items = items.Where(p => categoryIds.Contains(p.QuestionCategoryId.Value));
         }
 
-        if (request.JobCategoryId != request.JobCategoryId)
+        if (request.JobCategoryId != null)
             items = items.Where(p => p.JobCategoryId == request.JobCategoryId);
 
         if (request.MethodOfReceiveQuestionId != null)

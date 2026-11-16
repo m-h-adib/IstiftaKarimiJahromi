@@ -229,7 +229,7 @@ namespace EndPoint.Api.Configurations
 			#endregion
 
 			#region archive
-			services.AddScoped<IGetArchiveQuestionService,GetArchiveQuestionService>();
+			services.AddScoped<IGetArchiveQuestionService,GetArchiveQuestionService>();\n\t\t\tservices.AddScoped<IExportArchiveQuestionsExcelService, ExportArchiveQuestionsExcelService>();
 			services.AddScoped<IGetQuestionStepsService,GetQuestionStepsService>();
 			services.AddScoped<IGetQuestionResultService, GetQuestionResultService>();
 			services.AddScoped<IDeleteArchiveQuestionService, DeleteArchiveQuestionService>();

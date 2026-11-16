@@ -98,6 +98,19 @@ export class ArchivesComponent implements OnInit{
     }
   }
 
+  exportExcel(): void {
+    this._GetArchivesService.ExportExcel(this.Filter).subscribe({
+      next: (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'ArchiveQuestions.xlsx';
+        link.click();
+        window.URL.revokeObjectURL(url);
+      }
+    });
+  }
+
   deleteCat(){
       this.catId=undefined;
       this.catName = "دسته سوال";
