@@ -309,6 +309,6 @@ public class ExportArchiveQuestionsExcelService : IExportArchiveQuestionsExcelSe
             sheet.Column(6).Width = 45;
         }
         sheet.Rows(2, Math.Max(2, lastRow)).Height = 48;
-        sheet.AutoFilter.Set(sheet.Range(1, 1, Math.Max(1, lastRow), lastColumn));
+        sheet.Range(1, 1, Math.Max(1, lastRow), lastColumn).SetAutoFilter();
     }
 }
