@@ -11,7 +11,8 @@ namespace Endpoint.Api.Controllers
     [Authorize]
     public class ArchiveController : ControllerBase
     {
-        private readonly IGetArchiveQuestionService _getArchiveQuestionService;\n        private readonly IExportArchiveQuestionsExcelService _exportArchiveQuestionsExcelService;
+        private readonly IGetArchiveQuestionService _getArchiveQuestionService;
+        private readonly IExportArchiveQuestionsExcelService _exportArchiveQuestionsExcelService;
         private readonly IGetQuestionStepsService _getQuestionStepsService;
         private readonly IGetQuestionResultService _getQuestionResultService;
         private readonly IDeleteArchiveQuestionService _deleteArchiveQuestionService;
@@ -20,7 +21,8 @@ namespace Endpoint.Api.Controllers
         private readonly ISendAnswerDateService _sendAnswerDateService;
 
         public ArchiveController(
-            IGetArchiveQuestionService getArchiveQuestionService,\n            IExportArchiveQuestionsExcelService exportArchiveQuestionsExcelService,
+            IGetArchiveQuestionService getArchiveQuestionService,
+            IExportArchiveQuestionsExcelService exportArchiveQuestionsExcelService,
             IGetQuestionResultService getQuestionResultService,
             IGetQuestionStepsService getQuestionStepsService,
             IDeleteArchiveQuestionService deleteArchiveQuestionService,
@@ -28,7 +30,8 @@ namespace Endpoint.Api.Controllers
             IGetQuestionPrintService getQuestionPrintService,
             IQuestionPrintPdfService questionPrintPdfService)
         {
-            _getArchiveQuestionService = getArchiveQuestionService;\n            _exportArchiveQuestionsExcelService = exportArchiveQuestionsExcelService;
+            _getArchiveQuestionService = getArchiveQuestionService;
+            _exportArchiveQuestionsExcelService = exportArchiveQuestionsExcelService;
             _getQuestionResultService = getQuestionResultService;
             _getQuestionStepsService = getQuestionStepsService;
             _sendAnswerDateService = sendAnswerDateService;

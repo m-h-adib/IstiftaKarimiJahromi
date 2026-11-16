@@ -229,7 +229,8 @@ namespace EndPoint.Api.Configurations
 			#endregion
 
 			#region archive
-			services.AddScoped<IGetArchiveQuestionService,GetArchiveQuestionService>();\n\t\t\tservices.AddScoped<IExportArchiveQuestionsExcelService, ExportArchiveQuestionsExcelService>();
+			services.AddScoped<IGetArchiveQuestionService,GetArchiveQuestionService>();
+			services.AddScoped<IExportArchiveQuestionsExcelService, ExportArchiveQuestionsExcelService>();
 			services.AddScoped<IGetQuestionStepsService,GetQuestionStepsService>();
 			services.AddScoped<IGetQuestionResultService, GetQuestionResultService>();
 			services.AddScoped<IDeleteArchiveQuestionService, DeleteArchiveQuestionService>();
@@ -321,7 +322,9 @@ namespace EndPoint.Api.Configurations
 					Scheme = "Bearer",
 					BearerFormat = "JWT",
 					In = ParameterLocation.Header,
-					Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\r\n\r\nExample: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\"",
+					Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\r
+\r
+Example: \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\"",
 				});
 				c.AddSecurityRequirement(new OpenApiSecurityRequirement
 			{
