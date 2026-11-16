@@ -32,66 +32,69 @@ public class SearchQuestionService : ISearchQuestionService
 		_tokenContents = tokenContents;
 		_httpContextAccessor = httpContextAccessor;
 	}
-	#endregion
+    #endregion
 
 
-	public async Task<ResultDto<List<SearchQuestionDto>>> ExecuteAsync(SearchQuestionRequestDto dto)
-	{
 
-		
-		var items = _context.Questions
-			.Where(p => !p.IsRemoved)
-			.Where(p=>p.DuplicateId==null)
-			.Where(p => p.Step == Domain.Enums.QuestionStepType.Archive);
+    public async Task<ResultDto<List<SearchQuestionDto>>> ExecuteAsync(
+        SearchQuestionRequestDto dto)
+    {
+        var items = _context.Questions
+            .AsNoTracking()
+            .Where(p =>
+                !p.IsRemoved &&
+                p.DuplicateId == null &&
+                p.Step == Domain.Enums.QuestionStepType.Archive);
 
-		if (!string.IsNullOrEmpty(dto.Title))
-		{
-			List<string> keys = dto.Title.Split(" ").ToList();
+        // Search by title and question text
+        if (!string.IsNullOrWhiteSpace(dto.Title))
+        {
+            var keys = dto.Title
+                .Trim()
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                .Distinct()
+                .ToList();
 
+            foreach (var key in keys)
+            {
+                var keyword = key;
 
-			switch (keys.Count)
-			{
-				case 1:
-					items = items.Where(p => p.Title.Contains(dto.Title) || dto.Title.Contains(p.Title) || p.QuestionText.Contains(dto.Title) || dto.Title.Contains(p.QuestionText) ||
-					p.Title.Contains(keys[0]) || p.QuestionText.Contains(keys[0]) || keys[0].Contains(p.Title) || keys[0].Contains(p.QuestionText));
-					break;
-				case 2:
-                    items = items.Where(p => p.Title.Contains(dto.Title) || dto.Title.Contains(p.Title) || p.QuestionText.Contains(dto.Title) || dto.Title.Contains(p.QuestionText) || 
-					((p.Title.Contains(keys[0]) || p.QuestionText.Contains(keys[0]) || keys[0].Contains(p.Title) || keys[0].Contains(p.QuestionText)) &&
-                    (p.Title.Contains(keys[1]) || p.QuestionText.Contains(keys[1]) || keys[1].Contains(p.Title) || keys[1].Contains(p.QuestionText))));
-                    break;
-                case 3:
-                    items = items.Where(p => p.Title.Contains(dto.Title) || dto.Title.Contains(p.Title) || p.QuestionText.Contains(dto.Title) || dto.Title.Contains(p.QuestionText) || 
-					((p.Title.Contains(keys[0]) || p.QuestionText.Contains(keys[0]) || keys[0].Contains(p.Title) || keys[0].Contains(p.QuestionText)) &&
-                    (p.Title.Contains(keys[1]) || p.QuestionText.Contains(keys[1]) || keys[1].Contains(p.Title) || keys[1].Contains(p.QuestionText)) &&
-                    (p.Title.Contains(keys[2]) || p.QuestionText.Contains(keys[2]) || keys[2].Contains(p.Title) || keys[2].Contains(p.QuestionText))));
-                    break;
+                items = items.Where(p =>
+                    (p.Title != null && p.Title.Contains(keyword)) ||
+                    (p.QuestionText != null && p.QuestionText.Contains(keyword)));
             }
-		}
+        }
 
-		if (dto.Category != null)
-		{
-			var categoryIds = await GetDescendantIds(dto.Category.Value);
+        // Filter by category and its descendants
+        if (dto.Category.HasValue)
+        {
+            var categoryIds = await GetDescendantIds(dto.Category.Value);
 
-			items = items.Where(p => categoryIds.Contains(p.QuestionCategoryId.Value));
-		}
+            categoryIds.Add(dto.Category.Value);
 
-		var res = await items
-			.Select(p => new SearchQuestionDto
-			{
-				Id = p.Id,
-				Title = p.Title,
-				Text = p.QuestionText,
-				Category = p.QuestionCategory!.Title
-			})
-			.ToListAsync();
+            items = items.Where(p =>
+                p.QuestionCategoryId.HasValue &&
+                categoryIds.Contains(p.QuestionCategoryId.Value));
+        }
+
+        // Execute query
+        var res = await items
+            .Select(p => new SearchQuestionDto
+            {
+                Id = p.Id,
+                Title = p.Title,
+                Text = p.QuestionText,
+                Category = p.QuestionCategoryId.HasValue
+                    ? p.QuestionCategory!.Title
+                    : null
+            })
+            .ToListAsync();
+
+        return ResultDto<List<SearchQuestionDto>>.Succeeded("ok", res);
+    }
 
 
-		return ResultDto<List<SearchQuestionDto>>.Succeeded("ok", res);
-
-	}
-
-	private async Task<List<long>> GetDescendantIds(long categoryId)
+    private async Task<List<long>> GetDescendantIds(long categoryId)
 	{
 		var categories = await _context.QuestionCategories.ToListAsync();
 
